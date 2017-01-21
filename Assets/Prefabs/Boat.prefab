@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50486212266587672}
   - component: {fileID: 114198677541394620}
   - component: {fileID: 61982762864742192}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Boat
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -37,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1165172350204506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.45, y: 2.42, z: 0}
-  m_LocalScale: {x: 29.231731, y: 9.345172, z: 4.672586}
+  m_LocalPosition: {x: 0.43, y: 2.15, z: 0}
+  m_LocalScale: {x: 16.505398, y: 5.976436, z: 4.672586}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,9 +74,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.00000001913437, y: 0.000000051024976}
+  m_Offset: {x: -0.000000021667326, y: 0.022278981}
   serializedVersion: 2
-  m_Size: {x: 0.12373578, y: 0.059265964}
+  m_Size: {x: 0.123735785, y: 0.08410391}
 --- !u!114 &114198677541394620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,7 +121,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -399255875
   m_SortingOrder: 0
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

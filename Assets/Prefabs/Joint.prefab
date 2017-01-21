@@ -262,7 +262,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: -8.214203, y: 0.9622351}
   m_AutoConfigureDistance: 1
   m_Distance: 8.2703705
-  m_DampingRatio: 0.33
+  m_DampingRatio: 0.1
   m_Frequency: 0.4
 --- !u!231 &231530706553544404
 SpringJoint2D:
@@ -281,7 +281,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
-  m_DampingRatio: 0.6
+  m_DampingRatio: 0.2
   m_Frequency: 6.56
 --- !u!253 &253479300904012060
 BuoyancyEffector2D:
