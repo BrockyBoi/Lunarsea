@@ -21,7 +21,7 @@ public class MainMenu : MonoBehaviour {
 
 	public void PressPlay()
 	{
-		SceneManager.LoadScene ("Main Scene");
+		SceneManager.LoadScene ("Brock Scene");
 	}
 
 	public void PressCredits()

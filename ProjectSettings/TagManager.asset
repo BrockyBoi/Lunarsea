@@ -13,9 +13,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Urdu
+  - Moon
+  - Boat
   - 
   - 
   - 
@@ -38,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3794118001
+    locked: 0
+  - name: Moon
+    uniqueID: 4095688645
+    locked: 0
+  - name: Boat
+    uniqueID: 3895711421
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

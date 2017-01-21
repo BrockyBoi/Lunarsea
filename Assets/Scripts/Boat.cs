@@ -6,10 +6,13 @@ public class Boat : MonoBehaviour {
 
 	public static Boat player;
 	public float hSpeed;
-
+	[SerializeField]
+	float uprightConstant = 1.0f;
 	bool aiming;
 
-	public float power;
+	public bool moonOut = false;
+
+	float power;
 
 	public GameObject moonPrefab;
 
@@ -17,6 +20,7 @@ public class Boat : MonoBehaviour {
 	bool dead;
 
 	Rigidbody2D rb2d;
+	int health;
 	void Awake()
 	{
 		player = this;
@@ -25,20 +29,25 @@ public class Boat : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		
+		health = 3;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		float horizontal = Input.GetAxis ("Horizontal") * Time.deltaTime;
-
-		if (Input.GetMouseButton (0)) {
-			aiming = true;
-		} else
-			aiming = false;
-		
+		if(Input.GetMouseButtonDown(0) && !moonOut)
+        {
+            CreateMoon();
+        }
 		Movement (horizontal);
-		AimMoon ();
+	}
+
+	void FixedUpdate() {
+		SelfRight ();
+	}
+
+	void SelfRight() {
+		transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.Euler(new Vector3(transform.eulerAngles.x,transform.eulerAngles.y,0)),Time.deltaTime * uprightConstant);
 	}
 
 	void Movement(float h)
@@ -49,20 +58,11 @@ public class Boat : MonoBehaviour {
 		transform.position = Vector2.MoveTowards (transform.position, transform.position + Vector3.right * hSpeed * h, hSpeed); 
 	}
 
-	void AimMoon()
+	void CreateMoon()
 	{
-		if (thrown || dead)
-			return;
-
-		if (aiming) {
-			power += 60 * Time.deltaTime;
-		}
-
-		if (!aiming && power > 0) {
-			GameObject moon = Instantiate (moonPrefab, transform.position, Quaternion.identity) as GameObject;
-			moon.GetComponent<Rigidbody2D>().AddForce((Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position) * power);
-			power = 0;
-		}
+        moonOut = true;
+		GameObject moon = Instantiate (moonPrefab, transform.position, Quaternion.identity) as GameObject;
+        moon.GetComponent<Moon>().mouseClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 	}
 
 	public void MoonReturned()
@@ -72,12 +72,19 @@ public class Boat : MonoBehaviour {
 
 	public void TakeDamage()
 	{
-		Die ();
+		health--;
+		if (health < 1)
+			Die ();
 	}
 
 	void Die()
 	{
 		dead = true;
 		MainCanvas.controller.DeathScreen ();
+	}
+
+	public void AddHealth()
+	{
+		health++;
 	}
 }

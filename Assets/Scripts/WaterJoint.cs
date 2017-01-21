@@ -13,6 +13,8 @@ public class WaterJoint : MonoBehaviour {
 	[SerializeField]
 	GameObject waterMeshPrefab;
 	GameObject currentMesh;
+	[SerializeField]
+	GameObject waterSplashParticlePrefab;
 
 	void Awake () {
 		vertices = new List<Vector3> ();
@@ -49,6 +51,10 @@ public class WaterJoint : MonoBehaviour {
 		Mesh oldMesh = currentMesh.GetComponent<MeshFilter> ().mesh;
 		currentMesh.GetComponent<MeshFilter> ().mesh = mesh;
 		Destroy(oldMesh);
+	}
+
+	void OnCollisionEnter2D(Collision2D collision) {
+		Instantiate (waterSplashParticlePrefab, transform.position, Quaternion.Euler(new Vector3(-90,0,0)));
 	}
 
 	// Update is called once per frame
