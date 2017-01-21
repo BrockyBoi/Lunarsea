@@ -17,6 +17,7 @@ public class Boat : MonoBehaviour {
 	bool dead;
 
 	Rigidbody2D rb2d;
+	int health;
 	void Awake()
 	{
 		player = this;
@@ -25,7 +26,7 @@ public class Boat : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		
+		health = 3;
 	}
 	
 	// Update is called once per frame
@@ -73,12 +74,19 @@ public class Boat : MonoBehaviour {
 
 	public void TakeDamage()
 	{
-		Die ();
+		health--;
+		if (health < 1)
+			Die ();
 	}
 
 	void Die()
 	{
 		dead = true;
 		MainCanvas.controller.DeathScreen ();
+	}
+
+	public void AddHealth()
+	{
+		health++;
 	}
 }
