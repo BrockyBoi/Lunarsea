@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4579718432992494}
   - component: {fileID: 33920552765341626}
   - component: {fileID: 23040062870870726}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: WaterMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

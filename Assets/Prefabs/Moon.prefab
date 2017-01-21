@@ -21,8 +21,14 @@ GameObject:
   - component: {fileID: 4883307531572746}
   - component: {fileID: 212539968154441984}
   - component: {fileID: 50774904665776032}
+<<<<<<< HEAD
   - component: {fileID: 58172009751710372}
   - component: {fileID: 114622540135476326}
+=======
+  - component: {fileID: 114953887176745294}
+  - component: {fileID: 250864771160942596}
+  - component: {fileID: 61542133243120602}
+>>>>>>> Boatfloat
   m_Layer: 9
   m_Name: Moon
   m_TagString: Untagged
@@ -37,7 +43,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1006424499645994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: -29.296955, y: 18.181332, z: 0}
+=======
+  m_LocalPosition: {x: 1.7311281, y: 5.21, z: 0}
+>>>>>>> Boatfloat
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,8 +73,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58172009751710372
-CircleCollider2D:
+--- !u!61 &61542133243120602
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -74,10 +84,15 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.7796381}
   serializedVersion: 2
+<<<<<<< HEAD
   m_Radius: 0.1
 --- !u!114 &114622540135476326
+=======
+  m_Size: {x: 0.2, y: 1.7592763}
+--- !u!114 &114953887176745294
+>>>>>>> Boatfloat
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -85,7 +100,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1006424499645994}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: d6cf79785a57c5140b9b23d86d5ef84a, type: 3}
+=======
+  m_Script: {fileID: 11500000, guid: 21a9f3fafea55469ea52a0407f0b6bf4, type: 3}
+>>>>>>> Boatfloat
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212539968154441984
@@ -123,3 +142,22 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!250 &250864771160942596
+PointEffector2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1006424499645994}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceMagnitude: -5.3
+  m_ForceVariation: 0
+  m_DistanceScale: 1
+  m_ForceSource: 0
+  m_ForceTarget: 0
+  m_ForceMode: 0
+  m_Drag: 0
+  m_AngularDrag: 0
