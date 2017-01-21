@@ -54,7 +54,7 @@ public class WaterJoint : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D collision) {
-		Instantiate (waterSplashParticlePrefab, transform.position, Quaternion.Euler(new Vector3(-90,0,0)));
+		Destroy(Instantiate (waterSplashParticlePrefab, transform.position, Quaternion.Euler(new Vector3(-90,0,0))),0.2f);
 	}
 
 	// Update is called once per frame

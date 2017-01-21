@@ -34,7 +34,17 @@ public class Boat : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float horizontal = Input.GetAxis ("Horizontal") * Time.deltaTime;
+        Vector3 screenCoor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
+        if(transform.position.x > screenCoor.x)
+        {
+            transform.position = new Vector3(screenCoor.x,transform.position.y);
+        }
+        if (transform.position.x < -screenCoor.x)
+        {
+            transform.position = new Vector3(-screenCoor.x, transform.position.y);
+        }
+
+        float horizontal = Input.GetAxis ("Horizontal") * Time.deltaTime;
 		if(Input.GetMouseButtonDown(0) && !moonOut)
         {
             CreateMoon();

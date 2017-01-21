@@ -86,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1685311018728014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.21, y: 3.18, z: 0}
+  m_LocalPosition: {x: -1.9607242, y: 0.7620007, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 4922809311979932}
@@ -145,9 +145,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 1
-  m_Offset: {x: -0.000000011920929, y: 0.10770412}
+  m_Offset: {x: 0.01017015, y: 0.10770416}
   serializedVersion: 2
-  m_Size: {x: 0.13488929, y: 2.4071178}
+  m_Size: {x: 0.2203186, y: 2.4071178}
 --- !u!61 &61693503591530966
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -159,9 +159,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 1
-  m_Offset: {x: 1.2167609, y: 0.0736866}
+  m_Offset: {x: 1.0589949, y: 0.0736866}
   serializedVersion: 2
-  m_Size: {x: 1.4576489, y: 3.2948387}
+  m_Size: {x: 1.7731808, y: 3.2948387}
 --- !u!61 &61963206894921240
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -173,9 +173,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 1
-  m_Offset: {x: -1.3346605, y: 0.0736866}
+  m_Offset: {x: -1.218139, y: 0.0736866}
   serializedVersion: 2
-  m_Size: {x: 1.8956972, y: 3.2948387}
+  m_Size: {x: 2.1287396, y: 3.2948387}
 --- !u!114 &114336524295467042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1685311018728014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21a9f3fafea55469ea52a0407f0b6bf4, type: 3}
+  m_Script: {fileID: 11500000, guid: d6cf79785a57c5140b9b23d86d5ef84a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mouseClick: {x: 0, y: 0, z: 0}
@@ -236,7 +236,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967256
-  m_ForceMagnitude: 12
+  m_ForceMagnitude: 8
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
@@ -255,7 +255,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967256
-  m_ForceMagnitude: 12
+  m_ForceMagnitude: 8
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
@@ -274,7 +274,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967256
-  m_ForceMagnitude: -25
+  m_ForceMagnitude: -15
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
