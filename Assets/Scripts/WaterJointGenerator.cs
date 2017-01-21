@@ -12,7 +12,7 @@ public class WaterJointGenerator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		joints = new List<GameObject> ();
-		float jointDistance = Screen.width / numJoints;
+		float jointDistance = Screen.width / (numJoints-1);
 		float currentX = 0;
 
 		for(int i = 0; i < numJoints; i++) {
@@ -20,6 +20,7 @@ public class WaterJointGenerator : MonoBehaviour {
 			cpos.z = 0;
 			currentX += jointDistance;
 			GameObject joint = Instantiate (waterJointPrefab, cpos, Quaternion.identity);
+			joint.transform.parent = transform;
 			Component[] springJointComponents = joint.GetComponents (typeof(SpringJoint2D));
 			if (i > 0) {
 				((SpringJoint2D)springJointComponents [0]).connectedBody = joints [joints.Count - 1].GetComponent<Rigidbody2D> ();
