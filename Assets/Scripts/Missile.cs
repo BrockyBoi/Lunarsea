@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour {
 	public float speed;
+	float variable;
 
 	// Use this for initialization
 	void Start () {
+		Destroy (gameObject, 10);
 	}
 	
 	// Update is called once per frame
@@ -29,4 +31,6 @@ public class Missile : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
+
+
 }
