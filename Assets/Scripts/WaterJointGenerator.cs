@@ -8,6 +8,7 @@ public class WaterJointGenerator : MonoBehaviour {
 	[SerializeField]
 	[Range(0,100)]
 	int numJoints = Screen.width/10;
+	[SerializeField]
 	float initialYPos = Screen.height/2;
 	public List<GameObject> joints;
 	public static WaterJointGenerator gen;

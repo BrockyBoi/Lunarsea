@@ -178,7 +178,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.035419405
 --- !u!70 &70872684576378168
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -207,6 +207,8 @@ MonoBehaviour:
   prevJoint: {fileID: 0}
   nextJoint: {fileID: 0}
   waterMeshPrefab: {fileID: 1392590185368882, guid: cef250d98ac60412da8f41b730d6795b,
+    type: 2}
+  waterSplashParticlePrefab: {fileID: 1936478395593708, guid: f6caef27a8e4c4ad6931da6ee8102449,
     type: 2}
 --- !u!212 &212810738702157244
 SpriteRenderer:
