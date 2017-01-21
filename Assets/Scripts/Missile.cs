@@ -8,12 +8,12 @@ public class Missile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Destroy (gameObject, 10);
+		Init ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 forward = new Vector3 (transform.position.x + -1, transform.position.y + Mathf.Sin (Time.time / .2f) );
+		Vector3 forward = new Vector3 (transform.position.x + -speed, transform.position.y + Mathf.Sin (Time.time / variable) );
 		transform.position = Vector2.MoveTowards(transform.position, forward, speed * Time.deltaTime);
 	}
 
@@ -32,5 +32,9 @@ public class Missile : MonoBehaviour {
 		}
 	}
 
-
+	void Init()
+	{
+		variable = Random.Range (.1f, .5f);
+		speed = Random.Range (3, 6);
+	}
 }

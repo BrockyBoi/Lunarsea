@@ -9,7 +9,7 @@ public class Boat : MonoBehaviour {
 
 	bool aiming;
 
-	public float power;
+	float power;
 
 	public GameObject moonPrefab;
 
