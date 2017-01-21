@@ -11,15 +11,9 @@ public class MainCanvas : MonoBehaviour {
 	{
 		controller = this;
 	}
-
-	// Use this for initialization
+		
 	void Start () {
 		deathScreen.SetActive (false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	public void DeathScreen()
