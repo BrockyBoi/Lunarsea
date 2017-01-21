@@ -41,6 +41,9 @@ TagManager:
   - name: Background
     uniqueID: 3794118001
     locked: 0
+  - name: Moon
+    uniqueID: 4095688645
+    locked: 0
   - name: Boat
     uniqueID: 3895711421
     locked: 0

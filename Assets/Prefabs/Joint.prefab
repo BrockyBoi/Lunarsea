@@ -178,14 +178,14 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.035419405
+  m_Radius: 0.070466325
 --- !u!70 &70872684576378168
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1117419816285580}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -262,7 +262,7 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: -8.214203, y: 0.9622351}
   m_AutoConfigureDistance: 1
   m_Distance: 8.2703705
-  m_DampingRatio: 0
+  m_DampingRatio: 0.33
   m_Frequency: 0.4
 --- !u!231 &231530706553544404
 SpringJoint2D:
@@ -281,15 +281,15 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
-  m_DampingRatio: 0.46
-  m_Frequency: 6.85
+  m_DampingRatio: 0.6
+  m_Frequency: 6.56
 --- !u!253 &253479300904012060
 BuoyancyEffector2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1117419816285580}
-  m_Enabled: 1
+  m_Enabled: 0
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
