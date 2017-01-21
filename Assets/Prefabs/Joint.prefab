@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4385534834632424}
   - component: {fileID: 253479300904012060}
   - component: {fileID: 70872684576378168}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Buoyancy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 33796704552596750}
   - component: {fileID: 114538185427484966}
   - component: {fileID: 23076952812425530}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Joint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4351160935054910}
   - component: {fileID: 212810738702157244}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
