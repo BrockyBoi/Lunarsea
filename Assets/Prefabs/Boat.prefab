@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50486212266587672}
   - component: {fileID: 58536592165210112}
   - component: {fileID: 114605228344663176}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Boat
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -89,7 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hSpeed: 10
-  power: 0
   moonPrefab: {fileID: 1006424499645994, guid: 472f768a9c84f064abdbb6ffd2ba89d4, type: 2}
 --- !u!212 &212469052600681218
 SpriteRenderer:

@@ -12,34 +12,41 @@ public class Moon : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		running = false;
+		StartCoroutine (Return(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
 	}
 	
 	// Update is called once per frame
 	void Update () {		
 		if (!running && Input.GetAxisRaw ("Jump") == 1) {
-			StartCoroutine (Return());
+			StartCoroutine (Return(Boat.player.transform.position));
 		}
 	}
 		
-	IEnumerator Return()
+	IEnumerator Return(Vector3 pos)
 	{
 		running = true;
+		bool player = false;
+		if (pos == Boat.player.transform.position)
+			player = true;
+		pos.z = 0;
 		float t = 0;
-		while (Vector3.Distance (transform.position, Boat.player.transform.position) > 1) {
-			transform.position = Vector3.Lerp (transform.position, Boat.player.transform.position, t);
+		while (Vector3.Distance(transform.position, pos) > .5f) {
+			transform.position = Vector3.Lerp (transform.position, pos, t);
 			t += Time.deltaTime;
 
 			yield return null;
 		}
-		Boat.player.MoonReturned ();
-		Destroy (gameObject);
+		running = false;
+		if (player) {
+			Boat.player.MoonReturned ();
+			Destroy (gameObject);
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer ("Water")) {
-			StartCoroutine (Return ());
+			StartCoroutine (Return(Boat.player.transform.position));
 		}
 	}
 }

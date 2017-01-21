@@ -60,8 +60,9 @@ public class Boat : MonoBehaviour {
 
 		if (!aiming && power > 0) {
 			GameObject moon = Instantiate (moonPrefab, transform.position, Quaternion.identity) as GameObject;
-			moon.GetComponent<Rigidbody2D>().AddForce((Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position) * power);
+			//moon.GetComponent<Rigidbody2D>().AddForce((Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position) * power);
 			power = 0;
+			thrown = true;
 		}
 	}
 
