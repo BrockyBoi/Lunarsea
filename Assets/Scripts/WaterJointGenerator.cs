@@ -8,7 +8,14 @@ public class WaterJointGenerator : MonoBehaviour {
 	[SerializeField]
 	int numJoints = Screen.width/10;
 	float initialYPos = Screen.height/2;
-	List<GameObject> joints;
+	public List<GameObject> joints;
+	public static WaterJointGenerator gen;
+	void Awake() {
+		if (gen == null)
+			gen = this;
+		else
+			Destroy (this);
+	}
 	// Use this for initialization
 	void Start () {
 		joints = new List<GameObject> ();

@@ -37,23 +37,18 @@ public class WaterJoint : MonoBehaviour {
 
 		Vector3 bottom = Camera.main.ViewportToWorldPoint (new Vector3(0,0));
 
-
-
 		vertices.Add (transform.position);
 		vertices.Add (new Vector3(transform.position.x,bottom.y));
 		vertices.Add (prevJoint.transform.position);
 		vertices.Add (new Vector3(prevJoint.transform.position.x,bottom.y));
-
-
-
-
-
+		Destroy (mesh);
 		mesh = new Mesh ();
-		//GetComponent<MeshFilter> ().mesh = mesh;
 		mesh.vertices = vertices.ToArray ();
 		mesh.uv = uv.ToArray ();
 		mesh.triangles = triangles;
+		Mesh oldMesh = currentMesh.GetComponent<MeshFilter> ().mesh;
 		currentMesh.GetComponent<MeshFilter> ().mesh = mesh;
+		Destroy(oldMesh);
 	}
 
 	// Update is called once per frame
