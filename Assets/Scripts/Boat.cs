@@ -5,7 +5,7 @@ using UnityEngine;
 public class Boat : MonoBehaviour {
 
 	public static Boat player;
-	public float hSpeed;
+	public float hSpeed = 5;
 	[SerializeField]
 	float uprightConstant = 1.0f;
 	bool aiming;
