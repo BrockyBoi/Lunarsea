@@ -46,7 +46,7 @@ public class Boat : MonoBehaviour {
 		if (dead)
 			return;
 		
-		rb2d.MovePosition(Vector2.MoveTowards (transform.position, transform.position + Vector3.right * h, hSpeed)); 
+		transform.position = Vector2.MoveTowards (transform.position, transform.position + Vector3.right * h, hSpeed); 
 	}
 
 	void AimMoon()
