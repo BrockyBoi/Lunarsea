@@ -332,6 +332,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1564525565}
   - component: {fileID: 1564525564}
+  - component: {fileID: 1564525566}
   m_Layer: 0
   m_Name: Lunarsea Night Sky
   m_TagString: Untagged
@@ -387,6 +388,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!68 &1564525566
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1564525563}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+  - {x: -3.2000003, y: 2.4058652}
+  - {x: 3.2006474, y: 2.3982582}
+  - {x: 3.1991122, y: -2.3963358}
+  - {x: -3.206393, y: -2.40863}
+  - {x: -3.2069776, y: 2.3859818}
 --- !u!1001 &1774666284
 Prefab:
   m_ObjectHideFlags: 0
