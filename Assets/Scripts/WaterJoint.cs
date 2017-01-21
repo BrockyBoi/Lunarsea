@@ -8,7 +8,8 @@ public class WaterJoint : MonoBehaviour {
 	List<Vector2> uv;
 	int[] triangles;
 	public WaterJoint prevJoint;
-	Material waterMaterial;
+    public WaterJoint nextJoint;
+    Material waterMaterial;
 	[SerializeField]
 	GameObject waterMeshPrefab;
 	GameObject currentMesh;
@@ -59,4 +60,28 @@ public class WaterJoint : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public double getJointX()
+    {
+        return gameObject.transform.position.x;
+    }
+    public double getJointY()
+    {
+        return gameObject.transform.position.y;
+    }
+
+    public WaterJoint getLeftJoint()
+    {
+        if (prevJoint != null)
+            return prevJoint;
+        else
+            return null;
+    }
+    public WaterJoint getRightJoint()
+    {
+        if (nextJoint != null)
+            return nextJoint;
+        else
+            return null;
+    }
 }
