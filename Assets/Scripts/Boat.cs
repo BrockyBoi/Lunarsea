@@ -6,7 +6,8 @@ public class Boat : MonoBehaviour {
 
 	public static Boat player;
 	public float hSpeed;
-
+	[SerializeField]
+	float uprightConstant = 1.0f;
 	bool aiming;
 
 	public float power;
@@ -31,14 +32,20 @@ public class Boat : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float horizontal = Input.GetAxis ("Horizontal") * Time.deltaTime;
-
 		if (Input.GetMouseButton (0)) {
 			aiming = true;
 		} else
 			aiming = false;
-		
 		Movement (horizontal);
 		AimMoon ();
+	}
+
+	void FixedUpdate() {
+		SelfRight ();
+	}
+
+	void SelfRight() {
+		transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.Euler(new Vector3(transform.eulerAngles.x,transform.eulerAngles.y,0)),Time.deltaTime * uprightConstant);
 	}
 
 	void Movement(float h)
