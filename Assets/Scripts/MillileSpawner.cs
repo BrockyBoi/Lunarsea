@@ -5,15 +5,21 @@ using UnityEngine;
 public class MillileSpawner : MonoBehaviour {
 	public GameObject missilePrefab;
 	public GameObject rockPrefab;
+	public GameObject healthPrefab;
 
 	float mTimer;
 	float mNextTime;
 
 	float rTimer;
 	float rNextTime;
+
+	float hTimer;
+	float hNextTime;
 	// Use this for initialization
 	void Start () {
 		mNextTime = 3;
+		rNextTime = 3;
+		hNextTime = 5;
 	}
 	
 	// Update is called once per frame
@@ -29,12 +35,18 @@ public class MillileSpawner : MonoBehaviour {
 			rNextTime += 5 * .999f;
 			SpawnRock ();
 		}
+
+		hTimer += Time.deltaTime;
+		if (hTimer >= hNextTime) {
+			hNextTime += 8;
+			SpawnHealth ();
+		}
 	}
 
 	void SpawnMissile()
 	{
-		float minHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0)).y;
-		float maxHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, 1)).y;
+		float minHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, .5f)).y;
+		float maxHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, .75f)).y;
 		Vector2 offScreen = new Vector2(Camera.main.ViewportToWorldPoint(new Vector3(1,.5f)).x + 5, Random.Range(minHeight,maxHeight));
 
 		Instantiate (missilePrefab, offScreen, Quaternion.identity);
@@ -44,5 +56,14 @@ public class MillileSpawner : MonoBehaviour {
 	{
 		float offScreen = Camera.main.ViewportToWorldPoint (new Vector3 (1, 0)).x;
 		Instantiate (rockPrefab, new Vector3 (offScreen, -3), Quaternion.identity);
+	}
+
+	void SpawnHealth()
+	{
+		float minHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, .5f)).y;
+		float maxHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, .75f)).y;
+		Vector2 offScreen = new Vector2(Camera.main.ViewportToWorldPoint(new Vector3(1,.5f)).x + 5, Random.Range(minHeight,maxHeight));
+
+		Instantiate (healthPrefab, offScreen, Quaternion.identity);
 	}
 }
