@@ -3,43 +3,74 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Moon : MonoBehaviour {
-	bool running;
-	Rigidbody2D rb2d;
+	bool running = false;
+    public Vector3 mouseClick;
+    float slope;
+    public float distance = .02f;
+    public float magnification = 2;
+    Vector3 destination;
+    Vector3 size;
+    float t = 0;
+    bool sizeSet = false;
 
-	void Awake()
+    void Awake()
 	{
-		rb2d = GetComponent<Rigidbody2D> ();
+        
 	}
 	// Use this for initialization
 	void Start () {
-		running = false;
-	}
+        mouseClick.z = 0;
+        running = false;
+        size = transform.localScale;
+        if (mouseClick.y <= Boat.player.transform.position.y)
+        {
+            Boat.player.moonOut = false;
+            Destroy(gameObject);
+        }
+    }
 	
 	// Update is called once per frame
-	void Update () {		
-		if (!running && Input.GetAxisRaw ("Jump") == 1) {
-			StartCoroutine (Return());
-		}
-	}
-		
-	IEnumerator Return()
-	{
-		running = true;
-		float t = 0;
-		while (Vector3.Distance (transform.position, Boat.player.transform.position) > 1) {
-			transform.position = Vector3.Lerp (transform.position, Boat.player.transform.position, t);
-			t += Time.deltaTime;
+	void Update () {
 
-			yield return null;
-		}
-		Boat.player.MoonReturned ();
-		Destroy (gameObject);
-	}
+        if (!running)
+        {
+            if (!sizeSet)
+            {
+                destination = mouseClick;
+                size = size * magnification;
+                sizeSet = true;
+            }
+        }
+        else
+        {
+            if (!sizeSet)
+            {
+                destination = Boat.player.transform.position;
+                size = size / magnification;
+                sizeSet = true;
+            }
+        }
 
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.gameObject.layer == LayerMask.NameToLayer ("Water")) {
-			StartCoroutine (Return ());
-		}
-	}
+        transform.position = Vector3.Lerp(transform.position, destination, t);
+        transform.localScale = Vector3.Lerp(transform.localScale, size, t);
+        t += Time.deltaTime;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            running = true;
+            sizeSet = false;
+        }
+
+        if(Vector3.Distance(transform.position, destination) < .00001f)
+        {
+            t = 0;
+            if (running)
+            {
+                Boat.player.moonOut = false;
+                Destroy(gameObject);
+            }
+        }
+
+    }
+	
 }

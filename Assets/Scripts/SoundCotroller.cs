@@ -7,25 +7,12 @@ public class SoundCotroller : MonoBehaviour {
     public static bool soundInPlace;
 
     public Dictionary<string, AudioClip> sounds;
-    public AudioClip Village;
-    public AudioClip Castle;
-    public AudioClip Cave;
-    public AudioClip Houses;
-    public AudioClip Library;
-    public AudioClip Plains;
-    public AudioClip Princess;
-    public AudioClip Shop;
-    public AudioClip Cottage;
+    public AudioClip Song;
 
 
-    public AudioClip Swing;
-    public AudioClip Slime;
-    public AudioClip SlimeDeath;
-    public AudioClip SpitterDeath;
-    public AudioClip SpitterFire;
-    public AudioClip FireballDeflect;
-    public AudioClip Boop;
-    public AudioClip Grass;
+
+    public AudioClip Effect;
+
 
     AudioSource music;
     AudioSource effects;
@@ -49,7 +36,7 @@ public class SoundCotroller : MonoBehaviour {
             sounds = new Dictionary<string, AudioClip>();
 
 
-            sounds.Add("Village", Village);
+            /*sounds.Add("Village", Village);
             sounds.Add("Castle", Castle);
             sounds.Add("Cave", Cave);
             sounds.Add("Houses", Houses);
@@ -67,6 +54,7 @@ public class SoundCotroller : MonoBehaviour {
             sounds.Add("FireballDeflect", FireballDeflect);
             sounds.Add("Boop", Boop);
             sounds.Add("Grass", Grass);
+            */
         }
     }
     
