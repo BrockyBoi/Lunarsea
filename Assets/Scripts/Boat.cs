@@ -46,7 +46,7 @@ public class Boat : MonoBehaviour {
 		if (dead)
 			return;
 		
-		transform.position = Vector2.MoveTowards (transform.position, transform.position + Vector3.right * h, hSpeed); 
+		transform.position = Vector2.MoveTowards (transform.position, transform.position + Vector3.right * hSpeed * h, hSpeed); 
 	}
 
 	void AimMoon()
