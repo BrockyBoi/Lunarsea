@@ -51,7 +51,7 @@ public class Boat : MonoBehaviour {
 
 	void AimMoon()
 	{
-		if (thrown && !dead)
+		if (thrown || dead)
 			return;
 
 		if (aiming) {
@@ -77,6 +77,7 @@ public class Boat : MonoBehaviour {
 
 	void Die()
 	{
+		dead = true;
 		MainCanvas.controller.DeathScreen ();
 	}
 }

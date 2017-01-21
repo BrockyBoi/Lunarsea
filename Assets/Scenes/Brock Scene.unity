@@ -703,7 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f49d0e29f7e2014daf6f6bfcc86be82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 5
 --- !u!212 &842062186
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -746,7 +746,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 842062184}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.96, y: 6.3, z: 0}
+  m_LocalPosition: {x: -1.6, y: 11.4, z: 0}
   m_LocalScale: {x: 20, y: 4.94, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -871,7 +871,6 @@ GameObject:
   - component: {fileID: 1118850027}
   - component: {fileID: 1118850026}
   - component: {fileID: 1118850025}
-  - component: {fileID: 1118850024}
   - component: {fileID: 1118850029}
   m_Layer: 5
   m_Name: Canvas
@@ -880,17 +879,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1118850024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1118850023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ae3d13d7d37eaa4a9406d198f0b6336, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1118850025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,7 +965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54c0a09c58a3089428a6e5d040619fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathScreen: {fileID: 0}
+  deathScreen: {fileID: 143869790}
 --- !u!1 &1378128118
 GameObject:
   m_ObjectHideFlags: 0

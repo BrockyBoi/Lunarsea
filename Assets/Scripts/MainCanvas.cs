@@ -29,7 +29,7 @@ public class MainCanvas : MonoBehaviour {
 
 	public void PressRetry()
 	{
-		SceneManager.LoadScene ("Main Scene");
+		SceneManager.LoadScene ("Brock Scene");
 	}
 
 	public void PressMainMenu()
