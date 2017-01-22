@@ -57,14 +57,14 @@ public class AudioController : MonoBehaviour {
 
 	public void WaterRise()
 	{
-		StartCoroutine (FadeOut (fallFx));
+		StartCoroutine (FadeOut (fallFx,0.2f));
 		fx.clip = waterRise;
 		fx.Play ();
 	}
 
 	public void WaterFall()
 	{
-		StartCoroutine (FadeOut (fx));
+		StartCoroutine (FadeOut (fx,0.2f));
 		fallFx.clip = waterFall;
 		fx.Play ();
 	}

@@ -73,6 +73,7 @@ public class Boat : MonoBehaviour {
         moonOut = true;
 		GameObject moon = Instantiate (moonPrefab, transform.position, Quaternion.identity) as GameObject;
         moon.GetComponent<Moon>().mouseClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		AudioController.controller.WaterRise ();
 	}
 
 	public void MoonReturned()
