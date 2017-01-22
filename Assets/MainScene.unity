@@ -91,11 +91,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!61 &123270824 stripped
-BoxCollider2D:
-  m_PrefabParentObject: {fileID: 61582309881094252, guid: 2e8c350e6abaf6e40ba8d72a9fbba504,
-    type: 2}
-  m_PrefabInternal: {fileID: 509051119}
 --- !u!1 &130296862
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,11 +227,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114509451040389036, guid: 2e8c350e6abaf6e40ba8d72a9fbba504,
-        type: 2}
-      propertyPath: colliders.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4058849728252098, guid: 2e8c350e6abaf6e40ba8d72a9fbba504, type: 2}
       propertyPath: m_LocalPosition.x
       value: -5.31
@@ -269,42 +259,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114509451040389036, guid: 2e8c350e6abaf6e40ba8d72a9fbba504,
-        type: 2}
-      propertyPath: missileForce
-      value: 1500
-      objectReference: {fileID: 0}
-    - target: {fileID: 114509451040389036, guid: 2e8c350e6abaf6e40ba8d72a9fbba504,
-        type: 2}
-      propertyPath: colliders.Array.data[0]
-      value: 
-      objectReference: {fileID: 123270824}
-    - target: {fileID: 58858976265468028, guid: 2e8c350e6abaf6e40ba8d72a9fbba504,
-        type: 2}
-      propertyPath: m_Radius
-      value: 0.39095163
-      objectReference: {fileID: 0}
-    - target: {fileID: 58601438459466016, guid: 2e8c350e6abaf6e40ba8d72a9fbba504,
-        type: 2}
-      propertyPath: m_Radius
-      value: 0.38451344
-      objectReference: {fileID: 0}
-    - target: {fileID: 58601438459466016, guid: 2e8c350e6abaf6e40ba8d72a9fbba504,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: -0.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 58858976265468028, guid: 2e8c350e6abaf6e40ba8d72a9fbba504,
-        type: 2}
-      propertyPath: m_Offset.y
-      value: -0.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 212469052600681218, guid: 2e8c350e6abaf6e40ba8d72a9fbba504,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 84d568ccc39024e69b7077bacbc52dc7,
-        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e8c350e6abaf6e40ba8d72a9fbba504, type: 2}
   m_IsPrefabParent: 0
@@ -842,95 +796,9 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114935524810010876, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2135052650}
-    - target: {fileID: 114935524810010876, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PressRetry
-      objectReference: {fileID: 0}
-    - target: {fileID: 114406527682720644, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2135052650}
-    - target: {fileID: 114406527682720644, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PressMainMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 114795941206014400, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114246791688160982, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114360986813530482, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_FontData.m_FontSize
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 114108870095513582, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_FontData.m_FontSize
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 114360986813530482, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_FontData.m_MaxSize
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 114108870095513582, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_FontData.m_MaxSize
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 114360986813530482, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114360986813530482, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114360986813530482, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114108870095513582, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114108870095513582, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114108870095513582, guid: 84218cdc8e2126f4fba86534114f9d05,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84218cdc8e2126f4fba86534114f9d05, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &2135052650 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114058399044285092, guid: 84218cdc8e2126f4fba86534114f9d05,
-    type: 2}
-  m_PrefabInternal: {fileID: 2135052649}
-  m_Script: {fileID: 11500000, guid: c6c6e12875ae4a143b86ab4353df1780, type: 3}
 --- !u!1001 &2140251736
 Prefab:
   m_ObjectHideFlags: 0

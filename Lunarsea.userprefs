@@ -1,20 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AudioController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Audio.cs">
     <Files>
-      <File FileName="Assets/Scripts/WaterJointGenerator.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/WaterJoint.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Moon.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/ParallaxScroll.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Boat.cs" Line="153" Column="2" />
-      <File FileName="Assets/Scripts/Urdu.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MillileSpawner.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MainCanvas.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SpeechController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Missile.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/AudioController.cs" Line="17" Column="29" />
-      <File FileName="Assets/Scripts/Rock.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MainMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Boat.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Moon.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MillileSpawner.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Missile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Audio.cs" Line="6" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

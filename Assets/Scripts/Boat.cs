@@ -27,7 +27,7 @@ public class Boat : MonoBehaviour {
 
 	Animator anim;
 
-	List<Collider2D> colliders;
+	 List<Collider2D> colliders;
 	void Awake()
 	{
 		player = this;
@@ -41,32 +41,46 @@ public class Boat : MonoBehaviour {
 
 
 	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer("Water")) {
+			AudioController.controller.Gargle ();
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer ("Water")) {
+			AudioController.controller.StopGargling ();
+		}
+	}
 	// Use this for initialization
 	void Start () {
 		health = 3;
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
-		if (dead)
-		{
-			return;
-		}
-		Vector3 screenCoor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
-		if(transform.position.x > screenCoor.x)
-		{
-			transform.position = new Vector3(screenCoor.x,transform.position.y);
-		}
-		if (transform.position.x < -screenCoor.x)
-		{
-			transform.position = new Vector3(-screenCoor.x, transform.position.y);
-		}
+        if (dead)
+        {
+            return;
+        }
+        Vector3 screenCoor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
+        if(transform.position.x > screenCoor.x)
+        {
+            transform.position = new Vector3(screenCoor.x,transform.position.y);
+        }
+        if (transform.position.x < -screenCoor.x)
+        {
+            transform.position = new Vector3(-screenCoor.x, transform.position.y);
+        }
 
-		float horizontal = Input.GetAxis ("Horizontal") * Time.deltaTime;
+        float horizontal = Input.GetAxis ("Horizontal") * Time.deltaTime;
 		if(Input.GetMouseButtonDown(0) && !moonOut)
-		{
-			CreateMoon();
-		}
+        {
+            CreateMoon();
+        }
 		Movement (horizontal);
 	}
 
@@ -82,15 +96,15 @@ public class Boat : MonoBehaviour {
 	{
 		if (dead)
 			return;
-
+		
 		transform.position = Vector2.MoveTowards (transform.position, transform.position + Vector3.right * hSpeed * h, hSpeed); 
 	}
 
 	void CreateMoon()
 	{
-		moonOut = true;
+        moonOut = true;
 		GameObject moon = Instantiate (moonPrefab, transform.position, Quaternion.identity) as GameObject;
-		moon.GetComponent<Moon>().mouseClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        moon.GetComponent<Moon>().mouseClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		AudioController.controller.WaterRise ();
 	}
 
@@ -119,20 +133,6 @@ public class Boat : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.gameObject.layer == LayerMask.NameToLayer("Water")) {
-			AudioController.controller.Gargle ();
-		}
-	}
-
-	void OnTriggerExit2D(Collider2D other)
-	{
-		if (other.gameObject.layer == LayerMask.NameToLayer ("Water")) {
-			AudioController.controller.StopGargling ();
-		}
-	}
-
 	void Die()
 	{
 		dead = true;
@@ -144,6 +144,7 @@ public class Boat : MonoBehaviour {
 	{
 		health++;
 		MainCanvas.controller.HealthChange ();
+		AudioController.controller.PlayRepairBoat ();
 	}
 
 	public int GetHealth()

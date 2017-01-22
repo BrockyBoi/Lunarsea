@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MillileSpawner : MonoBehaviour {
 	public GameObject missilePrefab;
-	public GameObject[] rockPrefabs;
+	public GameObject rockPrefab;
 	public GameObject healthPrefab;
 
 	float mTimer;
