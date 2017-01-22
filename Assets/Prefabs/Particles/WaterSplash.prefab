@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4749546068762092}
   - component: {fileID: 198774734788396116}
   - component: {fileID: 199626752751626796}
-  - component: {fileID: 114237353965545478}
+  - component: {fileID: 114976362700681824}
   m_Layer: 0
   m_Name: WaterSplash
   m_TagString: Untagged
@@ -42,7 +42,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114237353965545478
+--- !u!114 &114976362700681824
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -109,7 +109,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1872684086
+  randomSeed: 165339634
   InitialModule:
     serializedVersion: 3
     enabled: 1
