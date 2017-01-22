@@ -109,6 +109,7 @@ public class Boat : MonoBehaviour {
 	{
 		dead = true;
 		MainCanvas.controller.DeathScreen ();
+		AudioController.controller.BoatDeath ();
 	}
 
 	public void AddHealth()

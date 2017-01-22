@@ -21,6 +21,7 @@ public class Missile : MonoBehaviour {
 	{
 		if (other.gameObject.CompareTag ("Player")) {
 			other.gameObject.GetComponent<Boat> ().TakeDamage ();
+			AudioController.controller.PlayMissileSound ();
 			Destroy (gameObject);
 		}
 	}

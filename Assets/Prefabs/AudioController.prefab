@@ -59,3 +59,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 08c8508696e349543a480bccfd012d71, type: 3}
   waterRise: {fileID: 8300000, guid: d68f6600a32311449bb1962e25ee3072, type: 3}
   waterFall: {fileID: 8300000, guid: 2e17870d2c1754707b4fbdf3a0f6f47c, type: 3}
+  boatDeath: {fileID: 8300000, guid: 214cc00e711c56f4cbf8721583aef370, type: 3}

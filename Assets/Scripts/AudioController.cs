@@ -16,6 +16,7 @@ public class AudioController : MonoBehaviour {
 
 	public AudioClip waterRise;
 	public AudioClip waterFall;
+	public AudioClip boatDeath;
 
 	void Awake()
 	{
@@ -51,12 +52,14 @@ public class AudioController : MonoBehaviour {
 
 	public void PlayMissileSound()
 	{
+		fx.pitch = 1;
 		int num = Random.Range (0, missileClips.Count);
 		fx.PlayOneShot (missileClips [num]);
 	}
 
 	public void WaterRise()
 	{
+		RandomPitch ();
 		StartCoroutine (FadeOut (fallFx,0.2f));
 		fx.clip = waterRise;
 		fx.Play ();
@@ -64,9 +67,21 @@ public class AudioController : MonoBehaviour {
 
 	public void WaterFall()
 	{
+		RandomPitch ();
 		StartCoroutine (FadeOut (fx,0.2f));
 		fallFx.clip = waterFall;
 		fx.Play ();
+	}
+
+	void RandomPitch()
+	{
+		fx.pitch = (float)Random.Range (.7f, 2);
+	}
+
+	public void BoatDeath()
+	{
+		RandomPitch ();
+		PlayFX (boatDeath);
 	}
 
 	public static IEnumerator FadeOut (AudioSource audioSource, float FadeTime) {
