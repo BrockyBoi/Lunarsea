@@ -53,6 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 1706525829344378, guid: 2ec7ae9e9d526ca4fb976e1fb5d8cd37,
     type: 2}
-  rockPrefab: {fileID: 1120561497435058, guid: f044aa7b23fb0774f90f75d705e46edb, type: 2}
+  rockPrefabs:
+  - {fileID: 1120561497435058, guid: f044aa7b23fb0774f90f75d705e46edb, type: 2}
+  - {fileID: 1145960843153364, guid: 78cb96573bac27140a8b2883d16b517a, type: 2}
   healthPrefab: {fileID: 1753626566498202, guid: d9e78c1cfeff9624a8a18a4a3f15ffbc,
     type: 2}
