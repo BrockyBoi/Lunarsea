@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4385534834632424}
   - component: {fileID: 253479300904012060}
   - component: {fileID: 70872684576378168}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Buoyancy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 33796704552596750}
   - component: {fileID: 114538185427484966}
   - component: {fileID: 23076952812425530}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Joint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4351160935054910}
   - component: {fileID: 212810738702157244}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,14 +178,14 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.070466325
 --- !u!70 &70872684576378168
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1117419816285580}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -207,6 +207,8 @@ MonoBehaviour:
   prevJoint: {fileID: 0}
   nextJoint: {fileID: 0}
   waterMeshPrefab: {fileID: 1392590185368882, guid: cef250d98ac60412da8f41b730d6795b,
+    type: 2}
+  waterSplashParticlePrefab: {fileID: 1936478395593708, guid: f6caef27a8e4c4ad6931da6ee8102449,
     type: 2}
 --- !u!212 &212810738702157244
 SpriteRenderer:
@@ -260,8 +262,8 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: -8.214203, y: 0.9622351}
   m_AutoConfigureDistance: 1
   m_Distance: 8.2703705
-  m_DampingRatio: 0
-  m_Frequency: 0.42
+  m_DampingRatio: 0.1
+  m_Frequency: 0.4
 --- !u!231 &231530706553544404
 SpringJoint2D:
   m_ObjectHideFlags: 1
@@ -279,15 +281,15 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 0.005
-  m_DampingRatio: 0.46
-  m_Frequency: 6.88
+  m_DampingRatio: 0.2
+  m_Frequency: 6.56
 --- !u!253 &253479300904012060
 BuoyancyEffector2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1117419816285580}
-  m_Enabled: 1
+  m_Enabled: 0
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2

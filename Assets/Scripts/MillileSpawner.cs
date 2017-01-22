@@ -33,7 +33,7 @@ public class MillileSpawner : MonoBehaviour {
 		rTimer += Time.deltaTime;
 		if (rTimer >= rNextTime) {
 			rNextTime += 5 * .999f;
-			SpawnRock ();
+			//SpawnRock ();
 		}
 
 		hTimer += Time.deltaTime;

@@ -9,6 +9,7 @@ public class MainCanvas : MonoBehaviour {
 	public GameObject deathScreen;
 	void Awake()
 	{
+		
 		controller = this;
 	}
 		
