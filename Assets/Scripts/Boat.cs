@@ -98,6 +98,7 @@ public class Boat : MonoBehaviour {
 	public void TakeDamage()
 	{
 		health--;
+		MainCanvas.controller.HealthChange ();
 		anim.SetTrigger ("hit");
 		if (health < 1) {
 			for (int i = 0; i < colliders.Count; i++) {
@@ -124,5 +125,11 @@ public class Boat : MonoBehaviour {
 	public void AddHealth()
 	{
 		health++;
+		MainCanvas.controller.HealthChange ();
+	}
+
+	public int GetHealth()
+	{
+		return health;
 	}
 }
