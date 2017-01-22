@@ -30,10 +30,14 @@ public class Boat : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		health = 3;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (SpeechController.controller.CheckTextTime ())
+			return;
+		
         Vector3 screenCoor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
         if(transform.position.x > screenCoor.x)
         {
