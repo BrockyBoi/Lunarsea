@@ -9,8 +9,9 @@ public class WaterJointGenerator : MonoBehaviour {
 	[Range(0,100)]
 	int numJoints = Screen.width/10;
 	[SerializeField]
-	[Range(0,300)]
-	float initialYPos = Screen.height/2;
+	[Range(0.5f,1)]
+	float waterYPos = 0.4f;
+	float initialYPos;
 	public List<GameObject> joints;
 	public static WaterJointGenerator gen;
 	void Awake() {
@@ -21,12 +22,14 @@ public class WaterJointGenerator : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
+		Vector3 bottomLeft = Camera.main.ViewportToWorldPoint (new Vector3(0,waterYPos));
+		initialYPos = bottomLeft.y;
 		joints = new List<GameObject> ();
 		float jointDistance = Screen.width / (numJoints-1);
 		float currentX = -20;
 
 		for(int i = 0; i < numJoints+(int)(0.1f*numJoints); i++) {
-			Vector3 cpos = Camera.main.ScreenToWorldPoint(new Vector3 (currentX,initialYPos));
+			Vector3 cpos = Camera.main.ScreenToWorldPoint(new Vector3 (currentX,0)) + new Vector3(0,initialYPos*2);
 			cpos.z = 0;
 			currentX += jointDistance;
 			GameObject joint = Instantiate (waterJointPrefab, cpos, Quaternion.identity);
