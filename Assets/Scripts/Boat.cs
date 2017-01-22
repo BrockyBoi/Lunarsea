@@ -9,7 +9,10 @@ public class Boat : MonoBehaviour {
 	[SerializeField]
 	float uprightConstant = 1.0f;
 	bool aiming;
-
+	[SerializeField]
+	float missileForce = 500;
+	BoxCollider2D boxCollider;
+	CircleCollider2D[] circleColliders;
 	public bool moonOut = false;
 
 	float power;
@@ -24,13 +27,19 @@ public class Boat : MonoBehaviour {
 
 	Animator anim;
 
-	public List<Collider2D> colliders;
+	 List<Collider2D> colliders;
 	void Awake()
 	{
 		player = this;
 		dead = false;
 		rb2d = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
+
+
+		colliders = new List<Collider2D>(GetComponents<CircleCollider2D> ());
+		colliders.Add(GetComponent<BoxCollider2D> ());
+
+
 	}
 	// Use this for initialization
 	void Start () {
@@ -101,7 +110,7 @@ public class Boat : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D other)
 	{
 		if (other.gameObject.CompareTag ("Missile")) {
-			rb2d.AddForce (Vector2.left * 5500);
+			rb2d.AddForce (Vector2.left * missileForce);
 		}
 	}
 

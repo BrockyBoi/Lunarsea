@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212833627337943532}
   - component: {fileID: 114353381988586224}
   - component: {fileID: 61955215699466160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,8 +36,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1120561497435058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.8, y: -3, z: 90}
-  m_LocalScale: {x: 20, y: 35, z: 1}
+  m_LocalPosition: {x: 15.22, y: -3.81, z: 90}
+  m_LocalScale: {x: 12.689226, y: 24.846144, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b3df5e6bdb5484bbae84f2133302a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.2
+  speed: 0.1
 --- !u!212 &212833627337943532
 SpriteRenderer:
   m_ObjectHideFlags: 1

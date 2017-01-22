@@ -6,31 +6,30 @@ public class ParallaxScroll : MonoBehaviour {
 
 	SpriteRenderer spr;
 	Vector3 backPos;
-	public float speed = 5;
+	public float speed = 0.1f;
+	Collider2D collider;
+	public float initialViewportXPos;
+	[SerializeField]
+	float zpos;
 	void Awake() {
 		spr = GetComponent<SpriteRenderer> ();
+		collider = GetComponent<EdgeCollider2D> ();
 	}
 
 	void Start() {
-		Vector3 backgroundBounds = spr.sprite.bounds.extents;
-		Vector2 bottomRight = new Vector3 (Camera.main.orthographicSize*2,Camera.main.orthographicSize*2/Screen.width*Screen.height);
-		float xScale = bottomRight.x/backgroundBounds.x;
-		float yScale = bottomRight.y/backgroundBounds.y;
-		Vector3 scaleVector = new Vector3 (xScale, yScale);
-		transform.localScale = scaleVector;
+		transform.position = Camera.main.ViewportToWorldPoint (new Vector3(initialViewportXPos,0.5f));
+		transform.position = new Vector3 (transform.position.x,transform.position.y,zpos);
 	}
 
 	// Update is called once per frame
 	void Update () {
-		Vector3 end = Camera.main.ViewportToWorldPoint (new Vector3(0,0.5f));
-		end.z = transform.position.z;
-		transform.position = Vector3.MoveTowards (transform.position, end, Time.deltaTime * speed);
-		Vector3 spritebounds = Camera.main.ScreenToWorldPoint (spr.sprite.bounds.extents);
-		if (transform.position.x + (spritebounds.x*2) > end.x) {
-			Vector3 back = Camera.main.ViewportToWorldPoint (new Vector3(2.5f,0.5f));
-			back.z = transform.position.z;
-			transform.position = back;
+		//Debug.Log (Camera.main.WorldToViewportPoint(transform.position).x < -0.5);
+		if (Camera.main.WorldToViewportPoint (transform.position).x < -0.5f) {
+			Vector3 newpos= Camera.main.ViewportToWorldPoint (new Vector3(1.5f,0.5f));
+			newpos.z = zpos;
+			transform.position = newpos;
 		}
+		transform.Translate (new Vector3(-speed,0));
 	}
 
 		

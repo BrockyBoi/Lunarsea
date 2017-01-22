@@ -57,7 +57,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 25
+  m_Mass: 3
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -138,9 +138,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hSpeed: 5
   uprightConstant: 1
+  missileForce: 500
   moonOut: 0
   moonPrefab: {fileID: 1685311018728014, guid: 472f768a9c84f064abdbb6ffd2ba89d4, type: 2}
-  colliders: []
 --- !u!212 &212469052600681218
 SpriteRenderer:
   m_ObjectHideFlags: 1
