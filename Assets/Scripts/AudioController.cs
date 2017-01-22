@@ -17,8 +17,6 @@ public class AudioController : MonoBehaviour {
 	public AudioClip waterRise;
 	public AudioClip waterFall;
 	public AudioClip boatDeath;
-	public AudioClip boatHitsRock;
-	public AudioClip repairBoat;
 
 	public AudioClip gargling;
 
@@ -35,7 +33,6 @@ public class AudioController : MonoBehaviour {
 
 		music = gameObject.AddComponent<AudioSource> ();
 		music.clip = mainMusic;
-		music.loop = true;
 		music.Play ();
 
 		background = gameObject.AddComponent<AudioSource> ();
@@ -65,10 +62,6 @@ public class AudioController : MonoBehaviour {
 	public void PlayFX(AudioClip clip)
 	{
 		fx.PlayOneShot (clip);
-	}
-
-	public void PlayRepairBoat() {
-		PlayFX (repairBoat);
 	}
 
 	public void PlayMissileSound()
@@ -103,11 +96,6 @@ public class AudioController : MonoBehaviour {
 	{
 		RandomPitch ();
 		PlayFX (boatDeath);
-	}
-		
-	public void BoatHitsRock() {
-		RandomPitch ();
-		PlayFX (boatHitsRock);
 	}
 
 	public static IEnumerator FadeOut (AudioSource audioSource, float FadeTime) {
