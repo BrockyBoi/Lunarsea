@@ -21,23 +21,24 @@ public class Boat : MonoBehaviour {
 
 	Rigidbody2D rb2d;
 	int health;
+
+	Animator anim;
+
+	public List<Collider2D> colliders;
 	void Awake()
 	{
 		player = this;
 		dead = false;
 		rb2d = GetComponent<Rigidbody2D> ();
+		anim = GetComponent<Animator> ();
 	}
 	// Use this for initialization
 	void Start () {
 		health = 3;
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (SpeechController.controller.CheckTextTime ())
-			return;
-		
         Vector3 screenCoor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
         if(transform.position.x > screenCoor.x)
         {
@@ -88,8 +89,20 @@ public class Boat : MonoBehaviour {
 	public void TakeDamage()
 	{
 		health--;
-		if (health < 1)
+		anim.SetTrigger ("hit");
+		if (health < 1) {
+			for (int i = 0; i < colliders.Count; i++) {
+				colliders [i].enabled = false;
+			}
 			Die ();
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		if (other.gameObject.CompareTag ("Missile")) {
+			rb2d.AddForce (Vector2.left * 5500);
+		}
 	}
 
 	void Die()
