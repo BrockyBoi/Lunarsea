@@ -48,6 +48,10 @@ public class Boat : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (dead)
+        {
+            return;
+        }
         Vector3 screenCoor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
         if(transform.position.x > screenCoor.x)
         {
