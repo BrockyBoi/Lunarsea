@@ -6,6 +6,8 @@ public class Missile : MonoBehaviour {
 	public float speed;
 	float variable;
 
+	public GameObject particles;
+
 	// Use this for initialization
 	void Start () {
 		Init ();
@@ -22,6 +24,7 @@ public class Missile : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Player")) {
 			other.gameObject.GetComponent<Boat> ().TakeDamage ();
 			AudioController.controller.PlayMissileSound ();
+			Instantiate (particles,transform.position, Quaternion.identity);
 			Destroy (gameObject);
 		}
 	}
