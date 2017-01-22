@@ -341,7 +341,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1710170330830302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c0a09c58a3089428a6e5d040619fca, type: 3}
+  m_Script: {fileID: 11500000, guid: ff1ba7ae60f4a4049a11317ca0410cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   deathScreen: {fileID: 1509195992470194}
