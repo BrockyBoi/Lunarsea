@@ -95,6 +95,6 @@ public class Boat : MonoBehaviour {
 
 	public void AddHealth()
 	{
-		health = Mathf.Min (3, health + 1);
+		health++;
 	}
 }
