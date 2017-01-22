@@ -18,6 +18,8 @@ public class AudioController : MonoBehaviour {
 	public AudioClip waterFall;
 	public AudioClip boatDeath;
 
+	public AudioClip gargling;
+
 	void Awake()
 	{
 		DontDestroyOnLoad (this);
@@ -43,6 +45,18 @@ public class AudioController : MonoBehaviour {
 		fallFx = gameObject.AddComponent<AudioSource> ();
 		fallFx.loop = false;
 
+	}
+
+	public void Gargle()
+	{
+		background.clip = gargling;
+		background.Play ();
+	}
+
+	public void StopGargling()
+	{
+		background.clip = waveBackground;
+		background.Play ();
 	}
 
 	public void PlayFX(AudioClip clip)

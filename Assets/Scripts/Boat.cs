@@ -119,6 +119,20 @@ public class Boat : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer("Water")) {
+			AudioController.controller.Gargle ();
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer ("Water")) {
+			AudioController.controller.StopGargling ();
+		}
+	}
+
 	void Die()
 	{
 		dead = true;
