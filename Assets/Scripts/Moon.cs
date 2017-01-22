@@ -66,6 +66,7 @@ public class Moon : MonoBehaviour {
             t = 0;
             if (running)
             {
+				AudioController.controller.WaterFall ();
                 Boat.player.moonOut = false;
                 Destroy(gameObject);
             }
