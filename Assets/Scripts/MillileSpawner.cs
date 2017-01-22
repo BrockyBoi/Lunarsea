@@ -24,6 +24,8 @@ public class MillileSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (SpeechController.controller.CheckTextTime ())
+			return;
 		mTimer += Time.deltaTime;
 		if (mTimer >= mNextTime) {
 			mNextTime += 3 * .999f;
