@@ -11,6 +11,11 @@ public class AudioController : MonoBehaviour {
 	public AudioClip mainMusic;
 	public AudioClip waveBackground;
 
+	public List<AudioClip> missileClips;
+
+	public AudioClip waterRise;
+	public AudioClip waterFall;
+
 	void Awake()
 	{
 		DontDestroyOnLoad (this);
@@ -25,20 +30,36 @@ public class AudioController : MonoBehaviour {
 		music = gameObject.AddComponent<AudioSource> ();
 		music.clip = mainMusic;
 		music.Play ();
+
 		background = gameObject.AddComponent<AudioSource> ();
 		background.clip = waveBackground;
 		background.Play ();
+
 		fx = gameObject.AddComponent<AudioSource> ();
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+		fx.loop = false;
 		
 	}
 
 	public void PlayFX(AudioClip clip)
 	{
 		fx.PlayOneShot (clip);
+	}
+
+	public void PlayMissileSound()
+	{
+		int num = Random.Range (0, missileClips.Count);
+		fx.PlayOneShot (missileClips [num]);
+	}
+
+	public void WaterRise()
+	{
+		fx.clip = waterRise;
+		fx.Play ();
+	}
+
+	public void WaterFall()
+	{
+		fx.clip = waterFall;
+		fx.Play ();
 	}
 }
