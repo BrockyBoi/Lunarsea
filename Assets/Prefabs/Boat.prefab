@@ -21,9 +21,11 @@ GameObject:
   - component: {fileID: 4058849728252098}
   - component: {fileID: 212469052600681218}
   - component: {fileID: 50486212266587672}
-  - component: {fileID: 58536592165210112}
-  - component: {fileID: 114605228344663176}
-  m_Layer: 10
+  - component: {fileID: 114198677541394620}
+  - component: {fileID: 61582309881094252}
+  - component: {fileID: 58858976265468028}
+  - component: {fileID: 58601438459466016}
+  m_Layer: 0
   m_Name: Boat
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -37,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1165172350204506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.48, y: 12.47, z: 0}
-  m_LocalScale: {x: 9.34517, y: 9.345172, z: 4.672586}
+  m_LocalPosition: {x: -5.28, y: 2.15, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 4.672586}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -54,7 +56,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 20
+  m_Mass: 0.25
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -63,7 +65,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58536592165210112
+--- !u!58 &58601438459466016
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -74,10 +76,38 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.95, y: -0.55}
   serializedVersion: 2
-  m_Radius: 0.08
---- !u!114 &114605228344663176
+  m_Radius: 0.23
+--- !u!58 &58858976265468028
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165172350204506}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -0.87, y: -0.55}
+  serializedVersion: 2
+  m_Radius: 0.23
+--- !u!61 &61582309881094252
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165172350204506}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.039756298, y: -0.54900646}
+  serializedVersion: 2
+  m_Size: {x: 1.2697229, y: 0.42561913}
+--- !u!114 &114198677541394620
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -85,11 +115,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1165172350204506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fa8592a7d65eb34fb4963b6193c8ed2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f2459407e02a4fd59e391e5134f1a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hSpeed: 10
-  moonPrefab: {fileID: 1006424499645994, guid: 472f768a9c84f064abdbb6ffd2ba89d4, type: 2}
+  hSpeed: 5
+  uprightConstant: 1
+  moonOut: 0
+  moonPrefab: {fileID: 1685311018728014, guid: 472f768a9c84f064abdbb6ffd2ba89d4, type: 2}
 --- !u!212 &212469052600681218
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -119,9 +151,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -399255875
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: fe6e723f978a5464b8b6f884a179aa9d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

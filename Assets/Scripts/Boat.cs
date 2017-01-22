@@ -5,9 +5,12 @@ using UnityEngine;
 public class Boat : MonoBehaviour {
 
 	public static Boat player;
-	public float hSpeed;
-
+	public float hSpeed = 5;
+	[SerializeField]
+	float uprightConstant = 1.0f;
 	bool aiming;
+
+	public bool moonOut = false;
 
 	float power;
 
@@ -31,15 +34,30 @@ public class Boat : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float horizontal = Input.GetAxis ("Horizontal") * Time.deltaTime;
+        Vector3 screenCoor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
+        if(transform.position.x > screenCoor.x)
+        {
+            transform.position = new Vector3(screenCoor.x,transform.position.y);
+        }
+        if (transform.position.x < -screenCoor.x)
+        {
+            transform.position = new Vector3(-screenCoor.x, transform.position.y);
+        }
 
-		if (Input.GetMouseButton (0)) {
-			aiming = true;
-		} else
-			aiming = false;
-		
+        float horizontal = Input.GetAxis ("Horizontal") * Time.deltaTime;
+		if(Input.GetMouseButtonDown(0) && !moonOut)
+        {
+            CreateMoon();
+        }
 		Movement (horizontal);
-		AimMoon ();
+	}
+
+	void FixedUpdate() {
+		SelfRight ();
+	}
+
+	void SelfRight() {
+		transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.Euler(new Vector3(transform.eulerAngles.x,transform.eulerAngles.y,0)),Time.deltaTime * uprightConstant);
 	}
 
 	void Movement(float h)
@@ -50,21 +68,11 @@ public class Boat : MonoBehaviour {
 		transform.position = Vector2.MoveTowards (transform.position, transform.position + Vector3.right * hSpeed * h, hSpeed); 
 	}
 
-	void AimMoon()
+	void CreateMoon()
 	{
-		if (thrown || dead)
-			return;
-
-		if (aiming) {
-			power += 60 * Time.deltaTime;
-		}
-
-		if (!aiming && power > 0) {
-			GameObject moon = Instantiate (moonPrefab, transform.position, Quaternion.identity) as GameObject;
-			//moon.GetComponent<Rigidbody2D>().AddForce((Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position) * power);
-			power = 0;
-			thrown = true;
-		}
+        moonOut = true;
+		GameObject moon = Instantiate (moonPrefab, transform.position, Quaternion.identity) as GameObject;
+        moon.GetComponent<Moon>().mouseClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 	}
 
 	public void MoonReturned()
@@ -87,6 +95,6 @@ public class Boat : MonoBehaviour {
 
 	public void AddHealth()
 	{
-		health = Mathf.Min (3, health + 1);
+		health++;
 	}
 }

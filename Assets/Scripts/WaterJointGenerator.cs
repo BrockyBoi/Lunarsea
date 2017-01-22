@@ -8,6 +8,8 @@ public class WaterJointGenerator : MonoBehaviour {
 	[SerializeField]
 	[Range(0,100)]
 	int numJoints = Screen.width/10;
+	[SerializeField]
+	[Range(0,300)]
 	float initialYPos = Screen.height/2;
 	public List<GameObject> joints;
 	public static WaterJointGenerator gen;
@@ -21,7 +23,7 @@ public class WaterJointGenerator : MonoBehaviour {
 	void Start () {
 		joints = new List<GameObject> ();
 		float jointDistance = Screen.width / (numJoints-1);
-		float currentX = 0;
+		float currentX = -20;
 
 		for(int i = 0; i < numJoints+(int)(0.1f*numJoints); i++) {
 			Vector3 cpos = Camera.main.ScreenToWorldPoint(new Vector3 (currentX,initialYPos));
