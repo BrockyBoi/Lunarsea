@@ -24,7 +24,7 @@ public class MainCanvas : MonoBehaviour {
 
 	public void PressRetry()
 	{
-		SceneManager.LoadScene ("MainScene");
+		SceneManager.LoadScene ("Brock Scene");
 	}
 
 	public void PressMainMenu()
