@@ -8,8 +8,9 @@ public class MainCanvas : MonoBehaviour {
 
 	public static MainCanvas controller;
 	public GameObject deathScreen;
-
+	public Text scoreText;
 	public Image[] healthImages;
+	float score = 0.0f;
 	void Awake()
 	{
 		controller = this;
@@ -17,6 +18,18 @@ public class MainCanvas : MonoBehaviour {
 		
 	void Start () {
 		deathScreen.SetActive (false);
+	}
+
+
+	void FixedUpdate() {
+		UpdateScore ();
+	}
+
+	void UpdateScore() {
+		if (Boat.player.GetHealth () > 0 && !SpeechController.controller.CheckTextTime()) {
+			score += Time.fixedDeltaTime;
+		}
+		scoreText.text = "Score: "+string.Format("{0:0.0}",score) + " m";
 	}
 
 	public void DeathScreen()
@@ -44,4 +57,6 @@ public class MainCanvas : MonoBehaviour {
 				healthImages [i].gameObject.SetActive (false);
 		}
 	}
+
+
 }

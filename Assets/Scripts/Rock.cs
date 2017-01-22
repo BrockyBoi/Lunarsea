@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class Rock : MonoBehaviour {
 	public float speed;
-    bool onTimeDown;
-    float mTimer = 0;
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -29,6 +23,7 @@ public class Rock : MonoBehaviour {
 	{
 		if (other.gameObject.CompareTag ("Player") && !onTimeDown) {
 			other.gameObject.GetComponent<Boat> ().TakeDamage ();
+			AudioController.controller.BoatHitsRock ();
 		}
 	}
 }

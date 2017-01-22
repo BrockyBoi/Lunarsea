@@ -260,7 +260,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 0.3529412, b: 0.11764706, a: 1}
       minMaxState: 2
     startSize:
-      scalar: 1
+      scalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2644,7 +2644,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2212ab652964cea43a9d6071d4b69990, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0

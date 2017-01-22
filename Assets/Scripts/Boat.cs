@@ -144,6 +144,7 @@ public class Boat : MonoBehaviour {
 	{
 		health++;
 		MainCanvas.controller.HealthChange ();
+		AudioController.controller.PlayRepairBoat ();
 	}
 
 	public int GetHealth()

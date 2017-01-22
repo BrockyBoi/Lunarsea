@@ -26,7 +26,6 @@ public class MillileSpawner : MonoBehaviour {
 	void Update () {
 		if (SpeechController.controller.CheckTextTime ())
 			return;
-		
 		mTimer += Time.deltaTime;
 		if (mTimer >= mNextTime) {
 			mNextTime += 3 * .999f;
@@ -57,9 +56,10 @@ public class MillileSpawner : MonoBehaviour {
 
 	void SpawnRock()
 	{
-		int num = Random.Range (0, 2);
+		float minRockHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0)).y;
+		float maxRockHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0.2f)).y;
 		float offScreen = Camera.main.ViewportToWorldPoint (new Vector3 (1, 0)).x;
-		Instantiate (rockPrefabs[num], new Vector3 (offScreen, -3), Quaternion.identity);
+		Instantiate (rockPrefab, new Vector3 (offScreen+20, Random.Range(minRockHeight,maxRockHeight)), Quaternion.identity);
 	}
 
 	void SpawnHealth()
