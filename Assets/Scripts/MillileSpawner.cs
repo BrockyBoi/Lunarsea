@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MillileSpawner : MonoBehaviour {
 	public GameObject missilePrefab;
-	public GameObject rockPrefab;
+	public GameObject[] rockPrefabs;
 	public GameObject healthPrefab;
 
 	float mTimer;
@@ -57,8 +57,9 @@ public class MillileSpawner : MonoBehaviour {
 
 	void SpawnRock()
 	{
+		int num = Random.Range (0, 2);
 		float offScreen = Camera.main.ViewportToWorldPoint (new Vector3 (1, 0)).x;
-		Instantiate (rockPrefab, new Vector3 (offScreen, -3), Quaternion.identity);
+		Instantiate (rockPrefabs[num], new Vector3 (offScreen, -3), Quaternion.identity);
 	}
 
 	void SpawnHealth()
