@@ -30,7 +30,7 @@ public class AudioController : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-
+		
 		music = gameObject.AddComponent<AudioSource> ();
 		music.clip = mainMusic;
 		music.Play ();
@@ -44,6 +44,8 @@ public class AudioController : MonoBehaviour {
 
 		fallFx = gameObject.AddComponent<AudioSource> ();
 		fallFx.loop = false;
+		music.loop = true;
+		background.loop = true;
 
 	}
 
@@ -87,7 +89,7 @@ public class AudioController : MonoBehaviour {
 		RandomPitch ();
 		StartCoroutine (FadeOut (fx,0.2f));
 		fallFx.clip = waterFall;
-		fx.Play ();
+		fallFx.Play ();
 	}
 
 	void RandomPitch()
