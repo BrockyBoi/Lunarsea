@@ -61,13 +61,17 @@ public class Moon : MonoBehaviour {
             sizeSet = false;
         }
 
-        if(Vector3.Distance(transform.position, destination) < .00001f)
+		if (running)
         {
             t = 0;
-            if (running)
+			if(Vector3.Distance(transform.position, destination) < .00001f)
             {
 				AudioController.controller.WaterFall ();
                 Boat.player.moonOut = false;
+
+				if(Boat.player.CheckTutorialMode())
+					TutorialController.controller.SetStage (TutorialController.TutorialStage.DONE);
+				
                 Destroy(gameObject);
             }
         }

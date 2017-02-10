@@ -24,9 +24,7 @@ public class SpeechController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			NextPhrase ();
-		}
+
 	}
 
 	void FirstPhrase()
@@ -35,7 +33,7 @@ public class SpeechController : MonoBehaviour {
 		textTime = true;
 	}
 
-	void NextPhrase()
+	public void NextPhrase()
 	{
 		if (currentPhrase < phrases.Count - 1) {
 			currentPhrase++;
