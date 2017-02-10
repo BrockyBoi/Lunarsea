@@ -1,0 +1,132 @@
+Initialize engine version: 5.5.0f3 (38b4efef76f0)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GT 750M (ID=0xfe4)
+    Vendor:   NVIDIA
+    VRAM:     1955 MB
+    Driver:   10.18.13.6839
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.065 seconds
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Public\Documents\Unity Projects\Lunarsea\Lunarsea_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+The referenced script on this Behaviour (Game Object 'ESCController') is missing!
+ 
+(Filename:  Line: 1754)
+
+UnloadTime: 3.886897 ms
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.143913 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 463.
+Total: 0.549100 ms (FindLiveObjects: 0.045758 ms CreateObjectMapping: 0.029080 ms MarkObjects: 0.453735 ms  DeleteObjects: 0.020099 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.803775 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 1.418082 ms (FindLiveObjects: 0.086384 ms CreateObjectMapping: 0.096220 ms MarkObjects: 0.805689 ms  DeleteObjects: 0.427648 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.739786 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 1.236331 ms (FindLiveObjects: 0.090661 ms CreateObjectMapping: 0.091089 ms MarkObjects: 0.790294 ms  DeleteObjects: 0.263431 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.016790 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 0.650025 ms (FindLiveObjects: 0.040198 ms CreateObjectMapping: 0.050462 ms MarkObjects: 0.431497 ms  DeleteObjects: 0.127439 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.828624 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 0.579463 ms (FindLiveObjects: 0.041909 ms CreateObjectMapping: 0.043192 ms MarkObjects: 0.368633 ms  DeleteObjects: 0.125301 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.898601 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 0.814242 ms (FindLiveObjects: 0.062864 ms CreateObjectMapping: 0.060726 ms MarkObjects: 0.531567 ms  DeleteObjects: 0.157802 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.239865 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 1.136262 ms (FindLiveObjects: 0.082108 ms CreateObjectMapping: 0.088095 ms MarkObjects: 0.742397 ms  DeleteObjects: 0.222377 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.321118 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 1.193994 ms (FindLiveObjects: 0.085957 ms CreateObjectMapping: 0.096220 ms MarkObjects: 0.762924 ms  DeleteObjects: 0.247180 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.745233 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 0.596997 ms (FindLiveObjects: 0.042764 ms CreateObjectMapping: 0.042764 ms MarkObjects: 0.381462 ms  DeleteObjects: 0.129149 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.084628 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 1.235476 ms (FindLiveObjects: 0.092372 ms CreateObjectMapping: 0.092372 ms MarkObjects: 0.798847 ms  DeleteObjects: 0.251029 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.698462 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 0.962636 ms (FindLiveObjects: 0.065857 ms CreateObjectMapping: 0.070989 ms MarkObjects: 0.629498 ms  DeleteObjects: 0.195435 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.290169 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 1.133696 ms (FindLiveObjects: 0.065002 ms CreateObjectMapping: 0.080397 ms MarkObjects: 0.706475 ms  DeleteObjects: 0.280965 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.839428 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 1.214521 ms (FindLiveObjects: 0.088950 ms CreateObjectMapping: 0.096648 ms MarkObjects: 0.779603 ms  DeleteObjects: 0.248463 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.838145 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 1.297057 ms (FindLiveObjects: 0.092372 ms CreateObjectMapping: 0.098786 ms MarkObjects: 0.847599 ms  DeleteObjects: 0.256589 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.437708 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 1.149519 ms (FindLiveObjects: 0.076549 ms CreateObjectMapping: 0.085957 ms MarkObjects: 0.757365 ms  DeleteObjects: 0.228791 ms)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.221476 ms
+
+Unloading 89 unused Assets to reduce memory usage. Loaded Objects now: 470.
+Total: 1.147808 ms (FindLiveObjects: 0.083391 ms CreateObjectMapping: 0.084246 ms MarkObjects: 0.741970 ms  DeleteObjects: 0.236917 ms)
+
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: cc4 -> priority: 1 
+  Thread -> id: e6c -> priority: 1 

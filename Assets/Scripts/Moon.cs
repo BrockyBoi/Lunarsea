@@ -3,26 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Moon : MonoBehaviour {
-	bool running = false;
-    public Vector3 mouseClick;
-    float slope;
+    public Vector3 destination;
     public float distance = .02f;
-    public float magnification = 2;
-    Vector3 destination;
+    public float magnification = 6;
     Vector3 size;
     float t = 0;
-    bool sizeSet = false;
+    bool returning;
 
-    void Awake()
-	{
-        
-	}
 	// Use this for initialization
 	void Start () {
-        mouseClick.z = 0;
-        running = false;
-        size = transform.localScale;
-        if (mouseClick.y <= Boat.player.transform.position.y)
+        destination.z = 0;
+        size = transform.localScale * magnification;
+
+        if (destination.y <= Boat.player.transform.position.y)
         {
             Boat.player.moonOut = false;
             Destroy(gameObject);
@@ -32,50 +25,38 @@ public class Moon : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (!running)
-        {
-            if (!sizeSet)
-            {
-                destination = mouseClick;
-                size = size * magnification;
-                sizeSet = true;
-            }
-        }
-        else
-        {
-            if (!sizeSet)
-            {
-                destination = Boat.player.transform.position;
-                size = size / magnification;
-                sizeSet = true;
-            }
-        }
-
-        transform.position = Vector3.Lerp(transform.position, destination, t);
-        transform.localScale = Vector3.Lerp(transform.localScale, size, t);
-        t += Time.deltaTime;
+        moonFly();
 
         if (Input.GetMouseButtonDown(0))
         {
-            running = true;
-            sizeSet = false;
+            destination = Boat.player.transform.position;
+            size = size / magnification;
+            returning = true;
         }
 
-		if (running)
+        if((Vector3.Distance(transform.position, destination) < distance) && returning == true)
         {
-            t = 0;
-			if(Vector3.Distance(transform.position, destination) < .00001f)
-            {
-				AudioController.controller.WaterFall ();
-                Boat.player.moonOut = false;
-
-				if(Boat.player.CheckTutorialMode())
-					TutorialController.controller.SetStage (TutorialController.TutorialStage.DONE);
-				
-                Destroy(gameObject);
-            }
+            moonDone();
         }
 
     }
-	
+
+    void moonFly()
+    {
+        transform.position = Vector3.Lerp(transform.position, destination, t);
+        transform.localScale = Vector3.Lerp(transform.localScale, size, t);
+        t += Time.deltaTime;
+    }
+
+    void moonDone()
+    {
+        AudioController.controller.WaterFall();
+        Boat.player.moonOut = false;
+
+        if (Boat.player.CheckTutorialMode())
+            TutorialController.controller.SetStage(TutorialController.TutorialStage.DONE);
+
+        Destroy(gameObject);
+    }
+
 }
