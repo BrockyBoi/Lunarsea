@@ -310,6 +310,47 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1df92e18eb6ca46bc94aaf0d6c81f528, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &635606854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 635606855}
+  - component: {fileID: 635606856}
+  m_Layer: 0
+  m_Name: Tutorial Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &635606855
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 635606854}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.31, y: 1.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &635606856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 635606854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f10f837076070ef49b2f076aeb16d409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialMode: 1
 --- !u!1 &894054401
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,6 +753,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114671853554357938, guid: 84218cdc8e2126f4fba86534114f9d05,
+        type: 2}
+      propertyPath: phrases.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 224604601574081956, guid: 84218cdc8e2126f4fba86534114f9d05,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -800,6 +846,30 @@ Prefab:
     - target: {fileID: 224604601574081956, guid: 84218cdc8e2126f4fba86534114f9d05,
         type: 2}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114671853554357938, guid: 84218cdc8e2126f4fba86534114f9d05,
+        type: 2}
+      propertyPath: phrases.Array.data[0]
+      value: 'Use A and D to move the boat left and right. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 114671853554357938, guid: 84218cdc8e2126f4fba86534114f9d05,
+        type: 2}
+      propertyPath: phrases.Array.data[1]
+      value: Left click to summon the moon to create waves
+      objectReference: {fileID: 0}
+    - target: {fileID: 114671853554357938, guid: 84218cdc8e2126f4fba86534114f9d05,
+        type: 2}
+      propertyPath: phrases.Array.data[2]
+      value: 'Left click again to retract moon '
+      objectReference: {fileID: 0}
+    - target: {fileID: 114671853554357938, guid: 84218cdc8e2126f4fba86534114f9d05,
+        type: 2}
+      propertyPath: phrases.Array.data[3]
+      value: 'Avoid obstacles using the moon to alter the ocean. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936420516435142, guid: 84218cdc8e2126f4fba86534114f9d05, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
