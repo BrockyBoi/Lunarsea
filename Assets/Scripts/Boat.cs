@@ -111,12 +111,6 @@ public class Boat : MonoBehaviour {
 	}
 		
 	#region Collisions/Triggers
-	void OnCollisionEnter2D(Collision2D other)
-	{
-		if (other.gameObject.CompareTag ("Missile")) {
-			rb2d.AddForce (Vector2.left * missileForce);
-		}
-	}
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
@@ -134,6 +128,12 @@ public class Boat : MonoBehaviour {
 	#endregion
 
 	#region Health Scripts
+	public void TakeMissileDamage()
+	{
+		rb2d.AddForce (Vector2.left * missileForce);
+		TakeDamage ();
+	}
+
 	public void TakeDamage()
 	{
 		health--;

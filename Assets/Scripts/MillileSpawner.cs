@@ -20,12 +20,15 @@ public class MillileSpawner : MonoBehaviour {
 		mNextTime = 3;
 		rNextTime = 3;
 		hNextTime = 5;
+
+		MissileVolley ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (SpeechController.controller.CheckTextTime ())
 			return;
+		
 		mTimer += Time.deltaTime;
 		if (mTimer >= mNextTime) {
 			mNextTime += 3 * .999f;
@@ -52,6 +55,18 @@ public class MillileSpawner : MonoBehaviour {
 		Vector2 offScreen = new Vector2(Camera.main.ViewportToWorldPoint(new Vector3(1,.5f)).x + 5, Random.Range(minHeight,maxHeight));
 
 		Instantiate (missilePrefab, offScreen, Quaternion.identity);
+	}
+
+	void MissileVolley()
+	{
+		float minHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, .35f)).y;
+		float maxHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, .9f)).y;
+		//Vector2 offScreen = new Vector2(Camera.main.ViewportToWorldPoint(new Vector3(1,.5f)).x + 5, Random.Range(minHeight,maxHeight));
+		float offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1,0)).x;
+
+		for (int i = 0; i < 4; i++) {
+			Instantiate (missilePrefab, new Vector3 (offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 5.0f))), Quaternion.identity);
+		}
 	}
 
 	void SpawnRock()
