@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af936e32ecd271c498929eb28381377b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseClick: {x: 0, y: 0, z: 0}
+  destination: {x: 0, y: 0, z: 0}
   distance: 0.02
   magnification: 6
 --- !u!212 &212351555317478604

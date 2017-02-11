@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
 	public Text credits;
+    public Text loading;
 	public List<Button> buttons;
 	public Button back;
 	// Use this for initialization
 	void Start () {
 		credits.gameObject.SetActive (false);
+        loading.gameObject.SetActive(false);
 		back.gameObject.SetActive (false);
 	}
 	
@@ -21,6 +23,7 @@ public class MainMenu : MonoBehaviour {
 
 	public void PressPlay()
 	{
+        loading.gameObject.SetActive(true);
 		SceneManager.LoadScene ("MainScene");
 	}
 
