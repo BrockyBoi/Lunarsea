@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4922809311979932}
   - component: {fileID: 212351555317478604}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4812600837060018}
   - component: {fileID: 250206078085683172}
   - component: {fileID: 61693503591530966}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PointEffector opposite2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 250598796546784954}
   - component: {fileID: 61105344191190274}
   - component: {fileID: 114529468867628198}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Moon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4515677319957296}
   - component: {fileID: 250183929616779774}
   - component: {fileID: 61963206894921240}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PointEffector opposite1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ PointEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 4294967256
+    m_Bits: 4294965208
   m_ForceMagnitude: 8
   m_ForceVariation: 0
   m_DistanceScale: 1
@@ -254,7 +254,7 @@ PointEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 4294967256
+    m_Bits: 4294965208
   m_ForceMagnitude: 8
   m_ForceVariation: 0
   m_DistanceScale: 1
@@ -273,7 +273,7 @@ PointEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 4294967256
+    m_Bits: 4294965208
   m_ForceMagnitude: -15
   m_ForceVariation: 0
   m_DistanceScale: 1
