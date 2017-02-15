@@ -10,13 +10,16 @@ public class Missile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Init ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		Vector3 forward = new Vector3 (transform.position.x + -speed, transform.position.y + Mathf.Sin (Time.time / .3f) );
 		transform.position = Vector2.MoveTowards(transform.position, forward, speed * Time.deltaTime);
+
+		Quaternion rotation = Quaternion.LookRotation (forward - transform.position, transform.up);
+		transform.rotation = new Quaternion (0, 0, rotation.z,rotation.w);
+
 	}
 
 	void OnCollisionEnter2D(Collision2D other)

@@ -19,17 +19,19 @@ public class MillileSpawner : MonoBehaviour {
 	float hNextTime;
 
 	IEnumerator rockSpawner;
+
 	// Use this for initialization
 	void Start () {
-		mNextTime = 3;
-		rNextTime = 3;
+//		mNextTime = 3;
+//		rNextTime = 3;
 		hNextTime = 5;
-
-		//BlueMissileVolleyHigh ();
-		//BlueMissileVolleyLow ();
-		rockSpawner = RockEnum (4);
-		//StartCoroutine (rockSpawner);
-		StartCoroutine (SpawnTrackerMissiles ());
+//
+//		//BlueMissileVolleyHigh ();
+//		//BlueMissileVolleyLow ();
+//		rockSpawner = RockEnum (4);
+//		//StartCoroutine (rockSpawner);
+//		StartCoroutine (SpawnTrackerMissiles (4));
+		StartCoroutine(Wave1());
 	}
 	
 	// Update is called once per frame
@@ -37,23 +39,52 @@ public class MillileSpawner : MonoBehaviour {
 		if (SpeechController.controller.CheckTextTime ())
 			return;
 		
-		mTimer += Time.deltaTime;
-		if (mTimer >= mNextTime) {
-			mNextTime += 3 * .999f;
-			SpawnMissile ();
-		}
-
-		rTimer += Time.deltaTime;
-		if (rTimer >= rNextTime) {
-			rNextTime += 5 * .999f;
-			SpawnRock ();
-		}
+//		mTimer += Time.deltaTime;
+//		if (mTimer >= mNextTime) {
+//			mNextTime += 3 * .999f;
+//			SpawnMissile ();
+//		}
+//
+//		rTimer += Time.deltaTime;
+//		if (rTimer >= rNextTime) {
+//			rNextTime += 5 * .999f;
+//			SpawnRock ();
+//		}
 
 		hTimer += Time.deltaTime;
 		if (hTimer >= hNextTime) {
 			hNextTime += 8;
 			SpawnHealth ();
 		}
+	}
+
+	IEnumerator Wave1()
+	{
+		yield return new WaitForSeconds (5);
+		MissileVolley ();
+		yield return new WaitForSeconds (3);
+		StartCoroutine (RockEnum (3));
+		yield return new WaitForSeconds (6);
+		StartCoroutine (RockEnum (3));
+		yield return new WaitForSeconds (.75f);
+		MissileVolley ();
+		yield return new WaitForSeconds (5);
+		BlueMissileVolleyLow ();
+		yield return new WaitForSeconds (3);
+		BlueMissileVolleyHigh ();
+		yield return new WaitForSeconds (3);
+		StartCoroutine (SpawnTrackerMissiles (4));
+		StartCoroutine (RockEnum (4));
+		yield return new WaitForSeconds (5);
+		 //FUCK YOU MODE
+		MissileVolley();
+		StartCoroutine (RockEnum (4));
+		BlueMissileVolleyLow ();
+		BlueMissileVolleyHigh ();
+		StartCoroutine (SpawnTrackerMissiles (4));
+
+
+
 	}
 
 	void SpawnMissile()
@@ -98,11 +129,11 @@ public class MillileSpawner : MonoBehaviour {
 		}
 	}
 
-	IEnumerator SpawnTrackerMissiles()
+	IEnumerator SpawnTrackerMissiles(int missileCount)
 	{
 		Vector2 offScreen = Camera.main.ViewportToWorldPoint (new Vector2(Random.Range (0.0f, 1.0f), 1.2f));
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < missileCount; i++) {
 			Instantiate (trackerMissile, offScreen, Quaternion.identity);
 			yield return new WaitForSeconds (2.5f);
 		}

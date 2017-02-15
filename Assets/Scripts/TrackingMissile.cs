@@ -20,6 +20,11 @@ public class TrackingMissile : MonoBehaviour {
 	{
 		Vector3 unitVector = (Boat.player.transform.position - transform.position).normalized;
 
+		Quaternion rotation = Quaternion.LookRotation (unitVector, transform.up);
+		transform.rotation = new Quaternion (0, 0, rotation.z,rotation.w);
+
+
+		//transform.LookAt (unitVector);
 		while (true) {
 			transform.position = Vector3.MoveTowards (transform.position, transform.position + unitVector, speed * Time.deltaTime);
 			yield return null;

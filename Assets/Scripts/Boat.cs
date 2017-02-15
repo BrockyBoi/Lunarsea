@@ -136,6 +136,7 @@ public class Boat : MonoBehaviour {
 
 	public void TakeDamage()
 	{
+		Debug.Log ("Take hit");
 		health--;
 		MainCanvas.controller.HealthChange ();
 		anim.SetTrigger ("hit");
@@ -143,7 +144,9 @@ public class Boat : MonoBehaviour {
 			for (int i = 0; i < colliders.Count; i++) {
 				colliders [i].enabled = false;
 			}
-			Die ();
+
+			if(health == 0)
+				Die ();
 		}
 	}
 
