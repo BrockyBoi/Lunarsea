@@ -65,13 +65,6 @@ public class Moon : MonoBehaviour {
 		
 	}
 
-//    void moonFly()
-//    {
-//        transform.position = Vector3.Lerp(transform.position, destination, t);
-//        transform.localScale = Vector3.Lerp(transform.localScale, size, t);
-//        t += Time.deltaTime;
-//    }
-
     void moonDone()
     {
         AudioController.controller.WaterFall();

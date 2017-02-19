@@ -27,14 +27,13 @@ public class TrackingMissile : MonoBehaviour {
 		Quaternion rotation = Quaternion.LookRotation (unitVector, transform.up);
 		transform.rotation = new Quaternion (0, 0, rotation.z,rotation.w);
 
-
-		//transform.LookAt (unitVector);
 		while (true) {
 			transform.position = Vector3.MoveTowards (transform.position, transform.position + unitVector, speed * Time.deltaTime);
 			yield return null;
 		}
 	}
 
+	#region Collisions
 	void OnCollisionEnter2D(Collision2D other)
 	{
 		if (other.gameObject.CompareTag ("Player")) {
@@ -56,4 +55,5 @@ public class TrackingMissile : MonoBehaviour {
 		Instantiate (particles,transform.position, Quaternion.identity);
 		Destroy (gameObject);
 	}
+	#endregion 
 }

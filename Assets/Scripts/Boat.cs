@@ -39,7 +39,6 @@ public class Boat : MonoBehaviour {
 		rb2d = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
 
-
 		colliders = new List<Collider2D>(GetComponents<CircleCollider2D> ());
 		colliders.Add(GetComponent<BoxCollider2D> ());
 	}
@@ -51,6 +50,7 @@ public class Boat : MonoBehaviour {
 	void Update () {
 		if (dead)
 			return;
+		
 		float horizontal = Input.GetAxis ("Horizontal") * Time.deltaTime;
 
 		if (Input.GetMouseButtonDown (0) && !moonOut) {
@@ -62,6 +62,7 @@ public class Boat : MonoBehaviour {
 		CheckBoundaries ();
 	}
 
+	#region Movement Checks
 	void CheckBoundaries()
 	{
 		Vector3 screenCoor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
@@ -82,7 +83,9 @@ public class Boat : MonoBehaviour {
 	void SelfRight() {
 		transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.Euler(new Vector3(transform.eulerAngles.x,transform.eulerAngles.y,0)),Time.deltaTime * uprightConstant);
 	}
+	#endregion
 
+	#region Input
 	void Movement(float h)
 	{
 		if (h == 0)
@@ -105,11 +108,7 @@ public class Boat : MonoBehaviour {
 		if (tutorialMode && TutorialController.controller.CheckIfOnStage (TutorialController.TutorialStage.SPAWN_MOON))
 			TutorialController.controller.SetStage (TutorialController.TutorialStage.RETRACT_MOON);
 	}
-
-	public void MoonReturned()
-	{
-		//thrown = false;
-	}
+	#endregion
 		
 	#region Collisions/Triggers
 

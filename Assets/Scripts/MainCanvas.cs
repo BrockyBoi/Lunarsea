@@ -37,6 +37,7 @@ public class MainCanvas : MonoBehaviour {
 		deathScreen.SetActive (true);
 	}
 
+	#region Press Button
 	public void PressRetry()
 	{
 		SceneManager.LoadScene ("MainScene");
@@ -46,6 +47,7 @@ public class MainCanvas : MonoBehaviour {
 	{
 		SceneManager.LoadScene("Main Menu");
 	}
+	#endregion
 
 	public void HealthChange()
 	{

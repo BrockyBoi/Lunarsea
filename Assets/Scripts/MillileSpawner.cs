@@ -22,15 +22,8 @@ public class MillileSpawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-//		mNextTime = 3;
-//		rNextTime = 3;
 		hNextTime = 5;
-//
-//		//BlueMissileVolleyHigh ();
-//		//BlueMissileVolleyLow ();
-//		rockSpawner = RockEnum (4);
-//		//StartCoroutine (rockSpawner);
-//		StartCoroutine (SpawnTrackerMissiles (4));
+
 		StartCoroutine(Wave1());
 	}
 	
@@ -38,18 +31,6 @@ public class MillileSpawner : MonoBehaviour {
 	void Update () {
 		if (SpeechController.controller.CheckTextTime ())
 			return;
-		
-//		mTimer += Time.deltaTime;
-//		if (mTimer >= mNextTime) {
-//			mNextTime += 3 * .999f;
-//			SpawnMissile ();
-//		}
-//
-//		rTimer += Time.deltaTime;
-//		if (rTimer >= rNextTime) {
-//			rNextTime += 5 * .999f;
-//			SpawnRock ();
-//		}
 
 		hTimer += Time.deltaTime;
 		if (hTimer >= hNextTime) {
@@ -58,6 +39,7 @@ public class MillileSpawner : MonoBehaviour {
 		}
 	}
 
+	#region Waves
 	IEnumerator Wave1()
 	{
 		yield return new WaitForSeconds (5);
@@ -76,17 +58,16 @@ public class MillileSpawner : MonoBehaviour {
 		StartCoroutine (SpawnTrackerMissiles (4));
 		StartCoroutine (RockEnum (4));
 		yield return new WaitForSeconds (5);
-		 //FUCK YOU MODE
+		 //HEH, GOOD LUCK
 		MissileVolley();
 		StartCoroutine (RockEnum (4));
 		BlueMissileVolleyLow ();
 		BlueMissileVolleyHigh ();
 		StartCoroutine (SpawnTrackerMissiles (4));
-
-
-
 	}
+	#endregion
 
+	#region Missiles
 	void SpawnMissile()
 	{
 		float minHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, .5f)).y;
@@ -138,7 +119,9 @@ public class MillileSpawner : MonoBehaviour {
 			yield return new WaitForSeconds (2.5f);
 		}
 	}
+	#endregion
 
+	#region Rocks
 	void SpawnRock()
 	{
 		float minRockHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0)).y;
@@ -158,7 +141,9 @@ public class MillileSpawner : MonoBehaviour {
 			yield return new WaitForSeconds (1.5f);
 		}
 	}
+	#endregion
 
+	#region Health
 	void SpawnHealth()
 	{
 		float minHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, .5f)).y;
@@ -167,4 +152,5 @@ public class MillileSpawner : MonoBehaviour {
 
 		Instantiate (healthPrefab, offScreen, Quaternion.identity);
 	}
+	#endregion
 }
