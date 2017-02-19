@@ -21,6 +21,9 @@ public class TutorialController : MonoBehaviour {
 	void Start()
 	{
 		Boat.player.SetTutorialMode (tutorialMode);
+
+		if (!tutorialMode)
+			SpeechController.controller.CloseWindow ();
 	}
 
 	public bool CheckIfOnStage(TutorialStage t)

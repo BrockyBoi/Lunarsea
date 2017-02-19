@@ -18,7 +18,11 @@ public class TrackingMissile : MonoBehaviour {
 
 	IEnumerator TakeShot()
 	{
-		Vector3 unitVector = (Boat.player.transform.position - transform.position).normalized;
+		Vector3 unitVector;
+		if (Boat.player.gameObject != null)
+			unitVector = (Boat.player.transform.position - transform.position).normalized;
+		else
+			unitVector = Camera.main.ViewportToWorldPoint (Vector3.up * Random.Range (0.0f, 1.0f) - transform.position).normalized;
 
 		Quaternion rotation = Quaternion.LookRotation (unitVector, transform.up);
 		transform.rotation = new Quaternion (0, 0, rotation.z,rotation.w);

@@ -19,7 +19,7 @@ public class Boat : MonoBehaviour {
 
 	public GameObject moonPrefab;
 
-	bool thrown;
+	//bool thrown;
 	bool dead;
 
 	Rigidbody2D rb2d;
@@ -49,7 +49,8 @@ public class Boat : MonoBehaviour {
 	}
 
 	void Update () {
-
+		if (dead)
+			return;
 		float horizontal = Input.GetAxis ("Horizontal") * Time.deltaTime;
 
 		if (Input.GetMouseButtonDown (0) && !moonOut) {
@@ -98,7 +99,7 @@ public class Boat : MonoBehaviour {
 	{
         moonOut = true;
 		GameObject moon = Instantiate (moonPrefab, transform.position, Quaternion.identity) as GameObject;
-        moon.GetComponent<Moon>().destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		moon.GetComponent<Moon>().GiveVector(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 		AudioController.controller.WaterRise ();
 
 		if (tutorialMode && TutorialController.controller.CheckIfOnStage (TutorialController.TutorialStage.SPAWN_MOON))
@@ -107,7 +108,7 @@ public class Boat : MonoBehaviour {
 
 	public void MoonReturned()
 	{
-		thrown = false;
+		//thrown = false;
 	}
 		
 	#region Collisions/Triggers

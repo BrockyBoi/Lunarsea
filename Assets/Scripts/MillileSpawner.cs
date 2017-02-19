@@ -149,8 +149,8 @@ public class MillileSpawner : MonoBehaviour {
 
 	IEnumerator RockEnum(int amount)
 	{
-		float minRockHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0)).y;
-		float maxRockHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0.2f)).y;
+		float minRockHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, .1f)).y;
+		float maxRockHeight = Camera.main.ViewportToWorldPoint (new Vector3 (0, 0.15f)).y;
 		float offScreen = Camera.main.ViewportToWorldPoint (new Vector3 (1, 0)).x;
 
 		for (int i = 0; i < amount; i++) {

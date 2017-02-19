@@ -39,9 +39,14 @@ public class SpeechController : MonoBehaviour {
 			currentPhrase++;
 			textField.text = phrases [currentPhrase];
 		} else {
-			textTime = false;
-			textField.transform.parent.gameObject.SetActive (false);
+			CloseWindow ();
 		}
+	}
+
+	public void CloseWindow()
+	{
+		textTime = false;
+		textField.transform.parent.gameObject.SetActive (false);
 	}
 
 	public bool CheckTextTime()
