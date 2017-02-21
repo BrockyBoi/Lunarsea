@@ -26,7 +26,7 @@ public class MainCanvas : MonoBehaviour {
 	}
 
 	void UpdateScore() {
-		if (Boat.player.GetHealth () > 0 && !SpeechController.controller.CheckTextTime()) {
+		if (Boat.player.CheckIfAlive() && !SpeechController.controller.CheckTextTime()) {
 			score += Time.fixedDeltaTime;
 		}
 		scoreText.text = "Score: "+string.Format("{0:0.0}",score) + " m";

@@ -19,7 +19,7 @@ public class TrackingMissile : MonoBehaviour {
 	IEnumerator TakeShot()
 	{
 		Vector3 unitVector;
-		if (Boat.player.gameObject != null)
+		if (Boat.player.CheckIfAlive())
 			unitVector = (Boat.player.transform.position - transform.position).normalized;
 		else
 			unitVector = Camera.main.ViewportToWorldPoint (Vector3.up * Random.Range (0.0f, 1.0f) - transform.position).normalized;

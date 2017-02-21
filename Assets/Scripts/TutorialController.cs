@@ -39,6 +39,9 @@ public class TutorialController : MonoBehaviour {
 		SpeechController.controller.NextPhrase ();
 
 		if (t == TutorialStage.DONE)
+		{
+			tutorialMode = false;
 			Boat.player.SetTutorialMode (false);
+		}
 	}
 }

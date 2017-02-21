@@ -19,12 +19,14 @@ public class SpeechController : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		FirstPhrase ();
+		if(TutorialController.controller.tutorialMode)
+		{
+			FirstPhrase ();
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
 	}
 
 	void FirstPhrase()

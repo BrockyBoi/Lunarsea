@@ -155,7 +155,7 @@ public class Boat : MonoBehaviour {
 		dead = true;
 		MainCanvas.controller.DeathScreen ();
 		AudioController.controller.BoatDeath ();
-		enabled = false;
+		//enabled = false;
 	}
 
 	public void AddHealth()
@@ -181,6 +181,14 @@ public class Boat : MonoBehaviour {
 	public void SetTutorialMode(bool b)
 	{
 		tutorialMode = b;
+	}
+
+	public bool CheckIfAlive()
+	{
+		if(!dead)
+			return true;
+
+		return false;
 	}
 
 	bool CheckIfAllowed(TutorialController.TutorialStage t)
