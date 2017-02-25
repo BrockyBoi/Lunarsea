@@ -20,13 +20,17 @@ public class TrackingMissile : MonoBehaviour {
 	{
 		Vector3 unitVector;
 		if (Boat.player.CheckIfAlive())
-			unitVector = (Boat.player.transform.position - transform.position).normalized;
+		{
+			unitVector = Boat.player.transform.position - transform.position;
+		}
 		else
-			unitVector = Camera.main.ViewportToWorldPoint (Vector3.up * Random.Range (0.0f, 1.0f) - transform.position).normalized;
+		{
+			unitVector = new Vector3 (Random.Range(-5,5), -10) - transform.position;
+		}
+
 
 		Quaternion rotation = Quaternion.LookRotation (unitVector, transform.up);
-		transform.rotation = new Quaternion (0, 0, rotation.z,rotation.w);
-
+		transform.rotation = new Quaternion (0, 0, Mathf.Abs(rotation.z), Mathf.Abs(rotation.w));
 		while (true) {
 			transform.position = Vector3.MoveTowards (transform.position, transform.position + unitVector, speed * Time.deltaTime);
 			yield return null;

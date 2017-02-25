@@ -18,6 +18,7 @@ public class Moon : MonoBehaviour {
 	void Update () {
 		if (Input.GetMouseButtonDown(0) && !returning)
         {
+			StopAllCoroutines();
 			returning = true;
 			StartCoroutine (MoveMoon(Boat.player.transform.position));
         }
@@ -45,15 +46,17 @@ public class Moon : MonoBehaviour {
 
 		while (t < 1) {
 			if (!boat)
-				transform.position = Vector3.Lerp (transform.position, pos, t);
-			else
-				transform.position = Vector3.Lerp (transform.position, Boat.player.transform.position, t);
-			if (!boat)
+			{
 				transform.localScale = Vector3.Lerp (transform.localScale, size, t);
-			else {
+				transform.position = Vector3.Lerp (transform.position, pos, t);
+			}
+			else
+			{
+				transform.position = Vector3.Lerp (transform.position, Boat.player.transform.position, t);
 				size /= 1.2f;
 				transform.localScale = size;
 			}
+
 			t += Time.deltaTime * 1.5f;
 
 			yield return null;

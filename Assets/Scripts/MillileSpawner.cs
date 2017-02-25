@@ -66,6 +66,8 @@ public class MillileSpawner : MonoBehaviour
         StartCoroutine(SpawnTrackerMissiles(4));
         StartCoroutine(RockEnum(4));
         yield return waitForRocks;
+
+        StartCoroutine(Wave1());
     }
     #endregion
 
