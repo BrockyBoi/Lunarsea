@@ -6,7 +6,7 @@ public class WaterJointGenerator : MonoBehaviour {
 	[SerializeField]
 	GameObject waterJointPrefab;
 	[SerializeField]
-	[Range(0,100)]
+	[Range(0,200)]
 	int numJoints = Screen.width/10;
 	[SerializeField]
 	[Range(0.5f,1)]

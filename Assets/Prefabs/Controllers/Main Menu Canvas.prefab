@@ -479,6 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   credits: {fileID: 114862782405430704}
+  loading: {fileID: 0}
   buttons:
   - {fileID: 114807482363242238}
   - {fileID: 114510179948715542}

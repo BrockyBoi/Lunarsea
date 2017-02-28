@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   initialViewportXPos: 0.5
+  zpos: 0
 --- !u!212 &212010461164840396
 SpriteRenderer:
   m_ObjectHideFlags: 1

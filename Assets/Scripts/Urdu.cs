@@ -12,7 +12,7 @@ public bool side;
 	}
 	void OnTriggerEnter2D(Collider2D INFIDEL)
 	{
-		if(INFIDEL.gameObject.layer != LayerMask.NameToLayer("Water"))
+		if(INFIDEL.gameObject.layer != LayerMask.NameToLayer("Water") && INFIDEL.gameObject.CompareTag("ArtificialWave"))
 			Destroy (INFIDEL.gameObject);
 	}
 }

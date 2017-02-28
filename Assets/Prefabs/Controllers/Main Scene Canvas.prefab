@@ -406,7 +406,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathScreen: {fileID: 1575083465286874}
+  scoreText: {fileID: 0}
   healthImages: []
+  waterParent: {fileID: 0}
 --- !u!114 &114467267021951856
 MonoBehaviour:
   m_ObjectHideFlags: 1
