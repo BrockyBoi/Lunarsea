@@ -10,6 +10,8 @@ public class MainCanvas : MonoBehaviour {
 	public GameObject deathScreen;
 	public Text scoreText;
 	public Image[] healthImages;
+
+	public GameObject waterParent;
 	float score = 0.0f;
 	void Awake()
 	{
@@ -58,6 +60,11 @@ public class MainCanvas : MonoBehaviour {
 			} else
 				healthImages [i].gameObject.SetActive (false);
 		}
+	}
+
+	public GameObject GetWaterParent()
+	{
+		return waterParent;
 	}
 
 

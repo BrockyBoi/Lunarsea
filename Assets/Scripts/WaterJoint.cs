@@ -28,6 +28,11 @@ public class WaterJoint : MonoBehaviour {
 		currentMesh = Instantiate (waterMeshPrefab,Vector3.zero,Quaternion.identity);
 	}
 
+	void Start()
+	{
+		//transform.SetParent(MainCanvas.controller.GetWaterParent().transform);
+	}
+
 	public void FixedUpdate() {
 		generateMesh();
 	}
