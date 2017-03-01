@@ -40,6 +40,8 @@ GameObject:
   - component: {fileID: 50199509085235660}
   - component: {fileID: 61451799092928206}
   - component: {fileID: 114995058705049724}
+  - component: {fileID: 58972495545284166}
+  - component: {fileID: 250551577363746416}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Missile
@@ -54,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706525829344378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.4872494, y: -2.0087657, z: 0}
+  m_LocalPosition: {x: -15.53635, y: -4.667883, z: 0}
   m_LocalScale: {x: 4.82, y: 3.14, z: 1}
   m_Children:
   - {fileID: 4619288013115576}
@@ -94,6 +96,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58972495545284166
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706525829344378}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 1
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.28
 --- !u!61 &61451799092928206
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -121,6 +137,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   particles: {fileID: 1597742983234352, guid: b94b794dbd0ca4541856e0b1191a035b, type: 2}
+  explosionCollider: {fileID: 58972495545284166}
+  effector: {fileID: 250551577363746416}
+  IgnoreWater: 0
 --- !u!198 &198310155285454298
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -2771,3 +2790,22 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!250 &250551577363746416
+PointEffector2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706525829344378}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294960344
+  m_ForceMagnitude: 80
+  m_ForceVariation: 0
+  m_DistanceScale: 1
+  m_ForceSource: 0
+  m_ForceTarget: 0
+  m_ForceMode: 0
+  m_Drag: 0
+  m_AngularDrag: 0

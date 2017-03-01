@@ -11,7 +11,7 @@ public class MainCanvas : MonoBehaviour {
 	public Text scoreText;
 	public Image[] healthImages;
 
-	public GameObject waterParent;
+	public Image blackScreen;
 	float score = 0.0f;
 	void Awake()
 	{
@@ -20,6 +20,7 @@ public class MainCanvas : MonoBehaviour {
 		
 	void Start () {
 		deathScreen.SetActive (false);
+		StartCoroutine(FadeToBlack());
 	}
 
 
@@ -62,9 +63,16 @@ public class MainCanvas : MonoBehaviour {
 		}
 	}
 
-	public GameObject GetWaterParent()
+	IEnumerator FadeToBlack()
 	{
-		return waterParent;
+		float time = 0;
+		while(time < 1)
+		{
+			time += Time.deltaTime * .25f;
+			Color c = blackScreen.color;
+			blackScreen.color = new Color(c.r,c.b,c.g, time);
+			yield return null;
+		}
 	}
 
 

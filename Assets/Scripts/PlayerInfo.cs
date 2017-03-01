@@ -11,6 +11,7 @@ public class PlayerInfo : MonoBehaviour {
 	public bool DontLoadOnStart;
 
 	int highScore;
+	float[] playerUpgrades = new float[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
 	void Awake()
 	{
 		if (controller == null)
@@ -35,6 +36,7 @@ public class PlayerInfo : MonoBehaviour {
 
 		PlayerData data = new PlayerData ();
 		data.highScore = highScore;
+		data.playerUpgrades = playerUpgrades;
 		bf.Serialize (file, data);
 		file.Close ();
 
@@ -49,6 +51,7 @@ public class PlayerInfo : MonoBehaviour {
 			file.Close ();
 
 			highScore = data.highScore;
+			playerUpgrades = data.playerUpgrades;
 		}
 	}
 
@@ -56,6 +59,7 @@ public class PlayerInfo : MonoBehaviour {
 	class PlayerData
 	{
 		public int highScore;
+		public float[] playerUpgrades = new float[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
 	}
 
 	public int GetHighScore()
@@ -68,6 +72,9 @@ public class PlayerInfo : MonoBehaviour {
 		highScore = score;
 	}
 
-
+	public void GiveUpgrades(float[] upgrades)
+	{
+		upgrades.CopyTo(playerUpgrades, 0);
+	}
 }
  

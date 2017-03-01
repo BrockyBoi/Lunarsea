@@ -42,6 +42,7 @@ public class MillileSpawner : MonoBehaviour
     #region Waves
     IEnumerator Wave1()
     {
+         StartCoroutine(SpawnTrackerMissiles(4));
         if (TutorialController.controller.tutorialMode)
         {
             while (TutorialController.controller.tutorialMode)
@@ -74,8 +75,8 @@ public class MillileSpawner : MonoBehaviour
     #region Missiles
     void SpawnMissile()
     {
-        float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .5f)).y;
-        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .75f)).y;
+        float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .65f)).y;
+        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .9f)).y;
         Vector2 offScreen = new Vector2(Camera.main.ViewportToWorldPoint(new Vector3(1, .5f)).x + 5, Random.Range(minHeight, maxHeight));
 
         Instantiate(missilePrefab, offScreen, Quaternion.identity);
@@ -83,11 +84,11 @@ public class MillileSpawner : MonoBehaviour
 
     void MissileVolley()
     {
-        float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .35f)).y;
-        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .9f)).y;
+        float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .4f)).y;
+        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .75f)).y;
         float offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             Instantiate(missilePrefab, new Vector3(offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 5.0f))), Quaternion.identity);
         }
@@ -95,11 +96,11 @@ public class MillileSpawner : MonoBehaviour
 
     void BlueMissileVolleyHigh()
     {
-        float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .45f)).y;
-        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .9f)).y;
+        float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .5f)).y;
+        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .8f)).y;
         float offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             Instantiate(blueMissilePrefab, new Vector3(offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 3.0f))), Quaternion.identity);
         }
@@ -108,10 +109,10 @@ public class MillileSpawner : MonoBehaviour
     void BlueMissileVolleyLow()
     {
         float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .1f)).y;
-        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .5f)).y;
+        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .45f)).y;
         float offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             Instantiate(blueMissilePrefab, new Vector3(offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 3.0f))), Quaternion.identity);
         }

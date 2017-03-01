@@ -121,6 +121,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   particles: {fileID: 1597742983234352, guid: b94b794dbd0ca4541856e0b1191a035b, type: 2}
+  explosionCollider: {fileID: 0}
+  effector: {fileID: 0}
+  IgnoreWater: 1
 --- !u!198 &198310155285454298
 ParticleSystem:
   m_ObjectHideFlags: 1

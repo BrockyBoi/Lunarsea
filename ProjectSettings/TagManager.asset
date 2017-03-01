@@ -9,6 +9,7 @@ TagManager:
   - Pillar
   - PlatformProjectile
   - ArtificialWave
+  - Platform
   layers:
   - Default
   - TransparentFX
