@@ -43,6 +43,9 @@ GameObject:
   - component: {fileID: 33796704552596750}
   - component: {fileID: 114538185427484966}
   - component: {fileID: 23076952812425530}
+  - component: {fileID: 253918674065192030}
+  - component: {fileID: 61527193649614194}
+  - component: {fileID: 58503450904778810}
   m_Layer: 4
   m_Name: Joint
   m_TagString: Untagged
@@ -179,6 +182,34 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.09926224
+--- !u!58 &58503450904778810
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404304788250446}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 1
+  m_Offset: {x: 0, y: -0.5}
+  serializedVersion: 2
+  m_Radius: 1
+--- !u!61 &61527193649614194
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404304788250446}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 1
+  m_Offset: {x: 0, y: -0.5}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!70 &70872684576378168
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -300,4 +331,22 @@ BuoyancyEffector2D:
   m_AngularDrag: 5
   m_FlowAngle: 0
   m_FlowMagnitude: 0
+  m_FlowVariation: 0
+--- !u!253 &253918674065192030
+BuoyancyEffector2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1404304788250446}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_SurfaceLevel: 0
+  m_Density: 1.5
+  m_LinearDrag: 5
+  m_AngularDrag: 5
+  m_FlowAngle: 90
+  m_FlowMagnitude: 5
   m_FlowVariation: 0

@@ -135,7 +135,7 @@ public class Boat : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
         {
-            AudioController.controller.Gargle();
+            //AudioController.controller.Gargle();
         }
 
 		if(other.gameObject.CompareTag("Pillar"))
