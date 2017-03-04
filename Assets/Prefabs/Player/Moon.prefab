@@ -189,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0, z: 0}
   distance: 0.02
-  magnification: 6
+  magnification: 8
 --- !u!212 &212351555317478604
 SpriteRenderer:
   m_ObjectHideFlags: 1
