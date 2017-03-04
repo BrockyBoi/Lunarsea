@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Boat : MonoBehaviour
@@ -73,8 +72,9 @@ public class Boat : MonoBehaviour
     void CheckBoundaries()
     {
         //Vector3 screenCoor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
-		Vector3 leftSide = Camera.main.ViewportToWorldPoint(Vector2.zero);
-		Vector3 rightSide = Camera.main.ViewportToWorldPoint(Vector2.right);
+        Vector3 leftSide = Camera.main.ViewportToWorldPoint(Vector2.zero);
+        Vector3 rightSide = Camera.main.ViewportToWorldPoint(Vector2.right);
+        
         if (transform.position.x > rightSide.x - 1)
         {
             transform.position = new Vector3(rightSide.x - 1, transform.position.y);
@@ -123,14 +123,14 @@ public class Boat : MonoBehaviour
 
     #region Collisions/Triggers
 
-	void OnCollisionEnter2D(Collision2D other)
-	{
-		if(other.gameObject.CompareTag("PlatformProjectile"))
-		{
-			TakeDamage();
-			Destroy(other.gameObject);
-		}
-	}
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("PlatformProjectile"))
+        {
+            TakeDamage();
+            Destroy(other.gameObject);
+        }
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
@@ -138,11 +138,11 @@ public class Boat : MonoBehaviour
             AudioController.controller.Gargle();
         }
 
-		if(other.gameObject.CompareTag("Pillar"))
-		{
-			TakeDamage();
-			Destroy(other.transform.parent.gameObject);
-		}
+        if (other.gameObject.CompareTag("Pillar"))
+        {
+            TakeDamage();
+            Destroy(other.transform.parent.gameObject);
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -172,20 +172,27 @@ public class Boat : MonoBehaviour
         health--;
         MainCanvas.controller.HealthChange();
         anim.SetTrigger("hit");
+        UpdateHealthUI();
+            if (health == 0)
+                Die();
+        
+    }
+
+    void UpdateHealthUI()
+    {
         if (health < 1)
         {
             for (int i = 0; i < colliders.Count; i++)
             {
                 colliders[i].enabled = false;
             }
-
-            if (health == 0)
-                Die();
         }
     }
 
-    void Die()
+    public void Die()
     {
+        UpdateHealthUI();
+        health = 0;
         dead = true;
         MainCanvas.controller.DeathScreen();
         AudioController.controller.BoatDeath();

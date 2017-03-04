@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    public float speed;
-    float variable;
+    public float speed;    float variable;
 
     public GameObject particles;
     [SerializeField]
@@ -39,9 +37,10 @@ public class Missile : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (!dead && other.gameObject.CompareTag("Player"))
         {
             HitPlayer(other.gameObject);
+              Debug.Log("Missile hit player");
         }
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
@@ -56,11 +55,12 @@ public class Missile : MonoBehaviour
         if (!dead && other.gameObject.CompareTag("Player"))
         {
             HitPlayer(other.gameObject);
+            Debug.Log("Missile hit player");
         }
 
 		if(other.gameObject.CompareTag("Pillar") || other.gameObject.CompareTag("Platform"))
 		{
-			Destroy(other.gameObject);
+		    Destroy(other.transform.parent.gameObject);
 			Explode();
 		}
     }

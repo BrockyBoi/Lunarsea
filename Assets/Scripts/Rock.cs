@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Rock : MonoBehaviour {
 	public float speed;
@@ -20,6 +18,7 @@ public class Rock : MonoBehaviour {
 			other.gameObject.GetComponent<Boat> ().TakeDamage ();
 			AudioController.controller.BoatHitsRock ();
 			hitPlayer = true;
+			Debug.Log("Rock hit boat");
 		}
 	}
 }

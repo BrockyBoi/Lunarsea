@@ -20,7 +20,7 @@ public class MainCanvas : MonoBehaviour {
 		
 	void Start () {
 		deathScreen.SetActive (false);
-		StartCoroutine(FadeToBlack());
+		//StartCoroutine(FadeToBlack());
 	}
 
 

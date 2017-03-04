@@ -14,5 +14,10 @@ public bool side;
 	{
 		if(INFIDEL.gameObject.layer != LayerMask.NameToLayer("Water") && INFIDEL.gameObject.CompareTag("ArtificialWave"))
 			Destroy (INFIDEL.gameObject);
+
+			if(INFIDEL.gameObject.CompareTag("Player"))
+			{
+				Boat.player.Die();
+			}
 	}
 }

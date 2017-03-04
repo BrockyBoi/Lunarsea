@@ -57,7 +57,7 @@ public class Moon : MonoBehaviour {
 				transform.localScale = size;
 			}
 
-			t += Time.deltaTime * 1.5f;
+			t += Time.deltaTime * 2f;
 
 			yield return null;
 		}

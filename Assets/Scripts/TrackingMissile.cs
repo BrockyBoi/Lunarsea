@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TrackingMissile : MonoBehaviour
@@ -39,13 +38,14 @@ public class TrackingMissile : MonoBehaviour
         {
             unitVector = new Vector3(Random.Range(-5, 5), -10) - transform.position;
         }
-
-
+       
+        //http://answers.unity3d.com/questions/654222/make-sprite-look-at-vector2-in-unity-2d-1.html
+        float angle = Mathf.Atan2(unitVector.y, unitVector.x) * Mathf.Rad2Deg - 180;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        
         while (true)
         {
             transform.position = Vector2.MoveTowards(transform.position, transform.position + unitVector, speed * Time.deltaTime);
-            Quaternion rotation = Quaternion.LookRotation(unitVector, transform.up);
-            transform.rotation = new Quaternion(0, 0, Mathf.Abs(rotation.z), rotation.w);
             yield return null;
         }
     }
@@ -56,6 +56,7 @@ public class TrackingMissile : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             HitPlayer(other.gameObject);
+                 Debug.Log("Tracking missile hit player");
         }
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
@@ -69,11 +70,12 @@ public class TrackingMissile : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             HitPlayer(other.gameObject);
+            Debug.Log("Tracking missile hit player");
         }
 
         if (other.gameObject.CompareTag("Pillar") || other.gameObject.CompareTag("Platform"))
         {
-            Destroy(other.gameObject);
+            Destroy(other.transform.parent.gameObject);
             Explode();
         }
     }
