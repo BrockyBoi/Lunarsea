@@ -20,13 +20,14 @@ public class UpgradeController : MonoBehaviour {
 	}
 
 
-	public void UpgradePlayer(int upgrade)
+	public void BuyUpgrade(int upgrade)
 	{
 		upgradeValues[upgrade]++;
 	}
 
-	public void UpgradePlayer(Upgrade u)
+	public void BuyUpgrade(Upgrade u)
 	{
 		upgradeValues[(int)u]++;
 	}
+
 }

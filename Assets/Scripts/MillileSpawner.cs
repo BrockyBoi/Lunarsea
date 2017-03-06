@@ -1,8 +1,10 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MillileSpawner : MonoBehaviour
 {
+    public List<ParallaxScroll> pScrolls;
     public GameObject missilePrefab;
     public GameObject blueMissilePrefab;
     public GameObject trackerMissile;
@@ -14,10 +16,15 @@ public class MillileSpawner : MonoBehaviour
     float hTimer;
     float hNextTime;
 
+    float speedMultiplier;
+
+    float healthRate;
+
     // Use this for initialization
     void Start()
     {
         hNextTime = 5;
+        healthRate = 8;
         waitForRocks = new WaitForSeconds(5);
         waitForMissiles = new WaitForSeconds(3);
 
@@ -33,7 +40,7 @@ public class MillileSpawner : MonoBehaviour
         hTimer += Time.deltaTime;
         if (hTimer >= hNextTime)
         {
-            hNextTime += 8;
+            hNextTime += healthRate;
             SpawnHealth();
         }
     }
@@ -48,7 +55,7 @@ public class MillileSpawner : MonoBehaviour
                 yield return null;
             }
         }
-        else yield return new WaitForSeconds(5);
+        else yield return new WaitForSeconds(2.5f);
 
         MissileVolley();
         yield return waitForMissiles;
@@ -66,10 +73,23 @@ public class MillileSpawner : MonoBehaviour
         StartCoroutine(RockEnum(4));
          yield return waitForRocks;
 
+
+        UpdateSpeedMultiplier(1f);
         StartCoroutine(Wave1());
     }
     #endregion
 
+
+    void UpdateSpeedMultiplier(float amount)
+    {
+        speedMultiplier += amount;
+        MainCanvas.controller.speedMult += amount;
+        for(int i = 0; i < pScrolls.Count; i++)
+        {
+            pScrolls[i].GiveSpeedMultiplier(amount);
+        }
+        Debug.Log(speedMultiplier);
+    }
     #region Missiles
     void SpawnMissile()
     {
@@ -77,7 +97,8 @@ public class MillileSpawner : MonoBehaviour
         float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .9f)).y;
         Vector2 offScreen = new Vector2(Camera.main.ViewportToWorldPoint(new Vector3(1, .5f)).x + 5, Random.Range(minHeight, maxHeight));
 
-        Instantiate(missilePrefab, offScreen, Quaternion.identity);
+        GameObject missile = Instantiate(missilePrefab, offScreen, Quaternion.identity) as GameObject;
+        missile.GetComponent<Missile>().GiveSpeedMultiplier(speedMultiplier);
     }
 
     void MissileVolley()
@@ -88,7 +109,8 @@ public class MillileSpawner : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            Instantiate(missilePrefab, new Vector3(offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 5.0f))), Quaternion.identity);
+            GameObject missile = Instantiate(missilePrefab, new Vector3(offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 5.0f))), Quaternion.identity) as GameObject;
+            missile.GetComponent<Missile>().GiveSpeedMultiplier(speedMultiplier);
         }
     }
 
@@ -100,7 +122,8 @@ public class MillileSpawner : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            Instantiate(blueMissilePrefab, new Vector3(offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 3.0f))), Quaternion.identity);
+            GameObject missile = Instantiate(blueMissilePrefab, new Vector3(offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 3.0f))), Quaternion.identity) as GameObject;
+            missile.GetComponent<Missile>().GiveSpeedMultiplier(speedMultiplier);
         }
     }
 
@@ -112,7 +135,8 @@ public class MillileSpawner : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            Instantiate(blueMissilePrefab, new Vector3(offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 3.0f))), Quaternion.identity);
+            GameObject missile = Instantiate(blueMissilePrefab, new Vector3(offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 3.0f))), Quaternion.identity) as GameObject;
+            missile.GetComponent<Missile>().GiveSpeedMultiplier(speedMultiplier);
         }
     }
 
@@ -122,7 +146,8 @@ public class MillileSpawner : MonoBehaviour
 
         for (int i = 0; i < missileCount; i++)
         {
-            Instantiate(trackerMissile, offScreen, Quaternion.identity);
+            GameObject trackMissile = Instantiate(trackerMissile, offScreen, Quaternion.identity) as GameObject;
+            trackMissile.GetComponent<TrackingMissile>().GiveSpeedMultiplier(speedMultiplier);
             yield return new WaitForSeconds(2.5f);
         }
     }
@@ -131,10 +156,11 @@ public class MillileSpawner : MonoBehaviour
     #region Rocks
     void SpawnRock()
     {
-        float minRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, 0)).y;
-        float maxRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.15f)).y;
+        float minRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .2f)).y;
+        float maxRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.3f)).y;
         float offScreen = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
-        Instantiate(rockPrefab, new Vector3(offScreen + 20, Random.Range(minRockHeight, maxRockHeight)), Quaternion.identity);
+        GameObject rock = Instantiate(rockPrefab, new Vector3(offScreen + 20, Random.Range(minRockHeight, maxRockHeight)), Quaternion.identity) as GameObject;
+        rock.GetComponent<Rock>().GiveSpeedMultiplier(speedMultiplier);
     }
 
     IEnumerator RockEnum(int amount)
@@ -145,7 +171,8 @@ public class MillileSpawner : MonoBehaviour
 
         for (int i = 0; i < amount; i++)
         {
-            Instantiate(rockPrefab, new Vector3(offScreen + 20, Random.Range(minRockHeight, maxRockHeight)), Quaternion.identity);
+            GameObject rock = Instantiate(rockPrefab, new Vector3(offScreen + 20, Random.Range(minRockHeight, maxRockHeight)), Quaternion.identity) as GameObject;
+            rock.GetComponent<Rock>().GiveSpeedMultiplier(speedMultiplier);
             yield return new WaitForSeconds(1.5f);
         }
     }
@@ -158,7 +185,21 @@ public class MillileSpawner : MonoBehaviour
         float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .55f)).y;
         Vector2 offScreen = new Vector2(Camera.main.ViewportToWorldPoint(new Vector3(1, .5f)).x + 5, Random.Range(minHeight, maxHeight));
 
-        Instantiate(healthPrefab, offScreen, Quaternion.identity);
+        GameObject health = Instantiate(healthPrefab, offScreen, Quaternion.identity) as GameObject;
+        health.GetComponent<HealthPickup>().GiveSpeedMultiplier(speedMultiplier);
     }
+    #endregion
+
+    #region Upgrades
+    public void UpgradeCoinDrop(float rate)
+    {
+
+    }
+
+    public void UpgradeHealthDrop(float rate)
+    {
+        healthRate = 8 - rate;
+    }
+
     #endregion
 }

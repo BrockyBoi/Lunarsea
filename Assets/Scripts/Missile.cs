@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    public float speed;    float variable;
+    public float speed;
+    float variable;
 
     public GameObject particles;
     [SerializeField]
@@ -88,5 +89,10 @@ public class Missile : MonoBehaviour
     {
         explosionCollider.enabled = false;
         effector.enabled = false;
+    }
+
+    public void GiveSpeedMultiplier(float mult)
+    {
+        speed += mult;
     }
 }

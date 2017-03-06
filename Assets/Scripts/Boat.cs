@@ -24,6 +24,7 @@ public class Boat : MonoBehaviour
 
     Rigidbody2D rb2d;
     int health;
+    int maxHealth;
 
     Animator anim;
 
@@ -42,13 +43,15 @@ public class Boat : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        colliders = new List<Collider2D>(GetComponents<CircleCollider2D>());
+        colliders = new List<Collider2D>();
         colliders.Add(GetComponent<BoxCollider2D>());
+        colliders.Add(GetComponent<PolygonCollider2D>());
     }
 
     void Start()
     {
-        health = 3;
+        maxHealth = health = 3;
+        MainCanvas.controller.HealthChange();
     }
 
     void Update()
@@ -74,7 +77,7 @@ public class Boat : MonoBehaviour
         //Vector3 screenCoor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
         Vector3 leftSide = Camera.main.ViewportToWorldPoint(Vector2.zero);
         Vector3 rightSide = Camera.main.ViewportToWorldPoint(Vector2.right);
-        
+
         if (transform.position.x > rightSide.x - 1)
         {
             transform.position = new Vector3(rightSide.x - 1, transform.position.y);
@@ -172,13 +175,12 @@ public class Boat : MonoBehaviour
         health--;
         MainCanvas.controller.HealthChange();
         anim.SetTrigger("hit");
-        UpdateHealthUI();
-            if (health == 0)
-                Die();
-        
+        if (health == 0)
+            Die();
+
     }
 
-    void UpdateHealthUI()
+    void UpdateColliders()
     {
         if (health < 1)
         {
@@ -191,12 +193,11 @@ public class Boat : MonoBehaviour
 
     public void Die()
     {
-        UpdateHealthUI();
         health = 0;
         dead = true;
+        UpdateColliders();
         MainCanvas.controller.DeathScreen();
         AudioController.controller.BoatDeath();
-        //enabled = false;
     }
 
     public void AddHealth()
@@ -204,6 +205,21 @@ public class Boat : MonoBehaviour
         health = Mathf.Min(health + 1, 3);
         MainCanvas.controller.HealthChange();
         AudioController.controller.PlayRepairBoat();
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public void UpdateMaxHealth()
+    {
+        maxHealth++;
+    }
+
+    public void UpdateInvulTime(float time)
+    {
+        invulTime -= 1;
     }
 
     public int GetHealth()

@@ -38,11 +38,11 @@ public class TrackingMissile : MonoBehaviour
         {
             unitVector = new Vector3(Random.Range(-5, 5), -10) - transform.position;
         }
-       
+
         //http://answers.unity3d.com/questions/654222/make-sprite-look-at-vector2-in-unity-2d-1.html
         float angle = Mathf.Atan2(unitVector.y, unitVector.x) * Mathf.Rad2Deg - 180;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        
+
         while (true)
         {
             transform.position = Vector2.MoveTowards(transform.position, transform.position + unitVector, speed * Time.deltaTime);
@@ -56,7 +56,7 @@ public class TrackingMissile : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             HitPlayer(other.gameObject);
-                 Debug.Log("Tracking missile hit player");
+            Debug.Log("Tracking missile hit player");
         }
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
@@ -106,5 +106,10 @@ public class TrackingMissile : MonoBehaviour
         AudioController.controller.PlayMissileSound();
         Instantiate(particles, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    public void GiveSpeedMultiplier(float mult)
+    {
+        speed += mult;
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ParallaxScroll : MonoBehaviour {
-
 	SpriteRenderer spr;
 	Vector3 backPos;
 	public float speed = 0.1f;
@@ -24,7 +23,7 @@ public class ParallaxScroll : MonoBehaviour {
 
 	void ResizeToScreen() {
 		float height = Camera.main.orthographicSize * 2;
-		float width = height * Screen.width/ Screen.height;
+		float width = height * Screen.width / Screen.height;
 
 		Sprite s = spr.sprite;
 		float unitWidth = s.textureRect.width / s.pixelsPerUnit;
@@ -49,6 +48,11 @@ public class ParallaxScroll : MonoBehaviour {
 		//transform.position = Vector3.MoveTowards(transform.position,Camera.main.ViewportToWorldPoint(new Vector3(0,0.5f)),Time.fixedDeltaTime);
 		//transform.Translate (new Vector3(-speed,0));
 	}
+
+	public void GiveSpeedMultiplier(float mult)
+    {
+        speed += mult;
+    }
 
 		
 }
