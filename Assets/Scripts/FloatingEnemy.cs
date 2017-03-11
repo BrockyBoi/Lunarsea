@@ -37,7 +37,6 @@ public class FloatingEnemy : MonoBehaviour
         proj.GetComponent<Rigidbody2D>().AddForce(dir * force);
 
         Invoke("SpawnProjectiles", spawnRate);
-
     }
 
     void MoveParentObject()

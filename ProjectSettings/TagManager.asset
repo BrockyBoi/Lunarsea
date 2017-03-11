@@ -10,6 +10,10 @@ TagManager:
   - PlatformProjectile
   - ArtificialWave
   - Platform
+  - Enemy Boat
+  - Rock
+  - Boss
+  - Cloud Enemy
   layers:
   - Default
   - TransparentFX

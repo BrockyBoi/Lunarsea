@@ -9,65 +9,66 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1692220023745760}
+  m_RootGameObject: {fileID: 1288978696879868}
   m_IsPrefabParent: 1
---- !u!1 &1692220023745760
+--- !u!1 &1288978696879868
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4073720528259098}
-  - component: {fileID: 212761119162284616}
-  - component: {fileID: 50699093347274442}
-  - component: {fileID: 58531316136175946}
-  m_Layer: 11
-  m_Name: PlatformProjectile
-  m_TagString: PlatformProjectile
+  - component: {fileID: 4861165153692586}
+  - component: {fileID: 114334102534760888}
+  - component: {fileID: 212498679319315748}
+  - component: {fileID: 58968646028364900}
+  - component: {fileID: 50689455884308734}
+  m_Layer: 0
+  m_Name: Cloud Enemy
+  m_TagString: Cloud Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4073720528259098
+--- !u!4 &4861165153692586
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1692220023745760}
+  m_GameObject: {fileID: 1288978696879868}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.84416, y: 2.3406048, z: 0}
-  m_LocalScale: {x: 7.2493873, y: 7.285849, z: 1}
+  m_LocalPosition: {x: 10.885319, y: 1.91, z: 90}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50699093347274442
+--- !u!50 &50689455884308734
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1692220023745760}
+  m_GameObject: {fileID: 1288978696879868}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.25
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58531316136175946
+--- !u!58 &58968646028364900
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1692220023745760}
+  m_GameObject: {fileID: 1288978696879868}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -75,13 +76,29 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.08630339
---- !u!212 &212761119162284616
+  m_Radius: 0.1
+--- !u!114 &114334102534760888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1288978696879868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850abc7ac9de68a408f84fb009b2132b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bombPrefab: {fileID: 1400926450010360, guid: b0d6c543ac2076449bd3c7e5a0c4b28e, type: 2}
+  FollowPlayer: 1
+  speed: 5
+  smoothTime: 1
+  bombFrequency: 4
+--- !u!212 &212498679319315748
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1692220023745760}
+  m_GameObject: {fileID: 1288978696879868}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -106,7 +123,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
