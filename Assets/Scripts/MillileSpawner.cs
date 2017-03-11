@@ -104,7 +104,7 @@ public class MillileSpawner : MonoBehaviour
     void MissileVolley()
     {
         float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .4f)).y;
-        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .75f)).y;
+        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .85f)).y;
         float offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
 
         for (int i = 0; i < 5; i++)

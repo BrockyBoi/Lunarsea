@@ -40,6 +40,8 @@ GameObject:
   - component: {fileID: 50199509085235660}
   - component: {fileID: 61451799092928206}
   - component: {fileID: 114995058705049724}
+  - component: {fileID: 250915955838811702}
+  - component: {fileID: 58506023475733498}
   m_Layer: 11
   m_Name: Blue Missile
   m_TagString: Missile
@@ -85,7 +87,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 4
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -94,6 +96,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58506023475733498
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706525829344378}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 1
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.28
 --- !u!61 &61451799092928206
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -121,8 +137,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   particles: {fileID: 1597742983234352, guid: b94b794dbd0ca4541856e0b1191a035b, type: 2}
-  explosionCollider: {fileID: 0}
-  effector: {fileID: 0}
+  explosionCollider: {fileID: 58506023475733498}
+  effector: {fileID: 250915955838811702}
   IgnoreWater: 1
 --- !u!198 &198310155285454298
 ParticleSystem:
@@ -2774,3 +2790,22 @@ SpriteRenderer:
   m_Color: {r: 0.31401372, g: 0.2352941, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!250 &250915955838811702
+PointEffector2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706525829344378}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294960345
+  m_ForceMagnitude: 50
+  m_ForceVariation: 0
+  m_DistanceScale: 1
+  m_ForceSource: 0
+  m_ForceTarget: 0
+  m_ForceMode: 0
+  m_Drag: 0
+  m_AngularDrag: 0

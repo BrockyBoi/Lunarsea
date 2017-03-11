@@ -31,9 +31,12 @@ public class Boat : MonoBehaviour
     List<Collider2D> colliders;
 
     bool tutorialMode;
+    bool finishedLevel;
 
     float nextDamageTime;
     public float invulTime;
+
+    float extraSpeed;
     #endregion
 
     void Awake()
@@ -52,6 +55,7 @@ public class Boat : MonoBehaviour
     {
         maxHealth = health = 3;
         MainCanvas.controller.HealthChange();
+        SailOffScreen();
     }
 
     void Update()
@@ -59,7 +63,7 @@ public class Boat : MonoBehaviour
         if (dead)
             return;
 
-        float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
+        float horizontal = (Input.GetAxis("Horizontal") * Time.deltaTime) + extraSpeed;
 
         if (Input.GetMouseButtonDown(0) && !moonOut)
         {
@@ -78,13 +82,19 @@ public class Boat : MonoBehaviour
         Vector3 leftSide = Camera.main.ViewportToWorldPoint(Vector2.zero);
         Vector3 rightSide = Camera.main.ViewportToWorldPoint(Vector2.right);
 
-        if (transform.position.x > rightSide.x - 1)
+        if (!finishedLevel && transform.position.x > rightSide.x - 1)
         {
             transform.position = new Vector3(rightSide.x - 1, transform.position.y);
         }
         if (transform.position.x < leftSide.x + 1)
         {
             transform.position = new Vector3(leftSide.x + 1, transform.position.y);
+        }
+
+        if(finishedLevel && transform.position.x > rightSide.x - 1)
+        {
+            Debug.Log("Off screen");
+            MainCanvas.controller.FinishLevel();
         }
     }
 
@@ -105,7 +115,7 @@ public class Boat : MonoBehaviour
         if (h == 0)
             return;
 
-        transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * hSpeed * h, hSpeed);
+        transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * hSpeed * h, hSpeed + extraSpeed);
 
 
         if (tutorialMode && TutorialController.controller.CheckIfOnStage(TutorialController.TutorialStage.MOVEMENT))
@@ -256,4 +266,13 @@ public class Boat : MonoBehaviour
         return false;
     }
     #endregion
+
+    void SailOffScreen()
+    {
+        if(GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Endless))
+            return;
+
+        extraSpeed = 1.5f * Time.deltaTime;
+        finishedLevel = true;
+    }
 }

@@ -13,6 +13,7 @@ public class TrackingMissile : MonoBehaviour
 
     [SerializeField]
     CircleCollider2D explosionCollider;
+    Vector3 unitVector;
 
     // Use this for initialization
     void Start()
@@ -29,7 +30,7 @@ public class TrackingMissile : MonoBehaviour
 
     IEnumerator TakeShot()
     {
-        Vector3 unitVector;
+
         if (Boat.player.CheckIfAlive())
         {
             unitVector = Boat.player.transform.position - transform.position;
@@ -62,6 +63,24 @@ public class TrackingMissile : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
         {
             Explode();
+        }
+
+        if (other.gameObject.CompareTag("Enemy Boat"))
+        {
+            Explode();
+            other.gameObject.GetComponent<EnemyBoat>().DoDamage();
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(unitVector * 10, ForceMode2D.Impulse);
+        }
+
+        if (other.gameObject.CompareTag("Missile") || other.gameObject.CompareTag("Cloud Enemy"))
+        {
+            Explode();
+        }
+
+        if (other.gameObject.CompareTag("Boss"))
+        {
+            Explode();
+            other.gameObject.GetComponent<Boss>().TakeDamage();
         }
     }
 
@@ -96,7 +115,7 @@ public class TrackingMissile : MonoBehaviour
         AudioController.controller.PlayMissileSound();
         Instantiate(particles, transform.position, Quaternion.identity);
         GetComponent<SpriteRenderer>().enabled = false;
-        Destroy(gameObject, .15f);
+        Destroy(gameObject, .1f);
     }
 
 

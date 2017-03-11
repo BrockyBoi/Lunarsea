@@ -24,6 +24,12 @@ public class Rock : MonoBehaviour
             hitPlayer = true;
             Debug.Log("Rock hit boat");
         }
+
+        if(other.gameObject.CompareTag("Enemy Boat"))
+        {
+            other.gameObject.GetComponent<EnemyBoat>().DoDamage();
+            AudioController.controller.BoatHitsRock();
+        }
     }
 
     public void GiveSpeedMultiplier(float mult)

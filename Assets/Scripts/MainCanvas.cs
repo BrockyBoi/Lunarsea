@@ -65,12 +65,17 @@ public class MainCanvas : MonoBehaviour {
 		}
 	}
 
+	public void FinishLevel()
+	{
+		StartCoroutine(FadeToBlack());
+	}
+
 	IEnumerator FadeToBlack()
 	{
 		float time = 0;
 		while(time < 1)
 		{
-			time += Time.deltaTime * .25f;
+			time += Time.deltaTime * .5f;
 			Color c = blackScreen.color;
 			blackScreen.color = new Color(c.r,c.b,c.g, time);
 			yield return null;
