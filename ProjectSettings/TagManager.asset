@@ -28,7 +28,7 @@ TagManager:
   - Boat
   - IgnoreWater
   - Wall
-  - 
+  - Background
   - 
   - 
   - 
@@ -53,6 +53,9 @@ TagManager:
     locked: 0
   - name: Moon
     uniqueID: 4095688645
+    locked: 0
+  - name: Clouds
+    uniqueID: 1147752103
     locked: 0
   - name: Boat
     uniqueID: 3895711421
