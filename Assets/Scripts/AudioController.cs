@@ -22,7 +22,7 @@ public class AudioController : MonoBehaviour {
 	public AudioClip gargling;
 	void Awake()
 	{
-		DontDestroyOnLoad (this);
+		//DontDestroyOnLoad (this);
 		if (controller == null)
 			controller = this;
 		else

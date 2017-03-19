@@ -102,7 +102,7 @@ CircleCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706525829344378}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -132,10 +132,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1706525829344378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08a3f7e47d0e4f84faa26779183fb11d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fb387e18a1182c4f840af35acaa08cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 5
   particles: {fileID: 1597742983234352, guid: b94b794dbd0ca4541856e0b1191a035b, type: 2}
   explosionCollider: {fileID: 58506023475733498}
   effector: {fileID: 250915955838811702}
@@ -2796,11 +2796,11 @@ PointEffector2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706525829344378}
-  m_Enabled: 1
+  m_Enabled: 0
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 4294960345
+    m_Bits: 4294952153
   m_ForceMagnitude: 50
   m_ForceVariation: 0
   m_DistanceScale: 1

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MillileSpawner : MonoBehaviour
 {
-    public List<ParallaxScroll> pScrolls;
+    public static MillileSpawner controller;
     public GameObject missilePrefab;
     public GameObject blueMissilePrefab;
     public GameObject trackerMissile;
@@ -13,6 +13,7 @@ public class MillileSpawner : MonoBehaviour
 
     WaitForSeconds waitForRocks;
     WaitForSeconds waitForMissiles;
+    WaitForSeconds waitForCoins;
     float hTimer;
     float hNextTime;
 
@@ -20,34 +21,42 @@ public class MillileSpawner : MonoBehaviour
 
     float healthRate;
 
+    int waveCounter;
+
+    int coinDropRate;
+
+    void Awake()
+    {
+        controller = this;
+    }
+
     // Use this for initialization
     void Start()
     {
         hNextTime = 5;
-        healthRate = 8;
-        waitForRocks = new WaitForSeconds(5);
-        waitForMissiles = new WaitForSeconds(3);
+        healthRate = 20;
+        waitForRocks = new WaitForSeconds(4f);
+        waitForMissiles = new WaitForSeconds(3f);
+        waitForCoins = new WaitForSeconds(2.5f);
 
-        StartCoroutine(Wave1());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (SpeechController.controller.CheckTextTime())
-            return;
-
-        hTimer += Time.deltaTime;
-        if (hTimer >= hNextTime)
+        if (!TutorialController.controller.tutorialMode && !UpgradeController.controller.CheckIfUpgrading())
         {
-            hNextTime += healthRate;
-            SpawnHealth();
+            StartGame();
         }
     }
 
     #region Waves
+
+    public void StartGame()
+    {
+        StartCoroutine(Wave1());
+        if(Boat.player.GetMaxHealth() > 1)
+            Invoke("SpawnHealth", 30);
+    }
+
     IEnumerator Wave1()
     {
+               TrackingMissileVolley(4);
         if (TutorialController.controller.tutorialMode)
         {
             while (TutorialController.controller.tutorialMode)
@@ -59,36 +68,83 @@ public class MillileSpawner : MonoBehaviour
 
         MissileVolley();
         yield return waitForMissiles;
-        StartCoroutine(RockEnum(3));
+
+        SpawnRocks(4);
         yield return waitForRocks;
-        StartCoroutine(RockEnum(3));
-        yield return waitForRocks;
+
         MissileVolley();
         yield return waitForMissiles;
+
         BlueMissileVolleyLow();
         yield return waitForMissiles;
+
         BlueMissileVolleyHigh();
         yield return waitForMissiles;
-        StartCoroutine(SpawnTrackerMissiles(4));
-        StartCoroutine(RockEnum(4));
-         yield return waitForRocks;
 
+        TrackingMissileVolley(4);
+        yield return waitForMissiles;
 
-        UpdateSpeedMultiplier(1f);
+        waveCounter++;
+        if(waveCounter < 5)
+        {
+            StartCoroutine(UpdateSpeedMultiplier(1f));
+            StartCoroutine(Wave2());
+        }
+        else
+        {
+            Boat.player.SailOffScreen();
+        }
+        
+    }
+
+    IEnumerator Wave2()
+    {
+        SpawnCoinBlock();
+        yield return waitForCoins;
+        SpawnCoinLine();
+        yield return waitForCoins;
+        yield return waitForCoins;
+        SpawnCoinZig();
+        yield return waitForCoins;
+
         StartCoroutine(Wave1());
     }
     #endregion
 
-
-    void UpdateSpeedMultiplier(float amount)
+    #region Coin Spawns
+    void SpawnCoinBlock()
     {
-        speedMultiplier += amount;
-        MainCanvas.controller.speedMult += amount;
-        for(int i = 0; i < pScrolls.Count; i++)
+        CoinController.controller.coinSpawnBlock(5 + coinDropRate, 5 + coinDropRate, -1, 20, .15f);
+    }
+
+    void SpawnCoinLine()
+    {
+        CoinController.controller.coinSpawnLine(15 + coinDropRate * 5, -2, 20, .1f);
+    }
+
+    void SpawnCoinZig()
+    {
+        CoinController.controller.coinSpawnZig(20 + coinDropRate * 5, 6, -1.5f, 20, .05f);
+    }
+
+    public void UpdateCoinRate(int value)
+    {
+        coinDropRate = value;
+    }
+    #endregion
+
+    IEnumerator UpdateSpeedMultiplier(float amount)
+    {
+        float time = 0;
+        while (time < amount)
         {
-            pScrolls[i].GiveSpeedMultiplier(amount);
+            speedMultiplier += Time.deltaTime;
+            MainCanvas.controller.speedMult += Time.deltaTime;
+            BackgroundConroller.controller.UpdateSpeedMult(Time.deltaTime);
+
+            time += Time.deltaTime;
+            yield return null;
         }
-        Debug.Log(speedMultiplier);
     }
     #region Missiles
     void SpawnMissile()
@@ -129,7 +185,7 @@ public class MillileSpawner : MonoBehaviour
 
     void BlueMissileVolleyLow()
     {
-        float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .05f)).y;
+        float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .075f)).y;
         float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .4f)).y;
         float offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
 
@@ -138,6 +194,11 @@ public class MillileSpawner : MonoBehaviour
             GameObject missile = Instantiate(blueMissilePrefab, new Vector3(offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 3.0f))), Quaternion.identity) as GameObject;
             missile.GetComponent<Missile>().GiveSpeedMultiplier(speedMultiplier);
         }
+    }
+
+    void TrackingMissileVolley(int amount)
+    {
+        StartCoroutine(SpawnTrackerMissiles(amount));
     }
 
     IEnumerator SpawnTrackerMissiles(int missileCount)
@@ -154,26 +215,16 @@ public class MillileSpawner : MonoBehaviour
     #endregion
 
     #region Rocks
-    void SpawnRock()
+    void SpawnRocks(int amount)
     {
-        float minRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .2f)).y;
-        float maxRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.3f)).y;
-        float offScreen = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
-        GameObject rock = Instantiate(rockPrefab, new Vector3(offScreen + 20, Random.Range(minRockHeight, maxRockHeight)), Quaternion.identity) as GameObject;
-        rock.GetComponent<Rock>().GiveSpeedMultiplier(speedMultiplier);
-    }
-
-    IEnumerator RockEnum(int amount)
-    {
-        float minRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .1f)).y;
+        float minRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .15f)).y;
         float maxRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.15f)).y;
-        float offScreen = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
+        float offScreen = Camera.main.ViewportToWorldPoint(new Vector3(1f, 0)).x;
 
         for (int i = 0; i < amount; i++)
         {
-            GameObject rock = Instantiate(rockPrefab, new Vector3(offScreen + 20, Random.Range(minRockHeight, maxRockHeight)), Quaternion.identity) as GameObject;
+            GameObject rock = Instantiate(rockPrefab, new Vector3(offScreen + (10 * i), Random.Range(minRockHeight, maxRockHeight)), Quaternion.identity) as GameObject;
             rock.GetComponent<Rock>().GiveSpeedMultiplier(speedMultiplier);
-            yield return new WaitForSeconds(1.5f);
         }
     }
     #endregion
@@ -187,6 +238,8 @@ public class MillileSpawner : MonoBehaviour
 
         GameObject health = Instantiate(healthPrefab, offScreen, Quaternion.identity) as GameObject;
         health.GetComponent<HealthPickup>().GiveSpeedMultiplier(speedMultiplier);
+
+        Invoke("SpawnHealth", healthRate);
     }
     #endregion
 
@@ -198,7 +251,7 @@ public class MillileSpawner : MonoBehaviour
 
     public void UpgradeHealthDrop(float rate)
     {
-        healthRate = 8 - rate;
+        healthRate = 20 - rate * 1.5f;
     }
 
     #endregion

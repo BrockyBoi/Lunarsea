@@ -18,8 +18,7 @@ public class Missile : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (!IgnoreWater)
-            Init();
+        Init();
     }
 
     // Update is called once per frame
@@ -29,7 +28,8 @@ public class Missile : MonoBehaviour
             return;
 
         Vector3 forward = new Vector3(transform.position.x + -speed, transform.position.y + Mathf.Sin(Time.time / .3f));
-        transform.position = Vector2.MoveTowards(transform.position, forward, speed * Time.deltaTime);
+        forward.z = 10;
+        transform.position = Vector3.MoveTowards(transform.position, forward, speed * Time.deltaTime);
 
         Quaternion rotation = Quaternion.LookRotation(forward - transform.position, transform.up);
         transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
@@ -42,7 +42,6 @@ public class Missile : MonoBehaviour
         if (!dead && other.gameObject.CompareTag("Player"))
         {
             HitPlayer(other.gameObject);
-              Debug.Log("Missile hit player");
         }
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
@@ -50,19 +49,19 @@ public class Missile : MonoBehaviour
             Explode();
         }
 
-        if(other.gameObject.CompareTag("Enemy Boat"))
+        if (other.gameObject.CompareTag("Enemy Boat"))
         {
             Explode();
             other.gameObject.GetComponent<EnemyBoat>().DoDamage();
             other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 10, ForceMode2D.Impulse);
         }
 
-        if(other.gameObject.CompareTag("Missile") || other.gameObject.CompareTag("Cloud Enemy"))
+        if (other.gameObject.CompareTag("Missile") || other.gameObject.CompareTag("Cloud Enemy"))
         {
             Explode();
         }
 
-        if(other.gameObject.CompareTag("Boss"))
+        if (other.gameObject.CompareTag("Boss"))
         {
             Explode();
             other.gameObject.GetComponent<Boss>().TakeDamage();
@@ -78,15 +77,18 @@ public class Missile : MonoBehaviour
             Debug.Log("Missile hit player");
         }
 
-		if(other.gameObject.CompareTag("Pillar") || other.gameObject.CompareTag("Platform"))
-		{
-		    Destroy(other.transform.parent.gameObject);
-			Explode();
-		}
+        if (other.gameObject.CompareTag("Pillar") || other.gameObject.CompareTag("Platform"))
+        {
+            Destroy(other.transform.parent.gameObject);
+            Explode();
+        }
     }
 
     void Explode()
     {
+        if (dead)
+            return;
+
         dead = true;
         explosionCollider.enabled = true;
         effector.enabled = true;

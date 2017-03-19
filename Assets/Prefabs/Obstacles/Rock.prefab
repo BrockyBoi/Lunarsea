@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114353381988586224}
   - component: {fileID: 61955215699466160}
   - component: {fileID: 50225717306752022}
+  - component: {fileID: 60700161519495036}
   m_Layer: 11
   m_Name: Rock
   m_TagString: Rock
@@ -37,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1120561497435058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.421867, y: -6.8318977, z: 90}
+  m_LocalPosition: {x: -13.732916, y: -1.994206, z: 90}
   m_LocalScale: {x: 8.272002, y: 12.066552, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,13 +64,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &60700161519495036
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1120561497435058}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: 0.05186859, y: 0.28017834}
+      - {x: -0.12210855, y: 0.25837448}
+      - {x: -0.16452007, y: 0.1860357}
+      - {x: -0.28584558, y: -0.04973246}
+      - {x: -0.3118687, y: -0.1963033}
+      - {x: -0.28476, y: -0.26423186}
+      - {x: 0.2392171, y: -0.2681962}
+      - {x: 0.29765144, y: -0.21801788}
+      - {x: 0.2803028, y: -0.023964318}
+      - {x: 0.13499998, y: 0.19828539}
 --- !u!61 &61955215699466160
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1120561497435058}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0

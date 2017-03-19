@@ -53,14 +53,13 @@ public class Boat : MonoBehaviour
 
     void Start()
     {
-        maxHealth = health = 3;
+        maxHealth = health = 1;
         MainCanvas.controller.HealthChange();
-        SailOffScreen();
     }
 
     void Update()
     {
-        if (dead)
+        if (dead || UpgradeController.controller.CheckIfUpgrading())
             return;
 
         float horizontal = (Input.GetAxis("Horizontal") * Time.deltaTime) + extraSpeed;
@@ -91,9 +90,8 @@ public class Boat : MonoBehaviour
             transform.position = new Vector3(leftSide.x + 1, transform.position.y);
         }
 
-        if(finishedLevel && transform.position.x > rightSide.x - 1)
+        if (finishedLevel && transform.position.x > rightSide.x - 1)
         {
-            Debug.Log("Off screen");
             MainCanvas.controller.FinishLevel();
         }
     }
@@ -115,7 +113,10 @@ public class Boat : MonoBehaviour
         if (h == 0)
             return;
 
-        transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * hSpeed * h, hSpeed + extraSpeed);
+        Vector3 vec = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * hSpeed * h, hSpeed + extraSpeed);
+        vec.z = -10;
+
+        transform.position = vec;
 
 
         if (tutorialMode && TutorialController.controller.CheckIfOnStage(TutorialController.TutorialStage.MOVEMENT))
@@ -208,13 +209,19 @@ public class Boat : MonoBehaviour
         UpdateColliders();
         MainCanvas.controller.DeathScreen();
         AudioController.controller.BoatDeath();
+        PlayerInfo.controller.Save();
     }
 
     public void AddHealth()
     {
-        health = Mathf.Min(health + 1, 3);
+        health = Mathf.Min(health + 1, maxHealth);
         MainCanvas.controller.HealthChange();
         AudioController.controller.PlayRepairBoat();
+    }
+
+    public void UpdateBoatSpeed(int value)
+    {
+        hSpeed = 5 + value * .75f;
     }
 
     public int GetMaxHealth()
@@ -222,14 +229,16 @@ public class Boat : MonoBehaviour
         return maxHealth;
     }
 
-    public void UpdateMaxHealth()
+    public void UpdateMaxHealth(int value)
     {
-        maxHealth++;
+        maxHealth = value + 1;
+        health++;
+        MainCanvas.controller.HealthChange();
     }
 
     public void UpdateInvulTime(float time)
     {
-        invulTime -= 1;
+        invulTime = .3f + time * .15f;
     }
 
     public int GetHealth()
@@ -267,9 +276,9 @@ public class Boat : MonoBehaviour
     }
     #endregion
 
-    void SailOffScreen()
+    public void SailOffScreen()
     {
-        if(GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Endless))
+        if (GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Endless))
             return;
 
         extraSpeed = 1.5f * Time.deltaTime;

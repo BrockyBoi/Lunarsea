@@ -4,44 +4,47 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    GameObject coinController;
-    GameObject backgroundController;
-    float speed;
+    public GameObject particleEffect;
 
     // Use this for initialization
     void Start()
     {
-        backgroundController = GameObject.Find("Background Controller");
-        coinController = GameObject.Find("CoinController");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move(backgroundController.GetComponent<BackgroundConroller>().getSpeed());
+        Move(BackgroundConroller.controller.getSpeed() * 2);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            coinController.GetComponent<CoinController>().addCoin();
+            CoinController.controller.addCoin();
+            Destroy(Instantiate(particleEffect, transform.position, Quaternion.identity), 1);
             Destroy(gameObject);
         }
     }
     void Move(float speed)
     {
-        if (speed== 0)
+        if (speed == 0)
         {
             return;
         }
         else if (speed > 0)
         {
-            transform.position = Vector2.MoveTowards(transform.position, transform.position - Vector3.right * speed * Time.deltaTime, speed);
+            Vector3 vec = Vector3.MoveTowards(transform.position, transform.position - Vector3.right * speed * Time.deltaTime, speed);
+            vec.z = 10;
+            transform.position = vec;
         }
-        else {
+        else
+        {
             //negative case must be handled slightly differently so that the direction is simply reversed
-            transform.position = Vector2.MoveTowards(transform.position, transform.position - Vector3.right * speed * Time.deltaTime, 0 - speed);
+            Vector3 vec = Vector3.MoveTowards(transform.position, transform.position - Vector3.right * speed * Time.deltaTime, 0 - speed);
+            vec.z = 10;
+
+            transform.position = vec;
         }
     }
 }

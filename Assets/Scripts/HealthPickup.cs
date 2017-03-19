@@ -14,8 +14,8 @@ public class HealthPickup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 forward = new Vector3(transform.position.x + -speed, transform.position.y + Mathf.Sin(Time.time / .4f));
-        transform.position = Vector2.MoveTowards(transform.position, forward, speed * Time.deltaTime);
+        Vector3 forward = new Vector3(transform.position.x + -speed, transform.position.y + Mathf.Sin(Time.time / .4f), 10);
+        transform.position = Vector3.MoveTowards(transform.position, forward, speed * Time.deltaTime);
     }
 
     void OnTriggerEnter2D(Collider2D other)

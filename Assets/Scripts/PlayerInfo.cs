@@ -6,75 +6,87 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine.SceneManagement;
 
-public class PlayerInfo : MonoBehaviour {
-	public static PlayerInfo controller; 
-	public bool DontLoadOnStart;
+public class PlayerInfo : MonoBehaviour
+{
+    public static PlayerInfo controller;
+    public bool DontLoadOnStart;
 
-	int highScore;
-	float[] playerUpgrades = new float[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
-	void Awake()
-	{
-		if (controller == null)
-			controller = this;
-		else if(controller != this)
-			Destroy (this);
+    float highScore;
+    int coinCount;
+    int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
+    void Awake()
+    {
+        if (controller == null)
+        {
+            //DontDestroyOnLoad(gameObject);
+            controller = this;
+        }
+        else if (controller != this)
+            Destroy(this);
 
 
-		//newPlayer = true;
-	}
-		
-	void Start () {
+        //newPlayer = true;
+    }
 
-		if (!DontLoadOnStart)
-			Load ();
-	}
+    void Start()
+    {
+        if (!DontLoadOnStart)
+            Load();
+    }
 
-	public void Save()
-	{
-		BinaryFormatter bf = new BinaryFormatter ();
-		FileStream file = File.Create (Application.persistentDataPath + "/playerInfo.dat");
+    public void Save()
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
 
-		PlayerData data = new PlayerData ();
-		data.highScore = highScore;
-		data.playerUpgrades = playerUpgrades;
-		bf.Serialize (file, data);
-		file.Close ();
+        PlayerData data = new PlayerData();
+        data.highScore = MainCanvas.controller.GetHighScore();
+        data.coinCount = CoinController.controller.getCoinNum();
+        UpgradeController.controller.GetUpgradeArray().CopyTo(data.playerUpgrades, 0);
+        bf.Serialize(file, data);
+        file.Close();
 
-	}
+    }
 
-	public void Load()
-	{
-		if (File.Exists (Application.persistentDataPath + "/playerInfo.dat")) {
-			BinaryFormatter bf = new BinaryFormatter ();
-			FileStream file = File.Open (Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
-			PlayerData data = (PlayerData)bf.Deserialize (file);
-			file.Close ();
+    public void Load()
+    {
+        if (File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
+            PlayerData data = (PlayerData)bf.Deserialize(file);
+            file.Close();
 
-			highScore = data.highScore;
-			playerUpgrades = data.playerUpgrades;
-		}
-	}
+            highScore = data.highScore;
+            coinCount = data.coinCount;
+            playerUpgrades = data.playerUpgrades;
 
-	[Serializable]
-	class PlayerData
-	{
-		public int highScore;
-		public float[] playerUpgrades = new float[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
-	}
+            MainCanvas.controller.SetHighScore(highScore);
+            CoinController.controller.setCoinNum(coinCount);
+            UpgradeController.controller.GiveUpgradeArray(playerUpgrades);
+        }
+    }
 
-	public int GetHighScore()
+	public float GetHighScore()
 	{
 		return highScore;
+	}	
+
+	public int GetCoinCount()
+	{
+		return coinCount;
 	}
 
-	public void SetHighScore(int score)
+	public int[] GetUpgradeArray()
 	{
-		highScore = score;
+		return playerUpgrades;
 	}
 
-	public void GiveUpgrades(float[] upgrades)
-	{
-		upgrades.CopyTo(playerUpgrades, 0);
-	}
+    [Serializable]
+    class PlayerData
+    {
+        public float highScore;
+        public int coinCount;
+        public int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
+    }
 }
- 

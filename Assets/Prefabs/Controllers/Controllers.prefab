@@ -1,0 +1,149 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1138018935000190}
+  m_IsPrefabParent: 1
+--- !u!1 &1138018935000190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4446142644039040}
+  - component: {fileID: 114334705664952466}
+  - component: {fileID: 114313377703881370}
+  - component: {fileID: 114936077018901814}
+  - component: {fileID: 114005152846667158}
+  - component: {fileID: 114273022347892424}
+  - component: {fileID: 114570782682668944}
+  - component: {fileID: 114979691216827468}
+  m_Layer: 0
+  m_Name: Controllers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4446142644039040
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.2225103, y: -0.09431261, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114005152846667158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f10f837076070ef49b2f076aeb16d409, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialMode: 0
+--- !u!114 &114273022347892424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1257e7acb008bef4d99b7ec1032255cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinAmounts: 96000000ee020000dc05000088130000a8610000
+--- !u!114 &114313377703881370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66802842d7d6d4f40b97277a4bc89a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114334705664952466
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6994b3b2b20204db43ee27c96ae5c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coin: {fileID: 1729073465911198, guid: 0c0e26032c0c6a44095be6b790590148, type: 2}
+  FullCoins: 1
+--- !u!114 &114570782682668944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff049a49bae375846bfffbbb7be733ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layer0: {fileID: 1200438101315788, guid: fc6de74c5cc341b4d800cc4350d0606b, type: 2}
+  layer1: {fileID: 1369544872109658, guid: 6e83718c2e9ad454abd29caac948a4c4, type: 2}
+  layer2: {fileID: 1614775594271748, guid: b853c899de6b8224cba3672ddc561973, type: 2}
+  speed:
+  - 2
+  - 4
+  - 3
+--- !u!114 &114936077018901814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 588380a6c88a9be43b207e8d8ab3de8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DontLoadOnStart: 0
+--- !u!114 &114979691216827468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69955e45a07d04613bf04c23b2de6654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMusic: {fileID: 8300000, guid: 129897d6fc2e5403eb7b60bac4561529, type: 3}
+  waveBackground: {fileID: 8300000, guid: e7c873dfa5918417c994440a0a221f31, type: 3}
+  missileClips:
+  - {fileID: 8300000, guid: 1e8a431eeecfa4eebaa0dc7d3847cc0d, type: 3}
+  - {fileID: 8300000, guid: db0de12c4c6a849c395094e0e66a9ad4, type: 3}
+  - {fileID: 8300000, guid: 145964f018b154d539a6d8795629ba39, type: 3}
+  waterRise: {fileID: 8300000, guid: 76d932292a0dd46a0bbd64bc03b30fe3, type: 3}
+  waterFall: {fileID: 8300000, guid: d68f6600a32311449bb1962e25ee3072, type: 3}
+  boatDeath: {fileID: 8300000, guid: 214cc00e711c56f4cbf8721583aef370, type: 3}
+  boatHitsRock: {fileID: 8300000, guid: 09382fe5f6803477fa54a8417e69104c, type: 3}
+  repairBoat: {fileID: 8300000, guid: 2455ebf2fed9d46fca883e9455d35e61, type: 3}
+  gargling: {fileID: 8300000, guid: d36d300c44d774c5daff65267a9ad061, type: 3}

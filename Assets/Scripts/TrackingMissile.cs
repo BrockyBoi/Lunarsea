@@ -13,7 +13,9 @@ public class TrackingMissile : MonoBehaviour
 
     [SerializeField]
     CircleCollider2D explosionCollider;
-    Vector3 unitVector;
+    Vector3 dirVector;
+
+    LineRenderer lineRend;
 
     // Use this for initialization
     void Start()
@@ -30,23 +32,28 @@ public class TrackingMissile : MonoBehaviour
 
     IEnumerator TakeShot()
     {
-
+        Vector3 endSpot = Vector3.zero;
         if (Boat.player.CheckIfAlive())
         {
-            unitVector = Boat.player.transform.position - transform.position;
+            dirVector = Boat.player.transform.position - transform.position;
+            endSpot = Boat.player.transform.position;
         }
         else
         {
-            unitVector = new Vector3(Random.Range(-5, 5), -10) - transform.position;
+            dirVector = new Vector3(Random.Range(-5, 5), -10, 10) - transform.position;
         }
 
         //http://answers.unity3d.com/questions/654222/make-sprite-look-at-vector2-in-unity-2d-1.html
-        float angle = Mathf.Atan2(unitVector.y, unitVector.x) * Mathf.Rad2Deg - 180;
+        float angle = Mathf.Atan2(dirVector.y, dirVector.x) * Mathf.Rad2Deg - 180;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         while (true)
         {
-            transform.position = Vector2.MoveTowards(transform.position, transform.position + unitVector, speed * Time.deltaTime);
+            Vector3 vec = Vector3.MoveTowards(transform.position, transform.position + dirVector, speed * Time.deltaTime);
+            vec.z = -10;
+            transform.position = vec;
+            lineRend.SetPosition(0, transform.position);
+            lineRend.SetPosition(1, endSpot);
             yield return null;
         }
     }
@@ -69,7 +76,7 @@ public class TrackingMissile : MonoBehaviour
         {
             Explode();
             other.gameObject.GetComponent<EnemyBoat>().DoDamage();
-            other.gameObject.GetComponent<Rigidbody2D>().AddForce(unitVector * 10, ForceMode2D.Impulse);
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(dirVector * 10, ForceMode2D.Impulse);
         }
 
         if (other.gameObject.CompareTag("Missile") || other.gameObject.CompareTag("Cloud Enemy"))
@@ -103,12 +110,16 @@ public class TrackingMissile : MonoBehaviour
 
     void Init()
     {
+        lineRend = GetComponent<LineRenderer>();
         explosionCollider.enabled = false;
         effector.enabled = false;
     }
 
     void Explode()
     {
+        if(dead)
+            return;
+            
         dead = true;
         explosionCollider.enabled = true;
         effector.enabled = true;

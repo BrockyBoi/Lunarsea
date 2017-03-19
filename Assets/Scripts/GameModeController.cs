@@ -16,15 +16,6 @@ public class GameModeController : MonoBehaviour {
 		controller = this;
 	}
 
-	void Start () {
-		
-	}
-	
-
-	void Update () {
-		
-	}
-
 	public bool CheckCurrentMode(Mode m)
 	{
 		if((int)m == currentMode)
