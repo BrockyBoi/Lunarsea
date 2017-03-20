@@ -38,8 +38,10 @@ public class Missile : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        if (dead)
+            return;
 
-        if (!dead && other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             HitPlayer(other.gameObject);
         }
@@ -89,6 +91,8 @@ public class Missile : MonoBehaviour
         if (dead)
             return;
 
+        if (Boat.player.CheckIfAlive())
+            TempGoalController.controller.MissileDestryoed();
         dead = true;
         explosionCollider.enabled = true;
         effector.enabled = true;

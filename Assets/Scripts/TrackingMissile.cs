@@ -117,15 +117,18 @@ public class TrackingMissile : MonoBehaviour
 
     void Explode()
     {
-        if(dead)
+        if (dead)
             return;
-            
+
+        if (Boat.player.CheckIfAlive())
+            TempGoalController.controller.MissileDestryoed();
         dead = true;
         explosionCollider.enabled = true;
         effector.enabled = true;
         AudioController.controller.PlayMissileSound();
         Instantiate(particles, transform.position, Quaternion.identity);
         GetComponent<SpriteRenderer>().enabled = false;
+        lineRend.enabled = false;
         Destroy(gameObject, .1f);
     }
 

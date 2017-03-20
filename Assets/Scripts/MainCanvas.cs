@@ -26,17 +26,17 @@ public class MainCanvas : MonoBehaviour
     {
         controller = this;
         canUseButton = new bool[upgradeButtons.Count];
-		for(int i = 0; i < canUseButton.Length; i++)
-		{
-			canUseButton[i] = true;
-		}
+        for (int i = 0; i < canUseButton.Length; i++)
+        {
+            canUseButton[i] = true;
+        }
     }
 
     void Start()
     {
         deathScreen.SetActive(false);
         SetHighScore(PlayerInfo.controller.GetHighScore());
-
+		
     }
 
 
@@ -50,13 +50,16 @@ public class MainCanvas : MonoBehaviour
         if (Boat.player.CheckIfAlive() && !SpeechController.controller.CheckTextTime() && !UpgradeController.controller.CheckIfUpgrading())
         {
             score += Time.fixedDeltaTime + (Time.deltaTime * speedMult);
-        }
-        scoreText.text = "Score: " + string.Format("{0:0.0}", score) + " m";
 
-        if (score > highScore)
-        {
-            highScore = score;
-            highScoreText.text = "High Score: " + string.Format("{0:0.0}", highScore) + " m";
+            scoreText.text = "Score: " + string.Format("{0:0.0}", score) + " m";
+
+			TempGoalController.controller.UpdateDistanceGoals();
+
+            if (score > highScore)
+            {
+                highScore = score;
+                highScoreText.text = "High Score: " + string.Format("{0:0.0}", highScore) + " m";
+            }
         }
     }
 
@@ -89,6 +92,11 @@ public class MainCanvas : MonoBehaviour
             else
                 healthImages[i].gameObject.SetActive(false);
         }
+    }
+
+    public float GetScore()
+    {
+        return score;
     }
 
     public float GetHighScore()
@@ -126,7 +134,7 @@ public class MainCanvas : MonoBehaviour
 
     public void DisableUpgradeButton(int buttonNum)
     {
-        upgradeButtons[buttonNum].gameObject.GetComponent<Image>().color = new Color(100 / 255f, 100/ 255f, 100 / 255f, 168 / 255f);
+        upgradeButtons[buttonNum].gameObject.GetComponent<Image>().color = new Color(100 / 255f, 100 / 255f, 100 / 255f, 168 / 255f);
         canUseButton[buttonNum] = false;
     }
 
@@ -136,11 +144,11 @@ public class MainCanvas : MonoBehaviour
         canUseButton[buttonNum] = true;
     }
 
-	public bool CheckIfCanUseButton(int buttonNum)
-	{
-		if(buttonNum >= canUseButton.Length)
-			return false;
+    public bool CheckIfCanUseButton(int buttonNum)
+    {
+        if (buttonNum >= canUseButton.Length)
+            return false;
 
-		return canUseButton[buttonNum];
-	}
+        return canUseButton[buttonNum];
+    }
 }

@@ -14,6 +14,7 @@ TagManager:
   - Rock
   - Boss
   - Cloud Enemy
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - IgnoreWater
   - Wall
   - Background
-  - 
+  - Boss
   - 
   - 
   - 

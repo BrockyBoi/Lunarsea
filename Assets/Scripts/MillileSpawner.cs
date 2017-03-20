@@ -49,14 +49,13 @@ public class MillileSpawner : MonoBehaviour
 
     public void StartGame()
     {
-        StartCoroutine(Wave1());
+        StartCoroutine(Wave2());
         if(Boat.player.GetMaxHealth() > 1)
             Invoke("SpawnHealth", 30);
     }
 
     IEnumerator Wave1()
     {
-               TrackingMissileVolley(4);
         if (TutorialController.controller.tutorialMode)
         {
             while (TutorialController.controller.tutorialMode)
@@ -93,6 +92,7 @@ public class MillileSpawner : MonoBehaviour
         else
         {
             Boat.player.SailOffScreen();
+            PlayerInfo.controller.Save();
         }
         
     }

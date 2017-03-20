@@ -17,6 +17,9 @@ public class Urdu : MonoBehaviour
         {
             Boat.player.Die();
         }
+
+        if(INFIDEL.gameObject.CompareTag("Magnet"))
+            return;
 		
         if (INFIDEL.gameObject.layer != LayerMask.NameToLayer("Water") || !INFIDEL.gameObject.CompareTag("ArtificialWave"))
             Destroy(INFIDEL.gameObject);

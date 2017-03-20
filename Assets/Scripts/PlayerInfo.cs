@@ -14,6 +14,8 @@ public class PlayerInfo : MonoBehaviour
     float highScore;
     int coinCount;
     int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
+
+	List<TempGoal> goals = new List<TempGoal>();
     void Awake()
     {
         if (controller == null)
@@ -43,6 +45,7 @@ public class PlayerInfo : MonoBehaviour
         data.highScore = MainCanvas.controller.GetHighScore();
         data.coinCount = CoinController.controller.getCoinNum();
         UpgradeController.controller.GetUpgradeArray().CopyTo(data.playerUpgrades, 0);
+		data.goals = new List<TempGoal>(TempGoalController.controller.GetGoals());
         bf.Serialize(file, data);
         file.Close();
 
@@ -59,13 +62,20 @@ public class PlayerInfo : MonoBehaviour
 
             highScore = data.highScore;
             coinCount = data.coinCount;
-            playerUpgrades = data.playerUpgrades;
+            data.playerUpgrades.CopyTo(playerUpgrades,0);
+			goals = new List<TempGoal>(data.goals);
 
             MainCanvas.controller.SetHighScore(highScore);
             CoinController.controller.setCoinNum(coinCount);
             UpgradeController.controller.GiveUpgradeArray(playerUpgrades);
+			TempGoalController.controller.SetGoals(goals);
         }
     }
+
+	public List<TempGoal> GetGoals()
+	{
+		return goals;
+	}
 
 	public float GetHighScore()
 	{
@@ -88,5 +98,6 @@ public class PlayerInfo : MonoBehaviour
         public float highScore;
         public int coinCount;
         public int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
+		public List<TempGoal> goals = new List<TempGoal>();
     }
 }

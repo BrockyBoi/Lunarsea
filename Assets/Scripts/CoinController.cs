@@ -6,6 +6,9 @@ public class CoinController : MonoBehaviour
 {
     public static CoinController controller;
     public GameObject coin;
+
+    //Temp coins are just the coins that you get during that specific life
+    int tempCoins;
     int numCoins;
 
     public bool FullCoins;
@@ -18,8 +21,10 @@ public class CoinController : MonoBehaviour
     void Start()
     {
         if(FullCoins)
+        {
             numCoins = 500000;
-        MainCanvas.controller.UpdateCoinString(numCoins);
+            MainCanvas.controller.UpdateCoinString(numCoins);
+        }
     }
     // Update is called once per frame
     void Update()
@@ -78,9 +83,19 @@ public class CoinController : MonoBehaviour
     #endregion
 
     #region Accessors
+
+    public void StartGame()
+    {
+        MainCanvas.controller.UpdateCoinString(tempCoins);
+    }
     public int getCoinNum()
     {
         return numCoins;
+    }
+
+    public int GetTempCoinNum()
+    {
+        return tempCoins;
     }
     public void setCoinNum(int num)
     {
@@ -89,8 +104,15 @@ public class CoinController : MonoBehaviour
     }
     public void addCoin()
     {
+        tempCoins++;
         numCoins++;
-        MainCanvas.controller.UpdateCoinString(numCoins);
+        MainCanvas.controller.UpdateCoinString(tempCoins);
+        TempGoalController.controller.UpdateCoinGoals();
+    }
+
+    public void ReceiveReward(int amount)
+    {
+        numCoins += amount;
     }
 
     public void MakePurchase(int amount)

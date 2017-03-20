@@ -37,6 +37,9 @@ public class Boat : MonoBehaviour
     public float invulTime;
 
     float extraSpeed;
+
+    [SerializeField]
+    CircleCollider2D coinMagnet;
     #endregion
 
     void Awake()
@@ -205,10 +208,12 @@ public class Boat : MonoBehaviour
     public void Die()
     {
         health = 0;
+        MainCanvas.controller.HealthChange();
         dead = true;
         UpdateColliders();
         MainCanvas.controller.DeathScreen();
         AudioController.controller.BoatDeath();
+        TempGoalController.controller.PlayerDied();
         PlayerInfo.controller.Save();
     }
 
@@ -234,6 +239,14 @@ public class Boat : MonoBehaviour
         maxHealth = value + 1;
         health++;
         MainCanvas.controller.HealthChange();
+    }
+
+    public void UpdateMagnetSize(int value)
+    {
+        if(value == 0)
+            coinMagnet.enabled = false;
+        else coinMagnet.enabled = true;
+        coinMagnet.radius = 2 + .25f * value;
     }
 
     public void UpdateInvulTime(float time)
