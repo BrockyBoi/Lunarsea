@@ -20,32 +20,6 @@ public class TempGoal : System.Object
         rewardValue = reward;
     }
 
-    public void ResetGoal(int goal)
-    {
-        currentProgress = 0;
-        rewardFulfilled = false;
-        switch (goal)
-        {
-            case 1:
-                goalType = (int)Goal.Distance;
-                targetGoal = 500;
-                perLife = false;
-                break;
-            case 2:
-                goalType = (int)Goal.Coin;
-                targetGoal = 50;
-                perLife = true;
-                break;
-            case 3:
-                goalType = (int)Goal.MissilesDestroyed;
-                targetGoal = 20;
-                perLife = false;
-                break;
-            default:
-                break;
-        }
-    }
-
     public void UpdateProgress(float missileCount)
     {
         if (rewardFulfilled)
@@ -74,6 +48,8 @@ public class TempGoal : System.Object
 
     void CheckIfGoalIsMet(float input)
     {
+        if (rewardFulfilled)
+            return;
         Debug.Log((input + currentProgress) + " out of " + targetGoal);
         if (perLife)
         {
@@ -91,7 +67,9 @@ public class TempGoal : System.Object
     void FulfillGoal()
     {
         rewardFulfilled = true;
+        Debug.Log("Money before: " + CoinController.controller.getCoinNum());
         TempGoalController.controller.FinishGoal(spot, rewardValue);
+        Debug.Log("Money after: " + CoinController.controller.getCoinNum());
     }
 
     public void PlayerDied()

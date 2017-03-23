@@ -10,6 +10,7 @@ public class MainCanvas : MonoBehaviour
     public static MainCanvas controller;
     public GameObject deathScreen;
     public GameObject upgradeScreen;
+	public GameObject monetizationScreen;
     public Text scoreText;
     public Text highScoreText;
     public Text coinText;
@@ -35,6 +36,7 @@ public class MainCanvas : MonoBehaviour
     void Start()
     {
         deathScreen.SetActive(false);
+		monetizationScreen.SetActive(false);
         SetHighScore(PlayerInfo.controller.GetHighScore());
 		
     }
@@ -78,6 +80,19 @@ public class MainCanvas : MonoBehaviour
     {
         SceneManager.LoadScene("Main Menu");
     }
+
+	public void PressStore()
+	{
+		monetizationScreen.SetActive(true);
+		upgradeScreen.SetActive(false);
+	}
+
+	public void PressBackMonetization()
+	{
+		monetizationScreen.SetActive(false);
+		upgradeScreen.SetActive(true);
+	}
+
     #endregion
 
     public void HealthChange()

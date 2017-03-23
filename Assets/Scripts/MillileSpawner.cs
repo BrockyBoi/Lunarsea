@@ -49,7 +49,7 @@ public class MillileSpawner : MonoBehaviour
 
     public void StartGame()
     {
-        StartCoroutine(Wave2());
+        StartCoroutine(Wave1());
         if(Boat.player.GetMaxHealth() > 1)
             Invoke("SpawnHealth", 30);
     }

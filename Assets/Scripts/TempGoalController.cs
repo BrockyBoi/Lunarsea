@@ -6,7 +6,6 @@ public class TempGoalController : MonoBehaviour
 {
     public static TempGoalController controller;
 
-    //YOU REALLY GOTTA FIX THIS SHIT BROCK HALF OF IT IS A LIST AND THE OTHER HALF IS AN ARRAY!  YOU GOTTA FIX IT!
     List<TempGoal> goals = new List<TempGoal>();
 
     public bool[] hasGoals = new bool[3];
@@ -15,10 +14,11 @@ public class TempGoalController : MonoBehaviour
     public const int hasMissile = 2;
     int missileCount;
 
-	int maxGoals;
+    [SerializeField]
+    int maxGoals;
     void Awake()
     {
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
         if (controller == null)
         {
             controller = this;
@@ -31,15 +31,7 @@ public class TempGoalController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        goals.Add(new TempGoal(0, TempGoal.Goal.Distance, 20, false, 500));
-        hasGoals[hasDistance] = true;
-
-        goals.Add(new TempGoal(1, TempGoal.Goal.Coin, 50, true, 100));
-        hasGoals[hasCoin] = true;
-
-        goals.Add(new TempGoal(2, TempGoal.Goal.MissilesDestroyed, 20, false, 500));
-        hasGoals[hasMissile] = true;
-
+        NewGoals();
     }
 
     public List<TempGoal> GetGoals()
@@ -50,6 +42,15 @@ public class TempGoalController : MonoBehaviour
     public void SetGoals(List<TempGoal> tG)
     {
         goals = new List<TempGoal>(tG);
+        CheckCurrentGoals();
+    }
+
+    void CheckCurrentGoals()
+    {
+        for (int i = 0; i < goals.Count; i++)
+        {
+            hasGoals[goals[i].GetGoalType()] = true;
+        }
     }
 
     public void MissileDestryoed()
@@ -101,10 +102,10 @@ public class TempGoalController : MonoBehaviour
         }
     }
 
-	public void UpdateMaxGoals(int value)
-	{
-		maxGoals = 1 + value;
-	}
+    public void UpdateMaxGoals(int value)
+    {
+        maxGoals = 1 + value;
+    }
 
     public void FinishGoal(int spot, int rewardValue)
     {
@@ -113,16 +114,44 @@ public class TempGoalController : MonoBehaviour
         hasGoals[goals[spot].GetGoalType()] = false;
 
         goals.RemoveAt(spot);
-		RedoSpotsInList();
+        RedoSpotsInList(); 
     }
 
-	void RedoSpotsInList()
-	{
-		for(int i = 0; i < goals.Count; i++)
-		{
-			goals[i].UpdateSpotInList(i);
-		}
-	}
+    void RedoSpotsInList()
+    {
+        for (int i = 0; i < goals.Count; i++)
+        {
+            goals[i].UpdateSpotInList(i);
+        }
+    }
+
+    void NewGoals()
+    {
+		int max = maxGoals - goals.Count;
+        for (int i = 0; i < max; i++)
+        {
+            int newGoal = Random.Range(0, 3);
+			int currentCount = goals.Count;
+			Debug.Log(newGoal);
+
+            switch (newGoal)
+            {
+                case 0:
+                    goals.Add(new TempGoal(currentCount, TempGoal.Goal.Distance, 5, false, 500));
+                    break;
+                case 1:
+                    goals.Add(new TempGoal(currentCount, TempGoal.Goal.Coin, 5, true, 100));
+                    break;
+                case 2:
+                    goals.Add(new TempGoal(currentCount, TempGoal.Goal.MissilesDestroyed, 2, false, 500));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+		CheckCurrentGoals();
+    }
 
     public void PlayerDied()
     {
@@ -130,5 +159,6 @@ public class TempGoalController : MonoBehaviour
         {
             goals[i].PlayerDied();
         }
+		NewGoals();
     }
 }

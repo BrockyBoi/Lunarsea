@@ -18,7 +18,7 @@ public class TutorialController : MonoBehaviour
 
     void Start()
     {
-		
+		tutorialMode = PlayerInfo.controller.firstTimeEver;
     }
 
     public void SetUpTutorial()

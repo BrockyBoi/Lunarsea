@@ -150,6 +150,7 @@ public class UpgradeController : MonoBehaviour
         MainCanvas.controller.upgradeScreen.SetActive(false);
         TutorialController.controller.SetUpTutorial();
         CoinController.controller.StartGame();
+		PlayerInfo.controller.firstTimeEver = false;
     }
 
     public bool CheckIfUpgrading()

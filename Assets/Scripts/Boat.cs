@@ -214,6 +214,7 @@ public class Boat : MonoBehaviour
         MainCanvas.controller.DeathScreen();
         AudioController.controller.BoatDeath();
         TempGoalController.controller.PlayerDied();
+        DeathCounter.controller.PlayerDeath();
         PlayerInfo.controller.Save();
     }
 
@@ -237,7 +238,7 @@ public class Boat : MonoBehaviour
     public void UpdateMaxHealth(int value)
     {
         maxHealth = value + 1;
-        health++;
+        health = maxHealth;
         MainCanvas.controller.HealthChange();
     }
 

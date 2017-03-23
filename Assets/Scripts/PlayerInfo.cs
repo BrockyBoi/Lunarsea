@@ -14,6 +14,8 @@ public class PlayerInfo : MonoBehaviour
     float highScore;
     int coinCount;
     int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
+    
+    public bool firstTimeEver;
 
 	List<TempGoal> goals = new List<TempGoal>();
     void Awake()
@@ -32,7 +34,8 @@ public class PlayerInfo : MonoBehaviour
 
     void Start()
     {
-        if (!DontLoadOnStart)
+       // firstTimeEver = true;
+        if (!DontLoadOnStart && !firstTimeEver)
             Load();
     }
 
@@ -46,6 +49,7 @@ public class PlayerInfo : MonoBehaviour
         data.coinCount = CoinController.controller.getCoinNum();
         UpgradeController.controller.GetUpgradeArray().CopyTo(data.playerUpgrades, 0);
 		data.goals = new List<TempGoal>(TempGoalController.controller.GetGoals());
+        data.firstTimeEver = firstTimeEver;
         bf.Serialize(file, data);
         file.Close();
 
@@ -69,6 +73,7 @@ public class PlayerInfo : MonoBehaviour
             CoinController.controller.setCoinNum(coinCount);
             UpgradeController.controller.GiveUpgradeArray(playerUpgrades);
 			TempGoalController.controller.SetGoals(goals);
+            firstTimeEver = data.firstTimeEver;
         }
     }
 
@@ -99,5 +104,7 @@ public class PlayerInfo : MonoBehaviour
         public int coinCount;
         public int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
 		public List<TempGoal> goals = new List<TempGoal>();
+
+        public bool firstTimeEver;
     }
 }

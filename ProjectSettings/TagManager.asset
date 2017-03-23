@@ -15,6 +15,7 @@ TagManager:
   - Boss
   - Cloud Enemy
   - Coin
+  - Magnet
   layers:
   - Default
   - TransparentFX

@@ -110,6 +110,12 @@ public class CoinController : MonoBehaviour
         TempGoalController.controller.UpdateCoinGoals();
     }
 
+    public void BuyCoins(int amount)
+    {
+        numCoins += amount;
+        MainCanvas.controller.UpdateCoinString(numCoins);
+    }
+
     public void ReceiveReward(int amount)
     {
         numCoins += amount;
