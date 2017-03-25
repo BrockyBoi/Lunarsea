@@ -48,7 +48,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1066441555750438
 GameObject:
   m_ObjectHideFlags: 1
@@ -79,22 +79,6 @@ GameObject:
   - component: {fileID: 114413646905201484}
   m_Layer: 5
   m_Name: Invul Time
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1105885423211128
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4327421665536862}
-  - component: {fileID: 114427960828446304}
-  m_Layer: 0
-  m_Name: TextController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,7 +149,7 @@ GameObject:
   - component: {fileID: 114359168211342648}
   - component: {fileID: 114419245969828196}
   m_Layer: 5
-  m_Name: Buy 1500 coins
+  m_Name: Buy 5000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -218,7 +202,7 @@ GameObject:
   - component: {fileID: 114155352494279258}
   - component: {fileID: 114923925522322906}
   m_Layer: 5
-  m_Name: Buy 50000
+  m_Name: Buy 1000000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -666,7 +650,7 @@ GameObject:
   - component: {fileID: 114300598511963738}
   - component: {fileID: 114539231056988966}
   m_Layer: 5
-  m_Name: Buy 500 coins
+  m_Name: Buy 1000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -707,23 +691,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1742906765169990
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 224561239145987504}
-  - component: {fileID: 222406215872705248}
-  - component: {fileID: 114791979987637704}
-  m_Layer: 5
-  m_Name: Text (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!1 &1756715410485780
 GameObject:
   m_ObjectHideFlags: 1
@@ -995,7 +962,7 @@ GameObject:
   - component: {fileID: 114595411067394888}
   - component: {fileID: 114922917709049042}
   m_Layer: 5
-  m_Name: Buy 10000
+  m_Name: Buy 100000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1013,7 +980,7 @@ GameObject:
   - component: {fileID: 114617262335237822}
   - component: {fileID: 114547398633333012}
   m_Layer: 5
-  m_Name: Buy 5000
+  m_Name: Buy 20000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1053,19 +1020,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4327421665536862
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1105885423211128}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -728.99097, y: -138.11386, z: -2129.8862}
-  m_LocalScale: {x: 24.291588, y: 24.291588, z: 24.291588}
-  m_Children: []
-  m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4818225113455568
 Transform:
   m_ObjectHideFlags: 1
@@ -1083,7 +1037,7 @@ Transform:
   - {fileID: 224796455736082432}
   - {fileID: 224940621284927802}
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114004255967618948
 MonoBehaviour:
@@ -1299,7 +1253,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Buy 10000 coins
+  m_Text: 'Buy 100000 coins
 
 '
 --- !u!114 &114094031746416188
@@ -2058,7 +2012,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Buy 500 coins
+  m_Text: 'Buy 1000 coins
 
 '
 --- !u!114 &114336572711204028
@@ -2317,7 +2271,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: Buy1500Coins
+        m_MethodName: Buy5000Coins
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2329,22 +2283,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114427960828446304
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1105885423211128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b057cd19cc20b9546a74ff988b528805, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  phrases:
-  - 'Use A and D to move the boat left and right. '
-  - Left click to summon the moon to create waves
-  - 'Left click again to retract moon '
-  textField: {fileID: 114981694622180306}
 --- !u!114 &114429402791075020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2534,7 +2472,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: Buy500Coins
+        m_MethodName: Buy1000Coins
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2613,7 +2551,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: Buy5000Coins
+        m_MethodName: Buy20000Coins
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3161,7 +3099,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Buy 50000 coins
+  m_Text: 'Buy 1000000 coins
 
 '
 --- !u!114 &114686718509930794
@@ -3309,39 +3247,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114791979987637704
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1742906765169990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: c08c0ef84d66e364e8a31a22c0cc897d, type: 3}
-    m_FontSize: 100
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 0
-    m_MaxSize: 300
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: (Press Space to Continue)
 --- !u!114 &114816035917184770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3374,7 +3279,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Watch ad for 150 coins
+  m_Text: 'Watch ad for 200 coins
 
 '
 --- !u!114 &114830814252933666
@@ -3469,7 +3374,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Buy 5000 coins
+  m_Text: 'Buy 20000 coins
 
 '
 --- !u!114 &114900566211035626
@@ -3556,7 +3461,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Buy 1500 coins
+  m_Text: 'Buy 5000 coins
 
 '
 --- !u!114 &114922917709049042
@@ -3599,7 +3504,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: Buy10000Coins
+        m_MethodName: Buy100000Coins
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3651,7 +3556,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: Buy50000Coins
+        m_MethodName: Buy1000000Coins
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3868,7 +3773,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114214832913800748}
         m_MethodName: PressMainMenu
         m_Mode: 1
         m_Arguments:
@@ -4091,12 +3996,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1220279967639030}
---- !u!222 &222406215872705248
-CanvasRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1742906765169990}
 --- !u!222 &222418131064013466
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -4349,7 +4248,7 @@ RectTransform:
   m_LocalScale: {x: 0.9999975, y: 0.9999975, z: 0.9999975}
   m_Children: []
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -4367,7 +4266,7 @@ RectTransform:
   m_LocalScale: {x: 1.000019, y: 1.000019, z: 1.000019}
   m_Children: []
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -4449,7 +4348,7 @@ RectTransform:
   - {fileID: 224769004688550994}
   - {fileID: 224933423614383544}
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -4599,7 +4498,7 @@ RectTransform:
   m_LocalScale: {x: 1.000019, y: 1.000019, z: 1.000019}
   m_Children: []
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -4637,7 +4536,6 @@ RectTransform:
   m_Children:
   - {fileID: 224872703882587278}
   - {fileID: 224507821433076622}
-  - {fileID: 4327421665536862}
   - {fileID: 224469101808362104}
   - {fileID: 224062440892646608}
   - {fileID: 4818225113455568}
@@ -4809,13 +4707,12 @@ RectTransform:
   m_LocalScale: {x: 2.1464045, y: 1.6404109, z: 1.2264823}
   m_Children:
   - {fileID: 224875735320110068}
-  - {fileID: 224561239145987504}
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.3097, y: 374}
+  m_AnchoredPosition: {x: 3.3097, y: 380}
   m_SizeDelta: {x: 429.84, y: 215.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224499912179193276
@@ -4948,24 +4845,6 @@ RectTransform:
   m_AnchoredPosition: {x: -1.3825, y: 0.6}
   m_SizeDelta: {x: 647.35, y: 613.1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!224 &224561239145987504
-RectTransform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1742906765169990}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.10483378, y: 0.13715228, z: 0.18344016}
-  m_Children: []
-  m_Father: {fileID: 224469101808362104}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00091552734, y: 30}
-  m_SizeDelta: {x: 4100.4, y: 1574.6}
-  m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224578408643519508
 RectTransform:
   m_ObjectHideFlags: 1
@@ -5016,7 +4895,7 @@ RectTransform:
   - {fileID: 224977058771686912}
   - {fileID: 224599536416274740}
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -5271,7 +5150,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1514675051822102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -303.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224332286781408078}

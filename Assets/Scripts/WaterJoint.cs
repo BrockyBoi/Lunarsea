@@ -30,7 +30,7 @@ public class WaterJoint : MonoBehaviour {
 
 	void Start()
 	{
-		//transform.SetParent(MainCanvas.controller.GetWaterParent().transform);
+
 	}
 
 	public void FixedUpdate() {

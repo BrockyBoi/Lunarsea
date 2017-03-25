@@ -25,6 +25,8 @@ public class MillileSpawner : MonoBehaviour
 
     int coinDropRate;
 
+    List<Rock> currentRocks = new List<Rock>();
+
     void Awake()
     {
         controller = this;
@@ -34,37 +36,24 @@ public class MillileSpawner : MonoBehaviour
     void Start()
     {
         hNextTime = 5;
-        healthRate = 20;
+        healthRate = 45;
         waitForRocks = new WaitForSeconds(4f);
         waitForMissiles = new WaitForSeconds(3f);
         waitForCoins = new WaitForSeconds(2.5f);
-
-        if (!TutorialController.controller.tutorialMode && !UpgradeController.controller.CheckIfUpgrading())
-        {
-            StartGame();
-        }
     }
 
     #region Waves
 
     public void StartGame()
     {
+        Debug.Log("Game started");
         StartCoroutine(Wave1());
         if(Boat.player.GetMaxHealth() > 1)
-            Invoke("SpawnHealth", 30);
+            Invoke("SpawnHealth", 45);
     }
 
     IEnumerator Wave1()
     {
-        if (TutorialController.controller.tutorialMode)
-        {
-            while (TutorialController.controller.tutorialMode)
-            {
-                yield return null;
-            }
-        }
-        else yield return new WaitForSeconds(2.5f);
-
         MissileVolley();
         yield return waitForMissiles;
 
@@ -74,10 +63,10 @@ public class MillileSpawner : MonoBehaviour
         MissileVolley();
         yield return waitForMissiles;
 
-        BlueMissileVolleyLow();
+        TorpedoVolleyLow();
         yield return waitForMissiles;
 
-        BlueMissileVolleyHigh();
+        TorpedoVolleyHigh();
         yield return waitForMissiles;
 
         TrackingMissileVolley(4);
@@ -86,13 +75,15 @@ public class MillileSpawner : MonoBehaviour
         waveCounter++;
         if(waveCounter < 5)
         {
-            StartCoroutine(UpdateSpeedMultiplier(1f));
+            StartCoroutine(UpdateSpeedMultiplier(1.5f));
             StartCoroutine(Wave2());
         }
         else
         {
             Boat.player.SailOffScreen();
             PlayerInfo.controller.Save();
+            EndLevel();
+            MainCanvas.controller.EndLevel();
         }
         
     }
@@ -109,27 +100,32 @@ public class MillileSpawner : MonoBehaviour
 
         StartCoroutine(Wave1());
     }
+
+    public void EndLevel()
+    {
+        StopAllCoroutines();
+
+        for(int i = 0 ; i < currentRocks.Count; i++)
+        {
+            currentRocks[i].StopObject();
+        }
+    }
     #endregion
 
     #region Coin Spawns
     void SpawnCoinBlock()
     {
-        CoinController.controller.coinSpawnBlock(5 + coinDropRate, 5 + coinDropRate, -1, 20, .15f);
+        CoinController.controller.coinSpawnBlock(3 + coinDropRate, 3 + coinDropRate, -1, 20, .15f);
     }
 
     void SpawnCoinLine()
     {
-        CoinController.controller.coinSpawnLine(15 + coinDropRate * 5, -2, 20, .1f);
+        CoinController.controller.coinSpawnLine(8 + coinDropRate * 3, -2, 20, .1f);
     }
 
     void SpawnCoinZig()
     {
-        CoinController.controller.coinSpawnZig(20 + coinDropRate * 5, 6, -1.5f, 20, .05f);
-    }
-
-    public void UpdateCoinRate(int value)
-    {
-        coinDropRate = value;
+        CoinController.controller.coinSpawnZig(10 + coinDropRate * 4, 6, -1.5f, 20, .05f);
     }
     #endregion
 
@@ -170,7 +166,7 @@ public class MillileSpawner : MonoBehaviour
         }
     }
 
-    void BlueMissileVolleyHigh()
+    void TorpedoVolleyHigh()
     {
         float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .4f)).y;
         float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .8f)).y;
@@ -183,7 +179,7 @@ public class MillileSpawner : MonoBehaviour
         }
     }
 
-    void BlueMissileVolleyLow()
+    void TorpedoVolleyLow()
     {
         float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .075f)).y;
         float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .4f)).y;
@@ -225,6 +221,7 @@ public class MillileSpawner : MonoBehaviour
         {
             GameObject rock = Instantiate(rockPrefab, new Vector3(offScreen + (10 * i), Random.Range(minRockHeight, maxRockHeight)), Quaternion.identity) as GameObject;
             rock.GetComponent<Rock>().GiveSpeedMultiplier(speedMultiplier);
+            currentRocks.Add(rock.GetComponent<Rock>());
         }
     }
     #endregion
@@ -244,14 +241,15 @@ public class MillileSpawner : MonoBehaviour
     #endregion
 
     #region Upgrades
-    public void UpgradeCoinDrop(float rate)
-    {
-
-    }
 
     public void UpgradeHealthDrop(float rate)
     {
-        healthRate = 20 - rate * 1.5f;
+        healthRate = 45 - rate * 2.5f;
+    }
+
+    public void UpdateCoinRate(int value)
+    {
+        coinDropRate = value;
     }
 
     #endregion

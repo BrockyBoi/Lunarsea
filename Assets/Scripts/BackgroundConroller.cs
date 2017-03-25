@@ -36,6 +36,8 @@ public class BackgroundConroller : MonoBehaviour
         {
             Setup(2, layer2);
         }
+
+        EndLevel();
     }
 
 
@@ -175,6 +177,19 @@ public class BackgroundConroller : MonoBehaviour
             {
                 speed[i] -= mult;
             }
+        }
+    }
+
+    public void BeginLevel()
+    {
+        speed = new float[]{ 2, 4, 3 };
+    }
+
+    public void EndLevel()
+    {
+        for(int i = 0; i < speed.Length; i++)
+        {
+            speed[i] = 0;
         }
     }
     #endregion

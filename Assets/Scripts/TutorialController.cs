@@ -18,17 +18,22 @@ public class TutorialController : MonoBehaviour
 
     void Start()
     {
-		tutorialMode = PlayerInfo.controller.firstTimeEver;
+        tutorialMode = PlayerInfo.controller.firstTimeEver;
     }
 
     public void SetUpTutorial()
     {
         if (!tutorialMode)
-		{
+        {
             SpeechController.controller.CloseWindow();
-			SetStage(TutorialStage.DONE);
-		}
-		else SetStage(TutorialStage.MOVEMENT);
+            SetStage(TutorialStage.DONE);
+        }
+        else
+        {
+            Boat.player.SetTutorialMode(true);
+            SpeechController.controller.FirstPhrase();
+            SetStage(TutorialStage.MOVEMENT);
+        }
     }
 
     public bool CheckIfOnStage(TutorialStage t)
@@ -40,14 +45,20 @@ public class TutorialController : MonoBehaviour
 
     public void SetStage(TutorialStage t)
     {
-        currentStage = (int)t;
-        SpeechController.controller.NextPhrase();
-
         if (t == TutorialStage.DONE)
         {
             tutorialMode = false;
             Boat.player.SetTutorialMode(false);
             MillileSpawner.controller.StartGame();
+            MainCanvas.controller.StartLevel();
+            SpeechController.controller.CloseWindow();
+            return;
         }
+
+        currentStage = (int)t;
+
+        if(t != TutorialStage.MOVEMENT)
+            SpeechController.controller.NextPhrase();
+
     }
 }

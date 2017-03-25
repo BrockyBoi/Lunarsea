@@ -22,7 +22,7 @@ public class CoinController : MonoBehaviour
     {
         if(FullCoins)
         {
-            numCoins = 500000;
+            numCoins = 50000000;
             MainCanvas.controller.UpdateCoinString(numCoins);
         }
     }

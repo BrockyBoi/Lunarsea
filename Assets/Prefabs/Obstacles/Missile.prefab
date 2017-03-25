@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb387e18a1182c4f840af35acaa08cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 7
   particles: {fileID: 1597742983234352, guid: b94b794dbd0ca4541856e0b1191a035b, type: 2}
   explosionCollider: {fileID: 58506023475733498, guid: 7f9df73a85c0b90458f0756121111fee,
     type: 2}

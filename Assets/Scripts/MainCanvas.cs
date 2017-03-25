@@ -23,6 +23,8 @@ public class MainCanvas : MonoBehaviour
     float highScore;
 
     public float speedMult;
+
+	bool levelEnded;
     void Awake()
     {
         controller = this;
@@ -35,10 +37,10 @@ public class MainCanvas : MonoBehaviour
 
     void Start()
     {
+		levelEnded = true;
         deathScreen.SetActive(false);
 		monetizationScreen.SetActive(false);
         SetHighScore(PlayerInfo.controller.GetHighScore());
-		
     }
 
 
@@ -49,8 +51,10 @@ public class MainCanvas : MonoBehaviour
 
     void UpdateScore()
     {
-        if (Boat.player.CheckIfAlive() && !SpeechController.controller.CheckTextTime() && !UpgradeController.controller.CheckIfUpgrading())
-        {
+		if(levelEnded)
+			return;
+
+        
             score += Time.fixedDeltaTime + (Time.deltaTime * speedMult);
 
             scoreText.text = "Score: " + string.Format("{0:0.0}", score) + " m";
@@ -62,8 +66,17 @@ public class MainCanvas : MonoBehaviour
                 highScore = score;
                 highScoreText.text = "High Score: " + string.Format("{0:0.0}", highScore) + " m";
             }
-        }
+        
     }
+
+	public void StartLevel()
+	{
+		levelEnded = false;
+	}
+	public void EndLevel()
+	{
+		levelEnded = true;
+	}
 
     public void DeathScreen()
     {

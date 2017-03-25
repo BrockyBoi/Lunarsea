@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Purchasing;
-using UnityEngine.Advertisements;
+//using UnityEngine.Advertisements;
 
 public class MonetizationController : MonoBehaviour, IStoreListener
 {
 
-	public static MonetizationController controller;
+    public static MonetizationController controller;
     private static IStoreController m_StoreController;          // The Unity Purchasing system.
     private static IExtensionProvider m_StoreExtensionProvider; // The store-specific Purchasing subsystems.
 
-    public static string PRODUCT_500_COINS = "coins500";
-    public static string PRODUCT_1500_COINS = "coins1500";
+    public static string PRODUCT_1000_COINS = "coins1000";
     public static string PRODUCT_5000_COINS = "coins5000";
-    public static string PRODUCT_10000_COINS = "coins10000";
-    public static string PRODUCT_50000_COINS = "coins50000";
+    public static string PRODUCT_20000_COINS = "coins20000";
+    public static string PRODUCT_100000_COINS = "coins100000";
+    public static string PRODUCT_1000000_COINS = "coins1000000";
     public static string PRODUCT_NO_ADS = "noads";
 
     bool adsTurnedOff;
@@ -43,11 +43,11 @@ public class MonetizationController : MonoBehaviour, IStoreListener
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
 
-        builder.AddProduct(PRODUCT_500_COINS, ProductType.Consumable);
-        builder.AddProduct(PRODUCT_1500_COINS, ProductType.Consumable);
+        builder.AddProduct(PRODUCT_1000_COINS, ProductType.Consumable);
         builder.AddProduct(PRODUCT_5000_COINS, ProductType.Consumable);
-        builder.AddProduct(PRODUCT_10000_COINS, ProductType.Consumable);
-        builder.AddProduct(PRODUCT_50000_COINS, ProductType.Consumable);
+        builder.AddProduct(PRODUCT_20000_COINS, ProductType.Consumable);
+        builder.AddProduct(PRODUCT_100000_COINS, ProductType.Consumable);
+        builder.AddProduct(PRODUCT_1000000_COINS, ProductType.Consumable);
 
         builder.AddProduct(PRODUCT_NO_ADS, ProductType.NonConsumable);
 
@@ -64,25 +64,25 @@ public class MonetizationController : MonoBehaviour, IStoreListener
     }
 
 
-    public void Buy500Coins()
+    public void Buy1000Coins()
     {
-        BuyProductID(PRODUCT_500_COINS);
-    }
-    public void Buy1500Coins()
-    {
-        BuyProductID(PRODUCT_1500_COINS);
+        BuyProductID(PRODUCT_1000_COINS);
     }
     public void Buy5000Coins()
     {
         BuyProductID(PRODUCT_5000_COINS);
     }
-    public void Buy10000Coins()
+    public void Buy20000Coins()
     {
-        BuyProductID(PRODUCT_10000_COINS);
+        BuyProductID(PRODUCT_20000_COINS);
     }
-    public void Buy50000Coins()
+    public void Buy100000Coins()
     {
-        BuyProductID(PRODUCT_50000_COINS);
+        BuyProductID(PRODUCT_100000_COINS);
+    }
+    public void Buy1000000Coins()
+    {
+        BuyProductID(PRODUCT_1000000_COINS);
     }
     public void BuyNoAds()
     {
@@ -192,32 +192,32 @@ public class MonetizationController : MonoBehaviour, IStoreListener
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
     {
         // A consumable product has been purchased by this user.
-        if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_500_COINS, StringComparison.Ordinal))
+        if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_1000_COINS, StringComparison.Ordinal))
         {
-            Debug.Log("Just bought 500 gold");
-            CoinController.controller.BuyCoins(500);
+            Debug.Log("Just bought 1000 gold");
+            CoinController.controller.BuyCoins(1000);
         }
         // Or ... a non-consumable product has been purchased by this user.
-        else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_1500_COINS, StringComparison.Ordinal))
-        {
-            Debug.Log("Just bought 1500 gold");
-            CoinController.controller.BuyCoins(1500);
-        }
-        // Or ... a subscription product has been purchased by this user.
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_5000_COINS, StringComparison.Ordinal))
         {
             Debug.Log("Just bought 5000 gold");
             CoinController.controller.BuyCoins(5000);
         }
-        else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_10000_COINS, StringComparison.Ordinal))
+        // Or ... a subscription product has been purchased by this user.
+        else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_20000_COINS, StringComparison.Ordinal))
         {
-            Debug.Log("Just bought 10000 gold");
-            CoinController.controller.BuyCoins(10000);
+            Debug.Log("Just bought 20000 gold");
+            CoinController.controller.BuyCoins(20000);
         }
-        else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_50000_COINS, StringComparison.Ordinal))
+        else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_100000_COINS, StringComparison.Ordinal))
         {
-            Debug.Log("Just bought 50000 gold");
-            CoinController.controller.BuyCoins(50000);
+            Debug.Log("Just bought 100000 gold");
+            CoinController.controller.BuyCoins(100000);
+        }
+        else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_1000000_COINS, StringComparison.Ordinal))
+        {
+            Debug.Log("Just bought 1000000 gold");
+            CoinController.controller.BuyCoins(1000000);
         }
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_NO_ADS, StringComparison.Ordinal))
         {
@@ -259,53 +259,69 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 
     void Awake()
     {
-		controller = this;
-        Advertisement.Initialize(gameID, true);
+        controller = this;
+        //Advertisement.Initialize(gameID, true);
+    }
+
+    public void UpdateAdsTurnedOff(bool b)
+    {
+        adsTurnedOff = b;
+    }
+
+    public bool CheckIfAdsTurnedOff()
+    {
+        return adsTurnedOff;
+    }
+
+    public void ShowNormalAd()
+    {
+        // if (Advertisement.IsReady())
+        //     Advertisement.Show();
     }
 
     public void ShowAd(string zone = "")
     {
-#if UNITY_EDITOR
-        StartCoroutine(WaitForAd());
-#endif
+// #if UNITY_EDITOR
+//         StartCoroutine(WaitForAd());
+// #endif
 
-        if (string.Equals(zone, ""))
-            zone = null;
+//         if (string.Equals(zone, ""))
+//             zone = null;
 
-        ShowOptions options = new ShowOptions();
-        options.resultCallback = AdCallbackhandler;
+//         ShowOptions options = new ShowOptions();
+//         options.resultCallback = AdCallbackhandler;
 
-        if (Advertisement.IsReady(zone))
-            Advertisement.Show(zone, options);
+//         if (Advertisement.IsReady(zone))
+//             Advertisement.Show(zone, options);
     }
 
-    void AdCallbackhandler(ShowResult result)
-    {
-        switch (result)
-        {
-            case ShowResult.Finished:
-                Debug.Log("Ad Finished. Rewarding player...");
-                CoinController.controller.BuyCoins(150);
-                break;
-            case ShowResult.Skipped:
-                Debug.Log("Ad skipped. Son, I am dissapointed in you");
-                break;
-            case ShowResult.Failed:
-                Debug.Log("I swear this has never happened to me before");
-                break;
-        }
-    }
+    // void AdCallbackhandler(ShowResult result)
+    // {
+    //     switch (result)
+    //     {
+    //         case ShowResult.Finished:
+    //             Debug.Log("Ad Finished. Rewarding player...");
+    //             CoinController.controller.BuyCoins(200);
+    //             break;
+    //         case ShowResult.Skipped:
+    //             Debug.Log("Ad skipped. Son, I am dissapointed in you");
+    //             break;
+    //         case ShowResult.Failed:
+    //             Debug.Log("I swear this has never happened to me before");
+    //             break;
+    //     }
+    // }
 
-    IEnumerator WaitForAd()
-    {
-        float currentTimeScale = Time.timeScale;
-        Time.timeScale = 0f;
-        yield return null;
+    // IEnumerator WaitForAd()
+    // {
+    //     float currentTimeScale = Time.timeScale;
+    //     Time.timeScale = 0f;
+    //     yield return null;
 
-        while (Advertisement.isShowing)
-            yield return null;
+    //     while (Advertisement.isShowing)
+    //         yield return null;
 
-        Time.timeScale = currentTimeScale;
-    }
+    //     Time.timeScale = currentTimeScale;
+    // }
 
 }

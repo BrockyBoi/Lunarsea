@@ -52,8 +52,12 @@ public class TrackingMissile : MonoBehaviour
             Vector3 vec = Vector3.MoveTowards(transform.position, transform.position + dirVector, speed * Time.deltaTime);
             vec.z = -10;
             transform.position = vec;
-            lineRend.SetPosition(0, transform.position);
-            lineRend.SetPosition(1, endSpot);
+            if (lineRend.enabled == true && Boat.player.CheckIfAlive() && Mathf.Abs(Vector3.Distance(lineRend.GetPosition(0), lineRend.GetPosition(1))) > .05f)
+            {
+                lineRend.SetPosition(0, transform.position);
+                lineRend.SetPosition(1, endSpot);
+            }
+            else lineRend.enabled = false;
             yield return null;
         }
     }
@@ -96,7 +100,6 @@ public class TrackingMissile : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             HitPlayer(other.gameObject);
-            Debug.Log("Tracking missile hit player");
         }
 
         if (other.gameObject.CompareTag("Pillar") || other.gameObject.CompareTag("Platform"))

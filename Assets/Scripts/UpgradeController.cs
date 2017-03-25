@@ -18,11 +18,11 @@ public class UpgradeController : MonoBehaviour
     void Awake()
     {
         controller = this;
+        currentlyUpgrading = true;
     }
 
     void Start()
     {
-        currentlyUpgrading = true;
         CheckDisabledButtons();
     }
 
@@ -87,6 +87,7 @@ public class UpgradeController : MonoBehaviour
             default:
                 break;
         }
+        PlayerInfo.controller.Save();
     }
 
     public void BuyUpgrade(Upgrade u)
@@ -148,9 +149,7 @@ public class UpgradeController : MonoBehaviour
     {
         currentlyUpgrading = false;
         MainCanvas.controller.upgradeScreen.SetActive(false);
-        TutorialController.controller.SetUpTutorial();
-        CoinController.controller.StartGame();
-		PlayerInfo.controller.firstTimeEver = false;
+        Boat.player.SailIn();
     }
 
     public bool CheckIfUpgrading()

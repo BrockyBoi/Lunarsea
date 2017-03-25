@@ -58,7 +58,7 @@ public class Missile : MonoBehaviour
             other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 10, ForceMode2D.Impulse);
         }
 
-        if (other.gameObject.CompareTag("Missile") || other.gameObject.CompareTag("Cloud Enemy"))
+        if (other.gameObject.CompareTag("Missile") || other.gameObject.CompareTag("Cloud Enemy") || other.gameObject.CompareTag("Rock"))
         {
             Explode();
         }
@@ -76,7 +76,6 @@ public class Missile : MonoBehaviour
         if (!dead && other.gameObject.CompareTag("Player"))
         {
             HitPlayer(other.gameObject);
-            Debug.Log("Missile hit player");
         }
 
         if (other.gameObject.CompareTag("Pillar") || other.gameObject.CompareTag("Platform"))

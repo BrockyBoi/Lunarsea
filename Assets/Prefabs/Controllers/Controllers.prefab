@@ -26,7 +26,8 @@ GameObject:
   - component: {fileID: 114273022347892424}
   - component: {fileID: 114570782682668944}
   - component: {fileID: 114979691216827468}
-  - component: {fileID: 114097532232114662}
+  - component: {fileID: 114102977851860278}
+  - component: {fileID: 114377744432704936}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -59,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialMode: 0
---- !u!114 &114097532232114662
+--- !u!114 &114102977851860278
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -67,10 +68,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1138018935000190}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbbbbf09ee43e5b4ca25d50c0a3433e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 7322dcea57e3d3249bb30ca5945dca81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasGoals: 000000
+  gameID: 33675
 --- !u!114 &114273022347892424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -82,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1257e7acb008bef4d99b7ec1032255cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinAmounts: 96000000ee020000dc05000088130000a8610000
+  coinAmounts: f4010000d00700001027000090d0030040420f00
 --- !u!114 &114313377703881370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,7 +107,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coin: {fileID: 1729073465911198, guid: 0c0e26032c0c6a44095be6b790590148, type: 2}
-  FullCoins: 1
+  FullCoins: 0
+--- !u!114 &114377744432704936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbbbbf09ee43e5b4ca25d50c0a3433e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasGoals: 0000000000
+  maxGoals: 3
 --- !u!114 &114570782682668944
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -137,6 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DontLoadOnStart: 1
+  firstTimeEver: 0
 --- !u!114 &114979691216827468
 MonoBehaviour:
   m_ObjectHideFlags: 1

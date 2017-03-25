@@ -3,7 +3,7 @@
 public class TempGoal : System.Object
 {
 
-    public enum Goal { Distance, Coin, MissilesDestroyed, MAX_GOALS }
+    public enum Goal { Distance, Coin, MissilesDestroyed, TimesPlayed, AvoidDamage, MAX_GOALS }
     int goalType;
     float currentProgress, targetGoal;
     bool perLife;
@@ -11,13 +11,15 @@ public class TempGoal : System.Object
 
     bool rewardFulfilled;
     int spot;
+    Goal myGoal;
     public TempGoal(int spotInArray, Goal g, float target, bool oncePerLife, int reward)
     {
         spot = spotInArray;
-        goalType = (int)g;
         targetGoal = target;
         perLife = oncePerLife;
         rewardValue = reward;
+        myGoal = g;
+        goalType = (int)g;
     }
 
     public void UpdateProgress(float missileCount)
@@ -25,19 +27,27 @@ public class TempGoal : System.Object
         if (rewardFulfilled)
             return;
 
-        switch (goalType)
+        switch (myGoal)
         {
-            case (int)Goal.Distance:
+            case Goal.Distance:
                 CheckIfGoalIsMet(MainCanvas.controller.GetScore());
                 break;
-            case (int)Goal.Coin:
+            case Goal.Coin:
                 CheckIfGoalIsMet(CoinController.controller.GetTempCoinNum());
                 break;
-            case (int)Goal.MissilesDestroyed:
+            case Goal.MissilesDestroyed:
                 CheckIfGoalIsMet(missileCount);
+                break;
+            case Goal.TimesPlayed:
+                CheckIfGoalIsMet(DeathCounter.controller.GetDeathCount());
+                break;
+            case Goal.AvoidDamage:
+                if (!Boat.player.CheckIfTookDamage())
+                    CheckIfGoalIsMet(MainCanvas.controller.GetScore());
                 break;
             default:
                 break;
+
         }
     }
 
@@ -50,7 +60,7 @@ public class TempGoal : System.Object
     {
         if (rewardFulfilled)
             return;
-        Debug.Log((input + currentProgress) + " out of " + targetGoal);
+
         if (perLife)
         {
             if (input >= targetGoal)
@@ -67,9 +77,8 @@ public class TempGoal : System.Object
     void FulfillGoal()
     {
         rewardFulfilled = true;
-        Debug.Log("Money before: " + CoinController.controller.getCoinNum());
         TempGoalController.controller.FinishGoal(spot, rewardValue);
-        Debug.Log("Money after: " + CoinController.controller.getCoinNum());
+        Debug.Log("Fulfilled goal # " + spot);
     }
 
     public void PlayerDied()

@@ -53,6 +53,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterJointPrefab: {fileID: 1404304788250446, guid: 72a5aa6dcd5f24d6b9818967e9476604,
     type: 2}
-  numJoints: 191
+  numJoints: 200
   waterYPos: 0.675
   joints: []

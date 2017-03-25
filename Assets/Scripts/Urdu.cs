@@ -13,7 +13,7 @@ public class Urdu : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D INFIDEL)
     {
-        if (INFIDEL.gameObject.CompareTag("Player"))
+        if (INFIDEL.gameObject.CompareTag("Player") && !side)
         {
             Boat.player.Die();
         }
@@ -21,7 +21,7 @@ public class Urdu : MonoBehaviour
         if(INFIDEL.gameObject.CompareTag("Magnet"))
             return;
 		
-        if (INFIDEL.gameObject.layer != LayerMask.NameToLayer("Water") || !INFIDEL.gameObject.CompareTag("ArtificialWave"))
+        if (INFIDEL.gameObject.layer != LayerMask.NameToLayer("Water") && !INFIDEL.gameObject.CompareTag("ArtificialWave"))
             Destroy(INFIDEL.gameObject);
     }
 }

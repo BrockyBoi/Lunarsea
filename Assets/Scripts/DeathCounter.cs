@@ -22,10 +22,16 @@ public class DeathCounter : MonoBehaviour
     {
         deathCount++;
 
-        if (deathCount % 4 == 0)
+        if (!MonetizationController.controller.CheckIfAdsTurnedOff() && deathCount % 2 == 0)
         {
-            MonetizationController.controller.ShowAd("video");
+            MonetizationController.controller.ShowNormalAd();
         }
+		TempGoalController.controller.UpdateTimesPlayedGoals();
     }
+
+	public int GetDeathCount()
+	{
+		return deathCount;
+	}
 
 }
