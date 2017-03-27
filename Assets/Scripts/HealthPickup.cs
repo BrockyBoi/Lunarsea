@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
 {
-    public float speed;
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+    public float startingSpeed;
+    float speed;
     void Update()
     {
         Vector3 forward = new Vector3(transform.position.x + -speed, transform.position.y + Mathf.Sin(Time.time / .4f), 10);
         transform.position = Vector3.MoveTowards(transform.position, forward, speed * Time.deltaTime);
+    }
+
+    void OnEnable()
+    {
+        GiveSpeedMultiplier(MillileSpawner.controller.GetSpeedMultiplier());
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -23,12 +22,13 @@ public class HealthPickup : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<Boat>().AddHealth();
-            Destroy(gameObject);
+           // Destroy(gameObject);
+           gameObject.SetActive(false);
         }
     }
 
     public void GiveSpeedMultiplier(float mult)
     {
-        speed += mult;
+        speed = startingSpeed + mult;
     }
 }

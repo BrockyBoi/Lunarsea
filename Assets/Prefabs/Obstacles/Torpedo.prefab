@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb387e18a1182c4f840af35acaa08cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  startingSpeed: 8.5
   particles: {fileID: 1597742983234352, guid: b94b794dbd0ca4541856e0b1191a035b, type: 2}
   explosionCollider: {fileID: 58506023475733498}
   effector: {fileID: 250915955838811702}
@@ -2801,7 +2801,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294952153
-  m_ForceMagnitude: 50
+  m_ForceMagnitude: 75
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0

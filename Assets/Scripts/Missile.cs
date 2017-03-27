@@ -3,26 +3,20 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    public float speed;
-    float variable;
+    [SerializeField]
+    protected float startingSpeed;
+    protected float speed;
 
     public GameObject particles;
     [SerializeField]
-    CircleCollider2D explosionCollider;
+    protected CircleCollider2D explosionCollider;
     [SerializeField]
-    PointEffector2D effector;
+    protected PointEffector2D effector;
 
     public bool IgnoreWater;
-    bool dead;
+    protected bool dead;
 
-    // Use this for initialization
-    void Start()
-    {
-        Init();
-    }
-
-    // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         if (dead)
             return;
@@ -36,7 +30,7 @@ public class Missile : MonoBehaviour
 
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    protected void OnCollisionEnter2D(Collision2D other)
     {
         if (dead)
             return;
@@ -71,7 +65,7 @@ public class Missile : MonoBehaviour
 
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         if (!dead && other.gameObject.CompareTag("Player"))
         {
@@ -85,36 +79,56 @@ public class Missile : MonoBehaviour
         }
     }
 
-    void Explode()
+    protected void OnEnable()
+    {
+        Init();
+        GiveSpeedMultiplier(MillileSpawner.controller.GetSpeedMultiplier());
+        GetComponent<SpriteRenderer>().enabled = true;
+    }
+    
+    protected void OnDisable()
+    {
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+    }
+
+
+    protected void Explode()
     {
         if (dead)
             return;
 
         if (Boat.player.CheckIfAlive())
             TempGoalController.controller.MissileDestryoed();
+
         dead = true;
         explosionCollider.enabled = true;
         effector.enabled = true;
         AudioController.controller.PlayMissileSound();
         Instantiate(particles, transform.position, Quaternion.identity);
         GetComponent<SpriteRenderer>().enabled = false;
-        Destroy(gameObject, .1f);
+        Invoke("TurnOffObject", .05f);
     }
 
-    void HitPlayer(GameObject o)
+    protected void TurnOffObject()
+    {
+                gameObject.SetActive(false);
+    }
+
+    protected void HitPlayer(GameObject o)
     {
         o.GetComponent<Boat>().TakeMissileDamage();
         Explode();
     }
 
-    void Init()
+    protected void Init()
     {
+        dead = false;
         explosionCollider.enabled = false;
         effector.enabled = false;
     }
 
     public void GiveSpeedMultiplier(float mult)
     {
-        speed += mult;
+        speed = startingSpeed + mult;
     }
 }

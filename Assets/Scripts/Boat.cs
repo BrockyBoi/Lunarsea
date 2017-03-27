@@ -44,6 +44,8 @@ public class Boat : MonoBehaviour
     bool tookDamage;
 
     bool sailingIn;
+
+    GameObject moonItem;
     #endregion
 
     void Awake()
@@ -65,6 +67,9 @@ public class Boat : MonoBehaviour
             maxHealth = health = 1;
             MainCanvas.controller.HealthChange();
         }
+
+        moonItem = Instantiate(moonPrefab, transform.position, Quaternion.identity) as GameObject;
+        moonItem.SetActive(false);
     }
 
     void Update()
@@ -77,7 +82,7 @@ public class Boat : MonoBehaviour
         if (tutorialMode && TutorialController.controller.CheckIfOnStage(TutorialController.TutorialStage.MOVEMENT) && horizontal != 0)
             TutorialController.controller.SetStage(TutorialController.TutorialStage.SPAWN_MOON);
 
-        if (Input.GetMouseButtonDown(0) && !moonOut)
+        if (Input.GetMouseButtonDown(0) && !moonOut && !sailingIn)
         {
             if (CheckIfAllowed(TutorialController.TutorialStage.SPAWN_MOON))
                 CreateMoon();
@@ -109,7 +114,7 @@ public class Boat : MonoBehaviour
             MainCanvas.controller.FinishLevel();
         }
 
-        if (extraSpeed > 0 && !finishedLevel && Mathf.Abs(transform.position.x - midPoint) <= .15f)
+        if (extraSpeed > 0 && !finishedLevel && Mathf.Abs(transform.position.x - midPoint) <= .5f)
         {
             extraSpeed = 0;
             FinishedSailingIn();
@@ -142,8 +147,9 @@ public class Boat : MonoBehaviour
     void CreateMoon()
     {
         moonOut = true;
-        GameObject moon = Instantiate(moonPrefab, transform.position, Quaternion.identity) as GameObject;
-        moon.GetComponent<Moon>().GiveVector(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        moonItem.transform.position = transform.position;
+        moonItem.SetActive(true);
+        moonItem.GetComponent<Moon>().GiveVector(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         AudioController.controller.WaterRise();
 
         if (tutorialMode && TutorialController.controller.CheckIfOnStage(TutorialController.TutorialStage.SPAWN_MOON))

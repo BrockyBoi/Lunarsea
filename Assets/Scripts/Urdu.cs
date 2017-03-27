@@ -13,15 +13,24 @@ public class Urdu : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D INFIDEL)
     {
-        if (INFIDEL.gameObject.CompareTag("Player") && !side)
+        switch (INFIDEL.tag)
         {
-            Boat.player.Die();
-        }
+            case "Missile":
+                INFIDEL.gameObject.SetActive(false);
+                break;
+            case "Rock":
+                INFIDEL.gameObject.SetActive(false);
+                break;
+            case "Boat":
+                if (!side)
+                    Boat.player.Die();
+                break;
+            case "Coin":
+                Destroy(INFIDEL.gameObject);
+                break;
+            default:
+                break;
 
-        if(INFIDEL.gameObject.CompareTag("Magnet"))
-            return;
-		
-        if (INFIDEL.gameObject.layer != LayerMask.NameToLayer("Water") && !INFIDEL.gameObject.CompareTag("ArtificialWave"))
-            Destroy(INFIDEL.gameObject);
+        }
     }
 }

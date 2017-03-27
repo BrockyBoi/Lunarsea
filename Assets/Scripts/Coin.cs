@@ -7,12 +7,6 @@ public class Coin : MonoBehaviour
     public GameObject particleEffect;
     bool followPlayer;
 
-    // Use this for initialization
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
     void Update()
     {
         Move(BackgroundConroller.controller.getSpeed() * 2);
@@ -24,14 +18,19 @@ public class Coin : MonoBehaviour
         {
             CoinController.controller.addCoin();
             Destroy(Instantiate(particleEffect, transform.position, Quaternion.identity), 1);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+           // Destroy(gameObject);
         }
-
         
         if(other.gameObject.CompareTag("Magnet"))
         {
             FollowPlayer();
         }
+    }
+
+    void OnDisable()
+    {
+        followPlayer = false;
     }
     void Move(float speed)
     {

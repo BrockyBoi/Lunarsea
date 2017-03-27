@@ -5,12 +5,13 @@ using UnityEngine;
 public class CoinController : MonoBehaviour
 {
     public static CoinController controller;
-    public GameObject coin;
+    public GameObject coinPrefab;
 
     //Temp coins are just the coins that you get during that specific life
     int tempCoins;
     int numCoins;
 
+    List<GameObject> coinList = new List<GameObject>();
     public bool FullCoins;
 
     void Awake()
@@ -20,11 +21,12 @@ public class CoinController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if(FullCoins)
+        if (FullCoins)
         {
             numCoins = 50000000;
             MainCanvas.controller.UpdateCoinString(numCoins);
         }
+        InitializeCoins();
     }
     // Update is called once per frame
     void Update()
@@ -32,13 +34,31 @@ public class CoinController : MonoBehaviour
     }
 
     #region Coin Spawners
+
+    void InitializeCoins()
+    {
+        Vector2 farAway = new Vector2(100, 100);
+        for (int i = 0; i < 75; i++)
+        {
+            GameObject coin = Instantiate(coinPrefab, farAway, Quaternion.identity) as GameObject;
+            coin.SetActive(false);
+            coinList.Add(coin);
+        }
+    }
     //Spawns coins in a straight line with length coins
     public void coinSpawnLine(int length, float yPos, float xPos, float gap = 0.5f)
     {
         for (int i = 0; i < length; i++)
         {
             float x = xPos + (1.15f + gap) * i;
-            Instantiate(coin, new Vector3(x, yPos), Quaternion.identity);
+            //Instantiate(coinPrefab, new Vector3(x, yPos), Quaternion.identity);
+            int j = 0;
+            while (coinList[j].activeInHierarchy)
+                j++;
+
+            GameObject coin = coinList[j];
+            coin.transform.position = new Vector3(x, yPos);
+            coin.SetActive(true);
         }
     }
 
@@ -63,7 +83,15 @@ public class CoinController : MonoBehaviour
                 h = 1;
                 up = 0 - up;
             }
-            Instantiate(coin, new Vector3(x, y), Quaternion.identity);
+            // Instantiate(coinPrefab, new Vector3(x, y), Quaternion.identity);
+            int j = 0;
+
+            while (coinList[j].activeInHierarchy)
+                j++;
+
+            GameObject coin = coinList[j];
+            coin.transform.position = new Vector3(x, y);
+            coin.SetActive(true);
         }
     }
 
@@ -76,7 +104,14 @@ public class CoinController : MonoBehaviour
             {
                 float x = xPos + (1.15f + gap) * i;
                 float y = yPos + (1.15f + gap) * j;
-                Instantiate(coin, new Vector3(x, y), Quaternion.identity);
+
+                int z = 0;
+                while (coinList[z].activeInHierarchy)
+                    z++;
+
+                GameObject coin = coinList[z];
+                coin.transform.position = new Vector3(x, y);
+                coin.SetActive(true);
             }
         }
     }

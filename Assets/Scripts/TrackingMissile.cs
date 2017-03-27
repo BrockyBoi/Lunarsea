@@ -1,37 +1,15 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class TrackingMissile : MonoBehaviour
+public class TrackingMissile : Missile
 {
-    public float speed;
-    public GameObject particles;
-
-    bool dead;
-
-    [SerializeField]
-    PointEffector2D effector;
-
-    [SerializeField]
-    CircleCollider2D explosionCollider;
-    Vector3 dirVector;
-
     LineRenderer lineRend;
 
-    // Use this for initialization
-    void Start()
-    {
-        Init();
-        StartCoroutine(TakeShot());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    protected virtual void Update()
+    { }
     IEnumerator TakeShot()
     {
+        Vector3 dirVector;
         Vector3 endSpot = Vector3.zero;
         if (Boat.player.CheckIfAlive())
         {
@@ -61,91 +39,21 @@ public class TrackingMissile : MonoBehaviour
             yield return null;
         }
     }
-
-    #region Collisions
-    void OnCollisionEnter2D(Collision2D other)
+    protected virtual void OnEnable()
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            HitPlayer(other.gameObject);
-            Debug.Log("Tracking missile hit player");
-        }
-
-        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
-        {
-            Explode();
-        }
-
-        if (other.gameObject.CompareTag("Enemy Boat"))
-        {
-            Explode();
-            other.gameObject.GetComponent<EnemyBoat>().DoDamage();
-            other.gameObject.GetComponent<Rigidbody2D>().AddForce(dirVector * 10, ForceMode2D.Impulse);
-        }
-
-        if (other.gameObject.CompareTag("Missile") || other.gameObject.CompareTag("Cloud Enemy"))
-        {
-            Explode();
-        }
-
-        if (other.gameObject.CompareTag("Boss"))
-        {
-            Explode();
-            other.gameObject.GetComponent<Boss>().TakeDamage();
-        }
+        base.OnEnable();
+        lineRend = gameObject.GetComponent<LineRenderer>();
+        StartCoroutine(TakeShot());
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnDisable()
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            HitPlayer(other.gameObject);
-        }
-
-        if (other.gameObject.CompareTag("Pillar") || other.gameObject.CompareTag("Platform"))
-        {
-            Destroy(other.transform.parent.gameObject);
-            Explode();
-        }
+        StopAllCoroutines();
     }
 
-    #endregion
-
-    void Init()
+    protected virtual void Explode()
     {
-        lineRend = GetComponent<LineRenderer>();
-        explosionCollider.enabled = false;
-        effector.enabled = false;
-    }
-
-    void Explode()
-    {
-        if (dead)
-            return;
-
-        if (Boat.player.CheckIfAlive())
-            TempGoalController.controller.MissileDestryoed();
-        dead = true;
-        explosionCollider.enabled = true;
-        effector.enabled = true;
-        AudioController.controller.PlayMissileSound();
-        Instantiate(particles, transform.position, Quaternion.identity);
-        GetComponent<SpriteRenderer>().enabled = false;
+        base.Explode();
         lineRend.enabled = false;
-        Destroy(gameObject, .1f);
-    }
-
-
-    void HitPlayer(GameObject o)
-    {
-        o.GetComponent<Boat>().TakeMissileDamage();
-        AudioController.controller.PlayMissileSound();
-        Instantiate(particles, transform.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
-
-    public void GiveSpeedMultiplier(float mult)
-    {
-        speed += mult;
     }
 }

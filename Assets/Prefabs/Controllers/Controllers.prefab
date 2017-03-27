@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 114979691216827468}
   - component: {fileID: 114102977851860278}
   - component: {fileID: 114377744432704936}
+  - component: {fileID: 114103865105979950}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -59,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f10f837076070ef49b2f076aeb16d409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialMode: 0
+  tutorialMode: 1
 --- !u!114 &114102977851860278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,6 +73,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameID: 33675
+--- !u!114 &114103865105979950
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b057cd19cc20b9546a74ff988b528805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phrases:
+  - 'Use A and D to move the boat left and right. '
+  - Left click to summon the moon to create waves
+  - 'Left click again to retract moon '
+  textField: {fileID: 0}
 --- !u!114 &114273022347892424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f6994b3b2b20204db43ee27c96ae5c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coin: {fileID: 1729073465911198, guid: 0c0e26032c0c6a44095be6b790590148, type: 2}
+  coinPrefab: {fileID: 1729073465911198, guid: 0c0e26032c0c6a44095be6b790590148, type: 2}
   FullCoins: 0
 --- !u!114 &114377744432704936
 MonoBehaviour:
@@ -119,7 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbbbf09ee43e5b4ca25d50c0a3433e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasGoals: 0000000000
   maxGoals: 3
 --- !u!114 &114570782682668944
 MonoBehaviour:
@@ -150,8 +166,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588380a6c88a9be43b207e8d8ab3de8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DontLoadOnStart: 1
+  DontLoadOnStart: 0
   firstTimeEver: 0
+  DeleteFirst: 0
 --- !u!114 &114979691216827468
 MonoBehaviour:
   m_ObjectHideFlags: 1

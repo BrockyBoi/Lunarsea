@@ -10,7 +10,7 @@ public class Moon : MonoBehaviour
     Vector3 size;
     bool returning;
 
-    void Start()
+    void OnEnable()
     {
         size = transform.localScale * magnification;
 
@@ -80,7 +80,9 @@ public class Moon : MonoBehaviour
         AudioController.controller.WaterFall();
         Boat.player.moonOut = false;
 
-        Destroy(gameObject);
+        transform.localScale = new Vector3(5,5,1);
+        gameObject.SetActive(false);
+       // Destroy(gameObject);
     }
 
 }

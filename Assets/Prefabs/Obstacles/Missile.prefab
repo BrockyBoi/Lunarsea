@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706525829344378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.53635, y: -4.667883, z: 0}
+  m_LocalPosition: {x: -13.878573, y: -0.32265103, z: 0}
   m_LocalScale: {x: 4.82, y: 3.14, z: 1}
   m_Children:
   - {fileID: 4619288013115576}
@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1608741672825744}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.0484, y: 0.0017758807, z: 0}
+  m_LocalPosition: {x: 0.0484, y: 0.0017758807, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4300074245253396}
@@ -135,11 +135,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb387e18a1182c4f840af35acaa08cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  startingSpeed: 8.5
   particles: {fileID: 1597742983234352, guid: b94b794dbd0ca4541856e0b1191a035b, type: 2}
-  explosionCollider: {fileID: 58506023475733498, guid: 7f9df73a85c0b90458f0756121111fee,
-    type: 2}
-  effector: {fileID: 250915955838811702, guid: 7f9df73a85c0b90458f0756121111fee, type: 2}
+  explosionCollider: {fileID: 58972495545284166}
+  effector: {fileID: 250551577363746416}
   IgnoreWater: 0
 --- !u!198 &198310155285454298
 ParticleSystem:
@@ -196,7 +195,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1943449195
+  randomSeed: -834057389
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -2802,7 +2801,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294952153
-  m_ForceMagnitude: 50
+  m_ForceMagnitude: 75
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
