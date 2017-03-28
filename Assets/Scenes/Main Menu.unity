@@ -428,8 +428,8 @@ GameObject:
   - component: {fileID: 821438677}
   - component: {fileID: 821438676}
   - component: {fileID: 821438675}
-  - component: {fileID: 821438674}
   - component: {fileID: 821438679}
+  - component: {fileID: 821438674}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -445,14 +445,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 821438673}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e1bab050934ab547be848de5386f4b5, type: 3}
+  m_Script: {fileID: 11500000, guid: 188cf5ecc90229f448e011b6716def35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   credits: {fileID: 1422086624}
   loading: {fileID: 33903658}
   buttons:
-  - {fileID: 1181768157}
   - {fileID: 1209753934}
+  - {fileID: 1181768157}
   back: {fileID: 303631210}
 --- !u!114 &821438675
 MonoBehaviour:

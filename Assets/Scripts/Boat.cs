@@ -78,6 +78,8 @@ public class Boat : MonoBehaviour
             return;
 
         float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
+        if (sailingIn || finishedLevel)
+            horizontal = 0;
 
         if (tutorialMode && TutorialController.controller.CheckIfOnStage(TutorialController.TutorialStage.MOVEMENT) && horizontal != 0)
             TutorialController.controller.SetStage(TutorialController.TutorialStage.SPAWN_MOON);

@@ -38,7 +38,7 @@ public class CoinController : MonoBehaviour
     void InitializeCoins()
     {
         Vector2 farAway = new Vector2(100, 100);
-        for (int i = 0; i < 75; i++)
+        for (int i = 0; i < 250; i++)
         {
             GameObject coin = Instantiate(coinPrefab, farAway, Quaternion.identity) as GameObject;
             coin.SetActive(false);
@@ -85,7 +85,6 @@ public class CoinController : MonoBehaviour
             }
             // Instantiate(coinPrefab, new Vector3(x, y), Quaternion.identity);
             int j = 0;
-
             while (coinList[j].activeInHierarchy)
                 j++;
 

@@ -187,10 +187,10 @@ public class BackgroundConroller : MonoBehaviour
 
     public void EndLevel()
     {
-        for(int i = 0; i < speed.Length; i++)
-        {
-            speed[i] = 0;
-        }
+        setSpeed(0, 0);
+        setSpeed(1, .5f);
+        setSpeed(2, .35f);
+
     }
     #endregion
 

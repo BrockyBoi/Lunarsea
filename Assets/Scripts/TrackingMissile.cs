@@ -21,6 +21,9 @@ public class TrackingMissile : Missile
             dirVector = new Vector3(Random.Range(-5, 5), -10, 10) - transform.position;
         }
 
+        lineRend.SetPosition(0, transform.position);
+        lineRend.SetPosition(1, endSpot);
+
         //http://answers.unity3d.com/questions/654222/make-sprite-look-at-vector2-in-unity-2d-1.html
         float angle = Mathf.Atan2(dirVector.y, dirVector.x) * Mathf.Rad2Deg - 180;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -43,6 +46,7 @@ public class TrackingMissile : Missile
     {
         base.OnEnable();
         lineRend = gameObject.GetComponent<LineRenderer>();
+        lineRend.enabled = true;
         StartCoroutine(TakeShot());
     }
 

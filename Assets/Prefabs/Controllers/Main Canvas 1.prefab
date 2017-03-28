@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 223217555950435400}
   - component: {fileID: 114298610222330118}
   - component: {fileID: 114313820446602584}
-  - component: {fileID: 114214832913800748}
   - component: {fileID: 114094031746416188}
   - component: {fileID: 114004255967618948}
+  - component: {fileID: 114978593883397104}
   m_Layer: 5
   m_Name: Main Canvas 1
   m_TagString: Untagged
@@ -1637,40 +1637,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114214832913800748
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1010121353340042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 531ead43d1514d440aa427b682cefeb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deathScreen: {fileID: 1945523894100284}
-  upgradeScreen: {fileID: 1913723213354962}
-  monetizationScreen: {fileID: 1612266443816034}
-  scoreText: {fileID: 114566390658936920}
-  highScoreText: {fileID: 114202592682542620}
-  coinText: {fileID: 114830814252933666}
-  healthImages:
-  - {fileID: 114336572711204028}
-  - {fileID: 114788018682933526}
-  - {fileID: 114599752910304506}
-  - {fileID: 114162569977270814}
-  - {fileID: 114646444625459460}
-  - {fileID: 114949908289553172}
-  upgradeButtons:
-  - {fileID: 114028788196150816}
-  - {fileID: 114214521103323092}
-  - {fileID: 114286371348585892}
-  - {fileID: 114413646905201484}
-  - {fileID: 114900566211035626}
-  - {fileID: 114016854152501774}
-  - {fileID: 114610018691541708}
-  blackScreen: {fileID: 114502826773453222}
-  speedMult: 0
 --- !u!114 &114247299855218114
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1915,7 +1881,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114214832913800748}
+      - m_Target: {fileID: 114978593883397104}
         m_MethodName: PressRetry
         m_Mode: 1
         m_Arguments:
@@ -1967,7 +1933,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114214832913800748}
+      - m_Target: {fileID: 114978593883397104}
         m_MethodName: PressStore
         m_Mode: 1
         m_Arguments:
@@ -2701,7 +2667,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114214832913800748}
+      - m_Target: {fileID: 114978593883397104}
         m_MethodName: PressBackMonetization
         m_Mode: 1
         m_Arguments:
@@ -3773,7 +3739,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114214832913800748}
+      - m_Target: {fileID: 114978593883397104}
         m_MethodName: PressMainMenu
         m_Mode: 1
         m_Arguments:
@@ -3786,6 +3752,40 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114978593883397104
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1010121353340042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cbd7e2da48df69449db46e933fc7986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathScreen: {fileID: 1945523894100284}
+  upgradeScreen: {fileID: 1913723213354962}
+  monetizationScreen: {fileID: 1612266443816034}
+  scoreText: {fileID: 114566390658936920}
+  highScoreText: {fileID: 114202592682542620}
+  coinText: {fileID: 114830814252933666}
+  healthImages:
+  - {fileID: 114336572711204028}
+  - {fileID: 114788018682933526}
+  - {fileID: 114599752910304506}
+  - {fileID: 114162569977270814}
+  - {fileID: 114646444625459460}
+  - {fileID: 114949908289553172}
+  upgradeButtons:
+  - {fileID: 114028788196150816}
+  - {fileID: 114214521103323092}
+  - {fileID: 114286371348585892}
+  - {fileID: 114413646905201484}
+  - {fileID: 114900566211035626}
+  - {fileID: 114016854152501774}
+  - {fileID: 114610018691541708}
+  blackScreen: {fileID: 114502826773453222}
+  speedMult: 0
 --- !u!114 &114981694622180306
 MonoBehaviour:
   m_ObjectHideFlags: 1

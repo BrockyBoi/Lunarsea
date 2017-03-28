@@ -26,7 +26,7 @@ public class Urdu : MonoBehaviour
                     Boat.player.Die();
                 break;
             case "Coin":
-                Destroy(INFIDEL.gameObject);
+                INFIDEL.gameObject.SetActive(false);
                 break;
             default:
                 break;
