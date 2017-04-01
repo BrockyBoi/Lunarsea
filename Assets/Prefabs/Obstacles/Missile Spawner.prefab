@@ -60,6 +60,8 @@ MonoBehaviour:
   rockPrefab: {fileID: 1120561497435058, guid: f044aa7b23fb0774f90f75d705e46edb, type: 2}
   healthPrefab: {fileID: 1753626566498202, guid: d9e78c1cfeff9624a8a18a4a3f15ffbc,
     type: 2}
+  pirateShipPrefab: {fileID: 1283627507287046, guid: 53755e522801d5847a2327c9be2f8bfe,
+    type: 2}
   missileList: []
   torpedoList: []
   rockList: []

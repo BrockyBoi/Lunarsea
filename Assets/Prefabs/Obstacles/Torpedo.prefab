@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 61451799092928206}
   - component: {fileID: 250915955838811702}
   - component: {fileID: 58506023475733498}
-  - component: {fileID: 114900497206358636}
+  - component: {fileID: 114474761801191506}
   m_Layer: 11
   m_Name: Torpedo
   m_TagString: Missile
@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706525829344378}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.19806, y: -6.947354, z: 0}
+  m_LocalPosition: {x: -3.8017573, y: -7.48359, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4619288013115576}
@@ -102,7 +102,7 @@ CircleCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706525829344378}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -124,7 +124,7 @@ BoxCollider2D:
   m_Offset: {x: -0.0035621095, y: -0.009974289}
   serializedVersion: 2
   m_Size: {x: 2.5, y: 0.51}
---- !u!114 &114900497206358636
+--- !u!114 &114474761801191506
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -132,13 +132,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1706525829344378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 634bf70dc18e27f48a76388357b014c6, type: 3}
+  m_Script: {fileID: 11500000, guid: f9ca9de85e9183a41b96fdcafcbe534d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startingSpeed: 9
   particles: {fileID: 1597742983234352, guid: b94b794dbd0ca4541856e0b1191a035b, type: 2}
-  explosionCollider: {fileID: 58506023475733498}
-  effector: {fileID: 250915955838811702}
+  explosionCollider: {fileID: 58972495545284166, guid: 2ec7ae9e9d526ca4fb976e1fb5d8cd37,
+    type: 2}
+  effector: {fileID: 250551577363746416, guid: 2ec7ae9e9d526ca4fb976e1fb5d8cd37, type: 2}
   IgnoreWater: 1
 --- !u!198 &198310155285454298
 ParticleSystem:
@@ -2787,7 +2788,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8f9dc0a29544bae4280d9b5d379d0421, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.73103446, g: 0.73103446, b: 0.73103446, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!250 &250915955838811702
@@ -2796,7 +2797,7 @@ PointEffector2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1706525829344378}
-  m_Enabled: 1
+  m_Enabled: 0
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2

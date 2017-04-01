@@ -29,6 +29,8 @@ GameObject:
   - component: {fileID: 114102977851860278}
   - component: {fileID: 114377744432704936}
   - component: {fileID: 114103865105979950}
+  - component: {fileID: 114229173661616442}
+  - component: {fileID: 114259653825167178}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -36,6 +38,105 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1597277946855642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4364529750343132}
+  m_Layer: 0
+  m_Name: Rocks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1687486437772696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4770566502202450}
+  m_Layer: 0
+  m_Name: Joints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1716649032808588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4029000099909460}
+  m_Layer: 0
+  m_Name: Missiles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1941360343904712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4072822926916154}
+  m_Layer: 0
+  m_Name: Coins
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4029000099909460
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1716649032808588}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.8741274, y: 0.23916191, z: -2.7578125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4446142644039040}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4072822926916154
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1941360343904712}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.8741274, y: 0.23916191, z: -2.7578125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4446142644039040}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4364529750343132
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1597277946855642}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.8741274, y: 0.23916191, z: -2.7578125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4446142644039040}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4446142644039040
 Transform:
   m_ObjectHideFlags: 1
@@ -45,9 +146,26 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.2225103, y: -0.09431261, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4072822926916154}
+  - {fileID: 4029000099909460}
+  - {fileID: 4364529750343132}
+  - {fileID: 4770566502202450}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4770566502202450
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1687486437772696}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.8741275, y: 0.23916215, z: -2.7578125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4446142644039040}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114005152846667158
 MonoBehaviour:
@@ -60,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f10f837076070ef49b2f076aeb16d409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialMode: 1
+  tutorialMode: 0
 --- !u!114 &114102977851860278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,7 +190,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7322dcea57e3d3249bb30ca5945dca81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameID: 33675
+  androidGameId: 1356853
+  iosGameId: 1356852
+  testMode: 0
 --- !u!114 &114103865105979950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,6 +209,51 @@ MonoBehaviour:
   - Left click to summon the moon to create waves
   - 'Left click again to retract moon '
   textField: {fileID: 0}
+--- !u!114 &114229173661616442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ffc859d3acea14e86992be6202edc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missilePrefab: {fileID: 1706525829344378, guid: 2ec7ae9e9d526ca4fb976e1fb5d8cd37,
+    type: 2}
+  torpedoPrefab: {fileID: 1706525829344378, guid: 7f9df73a85c0b90458f0756121111fee,
+    type: 2}
+  trackingMissilePrefab: {fileID: 1706525829344378, guid: 9031ea4f455246a4387552220cc6c54c,
+    type: 2}
+  rockPrefab: {fileID: 1120561497435058, guid: f044aa7b23fb0774f90f75d705e46edb, type: 2}
+  healthPrefab: {fileID: 1753626566498202, guid: d9e78c1cfeff9624a8a18a4a3f15ffbc,
+    type: 2}
+  pirateShipPrefab: {fileID: 1283627507287046, guid: 53755e522801d5847a2327c9be2f8bfe,
+    type: 2}
+  missilesParent: {fileID: 4029000099909460}
+  rocksParent: {fileID: 4364529750343132}
+  missileList: []
+  torpedoList: []
+  rockList: []
+  trackingMissileList: []
+--- !u!114 &114259653825167178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec7747a4e5a5a48b384cbedfb9e46dea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterJointPrefab: {fileID: 1404304788250446, guid: 72a5aa6dcd5f24d6b9818967e9476604,
+    type: 2}
+  numJoints: 200
+  waterYPos: 0.675
+  joints: []
+  jointParent: {fileID: 4770566502202450}
 --- !u!114 &114273022347892424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,6 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 1729073465911198, guid: 0c0e26032c0c6a44095be6b790590148, type: 2}
+  coinsParent: {fileID: 4072822926916154}
   FullCoins: 0
 --- !u!114 &114377744432704936
 MonoBehaviour:
@@ -166,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588380a6c88a9be43b207e8d8ab3de8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DontLoadOnStart: 0
+  DontLoadOnStart: 1
   firstTimeEver: 0
   DeleteFirst: 0
 --- !u!114 &114979691216827468
@@ -180,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69955e45a07d04613bf04c23b2de6654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMusic: {fileID: 8300000, guid: 129897d6fc2e5403eb7b60bac4561529, type: 3}
+  mainMusic: {fileID: 8300000, guid: e6c7c1583047bbf46be313d79d8cb04f, type: 3}
   waveBackground: {fileID: 8300000, guid: e7c873dfa5918417c994440a0a221f31, type: 3}
   missileClips:
   - {fileID: 8300000, guid: 1e8a431eeecfa4eebaa0dc7d3847cc0d, type: 3}
