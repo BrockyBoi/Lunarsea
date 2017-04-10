@@ -9,19 +9,26 @@ using UnityEngine.SceneManagement;
 public class PlayerInfo : MonoBehaviour
 {
     public static PlayerInfo controller;
-    public bool DontLoadOnStart;
+    public bool ResetSaveFile;
 
     float highScore;
     int coinCount;
     int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
 
-    public bool firstTimeEver;
+    bool firstTimeEver;
 
     List<TempGoal> goals = new List<TempGoal>();
 
     bool adsTurnedOff;
 
     public bool DeleteFirst;
+
+    public delegate void OnLoadF(float f);
+    public event OnLoadF onLoadF;
+
+    void OnEnable()
+    {
+    }
     void Awake()
     {
         if (controller == null)
@@ -42,10 +49,12 @@ public class PlayerInfo : MonoBehaviour
 
     void Start()
     {
+        Boat.player.onFinishedSailingIn += NoLongerFirstTime;
         if (DeleteFirst)
             DeleteFile();
-        if (!DontLoadOnStart)
+        if (!ResetSaveFile)
             Load();
+        else Save();
     }
 
     public void Save()
@@ -59,7 +68,10 @@ public class PlayerInfo : MonoBehaviour
         UpgradeController.controller.GetUpgradeArray().CopyTo(data.playerUpgrades, 0);
         data.goals = new List<TempGoal>(TempGoalController.controller.GetGoals());
         data.adsTurnedOff = MonetizationController.controller.CheckIfAdsTurnedOff();
+        data.scoreMultiplier = TempGoalController.controller.GetScoreMultiplier();
         data.firstTimeEver = firstTimeEver;
+        data.oldDate = MonetizationController.controller.GetOldDate();
+
         bf.Serialize(file, data);
         file.Close();
 
@@ -74,18 +86,19 @@ public class PlayerInfo : MonoBehaviour
             PlayerData data = (PlayerData)bf.Deserialize(file);
             file.Close();
 
-            highScore = data.highScore;
-            coinCount = data.coinCount;
             data.playerUpgrades.CopyTo(playerUpgrades, 0);
             goals = new List<TempGoal>(data.goals);
-            adsTurnedOff = data.adsTurnedOff;
-            firstTimeEver = data.firstTimeEver;
 
-            MainCanvas.controller.SetHighScore(highScore);
-            CoinController.controller.setCoinNum(coinCount);
+            Debug.Log("High Score: " + data.highScore);
+            MonetizationController.controller.DayCheck();
+            MainCanvas.controller.SetHighScore(data.highScore);
+            CoinController.controller.setCoinNum(data.coinCount);
             UpgradeController.controller.GiveUpgradeArray(playerUpgrades);
             TempGoalController.controller.SetGoals(goals);
-            MonetizationController.controller.UpdateAdsTurnedOff(adsTurnedOff);
+            MonetizationController.controller.UpdateAdsTurnedOff(data.adsTurnedOff);
+            TempGoalController.controller.SetScoreMultiplier(data.scoreMultiplier);
+
+            MonetizationController.controller.SetOldDate(data.oldDate);
         }
         else
         {
@@ -93,7 +106,17 @@ public class PlayerInfo : MonoBehaviour
         }
     }
 
-    public void DeleteFile()
+    public bool CheckIfFirstTime()
+    {
+        return firstTimeEver;
+    }
+
+    void NoLongerFirstTime()
+    {
+        firstTimeEver = false;
+    }
+
+    void DeleteFile()
     {
         if (File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
         {
@@ -129,11 +152,13 @@ public class PlayerInfo : MonoBehaviour
     [Serializable]
     class PlayerData
     {
-        public float highScore;
+        public float highScore, scoreMultiplier;
         public int coinCount;
         public int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
         public List<TempGoal> goals = new List<TempGoal>();
 
         public bool firstTimeEver, adsTurnedOff;
+
+        public DateTime oldDate;
     }
 }

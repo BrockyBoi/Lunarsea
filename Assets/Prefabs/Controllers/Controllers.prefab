@@ -19,17 +19,17 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4446142644039040}
+  - component: {fileID: 114979691216827468}
+  - component: {fileID: 114570782682668944}
   - component: {fileID: 114334705664952466}
   - component: {fileID: 114313377703881370}
+  - component: {fileID: 114229173661616442}
+  - component: {fileID: 114102977851860278}
   - component: {fileID: 114936077018901814}
+  - component: {fileID: 114103865105979950}
+  - component: {fileID: 114377744432704936}
   - component: {fileID: 114005152846667158}
   - component: {fileID: 114273022347892424}
-  - component: {fileID: 114570782682668944}
-  - component: {fileID: 114979691216827468}
-  - component: {fileID: 114102977851860278}
-  - component: {fileID: 114377744432704936}
-  - component: {fileID: 114103865105979950}
-  - component: {fileID: 114229173661616442}
   - component: {fileID: 114259653825167178}
   m_Layer: 0
   m_Name: Controllers
@@ -78,6 +78,21 @@ GameObject:
   - component: {fileID: 4029000099909460}
   m_Layer: 0
   m_Name: Missiles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1908313383471276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4853424852197402}
+  m_Layer: 0
+  m_Name: Meshes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,6 +166,7 @@ Transform:
   - {fileID: 4029000099909460}
   - {fileID: 4364529750343132}
   - {fileID: 4770566502202450}
+  - {fileID: 4853424852197402}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -166,6 +182,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4446142644039040}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4853424852197402
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1908313383471276}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.8741275, y: 0.23916215, z: -2.7578125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4446142644039040}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114005152846667158
 MonoBehaviour:
@@ -192,7 +221,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   androidGameId: 1356853
   iosGameId: 1356852
-  testMode: 0
+  testMode: 1
 --- !u!114 &114103865105979950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -233,10 +262,6 @@ MonoBehaviour:
     type: 2}
   missilesParent: {fileID: 4029000099909460}
   rocksParent: {fileID: 4364529750343132}
-  missileList: []
-  torpedoList: []
-  rockList: []
-  trackingMissileList: []
 --- !u!114 &114259653825167178
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,6 +279,7 @@ MonoBehaviour:
   waterYPos: 0.675
   joints: []
   jointParent: {fileID: 4770566502202450}
+  meshParent: {fileID: 4853424852197402}
 --- !u!114 &114273022347892424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -291,6 +317,7 @@ MonoBehaviour:
   coinPrefab: {fileID: 1729073465911198, guid: 0c0e26032c0c6a44095be6b790590148, type: 2}
   coinsParent: {fileID: 4072822926916154}
   FullCoins: 0
+  dailyCoinRewards: 32000000c8000000f4010000e8030000c40900008813000010270000
 --- !u!114 &114377744432704936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -332,8 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588380a6c88a9be43b207e8d8ab3de8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DontLoadOnStart: 1
-  firstTimeEver: 0
+  ResetSaveFile: 0
   DeleteFirst: 0
 --- !u!114 &114979691216827468
 MonoBehaviour:

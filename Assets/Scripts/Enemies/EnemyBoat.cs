@@ -67,8 +67,8 @@ public class EnemyBoat : MonoBehaviour
             yield return null;
         }
 
-       // if (throwsProjectile)
-           // SpawnProjectiles();
+        // if (throwsProjectile)
+        // SpawnProjectiles();
 
         sailingIn = false;
     }
@@ -95,7 +95,7 @@ public class EnemyBoat : MonoBehaviour
 
         Vector2 dir = new Vector2(-.25f, Mathf.Sin(Random.Range(0.05f, 0.35f)));
         proj.GetComponent<Rigidbody2D>().AddForce(dir.normalized * force);
-        proj.transform.position = new Vector3(proj.transform.position.x,proj.transform.position.y,10);
+        proj.transform.position = new Vector3(proj.transform.position.x, proj.transform.position.y, 10);
 
         if (!dead)
             Invoke("SpawnProjectiles", spawnRate);

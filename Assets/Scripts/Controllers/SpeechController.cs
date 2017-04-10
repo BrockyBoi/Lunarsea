@@ -14,6 +14,13 @@ public class SpeechController : MonoBehaviour
 
     bool textTime;
 
+    void OnEnable()
+    {
+        TutorialController.controller.onStartTutorial += FirstPhrase;
+
+        TutorialController.controller.onFinishTutorial += CloseWindow;
+    }
+
     void Awake()
     {
         controller = this;
@@ -29,7 +36,7 @@ public class SpeechController : MonoBehaviour
     {
     }
 
-    public void FirstPhrase()
+    void FirstPhrase()
     {
         textField.transform.parent.gameObject.SetActive(true);
         textField.text = phrases[0];

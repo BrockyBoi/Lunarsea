@@ -43,7 +43,17 @@ public class Boat : MonoBehaviour
     bool sailingIn;
 
     GameObject moonItem;
+
+    public delegate void OnFinishedSailingIn();
+    public event OnFinishedSailingIn onFinishedSailingIn;
+
+    public delegate void OnBoatDeath();
+    public event OnBoatDeath onBoatDeath;
     #endregion
+
+    void OnEnable()
+    {
+    }
 
     void Awake()
     {
@@ -59,7 +69,12 @@ public class Boat : MonoBehaviour
 
     void Start()
     {
-        if (PlayerInfo.controller.DontLoadOnStart || PlayerInfo.controller.firstTimeEver)
+        MillileSpawner.controller.onWavesCleared += SailOffScreen;
+
+        TutorialController.controller.onFinishTutorial += FinishTutorial;
+
+        TutorialController.controller.onStartTutorial += StartTutoiral;
+        if (PlayerInfo.controller.ResetSaveFile || PlayerInfo.controller.CheckIfFirstTime())
         {
             maxHealth = health = 1;
             MainCanvas.controller.HealthChange();
@@ -240,17 +255,10 @@ public class Boat : MonoBehaviour
     public void Die()
     {
         health = 0;
-        MainCanvas.controller.HealthChange();
         dead = true;
         UpdateColliders();
-        MainCanvas.controller.DeathScreen();
-        MainCanvas.controller.EndLevel();
-        BackgroundConroller.controller.StopScrolling();
-        MillileSpawner.controller.EndLevel();
-        AudioController.controller.BoatDeath();
-        TempGoalController.controller.PlayerDied();
-        DeathCounter.controller.PlayerDeath();
-        PlayerInfo.controller.Save();
+
+        onBoatDeath();
     }
 
     public void AddHealth()
@@ -303,9 +311,14 @@ public class Boat : MonoBehaviour
         return tutorialMode;
     }
 
-    public void SetTutorialMode(bool b)
+    void StartTutoiral()
     {
-        tutorialMode = b;
+        tutorialMode = true;
+    }
+
+    void FinishTutorial()
+    {
+        tutorialMode = false;
     }
 
     public bool CheckIfAlive()
@@ -344,10 +357,8 @@ public class Boat : MonoBehaviour
     void FinishedSailingIn()
     {
         sailingIn = false;
-        BackgroundConroller.controller.BeginLevel();
-        TutorialController.controller.SetUpTutorial();
-        CoinController.controller.StartGame();
-        PlayerInfo.controller.firstTimeEver = false;
+
+        onFinishedSailingIn();
     }
     #endregion
 }

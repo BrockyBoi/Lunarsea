@@ -6,7 +6,7 @@ public class CoinController : MonoBehaviour
 {
     public static CoinController controller;
     public GameObject coinPrefab;
-        public Transform coinsParent;
+    public Transform coinsParent;
 
     //Temp coins are just the coins that you get during that specific life
     int tempCoins;
@@ -15,6 +15,14 @@ public class CoinController : MonoBehaviour
     List<GameObject> coinList = new List<GameObject>();
     public bool FullCoins;
 
+    [SerializeField]
+    int[] dailyCoinRewards = new int[7];
+    int currentDayOfDailyReward;
+
+    void OnEnable()
+    {
+    }
+
     void Awake()
     {
         controller = this;
@@ -22,6 +30,7 @@ public class CoinController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Boat.player.onFinishedSailingIn += StartGame;
         if (FullCoins)
         {
             numCoins = 50000000;
@@ -120,7 +129,7 @@ public class CoinController : MonoBehaviour
 
     #region Accessors
 
-    public void StartGame()
+    void StartGame()
     {
         MainCanvas.controller.UpdateCoinString(tempCoins);
     }
@@ -161,6 +170,23 @@ public class CoinController : MonoBehaviour
     {
         numCoins -= amount;
         MainCanvas.controller.UpdateCoinString(numCoins);
+    }
+    #endregion
+
+    #region Daily Rewards
+    public void GiveDailyReward()
+    {
+        if (currentDayOfDailyReward < dailyCoinRewards.Length - 1)
+        {
+            ReceiveReward(dailyCoinRewards[currentDayOfDailyReward]);
+            currentDayOfDailyReward++;
+        }
+        else
+        {
+            //Add permanent .25% multiplier to temp goals and set day back to zero
+            currentDayOfDailyReward = 0;
+            TempGoalController.controller.AddRewardScoreMultipliers(.25f); 
+        }
     }
     #endregion
 }

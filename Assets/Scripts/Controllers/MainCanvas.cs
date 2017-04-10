@@ -37,6 +37,11 @@ public class MainCanvas : MonoBehaviour
 
     public Transform particles;
 
+    void OnEnable()
+    {
+
+    }
+
     void Awake()
     {
         controller = this;
@@ -49,6 +54,13 @@ public class MainCanvas : MonoBehaviour
 
     void Start()
     {
+        Boat.player.onBoatDeath += HealthChange;
+        Boat.player.onBoatDeath += DeathScreen;
+        Boat.player.onBoatDeath += EndLevel;
+
+        MillileSpawner.controller.onWavesCleared += EndLevel;
+
+        TutorialController.controller.onFinishTutorial += StartLevel;
         levelEnded = true;
         deathScreen.SetActive(false);
         bossHealthSlider.SetActive(false);
@@ -82,18 +94,18 @@ public class MainCanvas : MonoBehaviour
 
     }
 
-    public void StartLevel()
+    void StartLevel()
     {
         StartCoroutine(ShowGoalsAtStart());
         TempGoalController.controller.UpdateTimesPlayedGoals();
         levelEnded = false;
     }
-    public void EndLevel()
+    void EndLevel()
     {
         levelEnded = true;
     }
 
-    public void DeathScreen()
+    void DeathScreen()
     {
         deathScreen.SetActive(true);
     }
@@ -101,6 +113,7 @@ public class MainCanvas : MonoBehaviour
     #region Press Button
     public void PressRetry()
     {
+        PlayerInfo.controller.Save();
         SceneManager.LoadScene("MainScene");
     }
 
@@ -125,6 +138,7 @@ public class MainCanvas : MonoBehaviour
 
     public void HealthChange()
     {
+
         int health = Boat.player.GetHealth();
         for (int i = 0; i < healthImages.Count; i++)
         {
@@ -295,9 +309,9 @@ public class MainCanvas : MonoBehaviour
         bossHealthSlider.SetActive(false);
     }
 
-    public void BossTakesDamage(int health)
+    public void BossTakesDamage(int bossHealth)
     {
-        bossHealthSlider.GetComponent<Slider>().value = health;
+        bossHealthSlider.GetComponent<Slider>().value = bossHealth;
     }
     #endregion
 }

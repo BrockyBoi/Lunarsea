@@ -31,18 +31,26 @@ public class MillileSpawner : MonoBehaviour
 
     List<Rock> currentRocks = new List<Rock>();
 
-    [SerializeField]
     List<GameObject> missileList = new List<GameObject>();
-    [SerializeField]
     List<GameObject> torpedoList = new List<GameObject>();
-    [SerializeField]
     List<GameObject> rockList = new List<GameObject>();
-    [SerializeField]
     List<GameObject> trackingMissileList = new List<GameObject>();
 
     GameObject healthItem;
 
     bool bossBattle;
+
+    public delegate void OnWavesCleared();
+    public event OnWavesCleared onWavesCleared;
+
+    delegate void EndlessObstacleSpawn();
+    EndlessObstacleSpawn ObstacleSpawn1;
+    EndlessObstacleSpawn ObstacleSpawn2;
+    EndlessObstacleSpawn CoinSpawner;
+
+    void OnEnable()
+    {
+    }
 
     void Awake()
     {
@@ -52,6 +60,9 @@ public class MillileSpawner : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Boat.player.onBoatDeath += EndLevel;
+
+        TutorialController.controller.onFinishTutorial += StartGame;
         healthRate = 45;
         waitForRocks = new WaitForSeconds(4f);
         waitForMissiles = new WaitForSeconds(3f);
@@ -67,8 +78,11 @@ public class MillileSpawner : MonoBehaviour
 
     public void StartGame()
     {
-        //StartCoroutine(Wave1());
-        StartCoroutine(SpawnPirateShip());
+        if (GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Story))
+            StartCoroutine(Wave1());
+        else
+            StartCoroutine(EndlessWave());
+        //StartCoroutine(SpawnPirateShip());
         if (Boat.player.GetMaxHealth() > 1)
             Invoke("SpawnHealth", 45);
     }
@@ -101,12 +115,11 @@ public class MillileSpawner : MonoBehaviour
         }
         else
         {
-            Boat.player.SailOffScreen();
+            onWavesCleared();
+
             PlayerInfo.controller.Save();
             StopAllCoroutines();
-            MainCanvas.controller.EndLevel();
         }
-
     }
 
     IEnumerator Wave2()
@@ -120,6 +133,69 @@ public class MillileSpawner : MonoBehaviour
         yield return waitForCoins;
 
         StartCoroutine(Wave1());
+    }
+
+    IEnumerator EndlessWave()
+    {
+        float timeSpeedUp = 0;
+        ObstacleSpawn1 += MissileVolley;
+        ObstacleSpawn2 += TorpedoVolleyLow;
+        CoinSpawner += SpawnCoinBlock;
+        while (true)
+        {
+            ObstacleSpawn1();
+            yield return new WaitForSeconds(3.5f - timeSpeedUp);
+
+            ObstacleSpawn2();
+            yield return new WaitForSeconds(4 - timeSpeedUp);
+
+            CoinSpawner();
+            yield return new WaitForSeconds(4 + timeSpeedUp * 2);
+
+            waveCounter++;
+
+            if (waveCounter == 2)
+            {
+                ObstacleSpawn1 += SpawnRocks;
+            }
+            else if (waveCounter == 3)
+            {
+                CoinSpawner = SpawnBlockAndLine;
+            }
+            else if (waveCounter == 4)
+            {
+                ObstacleSpawn2 -= TorpedoVolleyLow;
+                ObstacleSpawn2 = TorpedoVolley;
+            }
+            else if (waveCounter == 5)
+            {
+                ObstacleSpawn1 += TrackingMissileVolley;
+            }
+            else if (waveCounter == 8)
+            {
+                ObstacleSpawn2 += TrackingMissileVolley;
+            }
+            else if (waveCounter == 10)
+            {
+                CoinSpawner = SpawnAllCoins;
+            }
+            else if (waveCounter == 12)
+            {
+                ObstacleSpawn2 += SpawnRocks;
+            }
+            else if (waveCounter == 15)
+            {
+                ObstacleSpawn1 += TrackingMissileVolley;
+                ObstacleSpawn2 += TrackingMissileVolley;
+                CoinSpawner += TrackingMissileVolley;
+            }
+
+            if (waveCounter < 20)
+                timeSpeedUp += .15f;
+
+            UpdateSpeedMultiplier(1.75f);
+            yield return null;
+        }
     }
 
     public void EndLevel()
@@ -147,6 +223,19 @@ public class MillileSpawner : MonoBehaviour
     void SpawnCoinZig()
     {
         CoinController.controller.coinSpawnZig(10 + coinDropRate * 4, 6, -1.5f, 20, .05f);
+    }
+
+    void SpawnBlockAndLine()
+    {
+        CoinController.controller.coinSpawnBlock(3 + coinDropRate, 3 + coinDropRate, -1, 20, .15f);
+        CoinController.controller.coinSpawnLine(8 + coinDropRate * 3, -2, 35, .1f);
+    }
+
+    void SpawnAllCoins()
+    {
+        CoinController.controller.coinSpawnBlock(3 + coinDropRate, 3 + coinDropRate, -1, 20, .15f);
+        CoinController.controller.coinSpawnLine(8 + coinDropRate * 3, -2, 35, .1f);
+        CoinController.controller.coinSpawnZig(10 + coinDropRate * 4, 6, -1.5f, 55, .05f);
     }
     #endregion
 
@@ -216,13 +305,47 @@ public class MillileSpawner : MonoBehaviour
         }
     }
 
+    void TorpedoVolley()
+    {
+        float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .075f)).y;
+        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .45f)).y;
+        float offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
+
+        //Spawn high
+        for (int i = 0; i < 4; i++)
+        {
+            int j = 0;
+            while (torpedoList[j].activeInHierarchy)
+                j++;
+
+            GameObject missile = torpedoList[j].gameObject;
+            missile.transform.position = new Vector3(offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 5.0f)));
+            missile.SetActive(true);
+        }
+
+        minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .4f)).y;
+        maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .8f)).y;
+        offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
+        //Spawn low
+        for (int i = 0; i < 4; i++)
+        {
+            int j = 0;
+            while (torpedoList[j].activeInHierarchy)
+                j++;
+
+            GameObject missile = torpedoList[j].gameObject;
+            missile.transform.position = new Vector3(offScreenX + 20, minHeight + (i * ((maxHeight - minHeight) / 5.0f)));
+            missile.SetActive(true);
+        }
+    }
+
     void TorpedoVolleyHigh()
     {
         float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .4f)).y;
         float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .8f)).y;
         float offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             int j = 0;
             while (torpedoList[j].activeInHierarchy)
@@ -237,10 +360,10 @@ public class MillileSpawner : MonoBehaviour
     void TorpedoVolleyLow()
     {
         float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .075f)).y;
-        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .4f)).y;
+        float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .45f)).y;
         float offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             int j = 0;
             while (torpedoList[j].activeInHierarchy)
@@ -250,6 +373,11 @@ public class MillileSpawner : MonoBehaviour
             missile.transform.position = new Vector3(offScreenX + 5, minHeight + (i * ((maxHeight - minHeight) / 5.0f)));
             missile.SetActive(true);
         }
+    }
+
+    void TrackingMissileVolley()
+    {
+        StartCoroutine(SpawntrackingMissilePrefabs(4));
     }
 
     void TrackingMissileVolley(int amount)
@@ -280,7 +408,7 @@ public class MillileSpawner : MonoBehaviour
 
     void InitializeRocks()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 10; i++)
         {
             GameObject rock = Instantiate(rockPrefab, new Vector2(100, 100), Quaternion.identity) as GameObject;
             rockList.Add(rock);
@@ -288,7 +416,26 @@ public class MillileSpawner : MonoBehaviour
             rock.transform.SetParent(rocksParent);
         }
     }
-    void SpawnRocks(int amount)
+
+    void SpawnRocks()
+    {
+        float minRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .15f)).y;
+        float maxRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.15f)).y;
+        float offScreen = Camera.main.ViewportToWorldPoint(new Vector3(1f, 0)).x;
+
+        for (int i = 0; i < 4; i++)
+        {
+            int j = 0;
+            while (rockList[j].activeInHierarchy)
+                j++;
+
+            GameObject rock = rockList[j];
+            rock.transform.position = new Vector3(offScreen + (10 * i), Random.Range(minRockHeight, maxRockHeight));
+            rock.SetActive(true);
+            currentRocks.Add(rock.GetComponent<Rock>());
+        }
+    }
+    void SpawnRocks(int amount = 5)
     {
         float minRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .15f)).y;
         float maxRockHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.15f)).y;
@@ -330,16 +477,16 @@ public class MillileSpawner : MonoBehaviour
     #region Boss Battles
     IEnumerator SpawnPirateShip()
     {
-        Instantiate(pirateShipPrefab, Camera.main.ViewportToWorldPoint(new Vector2(1.1f, .5f)), Quaternion.identity);
+        Instantiate(pirateShipPrefab, Camera.main.ViewportToWorldPoint(new Vector2(1.1f, .6f)), Quaternion.identity);
 
-        while (EnemyBoat.currentBoss.GetPhase() != 2) 
+        while (EnemyBoat.currentBoss.GetPhase() != 2)
         {
-            while(EnemyBoat.currentBoss.GetPhase() == 0)
+            while (EnemyBoat.currentBoss.GetPhase() == 0)
             {
-                yield return new WaitForSeconds(8);
+                yield return new WaitForSeconds(4);
                 SpawnRocks(5);
             }
-            while(EnemyBoat.currentBoss.GetPhase() == 1)
+            while (EnemyBoat.currentBoss.GetPhase() == 1)
             {
                 yield return new WaitForSeconds(10);
                 TrackingMissileVolley(5);
@@ -353,7 +500,7 @@ public class MillileSpawner : MonoBehaviour
     {
         StopAllCoroutines();
         Boat.player.SailOffScreen();
-        MainCanvas.controller.EndLevel();
+        //MainCanvas.controller.EndLevel();
     }
     #endregion
 

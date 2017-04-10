@@ -14,6 +14,9 @@ public class MonetizationController : MonoBehaviour, IStoreListener
     private static IStoreController m_StoreController;          // The Unity Purchasing system.
     private static IExtensionProvider m_StoreExtensionProvider; // The store-specific Purchasing subsystems.
 
+    delegate void GoalMultDel(float num);
+    GoalMultDel GoalMultiplier;
+
     public static string PRODUCT_1000_COINS = "coins1000";
     public static string PRODUCT_5000_COINS = "coins5000";
     public static string PRODUCT_20000_COINS = "coins20000";
@@ -23,9 +26,11 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 
     bool adsTurnedOff;
 
+    int rewardedAdsWatchedToday;
+
     void Start()
     {
-
+        GoalMultiplier = TempGoalController.controller.SetScoreMultiplier;
         if (m_StoreController == null)
         {
             InitializePurchasing();
@@ -69,22 +74,27 @@ public class MonetizationController : MonoBehaviour, IStoreListener
     public void Buy1000Coins()
     {
         BuyProductID(PRODUCT_1000_COINS);
+
     }
     public void Buy5000Coins()
     {
         BuyProductID(PRODUCT_5000_COINS);
+
     }
     public void Buy20000Coins()
     {
         BuyProductID(PRODUCT_20000_COINS);
+
     }
     public void Buy100000Coins()
     {
         BuyProductID(PRODUCT_100000_COINS);
+
     }
     public void Buy1000000Coins()
     {
         BuyProductID(PRODUCT_1000000_COINS);
+
     }
     public void BuyNoAds()
     {
@@ -198,28 +208,33 @@ public class MonetizationController : MonoBehaviour, IStoreListener
         {
             Debug.Log("Just bought 1000 gold");
             CoinController.controller.BuyCoins(1000);
+            GoalMultiplier(1.25f);
         }
         // Or ... a non-consumable product has been purchased by this user.
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_5000_COINS, StringComparison.Ordinal))
         {
             Debug.Log("Just bought 5000 gold");
             CoinController.controller.BuyCoins(5000);
+            GoalMultiplier(1.5f);
         }
         // Or ... a subscription product has been purchased by this user.
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_20000_COINS, StringComparison.Ordinal))
         {
             Debug.Log("Just bought 20000 gold");
             CoinController.controller.BuyCoins(20000);
+            GoalMultiplier(2f);
         }
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_100000_COINS, StringComparison.Ordinal))
         {
             Debug.Log("Just bought 100000 gold");
             CoinController.controller.BuyCoins(100000);
+            GoalMultiplier(2.5f);
         }
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_1000000_COINS, StringComparison.Ordinal))
         {
             Debug.Log("Just bought 1000000 gold");
             CoinController.controller.BuyCoins(1000000);
+            GoalMultiplier(5f);
         }
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_NO_ADS, StringComparison.Ordinal))
         {
@@ -256,30 +271,34 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 
 
 
-        [SerializeField]
+    [SerializeField]
     private string
-        androidGameId = "1356853",
-        iosGameId = "1356852";
+    androidGameId = "1356853",
+    iosGameId = "1356852";
 
     [SerializeField]
     private bool testMode;
+
+    string stringDate;
 
     void Awake()
     {
         controller = this;
 
-                string gameId = null;
+        string gameId = null;
 
-        #if UNITY_ANDROID
+#if UNITY_ANDROID
         gameId = androidGameId;
-        #elif UNITY_IOS
+#elif UNITY_IOS
         gameId = iosGameId;
-        #endif
+#endif
 
         testMode = true;
+#if UNITY_ADS
         if (Advertisement.isSupported && !Advertisement.isInitialized) {
-            Advertisement.Initialize(gameId, testMode);
+           Advertisement.Initialize(gameId, testMode);
         }
+#endif
     }
 
     public void UpdateAdsTurnedOff(bool b)
@@ -320,6 +339,12 @@ public class MonetizationController : MonoBehaviour, IStoreListener
              case ShowResult.Finished:
                  Debug.Log("Ad Finished. Rewarding player...");
                  CoinController.controller.BuyCoins(200);
+                 rewardedAdsWatchedToday++;
+
+                 if(rewardedAdsWatchedToday == 3)
+                 {
+                    TempGoalController.controller.AddTempScoreMultiplier(.5f);
+                 }
                  break;
              case ShowResult.Skipped:
                  Debug.Log("Ad skipped. Son, I am dissapointed in you");
@@ -343,4 +368,37 @@ IEnumerator WaitForAd()
 }
 #endif
 
+
+    #region DailyRewards
+    //http://answers.unity3d.com/questions/776823/daily-bonus.html
+    DateTime oldDate;
+    public void DayCheck()
+    {
+        DateTime newDate = System.DateTime.Now;
+
+        if(oldDate == null)
+            oldDate = System.DateTime.Now;
+            
+        TimeSpan diff = newDate.Subtract(oldDate);
+        if (diff.Days >= 1)
+        {
+            rewardedAdsWatchedToday = 0;
+            TempGoalController.controller.ResetTempMults();
+            CoinController.controller.GiveDailyReward();
+            oldDate = newDate;
+            PlayerInfo.controller.Save();
+        }
+    }
+
+    public DateTime GetOldDate()
+    {
+        return oldDate;
+        
+    }
+
+    public void SetOldDate(DateTime dT)
+    {
+        oldDate = dT;
+    }
+    #endregion
 }

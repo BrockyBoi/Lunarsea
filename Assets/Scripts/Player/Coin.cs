@@ -9,7 +9,7 @@ public class Coin : MonoBehaviour
 
     void Update()
     {
-        Move(BackgroundConroller.controller.getSpeed() * 2);
+        Move(BackgroundConroller.controller.getSpeed() * 4.5f);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -19,7 +19,6 @@ public class Coin : MonoBehaviour
             CoinController.controller.addCoin();
             Destroy(Instantiate(particleEffect, transform.position, Quaternion.identity), 1);
             gameObject.SetActive(false);
-           // Destroy(gameObject);
         }
         
         if(other.gameObject.CompareTag("Magnet"))

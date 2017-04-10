@@ -8,8 +8,8 @@ public class GameModeController : MonoBehaviour {
 	public static GameModeController controller;
 
 	public enum Mode{Story, Endless}
-
-	int currentMode;
+	[SerializeField]
+	Mode currentMode;
 	#endregion
 	void Awake()
 	{
@@ -18,7 +18,7 @@ public class GameModeController : MonoBehaviour {
 
 	public bool CheckCurrentMode(Mode m)
 	{
-		if((int)m == currentMode)
+		if(m == currentMode)
 		return true;
 
 		return false;
@@ -26,6 +26,6 @@ public class GameModeController : MonoBehaviour {
 
 	public void SetGameMode(Mode m)
 	{
-		currentMode = (int)m;
+		currentMode = m;
 	}
 }

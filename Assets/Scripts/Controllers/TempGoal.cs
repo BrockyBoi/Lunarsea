@@ -5,7 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class TempGoal : System.Object
 {
-
     public enum Goal { Distance, Coin, MissilesDestroyed, TimesPlayed, AvoidDamage, MAX_GOALS }
     float currentProgress, lastLifeProgress, targetGoal;
     bool perLife;
@@ -75,8 +74,6 @@ public class TempGoal : System.Object
         {
             if (currentProgress + lastLifeProgress >= targetGoal)
                 FulfillGoal();
-
-
         }
     }
 
@@ -140,8 +137,8 @@ public class TempGoal : System.Object
 
         string goal = "";
         if (perLife)
-            goal = targetGoal.ToString();
-        else goal = (currentProgress + lastLifeProgress).ToString() + " / " + targetGoal.ToString();
+            goal = ((int)targetGoal).ToString();
+        else goal = ((int)currentProgress + (int)lastLifeProgress).ToString() + " / " + targetGoal.ToString();
 
         switch (myGoal)
         {
@@ -169,7 +166,7 @@ public class TempGoal : System.Object
 
         string goal = "";
 
-        string reward = " for " + rewardValue.ToString() + " coins.";
+        string reward = " for " + (Mathf.RoundToInt(rewardValue * TempGoalController.controller.GetScoreMultiplier())).ToString() + " coins.";
         
          goal = targetGoal.ToString();
 

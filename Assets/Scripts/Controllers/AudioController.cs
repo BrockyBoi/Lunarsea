@@ -20,6 +20,10 @@ public class AudioController : MonoBehaviour {
 	public AudioClip boatHitsRock;
 	public AudioClip repairBoat;
 	public AudioClip gargling;
+
+	void OnEnable()
+	{
+	}
 	void Awake()
 	{
 		//DontDestroyOnLoad (this);
@@ -30,6 +34,7 @@ public class AudioController : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
+		Boat.player.onBoatDeath += BoatDeath;
 		
 		music = gameObject.AddComponent<AudioSource> ();
 		music.clip = mainMusic;

@@ -9,15 +9,18 @@ public class TempGoalController : MonoBehaviour
     List<TempGoal> goals = new List<TempGoal>();
 
     bool[] hasGoals = new bool[(int)TempGoal.Goal.MAX_GOALS];
-    public const int hasDistance = 0;
-    public const int hasCoin = 1;
-    public const int hasMissile = 2;
-    public const int hasTimesPlayed = 3;
-    public const int hasAvoidDamage = 4;
     int missileCount;
+
+    float totalScoreMultiplier = 1;
+    float tempScoreMultiplier = 0;
+    float rewardScoreMults = 0;
 
     [SerializeField]
     int maxGoals;
+
+    void OnEnable()
+    {
+    }
     void Awake()
     {
         //DontDestroyOnLoad(this);
@@ -33,7 +36,8 @@ public class TempGoalController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (PlayerInfo.controller.DontLoadOnStart)
+        Boat.player.onBoatDeath += PlayerDied;
+        if (PlayerInfo.controller.ResetSaveFile)
             NewGoals();
     }
 
@@ -80,7 +84,7 @@ public class TempGoalController : MonoBehaviour
     #region Update Goals
     void UpdateMissileGoals()
     {
-        if (!hasGoals[hasMissile])
+        if (!hasGoals[(int)TempGoal.Goal.MissilesDestroyed])
             return;
 
         for (int i = 0; i < goals.Count; i++)
@@ -94,19 +98,19 @@ public class TempGoalController : MonoBehaviour
 
     public void UpdateDistanceGoals()
     {
-        if (!hasGoals[hasDistance]  && !hasGoals[hasAvoidDamage])
+        if (!hasGoals[(int)TempGoal.Goal.Distance] && !hasGoals[(int)TempGoal.Goal.AvoidDamage])
             return;
 
         for (int i = 0; i < goals.Count; i++)
         {
-            if (goals[i].CheckIfGoalExists(TempGoal.Goal.Distance)  || goals[i].CheckIfGoalExists(TempGoal.Goal.AvoidDamage))
+            if (goals[i].CheckIfGoalExists(TempGoal.Goal.Distance) || goals[i].CheckIfGoalExists(TempGoal.Goal.AvoidDamage))
                 goals[i].UpdateProgress(0);
         }
     }
 
     public void UpdateCoinGoals()
     {
-        if (!hasGoals[hasCoin])
+        if (!hasGoals[(int)TempGoal.Goal.Coin])
             return;
 
         for (int i = 0; i < goals.Count; i++)
@@ -118,7 +122,7 @@ public class TempGoalController : MonoBehaviour
 
     public void UpdateTimesPlayedGoals()
     {
-        if (!hasGoals[hasTimesPlayed])
+        if (!hasGoals[(int)TempGoal.Goal.TimesPlayed])
             return;
 
         for (int i = 0; i < goals.Count; i++)
@@ -137,7 +141,7 @@ public class TempGoalController : MonoBehaviour
 
     public void FinishGoal(int spot, int rewardValue)
     {
-        CoinController.controller.ReceiveReward(rewardValue);
+        CoinController.controller.ReceiveReward(rewardValue * Mathf.RoundToInt(totalScoreMultiplier));
 
         hasGoals[goals[spot].GetGoalType()] = false;
 
@@ -155,9 +159,9 @@ public class TempGoalController : MonoBehaviour
 
     bool CheckIfGoalNumExists(int goalNum)
     {
-        for(int i = 0; i < goals.Count; i++)
+        for (int i = 0; i < goals.Count; i++)
         {
-            if(goals[i].GetGoalNum() == goalNum)
+            if (goals[i].GetGoalNum() == goalNum)
             {
                 return true;
             }
@@ -174,7 +178,7 @@ public class TempGoalController : MonoBehaviour
             int newGoal = 0;
             do
             {
-                newGoal = Random.Range(0, 8);
+                newGoal = Random.Range(0, 11);
             } while (CheckIfGoalNumExists(newGoal));
 
             int currentCount = goals.Count;
@@ -182,7 +186,7 @@ public class TempGoalController : MonoBehaviour
             switch (newGoal)
             {
                 case 0:
-                    goals.Add(new TempGoal(currentCount, TempGoal.Goal.Distance, 300, false, 100,newGoal));
+                    goals.Add(new TempGoal(currentCount, TempGoal.Goal.Distance, 300, false, 100, newGoal));
                     break;
                 case 1:
                     goals.Add(new TempGoal(currentCount, TempGoal.Goal.Coin, 50, true, 50, newGoal));
@@ -205,6 +209,15 @@ public class TempGoalController : MonoBehaviour
                 case 7:
                     goals.Add(new TempGoal(currentCount, TempGoal.Goal.AvoidDamage, 50, true, 75, newGoal));
                     break;
+                case 8:
+                    goals.Add(new TempGoal(currentCount, TempGoal.Goal.MissilesDestroyed, 75, false, 250, newGoal));
+                    break;
+                case 9:
+                    goals.Add(new TempGoal(currentCount, TempGoal.Goal.Distance, 1000, false, 300, newGoal));
+                    break;
+                case 10:
+                    goals.Add(new TempGoal(currentCount, TempGoal.Goal.AvoidDamage, 100, true, 150, newGoal));
+                    break;
                 default:
                     break;
             }
@@ -213,12 +226,39 @@ public class TempGoalController : MonoBehaviour
         CheckCurrentGoals();
     }
 
-    public void PlayerDied()
+    void PlayerDied()
     {
         for (int i = 0; i < goals.Count; i++)
         {
             goals[i].PlayerDied();
         }
         NewGoals();
+    }
+
+    public float GetScoreMultiplier()
+    {
+        return totalScoreMultiplier;
+    }
+    public void SetScoreMultiplier(float f)
+    {
+        totalScoreMultiplier = f + rewardScoreMults + tempScoreMultiplier;
+    }
+
+    public void AddRewardScoreMultipliers(float f)
+    {
+        rewardScoreMults += f;
+        SetScoreMultiplier(0);
+    }
+
+    public void AddTempScoreMultiplier(float f)
+    {
+        tempScoreMultiplier += f;
+        SetScoreMultiplier(0);
+    }
+
+    public void ResetTempMults()
+    {
+        tempScoreMultiplier = 0;
+        SetScoreMultiplier(0);
     }
 }

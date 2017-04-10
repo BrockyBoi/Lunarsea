@@ -15,6 +15,10 @@ public class BackgroundConroller : MonoBehaviour
 
     float speedMult;
 
+    void OnEnable()
+    {
+    }
+
     void Awake()
     {
         controller = this;
@@ -23,6 +27,9 @@ public class BackgroundConroller : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Boat.player.onFinishedSailingIn += BeginLevel;
+
+        Boat.player.onBoatDeath += StopScrolling;
         layer = new GameObject[3][];
         front = new int[3];
 
@@ -180,7 +187,7 @@ public class BackgroundConroller : MonoBehaviour
         }
     }
 
-    public void BeginLevel()
+    void BeginLevel()
     {
         speed = new float[]{ 2, 4, 3 };
     }
@@ -190,7 +197,6 @@ public class BackgroundConroller : MonoBehaviour
         setSpeed(0, 0);
         setSpeed(1, .5f);
         setSpeed(2, .35f);
-
     }
     #endregion
 

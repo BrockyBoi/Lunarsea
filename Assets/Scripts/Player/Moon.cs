@@ -24,7 +24,7 @@ public class Moon : MonoBehaviour
             StopAllCoroutines();
             returning = true;
             StartCoroutine(MoveMoon(Boat.player.transform.position));
-            if (Boat.player.CheckTutorialMode())
+            if (TutorialController.controller.CheckIfTutorialMode())
                 TutorialController.controller.SetStage(TutorialController.TutorialStage.DONE);
         }
     }
