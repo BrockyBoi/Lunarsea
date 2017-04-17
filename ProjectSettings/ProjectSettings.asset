@@ -136,7 +136,7 @@ PlayerSettings:
   protectGraphicsMemory: 0
   useHDRDisplay: 0
   applicationIdentifier:
-    Android: com.Company.ProductName
+    Android: com.LiveintheGame.Lunarsea
     Standalone: unity.DefaultCompany.lunarsea
     Tizen: com.Company.ProductName
     iOS: com.Company.ProductName
@@ -216,8 +216,9 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/Users/Brock/Desktop/New Lunarsea/Lunarsea TEst/lunarsea/Lunarsea
+    Android APK/LunarseaKeystore.keystore
+  AndroidKeyaliasName: lunarsea
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   androidEnableBanner: 1

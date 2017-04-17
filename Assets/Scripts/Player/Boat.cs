@@ -73,7 +73,12 @@ public class Boat : MonoBehaviour
 
         TutorialController.controller.onFinishTutorial += FinishTutorial;
 
+        SinkKill.controller.BoatDied += Die;
+        Urdu.sideUrdu.BoatDied += Die;
+
         TutorialController.controller.onStartTutorial += StartTutoiral;
+
+        UpgradeController.controller.notUpgrading += SailIn;
         if (PlayerInfo.controller.ResetSaveFile || PlayerInfo.controller.CheckIfFirstTime())
         {
             maxHealth = health = 1;
@@ -88,17 +93,20 @@ public class Boat : MonoBehaviour
     {
         if (dead || UpgradeController.controller.CheckIfUpgrading())
             return;
-
-        float horizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
+        float horizontal = Input.GetAxis("Horizontal");
         if (sailingIn || finishedLevel)
+        {
             horizontal = 0;
+        }
 
         if (tutorialMode && TutorialController.controller.CheckIfOnStage(TutorialController.TutorialStage.MOVEMENT) && horizontal != 0)
             TutorialController.controller.SetStage(TutorialController.TutorialStage.SPAWN_MOON);
 
         if (Input.GetMouseButtonDown(0) && !moonOut && !sailingIn)
         {
-            if (CheckIfAllowed(TutorialController.TutorialStage.SPAWN_MOON))
+            Vector2 waterPoint = Camera.main.ViewportToWorldPoint(new Vector2(.5f, .4f));
+            Vector2 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (CheckIfAllowed(TutorialController.TutorialStage.SPAWN_MOON) && mousePoint.y >= waterPoint.y)
                 CreateMoon();
         }
 
@@ -130,7 +138,6 @@ public class Boat : MonoBehaviour
 
         if (extraSpeed > 0 && !finishedLevel && Mathf.Abs(transform.position.x - midPoint) <= .5f)
         {
-            extraSpeed = 0;
             FinishedSailingIn();
         }
     }
@@ -151,8 +158,9 @@ public class Boat : MonoBehaviour
     {
         if (h == 0 && extraSpeed == 0)
             return;
+        float speed = ((hSpeed * h) + extraSpeed) * Time.deltaTime;
 
-        Vector3 vec = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * hSpeed * (h + extraSpeed), hSpeed + extraSpeed);
+        Vector3 vec = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * speed, 10 * Time.deltaTime);
         vec.z = -10;
 
         transform.position = vec;
@@ -184,7 +192,7 @@ public class Boat : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D other)
     {
-        if(other.gameObject.CompareTag("Enemy Boat"))
+        if (other.gameObject.CompareTag("Enemy Boat"))
         {
             TakeDamage();
         }
@@ -231,9 +239,20 @@ public class Boat : MonoBehaviour
         health--;
         MainCanvas.controller.HealthChange();
         anim.SetTrigger("hit");
+        SetInvulAnimation();
         if (health == 0)
             Die();
+    }
 
+    void SetInvulAnimation()
+    {
+        anim.SetBool("invulnerable", true);
+        Invoke("DisableInvulAnimation", invulTime);
+    }
+
+    void DisableInvulAnimation()
+    {
+        anim.SetBool("invulnerable", false);
     }
 
     public bool CheckIfTookDamage()
@@ -252,7 +271,7 @@ public class Boat : MonoBehaviour
         }
     }
 
-    public void Die()
+    void Die()
     {
         health = 0;
         dead = true;
@@ -295,7 +314,7 @@ public class Boat : MonoBehaviour
 
     public void UpdateInvulTime(float time)
     {
-        invulTime = .3f + time * .15f;
+        invulTime = .5f + time * .25f;
     }
 
     public int GetHealth()
@@ -341,7 +360,7 @@ public class Boat : MonoBehaviour
     #region Sailing
     public void SailIn()
     {
-        extraSpeed = 1.5f * Time.deltaTime;
+        extraSpeed = 10;
         sailingIn = true;
     }
     public void SailOffScreen()
@@ -349,7 +368,7 @@ public class Boat : MonoBehaviour
         if (GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Endless))
             return;
 
-        extraSpeed = 1.5f * Time.deltaTime;
+        extraSpeed = 10;
         finishedLevel = true;
 
     }
@@ -357,7 +376,7 @@ public class Boat : MonoBehaviour
     void FinishedSailingIn()
     {
         sailingIn = false;
-
+        extraSpeed = 0;
         onFinishedSailingIn();
     }
     #endregion

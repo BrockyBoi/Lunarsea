@@ -275,7 +275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterJointPrefab: {fileID: 1404304788250446, guid: 72a5aa6dcd5f24d6b9818967e9476604,
     type: 2}
-  numJoints: 200
+  numJoints: 100
   waterYPos: 0.675
   joints: []
   jointParent: {fileID: 4770566502202450}
@@ -303,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66802842d7d6d4f40b97277a4bc89a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMode: 1
 --- !u!114 &114334705664952466
 MonoBehaviour:
   m_ObjectHideFlags: 1

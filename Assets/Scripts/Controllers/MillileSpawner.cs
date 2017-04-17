@@ -29,6 +29,9 @@ public class MillileSpawner : MonoBehaviour
 
     int coinDropRate;
 
+    int levelsBeaten;
+
+
     List<Rock> currentRocks = new List<Rock>();
 
     List<GameObject> missileList = new List<GameObject>();
@@ -54,7 +57,10 @@ public class MillileSpawner : MonoBehaviour
 
     void Awake()
     {
-        controller = this;
+        if (controller == null)
+            controller = this;
+        else if (controller != this)
+            this.enabled = false;
     }
 
     // Use this for initialization
@@ -63,6 +69,9 @@ public class MillileSpawner : MonoBehaviour
         Boat.player.onBoatDeath += EndLevel;
 
         TutorialController.controller.onFinishTutorial += StartGame;
+
+
+
         healthRate = 45;
         waitForRocks = new WaitForSeconds(4f);
         waitForMissiles = new WaitForSeconds(3f);
@@ -85,6 +94,11 @@ public class MillileSpawner : MonoBehaviour
         //StartCoroutine(SpawnPirateShip());
         if (Boat.player.GetMaxHealth() > 1)
             Invoke("SpawnHealth", 45);
+    }
+
+    void StartLevel(int num)
+    {
+
     }
 
     IEnumerator Wave1()
@@ -196,6 +210,22 @@ public class MillileSpawner : MonoBehaviour
             UpdateSpeedMultiplier(1.75f);
             yield return null;
         }
+    }
+
+    public int GetLevelsBeaten()
+    {
+        return levelsBeaten;
+    }
+
+    public void SetLevelsBeaten(int levelsBeat)
+    {
+        levelsBeaten = levelsBeat;
+    }
+
+    void BeatLevel(int levelBeat)
+    {
+        if (levelBeat > levelsBeaten)
+            levelsBeaten++;
     }
 
     public void EndLevel()

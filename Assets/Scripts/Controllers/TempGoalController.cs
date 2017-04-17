@@ -134,7 +134,7 @@ public class TempGoalController : MonoBehaviour
 
     public void UpdateMaxGoals(int value)
     {
-        maxGoals = 1 + value;
+        maxGoals = 3 + value;
         NewGoals();
     }
     #endregion

@@ -12,7 +12,7 @@ public class PlayerInfo : MonoBehaviour
     public bool ResetSaveFile;
 
     float highScore;
-    int coinCount;
+    int levelsBeaten;
     int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
 
     bool firstTimeEver;
@@ -22,9 +22,6 @@ public class PlayerInfo : MonoBehaviour
     bool adsTurnedOff;
 
     public bool DeleteFirst;
-
-    public delegate void OnLoadF(float f);
-    public event OnLoadF onLoadF;
 
     void OnEnable()
     {
@@ -49,7 +46,9 @@ public class PlayerInfo : MonoBehaviour
 
     void Start()
     {
-        Boat.player.onFinishedSailingIn += NoLongerFirstTime;
+        if (Boat.player != null)
+            Boat.player.onFinishedSailingIn += NoLongerFirstTime;
+
         if (DeleteFirst)
             DeleteFile();
         if (!ResetSaveFile)
@@ -63,14 +62,39 @@ public class PlayerInfo : MonoBehaviour
         FileStream file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
 
         PlayerData data = new PlayerData();
-        data.highScore = MainCanvas.controller.GetHighScore();
-        data.coinCount = CoinController.controller.getCoinNum();
-        UpgradeController.controller.GetUpgradeArray().CopyTo(data.playerUpgrades, 0);
-        data.goals = new List<TempGoal>(TempGoalController.controller.GetGoals());
-        data.adsTurnedOff = MonetizationController.controller.CheckIfAdsTurnedOff();
-        data.scoreMultiplier = TempGoalController.controller.GetScoreMultiplier();
         data.firstTimeEver = firstTimeEver;
-        data.oldDate = MonetizationController.controller.GetOldDate();
+
+        if (MainCanvas.controller != null)
+        { 
+            data.highScore = MainCanvas.controller.GetHighScore();
+        }
+
+        if (MillileSpawner.controller != null)
+            data.levelsBeaten = MillileSpawner.controller.GetLevelsBeaten();
+
+        if (CoinController.controller != null)
+            data.coinCount = CoinController.controller.getCoinNum();
+
+        if (UpgradeController.controller != null)
+            UpgradeController.controller.GetUpgradeArray().CopyTo(data.playerUpgrades, 0);
+
+        if (TempGoalController.controller != null)
+        {
+            data.scoreMultiplier = TempGoalController.controller.GetScoreMultiplier();
+            data.goals = new List<TempGoal>(TempGoalController.controller.GetGoals());
+        }
+
+        if (MonetizationController.controller != null)
+        {
+            //data.adsTurnedOff = MonetizationController.controller.CheckIfAdsTurnedOff();
+            data.oldDate = MonetizationController.controller.GetOldDate();
+        }
+
+        if (AudioController.controller != null)
+        {
+            data.musicVolume = AudioController.controller.GetMusicVolume();
+            data.fxVolume = AudioController.controller.GetFXVolume();
+        }
 
         bf.Serialize(file, data);
         file.Close();
@@ -89,16 +113,33 @@ public class PlayerInfo : MonoBehaviour
             data.playerUpgrades.CopyTo(playerUpgrades, 0);
             goals = new List<TempGoal>(data.goals);
 
-            Debug.Log("High Score: " + data.highScore);
-            MonetizationController.controller.DayCheck();
-            MainCanvas.controller.SetHighScore(data.highScore);
-            CoinController.controller.setCoinNum(data.coinCount);
-            UpgradeController.controller.GiveUpgradeArray(playerUpgrades);
-            TempGoalController.controller.SetGoals(goals);
-            MonetizationController.controller.UpdateAdsTurnedOff(data.adsTurnedOff);
-            TempGoalController.controller.SetScoreMultiplier(data.scoreMultiplier);
+            levelsBeaten = data.levelsBeaten;
 
-            MonetizationController.controller.SetOldDate(data.oldDate);
+            if (MillileSpawner.controller != null)
+                MillileSpawner.controller.SetLevelsBeaten(data.levelsBeaten);
+            if (MainCanvas.controller != null)
+                MainCanvas.controller.SetHighScore(data.highScore);
+            if (CoinController.controller != null)
+                CoinController.controller.setCoinNum(data.coinCount);
+            if (UpgradeController.controller != null)
+                UpgradeController.controller.GiveUpgradeArray(playerUpgrades);
+            if (TempGoalController.controller != null)
+            {
+                TempGoalController.controller.SetGoals(goals);
+                TempGoalController.controller.SetScoreMultiplier(data.scoreMultiplier);
+            }
+
+            if (MonetizationController.controller != null)
+            {
+                MonetizationController.controller.SetOldDate(data.oldDate);
+                //MonetizationController.controller.UpdateAdsTurnedOff(data.adsTurnedOff);
+            }
+
+            if (AudioController.controller != null)
+            {
+                AudioController.controller.ChangeMusicVolume(data.musicVolume);
+                AudioController.controller.ChangeFXVolume(data.fxVolume);
+            }
         }
         else
         {
@@ -131,29 +172,24 @@ public class PlayerInfo : MonoBehaviour
     public void ResetAllValues()
     {
         highScore = 0;
-        coinCount = 0;
 
-        for(int i = 0; i < playerUpgrades.Length; i++)
+        for (int i = 0; i < playerUpgrades.Length; i++)
         {
             playerUpgrades[i] = 0;
         }
     }
 
-    public List<TempGoal> GetGoals()
+    public int GetLevelsBeaten()
     {
-        return goals;
-    }
-
-    public float GetHighScore()
-    {
-        return highScore;
+        return levelsBeaten;
     }
 
     [Serializable]
     class PlayerData
     {
+        public float musicVolume, fxVolume;
         public float highScore, scoreMultiplier;
-        public int coinCount;
+        public int coinCount, levelsBeaten;
         public int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
         public List<TempGoal> goals = new List<TempGoal>();
 

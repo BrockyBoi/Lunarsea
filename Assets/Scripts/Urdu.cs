@@ -5,6 +5,15 @@ using UnityEngine;
 public class Urdu : MonoBehaviour
 {
     public bool side;
+    public static Urdu sideUrdu;
+
+        public delegate void BoatDeath();
+    public event BoatDeath BoatDied;
+    void Awake()
+    {
+        if(side)
+            sideUrdu = this;
+    }
     void Start()
     {
         if (side)
@@ -23,7 +32,7 @@ public class Urdu : MonoBehaviour
                 break;
             case "Boat":
                 if (!side)
-                    Boat.player.Die();
+                    BoatDied();
                 break;
             case "Coin":
                 INFIDEL.gameObject.SetActive(false);

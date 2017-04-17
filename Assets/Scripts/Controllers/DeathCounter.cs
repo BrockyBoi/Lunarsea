@@ -28,12 +28,12 @@ public class DeathCounter : MonoBehaviour
     {
         deathCount++;
 
-        if (!MonetizationController.controller.CheckIfAdsTurnedOff() && deathCount % timesBeforeAd == 0)
-        {
-#if UNITY_ADS
-            MonetizationController.controller.ShowNormalAd();
-#endif
-        }
+//         if (!MonetizationController.controller.CheckIfAdsTurnedOff() && deathCount % timesBeforeAd == 0)
+//         {
+// #if UNITY_ADS
+//             MonetizationController.controller.ShowNormalAd();
+// #endif
+//         }
     }
 
 	public int GetDeathCount()

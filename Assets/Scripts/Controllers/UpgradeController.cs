@@ -13,6 +13,9 @@ public class UpgradeController : MonoBehaviour
     public int[] coinAmounts = new int[5];
 
     bool currentlyUpgrading;
+
+    public delegate void NotUpgrading();
+    public event NotUpgrading notUpgrading;
     #endregion
 
     void Awake()
@@ -142,6 +145,7 @@ public class UpgradeController : MonoBehaviour
         UpdateHealthDrop();
         UpdateInvulTime();
         UpdateMaxHealth();
+        UpdateMaxGoals();
     }
 
     public void StartUpgrading()
@@ -153,7 +157,7 @@ public class UpgradeController : MonoBehaviour
     {
         currentlyUpgrading = false;
         MainCanvas.controller.upgradeScreen.SetActive(false);
-        Boat.player.SailIn();
+        notUpgrading();
     }
 
     public bool CheckIfUpgrading()

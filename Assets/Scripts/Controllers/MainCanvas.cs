@@ -65,7 +65,6 @@ public class MainCanvas : MonoBehaviour
         deathScreen.SetActive(false);
         bossHealthSlider.SetActive(false);
         monetizationScreen.SetActive(false);
-        SetHighScore(PlayerInfo.controller.GetHighScore());
     }
 
 

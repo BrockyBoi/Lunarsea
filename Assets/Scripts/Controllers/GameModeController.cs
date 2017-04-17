@@ -2,30 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameModeController : MonoBehaviour {
+public class GameModeController : MonoBehaviour
+{
 
-	#region Variables
-	public static GameModeController controller;
+    #region Variables
+    public static GameModeController controller;
 
-	public enum Mode{Story, Endless}
-	[SerializeField]
-	Mode currentMode;
-	#endregion
-	void Awake()
-	{
-		controller = this;
-	}
+    public enum Mode { Story, Endless }
+    [SerializeField]
+    Mode currentMode;
 
-	public bool CheckCurrentMode(Mode m)
-	{
-		if(m == currentMode)
-		return true;
+    int chosenLevel;
+    #endregion
+    void Awake()
+    {
+        if (controller == null)
+            controller = this;
+        else if (controller != this)
+            this.enabled = false;
 
-		return false;
-	}
+        DontDestroyOnLoad(this);
+    }
 
-	public void SetGameMode(Mode m)
-	{
-		currentMode = m;
-	}
+
+    void Start()
+    {
+        if (MainMenu.controller != null)
+            MainMenu.controller.PressedLevel += ChooseLevel;
+    }
+
+    public bool CheckCurrentMode(Mode m)
+    {
+        if (m == currentMode)
+            return true;
+
+        return false;
+    }
+
+    public void SetGameMode(Mode m)
+    {
+        currentMode = m;
+    }
+
+    public void ChooseLevel(int level)
+    {
+        chosenLevel = level;
+    }
+
+    public int GetCurrentLevel()
+    {
+        return chosenLevel;
+    }
 }
