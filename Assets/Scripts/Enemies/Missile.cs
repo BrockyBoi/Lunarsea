@@ -16,7 +16,7 @@ public class Missile : MonoBehaviour
     public bool IgnoreWater;
     protected bool dead;
 
-    protected virtual void Update()
+    void Update()
     {
         if (dead)
             return;

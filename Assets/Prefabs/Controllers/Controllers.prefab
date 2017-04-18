@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 114979691216827468}
   - component: {fileID: 114570782682668944}
   - component: {fileID: 114334705664952466}
-  - component: {fileID: 114313377703881370}
   - component: {fileID: 114229173661616442}
   - component: {fileID: 114102977851860278}
   - component: {fileID: 114936077018901814}
@@ -31,6 +30,7 @@ GameObject:
   - component: {fileID: 114005152846667158}
   - component: {fileID: 114273022347892424}
   - component: {fileID: 114259653825167178}
+  - component: {fileID: 114975598909132652}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -292,18 +292,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinAmounts: f4010000d00700001027000090d0030040420f00
---- !u!114 &114313377703881370
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1138018935000190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66802842d7d6d4f40b97277a4bc89a7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentMode: 1
 --- !u!114 &114334705664952466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -330,6 +318,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbbbf09ee43e5b4ca25d50c0a3433e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goalImages:
+  - {fileID: 21300000, guid: 958ed2b72387af342b58c1d75519dd18, type: 3}
+  - {fileID: 21300000, guid: 00a146baa316c7a4ca6ffd5a683d10b2, type: 3}
+  - {fileID: 21300000, guid: 6f5728d74e2040a4e85db426d5141a39, type: 3}
+  - {fileID: 21300000, guid: 958ed2b72387af342b58c1d75519dd18, type: 3}
+  - {fileID: 21300000, guid: 7dc0718d1785d7748a41cca8f8273819, type: 3}
   maxGoals: 3
 --- !u!114 &114570782682668944
 MonoBehaviour:
@@ -360,8 +354,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588380a6c88a9be43b207e8d8ab3de8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResetSaveFile: 0
+  ResetSaveFile: 1
   DeleteFirst: 0
+--- !u!114 &114975598909132652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8372f144430dd94eb33a65b75064848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseScreen: {fileID: 0}
+  audioOptions: {fileID: 0}
+  pauseOptions: {fileID: 0}
+  musicSlider: {fileID: 0}
+  fxSlider: {fileID: 0}
 --- !u!114 &114979691216827468
 MonoBehaviour:
   m_ObjectHideFlags: 1

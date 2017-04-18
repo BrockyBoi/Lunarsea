@@ -16,9 +16,6 @@ public class SpeechController : MonoBehaviour
 
     void OnEnable()
     {
-        TutorialController.controller.onStartTutorial += FirstPhrase;
-
-        TutorialController.controller.onFinishTutorial += CloseWindow;
     }
 
     void Awake()
@@ -28,6 +25,9 @@ public class SpeechController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        TutorialController.controller.onStartTutorial += FirstPhrase;
+
+        TutorialController.controller.onFinishTutorial += CloseWindow;
         textField.transform.parent.gameObject.SetActive(false);
     }
 

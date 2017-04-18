@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114313820446602584}
   - component: {fileID: 114094031746416188}
   - component: {fileID: 114004255967618948}
-  - component: {fileID: 114298445274739888}
+  - component: {fileID: 114375655111746050}
   m_Layer: 5
   m_Name: Main Canvas 1
   m_TagString: Untagged
@@ -1714,7 +1714,7 @@ Transform:
   - {fileID: 224796455736082432}
   - {fileID: 224940621284927802}
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114004255967618948
 MonoBehaviour:
@@ -2107,7 +2107,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: PressPackPaused
+        m_MethodName: PressPause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2666,7 +2666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.007352948, g: 0.5620675, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2849,43 +2849,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114298445274739888
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1010121353340042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9343a61c7f2385e41b9845d7cf5e0f97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deathScreen: {fileID: 1945523894100284}
-  upgradeScreen: {fileID: 1913723213354962}
-  monetizationScreen: {fileID: 1612266443816034}
-  scoreText: {fileID: 114566390658936920}
-  highScoreText: {fileID: 114202592682542620}
-  coinText: {fileID: 114830814252933666}
-  healthImages:
-  - {fileID: 114336572711204028}
-  - {fileID: 114788018682933526}
-  - {fileID: 114599752910304506}
-  - {fileID: 114162569977270814}
-  - {fileID: 114646444625459460}
-  - {fileID: 114949908289553172}
-  upgradeButtons:
-  - {fileID: 114028788196150816}
-  - {fileID: 114214521103323092}
-  - {fileID: 114286371348585892}
-  - {fileID: 114413646905201484}
-  - {fileID: 114900566211035626}
-  - {fileID: 114016854152501774}
-  - {fileID: 114610018691541708}
-  blackScreen: {fileID: 114502826773453222}
-  speedMult: 0
-  tempGoalDisplay: {fileID: 1240785009953390}
-  bossHealthSlider: {fileID: 1628248264080678}
-  particles: {fileID: 4458786484587960}
 --- !u!114 &114298610222330118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3022,7 +2985,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114298445274739888}
+      - m_Target: {fileID: 0}
         m_MethodName: PressRetry
         m_Mode: 1
         m_Arguments:
@@ -3074,7 +3037,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114298445274739888}
+      - m_Target: {fileID: 0}
         m_MethodName: PressStore
         m_Mode: 1
         m_Arguments:
@@ -3209,6 +3172,30 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Coin Drop Rate
+--- !u!114 &114375655111746050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1010121353340042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5256d0aa50b9a5f498099612f9dc5957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathScreen: {fileID: 1945523894100284}
+  upgradeScreen: {fileID: 1913723213354962}
+  monetizationScreen: {fileID: 1612266443816034}
+  scoreText: {fileID: 114566390658936920}
+  highScoreText: {fileID: 114202592682542620}
+  coinText: {fileID: 114830814252933666}
+  healthImages: []
+  upgradeButtons: []
+  blackScreen: {fileID: 114502826773453222}
+  speedMult: 0
+  tempGoalDisplay: {fileID: 1240785009953390}
+  bossHealthSlider: {fileID: 1628248264080678}
+  particles: {fileID: 4458786484587960}
 --- !u!114 &114380859566631196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3256,7 +3243,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: FXSliderUpdate
+        m_MethodName: ChangeFXVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4008,7 +3995,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114298445274739888}
+      - m_Target: {fileID: 0}
         m_MethodName: PressBackMonetization
         m_Mode: 1
         m_Arguments:
@@ -4373,7 +4360,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Back
 --- !u!114 &114632661224047372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4873,7 +4860,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: MusicSliderUpdate
+        m_MethodName: ChangeMusicVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5635,7 +5622,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114298445274739888}
+      - m_Target: {fileID: 0}
         m_MethodName: PressMainMenu
         m_Mode: 1
         m_Arguments:
@@ -6362,7 +6349,7 @@ RectTransform:
   m_LocalScale: {x: 0.9999975, y: 0.9999975, z: 0.9999975}
   m_Children: []
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -6380,7 +6367,7 @@ RectTransform:
   m_LocalScale: {x: 1.000019, y: 1.000019, z: 1.000019}
   m_Children: []
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -6471,7 +6458,7 @@ RectTransform:
   m_Children:
   - {fileID: 224860322271911422}
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -6723,7 +6710,7 @@ RectTransform:
   m_LocalScale: {x: 1.000019, y: 1.000019, z: 1.000019}
   m_Children: []
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -6778,20 +6765,20 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 224872703882587278}
   - {fileID: 224507821433076622}
   - {fileID: 224469101808362104}
   - {fileID: 224062440892646608}
-  - {fileID: 4818225113455568}
   - {fileID: 224068622829929430}
   - {fileID: 224293593731266768}
-  - {fileID: 224164035752375092}
+  - {fileID: 4818225113455568}
   - {fileID: 224593632004055736}
+  - {fileID: 224164035752375092}
   - {fileID: 224562772716450316}
-  - {fileID: 4458786484587960}
   - {fileID: 224613578494265862}
+  - {fileID: 4458786484587960}
   - {fileID: 224153046914920130}
   - {fileID: 224446298955331180}
+  - {fileID: 224872703882587278}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6996,7 +6983,7 @@ RectTransform:
   - {fileID: 224002726182652234}
   - {fileID: 4273405462702050}
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7069,7 +7056,7 @@ RectTransform:
   m_Children:
   - {fileID: 224875735320110068}
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7145,7 +7132,7 @@ RectTransform:
   - {fileID: 224351178446117194}
   - {fileID: 224361133723624514}
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -7273,7 +7260,7 @@ RectTransform:
   - {fileID: 224226547427745424}
   - {fileID: 224044551364556796}
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -7349,7 +7336,7 @@ RectTransform:
   - {fileID: 224977058771686912}
   - {fileID: 224599536416274740}
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -7389,7 +7376,7 @@ RectTransform:
   - {fileID: 224217343670903008}
   - {fileID: 224589795160238296}
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 11
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7797,7 +7784,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224332286781408078}
-  m_RootOrder: 0
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

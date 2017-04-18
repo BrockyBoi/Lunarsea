@@ -136,7 +136,7 @@ PlayerSettings:
   protectGraphicsMemory: 0
   useHDRDisplay: 0
   applicationIdentifier:
-    Android: com.Company.ProductName
+    Android: com.LiveintheGame.Lunarsea
     Standalone: unity.DefaultCompany.lunarsea
     Tizen: com.Company.ProductName
     iOS: com.Company.ProductName
@@ -216,8 +216,9 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/Users/Brock/Desktop/New Lunarsea/Lunarsea TEst/lunarsea/Lunarsea
+    Android APK/LunarseaKeystore.keystore
+  AndroidKeyaliasName: lunarsea
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   androidEnableBanner: 1
@@ -586,10 +587,10 @@ PlayerSettings:
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
     Build: 0
-    Collab: 1
+    Collab: 0
     ErrorHub: 0
     Hub: 0
-    UNet: 1
+    UNet: 0
   facebookSdkVersion: 7.9.1
   apiCompatibilityLevel: 2
   cloudProjectId: 0ef4c9d7-73ee-46a2-9877-e59b78c8396b

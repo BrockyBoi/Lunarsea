@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class TempGoalController : MonoBehaviour
@@ -9,6 +10,8 @@ public class TempGoalController : MonoBehaviour
     List<TempGoal> goals = new List<TempGoal>();
 
     bool[] hasGoals = new bool[(int)TempGoal.Goal.MAX_GOALS];
+    public Sprite[] goalImages = new Sprite[(int)TempGoal.Goal.MAX_GOALS];
+
     int missileCount;
 
     float totalScoreMultiplier = 1;
@@ -39,6 +42,11 @@ public class TempGoalController : MonoBehaviour
         Boat.player.onBoatDeath += PlayerDied;
         if (PlayerInfo.controller.ResetSaveFile)
             NewGoals();
+    }
+
+    public TempGoal GetGoal(int spot)
+    {
+        return goals[spot];
     }
 
     public List<TempGoal> GetGoals()

@@ -285,88 +285,88 @@ public class MonetizationController : MonoBehaviour, IStoreListener
     {
         controller = this;
 
-//         string gameId = null;
+        string gameId = null;
 
-// #if UNITY_ANDROID
-//         gameId = androidGameId;
-// #elif UNITY_IOS
-//         gameId = iosGameId;
-// #endif
+#if UNITY_ANDROID
+        gameId = androidGameId;
+#elif UNITY_IOS
+        gameId = iosGameId;
+#endif
 
-//         testMode = true;
-// #if UNITY_ADS
-//         if (Advertisement.isSupported && !Advertisement.isInitialized) {
-//            Advertisement.Initialize(gameId, testMode);
+        testMode = true;
+#if UNITY_ADS
+        if (Advertisement.isSupported && !Advertisement.isInitialized) {
+           Advertisement.Initialize(gameId, testMode);
         }
-// #endif
-//     }
+#endif
+    }
 
-//     public void UpdateAdsTurnedOff(bool b)
-//     {
-//         adsTurnedOff = b;
-//     }
+    public void UpdateAdsTurnedOff(bool b)
+    {
+        adsTurnedOff = b;
+    }
 
-//     public bool CheckIfAdsTurnedOff()
-//     {
-//         return adsTurnedOff;
-//     }
-// #if UNITY_ADS
-//     public void ShowNormalAd()
-//     {
-//         Debug.Log(Advertisement.IsReady());
-//         if (Advertisement.IsReady())
-//             Advertisement.Show();
-//     }
+    public bool CheckIfAdsTurnedOff()
+    {
+        return adsTurnedOff;
+    }
+#if UNITY_ADS
+    public void ShowNormalAd()
+    {
+        Debug.Log(Advertisement.GetPlacementState());
+        if (Advertisement.IsReady())
+            Advertisement.Show();
+    }
 
-//     public void ShowAd(string zone = "")
-//     {
-//         StartCoroutine(WaitForAd());
+    public void ShowAd(string zone = "")
+    {
+        StartCoroutine(WaitForAd());
 
-//         if (string.Equals(zone, ""))
-//             zone = null;
+        if (string.Equals(zone, ""))
+            zone = null;
 
-//         ShowOptions options = new ShowOptions();
-//         options.resultCallback = AdCallbackhandler;
+        ShowOptions options = new ShowOptions();
+        options.resultCallback = AdCallbackhandler;
 
-//         if (Advertisement.IsReady(zone))
-//             Advertisement.Show(zone, options);
-//     }
+        if (Advertisement.IsReady(zone))
+            Advertisement.Show(zone, options);
+    }
 
-//     void AdCallbackhandler(ShowResult result)
-//     {
-//          switch (result)
-//          {
-//              case ShowResult.Finished:
-//                  Debug.Log("Ad Finished. Rewarding player...");
-//                  CoinController.controller.BuyCoins(200);
-//                  rewardedAdsWatchedToday++;
+    void AdCallbackhandler(ShowResult result)
+    {
+         switch (result)
+         {
+             case ShowResult.Finished:
+                 Debug.Log("Ad Finished. Rewarding player...");
+                 CoinController.controller.BuyCoins(200);
+                 rewardedAdsWatchedToday++;
 
-//                  if(rewardedAdsWatchedToday == 3)
-//                  {
-//                     TempGoalController.controller.AddTempScoreMultiplier(.5f);
-//                  }
-//                  break;
-//              case ShowResult.Skipped:
-//                  Debug.Log("Ad skipped. Son, I am dissapointed in you");
-//                  break;
-//              case ShowResult.Failed:
-//                  Debug.Log("I swear this has never happened to me before");
-//                  break;
-//          }
-//      }
+                 if(rewardedAdsWatchedToday == 3)
+                 {
+                    TempGoalController.controller.AddTempScoreMultiplier(.5f);
+                 }
+                 break;
+             case ShowResult.Skipped:
+                 Debug.Log("Ad skipped. Son, I am dissapointed in you");
+                 break;
+             case ShowResult.Failed:
+                 Debug.Log("I swear this has never happened to me before");
+                 break;
+         }
+     }
 
-// IEnumerator WaitForAd()
-// {
-//     float currentTimeScale = Time.timeScale;
-//     Time.timeScale = 0f;
-//     yield return null;
+IEnumerator WaitForAd()
+{
+    float currentTimeScale = Time.timeScale;
+    Time.timeScale = 0f;
+    yield return null;
 
-//     while (Advertisement.isShowing)
-//         yield return null;
+    while (Advertisement.isShowing)
+        yield return null;
 
-//     Time.timeScale = currentTimeScale;
-// }
-// #endif
+    Time.timeScale = currentTimeScale;
+}
+#endif
 
 
     #region DailyRewards

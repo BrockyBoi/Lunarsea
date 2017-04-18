@@ -190,6 +190,7 @@ public class MainCanvas : MonoBehaviour
         for (int i = 0; i < TempGoalController.controller.GetGoalListCount(); i++)
         {
             tempGoalDisplay.GetComponentInChildren<Text>().text = TempGoalController.controller.GetGoalDescription(i);
+            tempGoalDisplay.transform.GetChild(1).GetComponent<Image>().sprite = TempGoalController.controller.goalImages[TempGoalController.controller.GetGoal(i).GetGoalType()];
             //tempGoalDisplay.GetComoponentInChildren<Image>() = Some Image that I'll store somewhere
 
             RectTransform trans = tempGoalDisplay.GetComponent<RectTransform>();
