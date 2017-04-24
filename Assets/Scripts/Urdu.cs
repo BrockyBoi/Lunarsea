@@ -5,19 +5,21 @@ using UnityEngine;
 public class Urdu : MonoBehaviour
 {
     public bool side;
-    public static Urdu sideUrdu;
 
-        public delegate void BoatDeath();
+    public static Urdu sideUrdu;
+    public delegate void BoatDeath();
     public event BoatDeath BoatDied;
+
     void Awake()
     {
-        if(side)
+        if (side)
             sideUrdu = this;
     }
     void Start()
     {
+
         if (side)
-            transform.position = Camera.main.ViewportToWorldPoint(new Vector3(-.1f, .5f));
+            transform.position = Camera.main.ViewportToWorldPoint(new Vector3(-.2f, .5f));
         else transform.position = Camera.main.ViewportToWorldPoint(new Vector3(0, -.5f));
     }
     void OnTriggerEnter2D(Collider2D INFIDEL)

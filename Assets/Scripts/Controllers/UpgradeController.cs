@@ -155,6 +155,7 @@ public class UpgradeController : MonoBehaviour
 
     public void NoLongerUpgrading()
     {
+        AudioController.controller.ClickUI();
         currentlyUpgrading = false;
         MainCanvas.controller.upgradeScreen.SetActive(false);
         notUpgrading();

@@ -16,7 +16,6 @@ public class TempGoalController : MonoBehaviour
 
     float totalScoreMultiplier = 1;
     float tempScoreMultiplier = 0;
-    float rewardScoreMults = 0;
 
     [SerializeField]
     int maxGoals;
@@ -149,7 +148,7 @@ public class TempGoalController : MonoBehaviour
 
     public void FinishGoal(int spot, int rewardValue)
     {
-        CoinController.controller.ReceiveReward(rewardValue * Mathf.RoundToInt(totalScoreMultiplier));
+        CoinController.controller.ReceiveReward(rewardValue * Mathf.RoundToInt(GetAllMultipliers()));
 
         hasGoals[goals[spot].GetGoalType()] = false;
 
@@ -249,24 +248,27 @@ public class TempGoalController : MonoBehaviour
     }
     public void SetScoreMultiplier(float f)
     {
-        totalScoreMultiplier = f + rewardScoreMults + tempScoreMultiplier;
+        totalScoreMultiplier = f;
     }
 
     public void AddRewardScoreMultipliers(float f)
     {
-        rewardScoreMults += f;
-        SetScoreMultiplier(0);
+        totalScoreMultiplier += f;
     }
 
     public void AddTempScoreMultiplier(float f)
     {
         tempScoreMultiplier += f;
-        SetScoreMultiplier(0);
     }
+
+    public float GetAllMultipliers()
+    {
+        return totalScoreMultiplier + tempScoreMultiplier;
+    }
+
 
     public void ResetTempMults()
     {
         tempScoreMultiplier = 0;
-        SetScoreMultiplier(0);
     }
 }

@@ -203,12 +203,14 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 
     public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
     {
+
         // A consumable product has been purchased by this user.
         if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_1000_COINS, StringComparison.Ordinal))
         {
             Debug.Log("Just bought 1000 gold");
             CoinController.controller.BuyCoins(1000);
             GoalMultiplier(1.25f);
+            AudioController.controller.PlayFX(AudioController.controller.coinPurchase);
         }
         // Or ... a non-consumable product has been purchased by this user.
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_5000_COINS, StringComparison.Ordinal))
@@ -216,6 +218,7 @@ public class MonetizationController : MonoBehaviour, IStoreListener
             Debug.Log("Just bought 5000 gold");
             CoinController.controller.BuyCoins(5000);
             GoalMultiplier(1.5f);
+            AudioController.controller.PlayFX(AudioController.controller.coinPurchase);
         }
         // Or ... a subscription product has been purchased by this user.
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_20000_COINS, StringComparison.Ordinal))
@@ -223,18 +226,21 @@ public class MonetizationController : MonoBehaviour, IStoreListener
             Debug.Log("Just bought 20000 gold");
             CoinController.controller.BuyCoins(20000);
             GoalMultiplier(2f);
+            AudioController.controller.PlayFX(AudioController.controller.coinPurchase);
         }
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_100000_COINS, StringComparison.Ordinal))
         {
             Debug.Log("Just bought 100000 gold");
             CoinController.controller.BuyCoins(100000);
             GoalMultiplier(2.5f);
+            AudioController.controller.PlayFX(AudioController.controller.coinPurchase);
         }
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_1000000_COINS, StringComparison.Ordinal))
         {
             Debug.Log("Just bought 1000000 gold");
             CoinController.controller.BuyCoins(1000000);
             GoalMultiplier(5f);
+            AudioController.controller.PlayFX(AudioController.controller.coinPurchase);
         }
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_NO_ADS, StringComparison.Ordinal))
         {
@@ -376,9 +382,9 @@ IEnumerator WaitForAd()
     {
         DateTime newDate = System.DateTime.Now;
 
-        if(oldDate == null)
+        if (oldDate == null)
             oldDate = System.DateTime.Now;
-            
+
         TimeSpan diff = newDate.Subtract(oldDate);
         if (diff.Days >= 1)
         {
@@ -393,7 +399,7 @@ IEnumerator WaitForAd()
     public DateTime GetOldDate()
     {
         return oldDate;
-        
+
     }
 
     public void SetOldDate(DateTime dT)

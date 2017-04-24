@@ -5,6 +5,15 @@ public class TrackingMissile : Missile
 {
     LineRenderer lineRend;
 
+    public AudioClip trackingSound;
+    AudioSource audio;
+
+    void Awake()
+    {
+        audio = gameObject.AddComponent<AudioSource>();
+        audio.clip = trackingSound;
+        audio.volume = AudioController.controller.GetFXVolume();
+    }
     IEnumerator TakeShot()
     {
         Vector3 dirVector;
@@ -23,8 +32,9 @@ public class TrackingMissile : Missile
         lineRend.SetPosition(1, endSpot);
 
         //http://answers.unity3d.com/questions/654222/make-sprite-look-at-vector2-in-unity-2d-1.html
-        float angle = Mathf.Atan2(dirVector.y, dirVector.x) * Mathf.Rad2Deg - 180;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        float angle = Mathf.Atan2(dirVector.x, dirVector.y) * Mathf.Rad2Deg + 180;
+        //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.Rotate(0, angle, 0);
 
         while (true)
         {

@@ -23,6 +23,9 @@ public class WaterJointGenerator : MonoBehaviour
             gen = this;
         else
             Destroy(this);
+
+        Vector3 leftSide = Camera.main.ViewportToWorldPoint(Vector2.zero);
+        Vector3 rightSide = Camera.main.ViewportToWorldPoint(Vector2.right);
     }
     // Use this for initialization
     void Start()
@@ -30,10 +33,10 @@ public class WaterJointGenerator : MonoBehaviour
         Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, waterYPos));
         initialYPos = bottomLeft.y;
         joints = new List<GameObject>();
-        float jointDistance = Screen.width / (numJoints - 1);
-        float currentX = -100;
+        float jointDistance = (Screen.width + 200) / (numJoints - 1);
+        float currentX = Camera.main.ViewportToWorldPoint(Vector2.zero).x - 200;
 
-        for (int i = 0; i < numJoints + (int)(0.1f * numJoints) + 50; i++)
+        for (int i = 0; i < numJoints + (int)(0.1f * numJoints) + (int)(100 / jointDistance); i++)
         {
             Vector3 cpos = Camera.main.ScreenToWorldPoint(new Vector3(currentX, 0)) + new Vector3(0, initialYPos * 2);
             cpos.z = 0;

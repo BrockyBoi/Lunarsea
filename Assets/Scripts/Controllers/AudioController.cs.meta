@@ -1,10 +1,27 @@
 fileFormatVersion: 2
 guid: 69955e45a07d04613bf04c23b2de6654
-timeCreated: 1485051615
+timeCreated: 1493001015
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - mainMusic: {instanceID: 0}
+  - waveBackground: {instanceID: 0}
+  - waterRise: {instanceID: 0}
+  - waterFall: {instanceID: 0}
+  - gargling: {instanceID: 0}
+  - coinPickUp1: {instanceID: 0}
+  - coinPickUp2: {instanceID: 0}
+  - click: {fileID: 8300000, guid: 9414c26256b1794459b03dbd9aa575c8, type: 3}
+  - coinPurchase: {fileID: 8300000, guid: 2a0040842ceffdb4bb14b33a1f0b1a57, type: 3}
+  - woodSignDrop: {fileID: 8300000, guid: b7a709a79a4660441ad00d8e4fb1bf40, type: 3}
+  - sonarPing: {fileID: 8300000, guid: 5b13dd03791dc81459452bcd6bba5b50, type: 3}
+  - missileFire: {instanceID: 0}
+  - cannonFire: {instanceID: 0}
+  - boatDeath: {instanceID: 0}
+  - boatHitsRock: {instanceID: 0}
+  - repairBoat: {instanceID: 0}
+  - mastUnfurl: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

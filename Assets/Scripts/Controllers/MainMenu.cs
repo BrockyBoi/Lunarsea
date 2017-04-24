@@ -9,20 +9,19 @@ public class MainMenu : MonoBehaviour
     public static MainMenu controller;
     public Text credits;
     public Text loading;
-    public Button back;
 
     public delegate void LevelPressed(int num);
     public event LevelPressed PressedLevel;
 
-	public GameObject creditsParent;
-	public GameObject mainMenuParent;
+    public GameObject creditsParent;
+    public GameObject mainMenuParent;
     public GameObject levelSelectParent;
     public GameObject playSelectParent;
-	public GameObject optionsParent;
+    public GameObject optionsParent;
     public List<Button> levelButtons;
 
-	public Slider musicSlider;
-	public Slider fxSlider;
+    public Slider musicSlider;
+    public Slider fxSlider;
 
     void Awake()
     {
@@ -31,100 +30,115 @@ public class MainMenu : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-		mainMenuParent.SetActive(true);
-		creditsParent.SetActive(false);
-		levelSelectParent.SetActive(false);
-		playSelectParent.SetActive(false);
-		loading.gameObject.SetActive(false);
+        mainMenuParent.SetActive(true);
+        creditsParent.SetActive(false);
+        levelSelectParent.SetActive(false);
+        playSelectParent.SetActive(false);
+        loading.gameObject.SetActive(false);
 
         InitializeLevelButtons();
     }
 
     void InitializeLevelButtons()
     {
-        for (int i = PlayerInfo.controller.GetLevelsBeaten() + 1; i < 10; i++)
+        Debug.Log("Levels beaten: " + PlayerInfo.controller.GetLevelsBeaten());
+        for (int i = PlayerInfo.controller.GetLevelsBeaten() + 1; i < levelButtons.Count; i++)
         {
             levelButtons[i].GetComponent<Image>().color = new Color(Color.gray.r, Color.gray.g, Color.gray.b, .5f);
-
         }
     }
     #region Pressed Button Functions
     public void PressLevel(int level)
     {
-        if (level <= PlayerInfo.controller.GetLevelsBeaten())
+        AudioController.controller.ClickUI();
+        if (level - 1 <= PlayerInfo.controller.GetLevelsBeaten())
         {
             GameModeController.controller.SetGameMode(GameModeController.Mode.Story);
             PressedLevel(level);
-			loading.gameObject.SetActive(true);
-			SceneManager.LoadScene("MainScene");
+            loading.gameObject.SetActive(true);
+            SceneManager.LoadScene("MainScene");
         }
     }
 
     public void PressPlay()
     {
+        AudioController.controller.ClickUI();
         playSelectParent.SetActive(true);
-		mainMenuParent.SetActive(false);
+        mainMenuParent.SetActive(false);
     }
 
     public void PressEndlessMode()
     {
+        AudioController.controller.ClickUI();
         GameModeController.controller.SetGameMode(GameModeController.Mode.Endless);
-		loading.gameObject.SetActive(true);
-		SceneManager.LoadScene("MainScene");
+        loading.gameObject.SetActive(true);
+        SceneManager.LoadScene("MainScene");
     }
 
     public void PressBackPlaySelect()
     {
+        AudioController.controller.ClickUI();
         playSelectParent.SetActive(false);
-		mainMenuParent.SetActive(true);
+        mainMenuParent.SetActive(true);
     }
 
-	public void PressOptions()
-	{
-		optionsParent.SetActive(true);
-		mainMenuParent.SetActive(false);
-	}
+    public void PressOptions()
+    {
+        AudioController.controller.ClickUI();
+        optionsParent.SetActive(true);
+        mainMenuParent.SetActive(false);
+    }
 
-	public void PressBackOptions()
-	{
-		optionsParent.SetActive(false);
-		mainMenuParent.SetActive(true);
-		PlayerInfo.controller.Save();
-	}
+    public void PressBackOptions()
+    {
+        AudioController.controller.ClickUI();
+        optionsParent.SetActive(false);
+        mainMenuParent.SetActive(true);
+        PlayerInfo.controller.Save();
+    }
 
     public void PressCredits()
     {
+        AudioController.controller.ClickUI();
         creditsParent.SetActive(true);
-		mainMenuParent.SetActive(false);
+        mainMenuParent.SetActive(false);
     }
 
     public void PressBackCredits()
     {
+        AudioController.controller.ClickUI();
         creditsParent.SetActive(false);
         mainMenuParent.SetActive(true);
     }
 
-	public void PressStoryMode()
-	{
-		levelSelectParent.SetActive(true);
-		playSelectParent.SetActive(false);
-	}
+    public void PressStoryMode()
+    {
+        AudioController.controller.ClickUI();
+        levelSelectParent.SetActive(true);
+        playSelectParent.SetActive(false);
+    }
 
-	public void PressBackLevelSelect()
-	{
-		levelSelectParent.SetActive(false);
-		playSelectParent.SetActive(true);
-	}
+    public void PressBackLevelSelect()
+    {
+        AudioController.controller.ClickUI();
+        levelSelectParent.SetActive(false);
+        playSelectParent.SetActive(true);
+    }
+
+    public void PressQuit()
+    {
+        Application.Quit();
+    }
     #endregion
 
-	public void MusicSliderUpdate(float f)
-	{
-		musicSlider.value = f;
-	}
+    public void MusicSliderUpdate(float f)
+    {
+        musicSlider.value = f;
+    }
 
-	public void FXSliderUpdate(float f)
-	{
-		fxSlider.value = f;
-	}
+    public void FXSliderUpdate(float f)
+    {
+        fxSlider.value = f;
+    }
 }
 

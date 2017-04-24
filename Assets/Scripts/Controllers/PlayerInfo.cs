@@ -10,8 +10,6 @@ public class PlayerInfo : MonoBehaviour
 {
     public static PlayerInfo controller;
     public bool ResetSaveFile;
-
-    float highScore;
     int levelsBeaten;
     int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
 
@@ -63,7 +61,7 @@ public class PlayerInfo : MonoBehaviour
 
         PlayerData data = new PlayerData();
         data.firstTimeEver = firstTimeEver;
-
+        data.levelsBeaten = levelsBeaten;
         if (MainCanvas.controller != null)
         { 
             data.highScore = MainCanvas.controller.GetHighScore();
@@ -169,13 +167,12 @@ public class PlayerInfo : MonoBehaviour
         }
     }
 
-    public void ResetAllValues()
+    public void BeatLevel(int level)
     {
-        highScore = 0;
-
-        for (int i = 0; i < playerUpgrades.Length; i++)
+        if(level > levelsBeaten)
         {
-            playerUpgrades[i] = 0;
+            levelsBeaten++;
+            Save();
         }
     }
 

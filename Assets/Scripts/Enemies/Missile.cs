@@ -103,7 +103,7 @@ public class Missile : MonoBehaviour
         GameObject part = Instantiate(particles, transform.position, Quaternion.identity) as GameObject;
         part.transform.SetParent(MainCanvas.controller.particles);
         GetComponent<SpriteRenderer>().enabled = false;
-        Invoke("TurnOffObject", .05f);
+        Invoke("TurnOffObject", .15f);
     }
 
     protected void TurnOffObject()

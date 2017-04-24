@@ -112,23 +112,29 @@ public class MainCanvas : MonoBehaviour
     #region Press Button
     public void PressRetry()
     {
+        AudioController.controller.ClickUI();
         PlayerInfo.controller.Save();
         SceneManager.LoadScene("MainScene");
     }
 
     public void PressMainMenu()
     {
+        AudioController.controller.ClickUI();
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.02F * Time.timeScale;
         SceneManager.LoadScene("Main Menu");
     }
 
     public void PressStore()
     {
+        AudioController.controller.ClickUI();
         monetizationScreen.SetActive(true);
         upgradeScreen.SetActive(false);
     }
 
     public void PressBackMonetization()
     {
+        AudioController.controller.ClickUI();
         monetizationScreen.SetActive(false);
         upgradeScreen.SetActive(true);
     }
@@ -182,6 +188,7 @@ public class MainCanvas : MonoBehaviour
             blackScreen.color = new Color(c.r, c.b, c.g, time);
             yield return null;
         }
+        SceneManager.LoadScene("Main Menu");
     }
 
     IEnumerator ShowGoalsAtStart()
@@ -189,6 +196,7 @@ public class MainCanvas : MonoBehaviour
         float time = 0;
         for (int i = 0; i < TempGoalController.controller.GetGoalListCount(); i++)
         {
+            AudioController.controller.PlayFX(AudioController.controller.woodSignDrop);
             tempGoalDisplay.GetComponentInChildren<Text>().text = TempGoalController.controller.GetGoalDescription(i);
             tempGoalDisplay.transform.GetChild(1).GetComponent<Image>().sprite = TempGoalController.controller.goalImages[TempGoalController.controller.GetGoal(i).GetGoalType()];
             //tempGoalDisplay.GetComoponentInChildren<Image>() = Some Image that I'll store somewhere
@@ -197,7 +205,7 @@ public class MainCanvas : MonoBehaviour
             Vector3 startingPoint = trans.anchoredPosition;
             while (time < 1)
             {
-                trans.anchoredPosition = Vector3.Lerp(startingPoint, new Vector3(startingPoint.x, 0), time);
+                trans.anchoredPosition = Vector3.Lerp(startingPoint, new Vector3(startingPoint.x, 20), time);
                 time += Time.deltaTime;
                 yield return null;
             }
@@ -226,6 +234,7 @@ public class MainCanvas : MonoBehaviour
         displayingCompletedGoals = true;
         do
         {
+            AudioController.controller.PlayFX(AudioController.controller.woodSignDrop);
             tempGoalDisplay.GetComponentInChildren<Text>().text = completedGoalDescs.Peek();
             //tempGoalDisplay.GetComoponentInChildren<Image>() = Some Image that I'll store somewhere
 
@@ -233,7 +242,7 @@ public class MainCanvas : MonoBehaviour
             Vector3 startingPoint = trans.anchoredPosition;
             while (time < 1)
             {
-                trans.anchoredPosition = Vector3.Lerp(startingPoint, new Vector3(startingPoint.x, 0), time);
+                trans.anchoredPosition = Vector3.Lerp(startingPoint, new Vector3(startingPoint.x, 20), time);
                 time += Time.deltaTime;
                 yield return null;
             }

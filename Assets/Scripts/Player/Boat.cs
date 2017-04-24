@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Boat : MonoBehaviour
@@ -79,6 +79,7 @@ public class Boat : MonoBehaviour
         TutorialController.controller.onStartTutorial += StartTutoiral;
 
         UpgradeController.controller.notUpgrading += SailIn;
+
         if (PlayerInfo.controller.ResetSaveFile || PlayerInfo.controller.CheckIfFirstTime())
         {
             maxHealth = health = 1;
@@ -93,20 +94,30 @@ public class Boat : MonoBehaviour
     {
         if (dead || UpgradeController.controller.CheckIfUpgrading())
             return;
+
+#if UNITY_STANDALONE || UNITY_WEBPLAYER 
         float horizontal = Input.GetAxis("Horizontal");
-        if (sailingIn || finishedLevel)
+
+#elif UNITY_IOS || UNITY_ANDROID
+                float horizontal = Input.acceleration.x  * 3;
+                if(horizontal > Time.deltaTime)
+                    horizontal = Time.deltaTime;
+                if (horizontal < -Time.deltaTime)
+                    horizontal = -Time.deltaTime;
+#endif
+
+        if (sailingIn)
         {
             horizontal = 0;
         }
+
 
         if (tutorialMode && TutorialController.controller.CheckIfOnStage(TutorialController.TutorialStage.MOVEMENT) && horizontal != 0)
             TutorialController.controller.SetStage(TutorialController.TutorialStage.SPAWN_MOON);
 
         if (Input.GetMouseButtonDown(0) && !moonOut && !sailingIn)
         {
-            Vector2 waterPoint = Camera.main.ViewportToWorldPoint(new Vector2(.5f, .4f));
-            Vector2 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (CheckIfAllowed(TutorialController.TutorialStage.SPAWN_MOON) && mousePoint.y >= waterPoint.y)
+            if (CheckIfAllowed(TutorialController.TutorialStage.SPAWN_MOON))
                 CreateMoon();
         }
 
@@ -158,6 +169,7 @@ public class Boat : MonoBehaviour
     {
         if (h == 0 && extraSpeed == 0)
             return;
+
         float speed = ((hSpeed * h) + extraSpeed) * Time.deltaTime;
 
         Vector3 vec = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * speed, 10 * Time.deltaTime);
@@ -360,7 +372,8 @@ public class Boat : MonoBehaviour
     #region Sailing
     public void SailIn()
     {
-        extraSpeed = 10;
+        AudioController.controller.PlayFX(AudioController.controller.mastUnfurl);
+        extraSpeed = 7.5f;
         sailingIn = true;
     }
     public void SailOffScreen()
@@ -368,7 +381,7 @@ public class Boat : MonoBehaviour
         if (GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Endless))
             return;
 
-        extraSpeed = 10;
+        extraSpeed = 7.5f;
         finishedLevel = true;
 
     }

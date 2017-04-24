@@ -124,4 +124,9 @@ public class EnemyBoat : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("IgnoreWater");
         MainCanvas.controller.BossBeaten();
     }
+
+    public bool CheckIfAlive()
+    {
+        return dead;
+    }
 }

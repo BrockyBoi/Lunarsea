@@ -354,7 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588380a6c88a9be43b207e8d8ab3de8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResetSaveFile: 1
+  ResetSaveFile: 0
   DeleteFirst: 0
 --- !u!114 &114975598909132652
 MonoBehaviour:

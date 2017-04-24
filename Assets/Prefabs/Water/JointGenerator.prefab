@@ -56,3 +56,5 @@ MonoBehaviour:
   numJoints: 200
   waterYPos: 0.675
   joints: []
+  jointParent: {fileID: 0}
+  meshParent: {fileID: 0}

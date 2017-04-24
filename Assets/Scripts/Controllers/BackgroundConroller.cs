@@ -27,9 +27,6 @@ public class BackgroundConroller : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Boat.player.onFinishedSailingIn += BeginLevel;
-
-        Boat.player.onBoatDeath += StopScrolling;
         layer = new GameObject[3][];
         front = new int[3];
 
@@ -43,8 +40,13 @@ public class BackgroundConroller : MonoBehaviour
         {
             Setup(2, layer2);
         }
+        if (Boat.player != null)
+        {
+            Boat.player.onFinishedSailingIn += BeginLevel;
+            Boat.player.onBoatDeath += StopScrolling;
+            StopScrolling();
+        }
 
-        StopScrolling();
     }
 
 
@@ -189,7 +191,7 @@ public class BackgroundConroller : MonoBehaviour
 
     void BeginLevel()
     {
-        speed = new float[]{ 2, 4, 3 };
+        speed = new float[] { 2, 4, 3 };
     }
 
     public void StopScrolling()

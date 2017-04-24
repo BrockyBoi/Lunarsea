@@ -5,22 +5,47 @@ using UnityEngine;
 public class AudioController : MonoBehaviour
 {
     public static AudioController controller;
+    #region Audio Sources
+
     AudioSource music;
     AudioSource background;
     AudioSource fx;
     AudioSource fallFx;
-
+    #endregion
     public AudioClip mainMusic;
     public AudioClip waveBackground;
 
-    public List<AudioClip> missileClips;
-
+    #region Water Clips
     public AudioClip waterRise;
     public AudioClip waterFall;
+    public AudioClip gargling;
+    #endregion
+
+    #region coinClips
+    public AudioClip coinPickUp1;
+    public AudioClip coinPickUp2;
+    #endregion
+
+    #region UI Clips
+    public AudioClip click;
+    public AudioClip coinPurchase;
+    public AudioClip woodSignDrop;
+    #endregion
+
+    #region Enemy Clips
+    public List<AudioClip> missileClips;
+    public AudioClip sonarPing;
+    public AudioClip missileFire;
+    public AudioClip cannonFire;
+    public AudioClip homingMissile;
+    #endregion
+
+    #region Boat Clips
     public AudioClip boatDeath;
     public AudioClip boatHitsRock;
     public AudioClip repairBoat;
-    public AudioClip gargling;
+    public AudioClip mastUnfurl;
+    #endregion
     void OnEnable()
     {
     }
@@ -65,6 +90,11 @@ public class AudioController : MonoBehaviour
         music.loop = true;
         background.loop = true;
 
+    }
+
+    public void ClickUI()
+    {
+        PlayFX(click);
     }
 
     public void PlayFX(AudioClip clip)

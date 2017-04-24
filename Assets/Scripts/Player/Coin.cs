@@ -16,15 +16,24 @@ public class Coin : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            ChooseFX();
             CoinController.controller.addCoin();
             Destroy(Instantiate(particleEffect, transform.position, Quaternion.identity), 1);
             gameObject.SetActive(false);
         }
-        
-        if(other.gameObject.CompareTag("Magnet"))
+
+        if (other.gameObject.CompareTag("Magnet"))
         {
             FollowPlayer();
         }
+    }
+
+    void ChooseFX()
+    {
+        int randomNum = Random.Range(0, 2);
+        if (randomNum == 0)
+            AudioController.controller.PlayFX(AudioController.controller.coinPickUp1);
+        else AudioController.controller.PlayFX(AudioController.controller.coinPickUp2);
     }
 
     void OnDisable()
@@ -54,7 +63,7 @@ public class Coin : MonoBehaviour
                 transform.position = vec;
             }
         }
-        else if(followPlayer)
+        else if (followPlayer)
         {
             transform.position = Vector3.MoveTowards(transform.position, Boat.player.transform.position, 20 * Time.deltaTime);
         }
