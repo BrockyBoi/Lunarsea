@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameModeController : MonoBehaviour
@@ -12,24 +13,46 @@ public class GameModeController : MonoBehaviour
     [SerializeField]
     Mode currentMode;
 
-    int chosenLevel;
+    int chosenLevel = 1;
     #endregion
     void Awake()
     {
         if (controller == null)
             controller = this;
         else if (controller != this)
-            this.enabled = false;
+            Destroy(gameObject);
 
         DontDestroyOnLoad(this);
     }
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+    }
 
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+        if (MainMenu.controller != null)
+            MainMenu.controller.PressedLevel -= ChooseLevel;
+    }
+
+    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    {
+        if (MainMenu.controller != null)
+            MainMenu.controller.PressedLevel += ChooseLevel;
+    }
     void Start()
     {
         if (MainMenu.controller != null)
             MainMenu.controller.PressedLevel += ChooseLevel;
     }
+
+    void OnLevelChange()
+    {
+
+    }
+
 
     public bool CheckCurrentMode(Mode m)
     {

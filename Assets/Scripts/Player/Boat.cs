@@ -90,6 +90,20 @@ public class Boat : MonoBehaviour
         moonItem.SetActive(false);
     }
 
+    void OnDisable()
+    {
+        MillileSpawner.controller.onWavesCleared -= SailOffScreen;
+
+        TutorialController.controller.onFinishTutorial -= FinishTutorial;
+
+        SinkKill.controller.BoatDied -= Die;
+        Urdu.sideUrdu.BoatDied -= Die;
+
+        TutorialController.controller.onStartTutorial -= StartTutoiral;
+
+        UpgradeController.controller.notUpgrading -= SailIn;
+    }
+
     void Update()
     {
         if (dead || UpgradeController.controller.CheckIfUpgrading())

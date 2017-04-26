@@ -20,6 +20,11 @@ public class DeathCounter : MonoBehaviour
 
         Boat.player.onBoatDeath += PlayerDeath;
     }
+
+    void OnDisable()
+    {
+          Boat.player.onBoatDeath -= PlayerDeath;
+    }
     void Awake()
     {
         DontDestroyOnLoad(this);

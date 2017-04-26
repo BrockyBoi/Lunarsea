@@ -35,14 +35,12 @@ public class MainMenu : MonoBehaviour
         levelSelectParent.SetActive(false);
         playSelectParent.SetActive(false);
         loading.gameObject.SetActive(false);
-
-        InitializeLevelButtons();
     }
 
-    void InitializeLevelButtons()
+    public void InitializeLevelButtons(int levelsBeaten)
     {
-        Debug.Log("Levels beaten: " + PlayerInfo.controller.GetLevelsBeaten());
-        for (int i = PlayerInfo.controller.GetLevelsBeaten() + 1; i < levelButtons.Count; i++)
+        Debug.Log(levelsBeaten);
+        for (int i = levelsBeaten + 1; i < levelButtons.Count; i++)
         {
             levelButtons[i].GetComponent<Image>().color = new Color(Color.gray.r, Color.gray.g, Color.gray.b, .5f);
         }

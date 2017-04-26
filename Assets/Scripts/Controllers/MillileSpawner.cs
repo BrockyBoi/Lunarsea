@@ -30,9 +30,6 @@ public class MillileSpawner : MonoBehaviour
 
     int coinDropRate;
 
-    int levelsBeaten;
-
-
     List<Rock> currentRocks = new List<Rock>();
 
     List<GameObject> missileList = new List<GameObject>();
@@ -47,13 +44,14 @@ public class MillileSpawner : MonoBehaviour
     public delegate void OnWavesCleared();
     public event OnWavesCleared onWavesCleared;
 
-    delegate void EndlessObstacleSpawn();
+    delegate void CoinSpawn();
+    delegate void EndlessObstacleSpawn(int num, int[] that, int[] otherThing);
     delegate void MissileDelegate(int numMissiles, int[] vStates, int[] hStates);
 
     MissileDelegate MissileDel;
     EndlessObstacleSpawn ObstacleSpawn1;
     EndlessObstacleSpawn ObstacleSpawn2;
-    EndlessObstacleSpawn CoinSpawner;
+    CoinSpawn CoinSpawner;
 
     #endregion
 
@@ -76,8 +74,6 @@ public class MillileSpawner : MonoBehaviour
 
         TutorialController.controller.onFinishTutorial += StartGame;
 
-
-
         healthRate = 45;
         waitForRocks = new WaitForSeconds(4f);
         waitForMissiles = new WaitForSeconds(3f);
@@ -89,40 +85,21 @@ public class MillileSpawner : MonoBehaviour
         healthItem.SetActive(false);
     }
 
+    void OnDisable()
+    {
+        Boat.player.onBoatDeath -= EndLevel;
+
+        TutorialController.controller.onFinishTutorial -= StartGame;
+    }
+
     #region Level and Wave Management
 
-    public void StartGame()//int level = 0)
+    void StartGame()
     {
         if (GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Story))
-            StartCoroutine(Level1());
+            StartCoroutine("Level" + GameModeController.controller.GetCurrentLevel().ToString());
         else
             StartCoroutine(EndlessWave());
-
-        //Dont want to mess with what you currently have, but want to show what I had planned for level selection
-        //Might be easier to just call Start game with a level parameter (default 0 = endless) Code:
-        /*  Code to swap in:
-        switch (level)
-        {
-            case 0:
-                StartCoroutine(EndlessWave());
-                break;
-            case 1:
-                StartCoroutine(Level1());
-                break;
-            case 2:
-                StartCoroutine(Level2());
-                break;
-            case 3:
-                StartCoroutine(Level3());
-                break;
-            case 4:
-                StartCoroutine(Level4());
-                break;
-            case 5:
-                StartCoroutine(Level5());
-                break;
-        }
-        */
 
         if (Boat.player.GetMaxHealth() > 1)
             Invoke("SpawnHealth", 45);
@@ -158,8 +135,6 @@ public class MillileSpawner : MonoBehaviour
         else
         {
             onWavesCleared();
-
-            PlayerInfo.controller.Save();
             StopAllCoroutines();
         }
     }
@@ -181,16 +156,15 @@ public class MillileSpawner : MonoBehaviour
     {
         // float timeSpeedUp = 0;
 
-        // MissileDel += MissileVolley(5, new int[] {1},)
         // ObstacleSpawn1 += MissileVolley;
         // ObstacleSpawn2 += TorpedoVolleyLow;
         // CoinSpawner += SpawnCoinBlock;
         // while (true)
         // {
-        //     ObstacleSpawn1();
+        //     ObstacleSpawn1(5, null, null);
         //     yield return new WaitForSeconds(3.5f - timeSpeedUp);
 
-        //     ObstacleSpawn2();
+        //     ObstacleSpawn2(5,null,null);
         //     yield return new WaitForSeconds(4 - timeSpeedUp);
 
         //     CoinSpawner();
@@ -200,7 +174,7 @@ public class MillileSpawner : MonoBehaviour
 
         //     if (waveCounter == 2)
         //     {
-        //         ObstacleSpawn1 += SpawnRocks;
+        //         ObstacleSpawn1 += SpawnRocks(3,null,);
         //     }
         //     else if (waveCounter == 3)
         //     {
@@ -209,7 +183,7 @@ public class MillileSpawner : MonoBehaviour
         //     else if (waveCounter == 4)
         //     {
         //         ObstacleSpawn2 -= TorpedoVolleyLow;
-        //         ObstacleSpawn2 = TorpedoVolley;
+        //         ObstacleSpawn2 = TorpedoVolleyLow(3,null,null);
         //     }
         //     else if (waveCounter == 5)
         //     {
@@ -247,7 +221,8 @@ public class MillileSpawner : MonoBehaviour
     #region Levels
     IEnumerator Level1()
     {
-        SpawnRocks(3, new int[3] { 0, 0, 0 });
+        //TrackingMissileVolley(5);
+        SpawnRocks(3, new int[3] { 4, 0, 0 });
         yield return waitForRocks;
 
         MissileVolley(1, new int[1] { 2 });
@@ -284,7 +259,7 @@ public class MillileSpawner : MonoBehaviour
         SpawnCoinBlock();
         yield return waitForCoins;
 
-        SpawnRocks(5, new int[5] { 1, 2, 0, 1 ,2});
+        SpawnRocks(5, new int[5] { 1, 2, 0, 1, 2 });
         yield return waitForRocks;
 
         MissileVolley(6, new int[6] { 2, 3, 1, 3, 1, 3 }, new int[6] { 0, 1, 2, 3, 4, 5 });
@@ -293,7 +268,6 @@ public class MillileSpawner : MonoBehaviour
         yield return new WaitForSeconds(5);
 
         BeatLevel(1);
-        EndLevel();
 
     }
 
@@ -356,7 +330,6 @@ public class MillileSpawner : MonoBehaviour
         yield return waitForMissiles;
 
         BeatLevel(2);
-        EndLevel();
     }
 
     IEnumerator Level3()
@@ -420,7 +393,6 @@ public class MillileSpawner : MonoBehaviour
         yield return waitForRocks;
 
         BeatLevel(3);
-        EndLevel();
     }
 
     IEnumerator Level4()
@@ -495,7 +467,6 @@ public class MillileSpawner : MonoBehaviour
         yield return waitForMissiles;
 
         BeatLevel(4);
-        EndLevel();
     }
 
     IEnumerator Level5()
@@ -569,15 +540,6 @@ public class MillileSpawner : MonoBehaviour
     }
     #endregion
 
-    public int GetLevelsBeaten()
-    {
-        return levelsBeaten;
-    }
-
-    public void SetLevelsBeaten(int levelsBeat)
-    {
-        levelsBeaten = levelsBeat;
-    }
 
     void BeatLevel(int levelBeat)
     {
@@ -606,6 +568,7 @@ public class MillileSpawner : MonoBehaviour
         CoinController.controller.ReceiveReward(coinReward);
         PlayerInfo.controller.BeatLevel(levelBeat);
         onWavesCleared();
+        EndLevel();
     }
 
     public void EndLevel()
@@ -1144,8 +1107,6 @@ public class MillileSpawner : MonoBehaviour
         }
 
         BeatLevel(5);
-        EndLevel();
-
     }
 
     public void BossBeaten()

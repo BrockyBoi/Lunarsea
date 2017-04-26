@@ -31,6 +31,13 @@ public class SpeechController : MonoBehaviour
         textField.transform.parent.gameObject.SetActive(false);
     }
 
+    void OnDisable()
+    {
+        TutorialController.controller.onStartTutorial -= FirstPhrase;
+
+        TutorialController.controller.onFinishTutorial -= CloseWindow;
+    }
+
     // Update is called once per frame
     void Update()
     {

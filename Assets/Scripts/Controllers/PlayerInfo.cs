@@ -54,6 +54,11 @@ public class PlayerInfo : MonoBehaviour
         else Save();
     }
 
+    void OnDisable()
+    {
+        if (Boat.player != null)
+            Boat.player.onFinishedSailingIn -= NoLongerFirstTime;
+    }
     public void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -62,13 +67,11 @@ public class PlayerInfo : MonoBehaviour
         PlayerData data = new PlayerData();
         data.firstTimeEver = firstTimeEver;
         data.levelsBeaten = levelsBeaten;
+        Debug.Log("data.LevelsBeaten after save: " + data.levelsBeaten);
         if (MainCanvas.controller != null)
-        { 
+        {
             data.highScore = MainCanvas.controller.GetHighScore();
         }
-
-        if (MillileSpawner.controller != null)
-            data.levelsBeaten = MillileSpawner.controller.GetLevelsBeaten();
 
         if (CoinController.controller != null)
             data.coinCount = CoinController.controller.getCoinNum();
@@ -96,7 +99,6 @@ public class PlayerInfo : MonoBehaviour
 
         bf.Serialize(file, data);
         file.Close();
-
     }
 
     public void Load()
@@ -112,11 +114,15 @@ public class PlayerInfo : MonoBehaviour
             goals = new List<TempGoal>(data.goals);
 
             levelsBeaten = data.levelsBeaten;
+            Debug.Log("Levels beaten after load: " + levelsBeaten + " data.levelsBeaten " + data.levelsBeaten);
 
-            if (MillileSpawner.controller != null)
-                MillileSpawner.controller.SetLevelsBeaten(data.levelsBeaten);
             if (MainCanvas.controller != null)
+            {
                 MainCanvas.controller.SetHighScore(data.highScore);
+            }
+            if (MainMenu.controller != null)
+                MainMenu.controller.InitializeLevelButtons(data.levelsBeaten);
+
             if (CoinController.controller != null)
                 CoinController.controller.setCoinNum(data.coinCount);
             if (UpgradeController.controller != null)
@@ -169,9 +175,11 @@ public class PlayerInfo : MonoBehaviour
 
     public void BeatLevel(int level)
     {
-        if(level > levelsBeaten)
+        Debug.Log("Level Beat: " + level + " Levels Beaten: " + levelsBeaten);
+        if (level > levelsBeaten)
         {
             levelsBeaten++;
+            Debug.Log("Levels Beaten after if statement: " + levelsBeaten);
             Save();
         }
     }

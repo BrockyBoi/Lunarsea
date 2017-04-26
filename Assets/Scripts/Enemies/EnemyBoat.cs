@@ -67,8 +67,8 @@ public class EnemyBoat : MonoBehaviour
             yield return null;
         }
 
-        // if (throwsProjectile)
-        // SpawnProjectiles();
+        if (throwsProjectile)
+        SpawnProjectiles();
 
         sailingIn = false;
     }
@@ -127,6 +127,6 @@ public class EnemyBoat : MonoBehaviour
 
     public bool CheckIfAlive()
     {
-        return dead;
+        return !dead;
     }
 }

@@ -38,9 +38,10 @@ public class CoinController : MonoBehaviour
         }
         InitializeCoins();
     }
-    // Update is called once per frame
-    void Update()
+
+    void OnDisable()
     {
+        Boat.player.onFinishedSailingIn -= StartGame;
     }
 
     #region Coin Spawners
@@ -176,6 +177,7 @@ public class CoinController : MonoBehaviour
     #region Daily Rewards
     public void GiveDailyReward()
     {
+        Debug.Log("Receiving reward?");
         if (currentDayOfDailyReward < dailyCoinRewards.Length - 1)
         {
             ReceiveReward(dailyCoinRewards[currentDayOfDailyReward]);

@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lunarsea", "Assembly-CSharp-firstpass.csproj", "{CE050611-B2C6-03FA-5815-B1EEF7A9D947}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lunarsea", "Assembly-CSharp-firstpass.csproj", "{7CAD610A-EA51-A772-7707-8FF01AD4638F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lunarsea", "Assembly-CSharp.csproj", "{429BC341-B87B-AD26-DEFF-73F89E75448A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lunarsea", "Assembly-CSharp.csproj", "{F6625800-F9FF-9124-3E58-BE4CF5E196C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lunarsea", "Assembly-CSharp-Editor-firstpass.csproj", "{8D168886-39D2-5C77-31F4-AB264B8C7B96}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lunarsea", "Assembly-CSharp-Editor.csproj", "{E814278E-5FFB-3B56-DA1F-2C3F25CC8FFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lunarsea", "Assembly-CSharp-Editor-firstpass.csproj", "{56E441A8-4507-5FCA-431D-C97D96FA2F6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,22 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CE050611-B2C6-03FA-5815-B1EEF7A9D947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE050611-B2C6-03FA-5815-B1EEF7A9D947}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE050611-B2C6-03FA-5815-B1EEF7A9D947}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE050611-B2C6-03FA-5815-B1EEF7A9D947}.Release|Any CPU.Build.0 = Release|Any CPU
-		{429BC341-B87B-AD26-DEFF-73F89E75448A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{429BC341-B87B-AD26-DEFF-73F89E75448A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{429BC341-B87B-AD26-DEFF-73F89E75448A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{429BC341-B87B-AD26-DEFF-73F89E75448A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D168886-39D2-5C77-31F4-AB264B8C7B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D168886-39D2-5C77-31F4-AB264B8C7B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D168886-39D2-5C77-31F4-AB264B8C7B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D168886-39D2-5C77-31F4-AB264B8C7B96}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E814278E-5FFB-3B56-DA1F-2C3F25CC8FFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E814278E-5FFB-3B56-DA1F-2C3F25CC8FFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E814278E-5FFB-3B56-DA1F-2C3F25CC8FFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E814278E-5FFB-3B56-DA1F-2C3F25CC8FFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CAD610A-EA51-A772-7707-8FF01AD4638F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CAD610A-EA51-A772-7707-8FF01AD4638F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CAD610A-EA51-A772-7707-8FF01AD4638F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CAD610A-EA51-A772-7707-8FF01AD4638F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6625800-F9FF-9124-3E58-BE4CF5E196C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6625800-F9FF-9124-3E58-BE4CF5E196C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6625800-F9FF-9124-3E58-BE4CF5E196C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6625800-F9FF-9124-3E58-BE4CF5E196C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56E441A8-4507-5FCA-431D-C97D96FA2F6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56E441A8-4507-5FCA-431D-C97D96FA2F6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56E441A8-4507-5FCA-431D-C97D96FA2F6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56E441A8-4507-5FCA-431D-C97D96FA2F6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

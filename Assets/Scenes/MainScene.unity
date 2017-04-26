@@ -1113,6 +1113,91 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114046250988584642, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114121772129187604, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114168163932673664, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114999073824157640, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114176183860202474, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114162560524144602, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114429402791075020, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114098987930710868, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114155352494279258, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114595411067394888, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114300598511963738, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598742147991820, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359168211342648, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114617262335237822, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114632661224047372, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114460144510044396, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114947797523945150, guid: 71932c8ca788c03478997aa0ca4cca1b,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 71932c8ca788c03478997aa0ca4cca1b, type: 2}
   m_IsPrefabParent: 0
@@ -2071,6 +2156,21 @@ Prefab:
       propertyPath: homingMissile
       value: 
       objectReference: {fileID: 8300000, guid: b4a71ff169f7ef04b9caddc020f5fabc, type: 3}
+    - target: {fileID: 114259653825167178, guid: de2369657e465814c9223293c4094958,
+        type: 2}
+      propertyPath: numJoints
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 114936077018901814, guid: de2369657e465814c9223293c4094958,
+        type: 2}
+      propertyPath: ResetSaveFile
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114936077018901814, guid: de2369657e465814c9223293c4094958,
+        type: 2}
+      propertyPath: DeleteFirst
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de2369657e465814c9223293c4094958, type: 2}
   m_IsPrefabParent: 0

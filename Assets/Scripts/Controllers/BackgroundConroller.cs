@@ -49,6 +49,15 @@ public class BackgroundConroller : MonoBehaviour
 
     }
 
+    void OnDisable()
+    {
+        if (Boat.player != null)
+        {
+            Boat.player.onFinishedSailingIn -= BeginLevel;
+            Boat.player.onBoatDeath-= StopScrolling;
+        }
+    }
+
 
     // Update is called once per frame
     void Update()

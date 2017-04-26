@@ -67,6 +67,17 @@ public class MainCanvas : MonoBehaviour
         monetizationScreen.SetActive(false);
     }
 
+    void OnDisable()
+    {
+        Boat.player.onBoatDeath -= HealthChange;
+        Boat.player.onBoatDeath -= DeathScreen;
+        Boat.player.onBoatDeath -= EndLevel;
+
+        MillileSpawner.controller.onWavesCleared -= EndLevel;
+
+        TutorialController.controller.onFinishTutorial -= StartLevel;
+    }
+
 
     void FixedUpdate()
     {

@@ -24,6 +24,11 @@ public class PauseScript : MonoBehaviour
     {
         UpgradeController.controller.notUpgrading += StartGame;
     }
+
+    void OnDisable()
+    {
+        UpgradeController.controller.notUpgrading -= StartGame;
+    }
     public void PressPause()
     {
         if (!Boat.player.CheckIfAlive())
