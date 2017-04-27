@@ -152,6 +152,11 @@ public class MainCanvas : MonoBehaviour
 
     #endregion
 
+    public void UpdateUpgradePrice(int button, int price)
+    {
+        upgradeButtons[button].GetComponentInChildren<UpgradePriceUI>().SetPrice(price);
+    }
+
     public void HealthChange()
     {
 

@@ -94,6 +94,7 @@ public class UpgradeController : MonoBehaviour
             default:
                 break;
         }
+        MainCanvas.controller.UpdateUpgradePrice(upgrade, coinAmounts[upgradeValues[upgrade]]);
         PlayerInfo.controller.Save();
     }
 
@@ -146,6 +147,13 @@ public class UpgradeController : MonoBehaviour
         UpdateInvulTime();
         UpdateMaxHealth();
         UpdateMaxGoals();
+
+        for (int i = 0; i < (int)Upgrade.UPGRADE_COUNT; i++)
+        {
+            if (upgradeValues[i] < 5)
+                MainCanvas.controller.UpdateUpgradePrice(i, coinAmounts[upgradeValues[i]]);
+            else MainCanvas.controller.UpdateUpgradePrice(i, 0);
+        }
     }
 
     public void StartUpgrading()
