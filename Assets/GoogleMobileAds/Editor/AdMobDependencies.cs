@@ -24,7 +24,7 @@ public class AdMobDependencies : AssetPostprocessor
     static AdMobDependencies() { SetupDeps(); }
 
     static void SetupDeps() {
-#if UNITY_ANDROID
+#if UNITY_STANDALONE
         // Setup the resolver using reflection as the module may not be
         // available at compile time.
         Type playServicesSupport = Google.VersionHandler.FindClass(

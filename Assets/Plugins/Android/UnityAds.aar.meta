@@ -1,8 +1,5 @@
 fileFormatVersion: 2
-guid: 04f888557d0d47344980314f44beea2e
-folderAsset: yes
-timeCreated: 1492493202
-licenseType: Free
+guid: c7905556f07564410bd4fb75975e28fa
 PluginImporter:
   serializedVersion: 2
   iconMap: {}
@@ -12,9 +9,9 @@ PluginImporter:
   platformData:
     data:
       first:
-        Any: 
+        Android: Android
       second:
-        enabled: 0
+        enabled: 1
         settings: {}
     data:
       first:
@@ -23,12 +20,6 @@ PluginImporter:
         enabled: 0
         settings:
           DefaultValueInitialized: true
-    data:
-      first:
-        iPhone: iOS
-      second:
-        enabled: 1
-        settings: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -19,6 +19,9 @@ public class Boat : MonoBehaviour
 
     bool dead;
 
+    int btnMv = 0;
+    bool grToggle = false;//true;
+
     Rigidbody2D rb2d;
     int health;
     int maxHealth;
@@ -34,6 +37,7 @@ public class Boat : MonoBehaviour
     float invulTime = .3f;
 
     float extraSpeed;
+    float horizontal;
 
     [SerializeField]
     CircleCollider2D coinMagnet;
@@ -110,17 +114,31 @@ public class Boat : MonoBehaviour
     {
         if (dead || upgrading)
             return;
+        Debug.Log("Btn: " + btnMv);
 
-#if UNITY_STANDALONE || UNITY_WEBPLAYER 
-        float horizontal = Input.GetAxis("Horizontal");
+        #if UNITY_STANDALONE || UNITY_WEBPLAYER
+                horizontal = Input.GetAxis("Horizontal");
 
 #elif UNITY_IOS || UNITY_ANDROID
-                float horizontal = Input.acceleration.x  * 3;
-                if(horizontal > Time.deltaTime)
-                    horizontal = Time.deltaTime;
-                if (horizontal < -Time.deltaTime)
-                    horizontal = -Time.deltaTime;
-#endif
+        if (grToggle){
+                        float horizontal = Input.acceleration.x  * 3;
+                        if(horizontal > 1)
+                            horizontal = 1;
+                        if (horizontal < -1)
+                            horizontal = -1;
+                }
+                else{
+                        if( btnMv < 0 ){
+                            horizontal = -1;
+                        }
+                        else if( btnMv > 0 ){
+                            horizontal = 1;
+                        }
+                        else{
+                            horizontal = 0;
+                        }
+                }
+        #endif
 
 		if (sailingIn || finishedLevel)
         {
@@ -204,6 +222,23 @@ public class Boat : MonoBehaviour
 
         if (tutorialMode && TutorialController.controller.CheckIfOnStage(TutorialController.TutorialStage.SPAWN_MOON))
             TutorialController.controller.SetStage(TutorialController.TutorialStage.RETRACT_MOON);
+    }
+
+    public void leftDown()
+    {
+        btnMv = -1;
+    }
+    public void leftUp()
+    {
+        btnMv = 0;
+    }
+    public void rightDown()
+    {
+        btnMv = 1;
+    }
+    public void rightUp()
+    {
+        btnMv = 0;
     }
     #endregion
 
