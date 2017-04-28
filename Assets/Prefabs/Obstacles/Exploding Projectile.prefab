@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114538433493829838}
   - component: {fileID: 58052145332656176}
   - component: {fileID: 250919343106549976}
+  - component: {fileID: 95809465416040780}
   m_Layer: 0
   m_Name: Exploding Projectile
   m_TagString: Untagged
@@ -39,8 +40,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1400926450010360}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.84416, y: 2.3406048, z: 0}
-  m_LocalScale: {x: 7.2493873, y: 7.285849, z: 1}
+  m_LocalPosition: {x: -13.547943, y: 4.493664, z: 0}
+  m_LocalScale: {x: 0.6283137, y: 0.6283137, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -56,7 +57,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.75
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -76,6 +77,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 1
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.35
@@ -90,9 +92,27 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.08630339
+  m_Radius: 0.59
+--- !u!95 &95809465416040780
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1400926450010360}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1b4d65c1b801086478657c28dd6c8490, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114538433493829838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,6 +127,7 @@ MonoBehaviour:
   particles: {fileID: 1597742983234352, guid: b94b794dbd0ca4541856e0b1191a035b, type: 2}
   explosionCollider: {fileID: 58052145332656176}
   effector: {fileID: 250919343106549976}
+  tickBoom: {fileID: 8300000, guid: 94a311b423c7dc54693da485258fdb93, type: 3}
 --- !u!212 &212614449591865258
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -137,11 +158,16 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: -114
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: cba01c3c2684a8e44a9b8e0dbfe51c93, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
 --- !u!250 &250919343106549976
 PointEffector2D:
   m_ObjectHideFlags: 1

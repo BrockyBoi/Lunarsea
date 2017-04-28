@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Purchasing;
 #if UNITY_ADS
@@ -207,7 +205,6 @@ public class MonetizationController : MonoBehaviour, IStoreListener
         // A consumable product has been purchased by this user.
         if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_1000_COINS, StringComparison.Ordinal))
         {
-            Debug.Log("Just bought 1000 gold");
             CoinController.controller.BuyCoins(1000);
             GoalMultiplier(1.25f);
             AudioController.controller.PlayFX(AudioController.controller.coinPurchase);
@@ -215,7 +212,6 @@ public class MonetizationController : MonoBehaviour, IStoreListener
         // Or ... a non-consumable product has been purchased by this user.
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_5000_COINS, StringComparison.Ordinal))
         {
-            Debug.Log("Just bought 5000 gold");
             CoinController.controller.BuyCoins(5000);
             GoalMultiplier(1.5f);
             AudioController.controller.PlayFX(AudioController.controller.coinPurchase);
@@ -223,28 +219,24 @@ public class MonetizationController : MonoBehaviour, IStoreListener
         // Or ... a subscription product has been purchased by this user.
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_20000_COINS, StringComparison.Ordinal))
         {
-            Debug.Log("Just bought 20000 gold");
             CoinController.controller.BuyCoins(20000);
             GoalMultiplier(2f);
             AudioController.controller.PlayFX(AudioController.controller.coinPurchase);
         }
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_100000_COINS, StringComparison.Ordinal))
         {
-            Debug.Log("Just bought 100000 gold");
             CoinController.controller.BuyCoins(100000);
             GoalMultiplier(2.5f);
             AudioController.controller.PlayFX(AudioController.controller.coinPurchase);
         }
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_1000000_COINS, StringComparison.Ordinal))
         {
-            Debug.Log("Just bought 1000000 gold");
             CoinController.controller.BuyCoins(1000000);
             GoalMultiplier(5f);
             AudioController.controller.PlayFX(AudioController.controller.coinPurchase);
         }
         else if (String.Equals(args.purchasedProduct.definition.id, PRODUCT_NO_ADS, StringComparison.Ordinal))
         {
-            Debug.Log("Just turned off ads");
             adsTurnedOff = true;
         }
         // Or ... an unknown product has been purchased by this user. Fill in additional products here....
@@ -293,86 +285,85 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 
         string gameId = null;
 
-#if UNITY_ANDROID
-        gameId = androidGameId;
-#elif UNITY_IOS
-        gameId = iosGameId;
-#endif
+// #if UNITY_ANDROID
+//         gameId = androidGameId;
+// #elif UNITY_IOS
+//         gameId = iosGameId;
+// #endif
 
-        testMode = true;
-#if UNITY_ADS
-        if (Advertisement.isSupported && !Advertisement.isInitialized) {
-           Advertisement.Initialize(gameId, testMode);
+//         testMode = true;
+// #if UNITY_ADS
+//         if (Advertisement.isSupported && !Advertisement.isInitialized) {
+//            Advertisement.Initialize(gameId, testMode);
         }
-#endif
-    }
+//#endif
+   // }
 
-    public void UpdateAdsTurnedOff(bool b)
-    {
-        adsTurnedOff = b;
-    }
+//     public void UpdateAdsTurnedOff(bool b)
+//     {
+//         adsTurnedOff = b;
+//     }
 
-    public bool CheckIfAdsTurnedOff()
-    {
-        return adsTurnedOff;
-    }
-#if UNITY_ADS
-    public void ShowNormalAd()
-    {
-        Debug.Log(Advertisement.GetPlacementState());
-        if (Advertisement.IsReady())
-            Advertisement.Show();
-    }
+//     public bool CheckIfAdsTurnedOff()
+//     {
+//         return adsTurnedOff;
+//     }
+// #if UNITY_ADS
+//     public void ShowNormalAd()
+//     {
+//         if (Advertisement.IsReady())
+//             Advertisement.Show();
+//     }
 
-    public void ShowAd(string zone = "")
-    {
-        StartCoroutine(WaitForAd());
+//     public void ShowAd(string zone = "")
+//     {
+//         StartCoroutine(WaitForAd());
 
-        if (string.Equals(zone, ""))
-            zone = null;
+//         if (string.Equals(zone, ""))
+//             zone = null;
 
-        ShowOptions options = new ShowOptions();
-        options.resultCallback = AdCallbackhandler;
+//         ShowOptions options = new ShowOptions();
+//         options.resultCallback = AdCallbackhandler;
 
-        if (Advertisement.IsReady(zone))
-            Advertisement.Show(zone, options);
-    }
+//         if (Advertisement.IsReady(zone))
+//             Advertisement.Show(zone, options);
+//     }
 
-    void AdCallbackhandler(ShowResult result)
-    {
-         switch (result)
-         {
-             case ShowResult.Finished:
-                 Debug.Log("Ad Finished. Rewarding player...");
-                 CoinController.controller.BuyCoins(200);
-                 rewardedAdsWatchedToday++;
+//     void AdCallbackhandler(ShowResult result)
+//     {
+//          switch (result)
+//          {
+//              case ShowResult.Finished:
+//                  Debug.Log("Ad Finished. Rewarding player...");
+//                  CoinController.controller.BuyCoins(200);
+//                  rewardedAdsWatchedToday++;
 
-                 if(rewardedAdsWatchedToday == 3)
-                 {
-                    TempGoalController.controller.AddTempScoreMultiplier(.5f);
-                 }
-                 break;
-             case ShowResult.Skipped:
-                 Debug.Log("Ad skipped. Son, I am dissapointed in you");
-                 break;
-             case ShowResult.Failed:
-                 Debug.Log("I swear this has never happened to me before");
-                 break;
-         }
-     }
+//                  if(rewardedAdsWatchedToday == 3)
+//                  {
+//                     TempGoalController.controller.AddTempScoreMultiplier(.5f);
+//                  }
+//                  break;
+//              case ShowResult.Skipped:
+//                  Debug.Log("Ad skipped. Son, I am dissapointed in you");
+//                  break;
+//              case ShowResult.Failed:
+//                  Debug.Log("I swear this has never happened to me before");
+//                  break;
+//          }
+//      }
 
-IEnumerator WaitForAd()
-{
-    float currentTimeScale = Time.timeScale;
-    Time.timeScale = 0f;
-    yield return null;
+// IEnumerator WaitForAd()
+// {
+//     float currentTimeScale = Time.timeScale;
+//     Time.timeScale = 0f;
+//     yield return null;
 
-    while (Advertisement.isShowing)
-        yield return null;
+//     while (Advertisement.isShowing)
+//         yield return null;
 
-    Time.timeScale = currentTimeScale;
-}
-#endif
+//     Time.timeScale = currentTimeScale;
+// }
+// #endif
 
 
     #region DailyRewards
@@ -380,20 +371,20 @@ IEnumerator WaitForAd()
     DateTime oldDate;
     public void DayCheck()
     {
-        DateTime newDate = System.DateTime.Now;
+        // DateTime newDate = System.DateTime.Now;
 
-        if (oldDate == null)
-            oldDate = System.DateTime.Now;
+        // if (oldDate == null)
+        //     oldDate = System.DateTime.Now;
 
-        TimeSpan diff = newDate.Subtract(oldDate);
-        if (diff.Days >= 1)
-        {
-            rewardedAdsWatchedToday = 0;
-            TempGoalController.controller.ResetTempMults();
-            CoinController.controller.GiveDailyReward();
-            oldDate = newDate;
-            PlayerInfo.controller.Save();
-        }
+        // TimeSpan diff = newDate.Subtract(oldDate);
+        // if (diff.Days >= 1)
+        // {
+        //     rewardedAdsWatchedToday = 0;
+        //     TempGoalController.controller.ResetTempMults();
+        //     CoinController.controller.GiveDailyReward();
+        //     oldDate = newDate;
+        //     PlayerInfo.controller.Save();
+        // }
     }
 
     public DateTime GetOldDate()

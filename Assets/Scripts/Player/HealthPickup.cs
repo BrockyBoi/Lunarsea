@@ -1,20 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
 {
-    public float startingSpeed;
-    float speed;
+    static float startingSpeed = 7;
+    static float speed;
     void Update()
     {
         Vector3 forward = new Vector3(transform.position.x + -speed, transform.position.y + Mathf.Sin(Time.time / .4f), 10);
         transform.position = Vector3.MoveTowards(transform.position, forward, speed * Time.deltaTime);
-    }
-
-    void OnEnable()
-    {
-        GiveSpeedMultiplier(MillileSpawner.controller.GetSpeedMultiplier());
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -27,7 +20,7 @@ public class HealthPickup : MonoBehaviour
         }
     }
 
-    public void GiveSpeedMultiplier(float mult)
+    public static void GiveSpeedMultiplier(float mult)
     {
         speed = startingSpeed + mult;
     }

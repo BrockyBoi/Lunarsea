@@ -12,10 +12,18 @@ public class ExplodingProjectile : MonoBehaviour
     [SerializeField]
     PointEffector2D effector;
 
+	AudioSource audio;
+	public AudioClip tickBoom;
+
 	bool exploded;
     #endregion
     void Start()
     {
+		audio = gameObject.AddComponent<AudioSource> ();
+		audio.clip = tickBoom;
+		audio.Play ();
+		audio.loop = false;
+
         Invoke("Explode", 3);
     }
 

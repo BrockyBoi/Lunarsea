@@ -38,8 +38,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1283627507287046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.47, y: -0.18, z: 24.57765}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalPosition: {x: -12.3, y: 3.7, z: 24.57765}
+  m_LocalScale: {x: -3.5, y: 3.5, z: 3.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -149,7 +149,8 @@ MonoBehaviour:
   colliders: []
   force: 400
   spawnRate: 2
-  speed: 0
+  speed: 20
+  cannonFire: {fileID: 8300000, guid: ff17803a637867a4da0b2ed35e407c38, type: 3}
 --- !u!212 &212693774358811170
 SpriteRenderer:
   m_ObjectHideFlags: 1

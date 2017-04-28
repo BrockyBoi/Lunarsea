@@ -12,7 +12,7 @@ public class CoinController : MonoBehaviour
     int tempCoins;
     int numCoins;
 
-    List<GameObject> coinList = new List<GameObject>();
+    Queue<GameObject> disabledCoins = new Queue<GameObject>();
     public bool FullCoins;
 
     [SerializeField]
@@ -53,7 +53,7 @@ public class CoinController : MonoBehaviour
         {
             GameObject coin = Instantiate(coinPrefab, farAway, Quaternion.identity) as GameObject;
             coin.SetActive(false);
-            coinList.Add(coin);
+            disabledCoins.Enqueue(coin);
             coin.transform.SetParent(coinsParent);
         }
     }
@@ -62,13 +62,8 @@ public class CoinController : MonoBehaviour
     {
         for (int i = 0; i < length; i++)
         {
+            GameObject coin = disabledCoins.Dequeue();
             float x = xPos + (1.15f + gap) * i;
-            //Instantiate(coinPrefab, new Vector3(x, yPos), Quaternion.identity);
-            int j = 0;
-            while (coinList[j].activeInHierarchy)
-                j++;
-
-            GameObject coin = coinList[j];
             coin.transform.position = new Vector3(x, yPos);
             coin.SetActive(true);
         }
@@ -95,12 +90,7 @@ public class CoinController : MonoBehaviour
                 h = 1;
                 up = 0 - up;
             }
-            // Instantiate(coinPrefab, new Vector3(x, y), Quaternion.identity);
-            int j = 0;
-            while (coinList[j].activeInHierarchy)
-                j++;
-
-            GameObject coin = coinList[j];
+            GameObject coin = disabledCoins.Dequeue();
             coin.transform.position = new Vector3(x, y);
             coin.SetActive(true);
         }
@@ -116,11 +106,7 @@ public class CoinController : MonoBehaviour
                 float x = xPos + (1.15f + gap) * i;
                 float y = yPos + (1.15f + gap) * j;
 
-                int z = 0;
-                while (coinList[z].activeInHierarchy)
-                    z++;
-
-                GameObject coin = coinList[z];
+                GameObject coin = disabledCoins.Dequeue();
                 coin.transform.position = new Vector3(x, y);
                 coin.SetActive(true);
             }
@@ -177,7 +163,6 @@ public class CoinController : MonoBehaviour
     #region Daily Rewards
     public void GiveDailyReward()
     {
-        Debug.Log("Receiving reward?");
         if (currentDayOfDailyReward < dailyCoinRewards.Length - 1)
         {
             ReceiveReward(dailyCoinRewards[currentDayOfDailyReward]);

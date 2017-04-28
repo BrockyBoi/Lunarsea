@@ -30,6 +30,7 @@ public class AudioController : MonoBehaviour
     public AudioClip click;
     public AudioClip coinPurchase;
     public AudioClip woodSignDrop;
+    public AudioClip woodSignPullUp;
     #endregion
 
     #region Enemy Clips

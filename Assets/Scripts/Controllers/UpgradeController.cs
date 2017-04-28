@@ -26,7 +26,7 @@ public class UpgradeController : MonoBehaviour
 
     void Start()
     {
-        CheckDisabledButtons();
+
     }
 
     public int GetUpgradeValue(Upgrade u)
@@ -41,33 +41,17 @@ public class UpgradeController : MonoBehaviour
     {
         upgrades.CopyTo(upgradeValues, 0);
 
-        CheckDisabledButtons();
         UpdateAll();
-    }
-
-    void CheckDisabledButtons()
-    {
-        if (upgradeValues[(int)Upgrade.MaxHealth] == 0)
-        {
-            MainCanvas.controller.DisableUpgradeButton((int)Upgrade.HealthDrop);
-            MainCanvas.controller.DisableUpgradeButton((int)Upgrade.InvulTime);
-        }
-        else if (upgradeValues[(int)Upgrade.MaxHealth] == 1)
-        {
-            MainCanvas.controller.EnableUpgradeButton((int)Upgrade.HealthDrop);
-            MainCanvas.controller.EnableUpgradeButton((int)Upgrade.InvulTime);
-        }
     }
 
     public void BuyUpgrade(int upgrade)
     {
-        if (upgradeValues[upgrade] >= 5 || !MainCanvas.controller.CheckIfCanUseButton(upgrade) || CoinController.controller.getCoinNum() < coinAmounts[upgradeValues[upgrade]])
+        if (upgradeValues[upgrade] >= 5  || CoinController.controller.getCoinNum() < coinAmounts[upgradeValues[upgrade]])
             return;
 
         CoinController.controller.MakePurchase(coinAmounts[upgradeValues[upgrade]]);
 
         upgradeValues[upgrade]++;
-        CheckDisabledButtons();
         switch (upgrade)
         {
             case (int)Upgrade.MaxHealth:

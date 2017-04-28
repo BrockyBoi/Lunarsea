@@ -22,6 +22,9 @@ public class EnemyBoat : MonoBehaviour
 
     public float speed;
     bool sailingIn;
+
+	public AudioClip cannonFire;
+	AudioSource audio;
     #endregion
 
     void Awake()
@@ -31,6 +34,7 @@ public class EnemyBoat : MonoBehaviour
 
     void Start()
     {
+		audio = gameObject.AddComponent<AudioSource> ();
         MainCanvas.controller.StartBossBattle(health);
         BackgroundConroller.controller.StopScrolling();
         StartCoroutine(SailIn());
@@ -78,6 +82,7 @@ public class EnemyBoat : MonoBehaviour
         if (dead)
             return;
 
+		audio.PlayOneShot (cannonFire);
         GameObject proj = null;
         switch (phase)
         {

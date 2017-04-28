@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using UnityEngine.SceneManagement;
 
 public class PlayerInfo : MonoBehaviour
 {
@@ -28,7 +26,6 @@ public class PlayerInfo : MonoBehaviour
     {
         if (controller == null)
         {
-            //DontDestroyOnLoad(gameObject);
             controller = this;
         }
         else if (controller != this)
@@ -67,7 +64,6 @@ public class PlayerInfo : MonoBehaviour
         PlayerData data = new PlayerData();
         data.firstTimeEver = firstTimeEver;
         data.levelsBeaten = levelsBeaten;
-        Debug.Log("data.LevelsBeaten after save: " + data.levelsBeaten);
         if (MainCanvas.controller != null)
         {
             data.highScore = MainCanvas.controller.GetHighScore();
@@ -114,7 +110,6 @@ public class PlayerInfo : MonoBehaviour
             goals = new List<TempGoal>(data.goals);
 
             levelsBeaten = data.levelsBeaten;
-            Debug.Log("Levels beaten after load: " + levelsBeaten + " data.levelsBeaten " + data.levelsBeaten);
 
             if (MainCanvas.controller != null)
             {
@@ -175,11 +170,9 @@ public class PlayerInfo : MonoBehaviour
 
     public void BeatLevel(int level)
     {
-        Debug.Log("Level Beat: " + level + " Levels Beaten: " + levelsBeaten);
         if (level > levelsBeaten)
         {
             levelsBeaten++;
-            Debug.Log("Levels Beaten after if statement: " + levelsBeaten);
             Save();
         }
     }

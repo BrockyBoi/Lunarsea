@@ -4,8 +4,8 @@ using UnityEngine;
 public class Missile : MonoBehaviour
 {
     [SerializeField]
-    protected float startingSpeed;
-    protected float speed;
+    protected static float startingSpeed = 8;
+    protected static float speed;
 
     public GameObject particles;
     [SerializeField]
@@ -13,10 +13,14 @@ public class Missile : MonoBehaviour
     [SerializeField]
     protected PointEffector2D effector;
 
-    public bool IgnoreWater;
     protected bool dead;
 
-    void Update()
+    protected void Start()
+    {
+        speed = startingSpeed;
+    }
+
+    protected virtual void Update()
     {
         if (dead)
             return;
@@ -78,13 +82,13 @@ public class Missile : MonoBehaviour
     protected virtual void OnEnable()
     {
         Init();
-        GiveSpeedMultiplier(MillileSpawner.controller.GetSpeedMultiplier());
         GetComponent<SpriteRenderer>().enabled = true;
     }
 
     protected virtual void OnDisable()
     {
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+		MillileSpawner.controller.EnqueueDisabledMissile (gameObject);
     }
 
 
@@ -124,7 +128,7 @@ public class Missile : MonoBehaviour
         effector.enabled = false;
     }
 
-    public void GiveSpeedMultiplier(float mult)
+    public static void GiveSpeedMultiplier(float mult)
     {
         speed = startingSpeed + mult;
     }

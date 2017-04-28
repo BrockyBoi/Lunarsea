@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class Coin : MonoBehaviour
@@ -7,9 +6,17 @@ public class Coin : MonoBehaviour
     public GameObject particleEffect;
     bool followPlayer;
 
+    [SerializeField]
+    static float startingSpeed = 10;
+    static float speed;
+
+    void Start()
+    {
+        speed = startingSpeed;
+    }
     void Update()
     {
-        Move(BackgroundConroller.controller.getSpeed() * 4.5f);
+        Move(speed);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -72,5 +79,10 @@ public class Coin : MonoBehaviour
     void FollowPlayer()
     {
         followPlayer = true;
+    }
+
+    public static void GiveSpeedMultiplier(float speedMult)
+    {
+        speed = startingSpeed + speedMult;
     }
 }

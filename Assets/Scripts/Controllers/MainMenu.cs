@@ -39,7 +39,6 @@ public class MainMenu : MonoBehaviour
 
     public void InitializeLevelButtons(int levelsBeaten)
     {
-        Debug.Log(levelsBeaten);
         for (int i = levelsBeaten + 1; i < levelButtons.Count; i++)
         {
             levelButtons[i].GetComponent<Image>().color = new Color(Color.gray.r, Color.gray.g, Color.gray.b, .5f);

@@ -3,34 +3,33 @@
 public class Rock : MonoBehaviour
 {
     [SerializeField]
-    float startingSpeed;
-    float speed;
-    bool hitPlayer;
+    static float startingSpeed = 8;
+    static float speed;
 
     // Update is called once per frame
+
+    void Start()
+    {
+        speed = startingSpeed;
+    }
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x - speed * Time.deltaTime, transform.position.y + Mathf.Sin(0) * Mathf.Deg2Rad), speed);
     }
 
-    void OnEnable()
-    {
-        GiveSpeedMultiplier(MillileSpawner.controller.GetSpeedMultiplier());
-    }
-
     void OnDisable()
     {
+		MillileSpawner.controller.EnqueueRock (gameObject);
         MillileSpawner.controller.GetOutofCurrentRockList(this);
     }
 
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player") && !hitPlayer)
+        if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<Boat>().TakeDamage();
             AudioController.controller.BoatHitsRock();
-            hitPlayer = true;
         }
 
         if (other.gameObject.CompareTag("Enemy Boat") && EnemyBoat.currentBoss.GetPhase() == 0)
@@ -46,8 +45,9 @@ public class Rock : MonoBehaviour
         speed = 0;
     }
 
-    public void GiveSpeedMultiplier(float mult)
+    public static void GiveSpeedMultiplier(float mult)
     {
         speed = startingSpeed + mult;
     }
+		
 }

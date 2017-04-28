@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69955e45a07d04613bf04c23b2de6654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMusic: {fileID: 8300000, guid: 129897d6fc2e5403eb7b60bac4561529, type: 3}
+  mainMusic: {fileID: 8300000, guid: 88b43c9add06386488c1f291901b5d04, type: 3}
   waveBackground: {fileID: 0}
   waterRise: {fileID: 0}
   waterFall: {fileID: 0}

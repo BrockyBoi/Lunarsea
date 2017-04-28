@@ -42,6 +42,8 @@ public class Boat : MonoBehaviour
 
     bool sailingIn;
 
+    bool upgrading = true;
+
     GameObject moonItem;
 
     public delegate void OnFinishedSailingIn();
@@ -106,7 +108,7 @@ public class Boat : MonoBehaviour
 
     void Update()
     {
-        if (dead || UpgradeController.controller.CheckIfUpgrading())
+        if (dead || upgrading)
             return;
 
 #if UNITY_STANDALONE || UNITY_WEBPLAYER 
@@ -169,7 +171,7 @@ public class Boat : MonoBehaviour
 
     void FixedUpdate()
     {
-        SelfRight();
+       // SelfRight();
     }
 
     void SelfRight()
@@ -181,7 +183,7 @@ public class Boat : MonoBehaviour
     #region Input
     void Movement(float h)
     {
-        if (h == 0 && extraSpeed == 0)
+        if ((h == 0 && extraSpeed == 0))
             return;
 
         float speed = ((hSpeed * h) + extraSpeed) * Time.deltaTime;
@@ -325,7 +327,7 @@ public class Boat : MonoBehaviour
 
     public void UpdateMaxHealth(int value)
     {
-        maxHealth = value + 1;
+        maxHealth = value + 2;
         health = maxHealth;
         MainCanvas.controller.HealthChange();
     }
@@ -389,6 +391,7 @@ public class Boat : MonoBehaviour
         AudioController.controller.PlayFX(AudioController.controller.mastUnfurl);
         extraSpeed = 7.5f;
         sailingIn = true;
+        upgrading = false;
     }
     public void SailOffScreen()
     {

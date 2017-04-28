@@ -36,15 +36,15 @@ public class DeathCounter : MonoBehaviour
 
     void PlayerDeath()
     {
-        deathCount++;
+//         deathCount++;
 
-        if (!MonetizationController.controller.CheckIfAdsTurnedOff() && deathCount % timesBeforeAd == 0)
-        {
-#if UNITY_ADS
-            Debug.Log("This goes off");
-            MonetizationController.controller.ShowNormalAd();
-#endif
-        }
+//         if (!MonetizationController.controller.CheckIfAdsTurnedOff() && deathCount % timesBeforeAd == 0)
+//         {
+// #if UNITY_ADS
+//             Debug.Log("This goes off");
+//             MonetizationController.controller.ShowNormalAd();
+// #endif
+//         }
     }
 
 	public int GetDeathCount()

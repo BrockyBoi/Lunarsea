@@ -16,7 +16,6 @@ public class MainCanvas : MonoBehaviour
     public Text coinText;
     public List<Image> healthImages;
     public List<Button> upgradeButtons;
-    bool[] canUseButton;
 
     public Image blackScreen;
     float score = 0.0f;
@@ -30,12 +29,14 @@ public class MainCanvas : MonoBehaviour
 
     Queue<string> completedGoalDescs = new Queue<string>();
 
-    bool displayingCompletedGoals;
+    bool displayingGoals;
 
     bool bossBattle;
     public GameObject bossHealthSlider;
 
     public Transform particles;
+
+    bool storyMode;
 
     void OnEnable()
     {
@@ -45,11 +46,6 @@ public class MainCanvas : MonoBehaviour
     void Awake()
     {
         controller = this;
-        canUseButton = new bool[upgradeButtons.Count];
-        for (int i = 0; i < canUseButton.Length; i++)
-        {
-            canUseButton[i] = true;
-        }
     }
 
     void Start()
@@ -61,10 +57,13 @@ public class MainCanvas : MonoBehaviour
         MillileSpawner.controller.onWavesCleared += EndLevel;
 
         TutorialController.controller.onFinishTutorial += StartLevel;
+
         levelEnded = true;
         deathScreen.SetActive(false);
         bossHealthSlider.SetActive(false);
         monetizationScreen.SetActive(false);
+
+        CheckToTurnOffScoreTexts();
     }
 
     void OnDisable()
@@ -86,7 +85,7 @@ public class MainCanvas : MonoBehaviour
 
     void UpdateScore()
     {
-        if (levelEnded || bossBattle)
+        if (storyMode && (levelEnded || bossBattle))
             return;
 
 
@@ -102,6 +101,22 @@ public class MainCanvas : MonoBehaviour
             highScoreText.text = "High Score: " + string.Format("{0:0.0}", highScore) + " m";
         }
 
+    }
+
+    void CheckToTurnOffScoreTexts()
+    {
+        if(GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Story))
+        {
+            storyMode = true;
+            scoreText.enabled = false;
+            highScoreText.enabled = false;
+
+            coinText.GetComponent<RectTransform>().localPosition -= new Vector3(0, -169, 0);
+        }
+        else
+        {
+            storyMode = false;
+        }
     }
 
     void StartLevel()
@@ -204,18 +219,24 @@ public class MainCanvas : MonoBehaviour
             blackScreen.color = new Color(c.r, c.b, c.g, time);
             yield return null;
         }
-        SceneManager.LoadScene("Main Menu");
+
+        int level = GameModeController.controller.GetCurrentLevel();
+        if(level < 5)
+            GameModeController.controller.ChooseLevel(level + 1);
+
+        SceneManager.LoadScene("MainScene");
     }
 
     IEnumerator ShowGoalsAtStart()
     {
+		Debug.Log (TempGoalController.controller.GetGoalListCount());
         float time = 0;
         for (int i = 0; i < TempGoalController.controller.GetGoalListCount(); i++)
         {
+			Debug.Log ("Show goal: " + i);
             AudioController.controller.PlayFX(AudioController.controller.woodSignDrop);
             tempGoalDisplay.GetComponentInChildren<Text>().text = TempGoalController.controller.GetGoalDescription(i);
             tempGoalDisplay.transform.GetChild(1).GetComponent<Image>().sprite = TempGoalController.controller.goalImages[TempGoalController.controller.GetGoal(i).GetGoalType()];
-            //tempGoalDisplay.GetComoponentInChildren<Image>() = Some Image that I'll store somewhere
 
             RectTransform trans = tempGoalDisplay.GetComponent<RectTransform>();
             Vector3 startingPoint = trans.anchoredPosition;
@@ -230,6 +251,8 @@ public class MainCanvas : MonoBehaviour
             time = 0;
 
             yield return new WaitForSeconds(1);
+
+            AudioController.controller.PlayFX(AudioController.controller.woodSignPullUp);
             while (time < 1)
             {
                 trans.anchoredPosition = Vector3.Lerp(endPoint, startingPoint, time);
@@ -246,13 +269,16 @@ public class MainCanvas : MonoBehaviour
 
     IEnumerator ShowCompletedGoal()
     {
+
+        while(displayingGoals)
+            yield return null;
+
         float time = 0;
-        displayingCompletedGoals = true;
+        displayingGoals = true;
         do
         {
             AudioController.controller.PlayFX(AudioController.controller.woodSignDrop);
             tempGoalDisplay.GetComponentInChildren<Text>().text = completedGoalDescs.Peek();
-            //tempGoalDisplay.GetComoponentInChildren<Image>() = Some Image that I'll store somewhere
 
             RectTransform trans = tempGoalDisplay.GetComponent<RectTransform>();
             Vector3 startingPoint = trans.anchoredPosition;
@@ -282,43 +308,22 @@ public class MainCanvas : MonoBehaviour
         }
         while (completedGoalDescs.Count != 0);
 
-        displayingCompletedGoals = false;
+        displayingGoals = false;
 
     }
 
     public void CompleteGoal(string desc)
     {
         completedGoalDescs.Enqueue(desc);
-        if (!displayingCompletedGoals)
+        if (!displayingGoals)
             StartCoroutine(ShowCompletedGoal());
     }
 
     public void UpdateCoinString(int coinAmount)
     {
-        coinText.text = "Coins: " + coinAmount.ToString();
+        coinText.text = "Coins: " + string.Format("{0:N0}", coinAmount);
     }
 
-    #region Upgrade Buttons
-    public void DisableUpgradeButton(int buttonNum)
-    {
-        upgradeButtons[buttonNum].gameObject.GetComponent<Image>().color = new Color(100 / 255f, 100 / 255f, 100 / 255f, 168 / 255f);
-        canUseButton[buttonNum] = false;
-    }
-
-    public void EnableUpgradeButton(int buttonNum)
-    {
-        upgradeButtons[buttonNum].gameObject.GetComponent<Image>().color = new Color(1, 1, 1, 168 / 255f);
-        canUseButton[buttonNum] = true;
-    }
-
-    public bool CheckIfCanUseButton(int buttonNum)
-    {
-        if (buttonNum >= canUseButton.Length)
-            return false;
-
-        return canUseButton[buttonNum];
-    }
-    #endregion
 
     #region Boss Related
     public void StartBossBattle(int maxVal)
