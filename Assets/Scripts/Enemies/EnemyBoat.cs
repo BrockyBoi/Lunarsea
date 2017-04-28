@@ -116,7 +116,7 @@ public class EnemyBoat : MonoBehaviour
         proj.transform.position = new Vector3(proj.transform.position.x, proj.transform.position.y, 10);
 
         if (!dead)
-			Invoke("SpawnProjectiles", Random.Range(.5f,1.5f));//spawnRate * Random.Range(.5f,1.5f));
+			Invoke("SpawnProjectiles", spawnRate * Random.Range(.5f,1.5f));
     }
 
     public int GetPhase()

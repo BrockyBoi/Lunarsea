@@ -88,8 +88,8 @@ public class MillileSpawner : MonoBehaviour
     void StartGame()
     {
         if (GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Story))
-            StartCoroutine("testWave");
-        //StartCoroutine("Level" + GameModeController.controller.GetCurrentLevel().ToString());
+            //StartCoroutine("testWave");
+        StartCoroutine("Level" + GameModeController.controller.GetCurrentLevel().ToString());
         else {
             diff = 0;
             StartCoroutine(EndlessWave());
@@ -286,7 +286,6 @@ public class MillileSpawner : MonoBehaviour
 
     #region Levels
 
-    #region Level 1
     IEnumerator Level1()
     {
         SpawnRocks(3, new int[3] { 0, 0, 0 });
@@ -336,9 +335,7 @@ public class MillileSpawner : MonoBehaviour
 
         BeatLevel(1);
     }
-    #endregion
-
-    #region Level 2
+		
     IEnumerator Level2()
     {
         //storm active
@@ -403,9 +400,7 @@ public class MillileSpawner : MonoBehaviour
 
         BeatLevel(2);
     }
-    #endregion
 
-    #region Level 3
     IEnumerator Level3()
     {
         SpawnRocks(1, new int[1] { 1 });
@@ -478,9 +473,8 @@ public class MillileSpawner : MonoBehaviour
 
         BeatLevel(3);
     }
-    #endregion
 
-    #region Level 4
+
     IEnumerator Level4()
     {
         SpawnRocks(3, new int[3] { 1, 2, 2 });
@@ -556,9 +550,8 @@ public class MillileSpawner : MonoBehaviour
 
         BeatLevel(4);
     }
-    #endregion
 
-    #region Level 5
+
     IEnumerator Level5()
     {
         MissileVolley(3, new int[3] { 1, 2, 2 }, new int[3] { 0, 1, 2 });
@@ -630,7 +623,6 @@ public class MillileSpawner : MonoBehaviour
 
         StartCoroutine(SpawnPirateShip());
     }
-    #endregion
     #endregion
 
     #region Level meta

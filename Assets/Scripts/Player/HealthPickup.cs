@@ -4,6 +4,11 @@ public class HealthPickup : MonoBehaviour
 {
     static float startingSpeed = 7;
     static float speed;
+
+	void Start()
+	{
+		speed = startingSpeed;
+	}
     void Update()
     {
         Vector3 forward = new Vector3(transform.position.x + -speed, transform.position.y + Mathf.Sin(Time.time / .4f), 10);
@@ -15,8 +20,7 @@ public class HealthPickup : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<Boat>().AddHealth();
-           // Destroy(gameObject);
-           gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 

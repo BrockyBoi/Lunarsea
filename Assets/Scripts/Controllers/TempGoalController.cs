@@ -32,14 +32,15 @@ public class TempGoalController : MonoBehaviour
         }
         else if (controller != this)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+			enabled = false;
         }
     }
     // Use this for initialization
     void Start()
     {
         Boat.player.onBoatDeath += PlayerDied;
-        if (PlayerInfo.controller.ResetSaveFile)
+		if (PlayerInfo.controller.ResetSaveFile || PlayerInfo.controller.DeleteFirst)
             NewGoals();
     }
 
