@@ -60,8 +60,11 @@ public class TempGoalController : MonoBehaviour
 
     public void SetGoals(List<TempGoal> tG)
     {
-        goals = new List<TempGoal>(tG);
-        CheckCurrentGoals();
+		if (tG.Count > 0) {
+			goals = new List<TempGoal> (tG);
+			CheckCurrentGoals ();
+		} else
+			NewGoals ();
     }
 
     public int GetGoalListCount()

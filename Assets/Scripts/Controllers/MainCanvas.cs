@@ -85,21 +85,22 @@ public class MainCanvas : MonoBehaviour
 
     void UpdateScore()
     {
-        if (storyMode && (levelEnded || bossBattle))
+        if (levelEnded || bossBattle)
             return;
 
 
         score += Time.fixedDeltaTime + (Time.deltaTime * speedMult);
+		TempGoalController.controller.UpdateDistanceGoals();
 
-        scoreText.text = "Score: " + string.Format("{0:0.0}", score) + " m";
+		if (!storyMode) {
+			scoreText.text = "Score: " + string.Format ("{0:0.0}", score) + " m";
 
-        TempGoalController.controller.UpdateDistanceGoals();
 
-        if (score > highScore)
-        {
-            highScore = score;
-            highScoreText.text = "High Score: " + string.Format("{0:0.0}", highScore) + " m";
-        }
+			if (score > highScore) {
+				highScore = score;
+				highScoreText.text = "High Score: " + string.Format ("{0:0.0}", highScore) + " m";
+			}
+		}
 
     }
 
@@ -229,11 +230,9 @@ public class MainCanvas : MonoBehaviour
 
     IEnumerator ShowGoalsAtStart()
     {
-		Debug.Log (TempGoalController.controller.GetGoalListCount());
         float time = 0;
         for (int i = 0; i < TempGoalController.controller.GetGoalListCount(); i++)
         {
-			Debug.Log ("Show goal: " + i);
             AudioController.controller.PlayFX(AudioController.controller.woodSignDrop);
             tempGoalDisplay.GetComponentInChildren<Text>().text = TempGoalController.controller.GetGoalDescription(i);
             tempGoalDisplay.transform.GetChild(1).GetComponent<Image>().sprite = TempGoalController.controller.goalImages[TempGoalController.controller.GetGoal(i).GetGoalType()];
@@ -242,7 +241,7 @@ public class MainCanvas : MonoBehaviour
             Vector3 startingPoint = trans.anchoredPosition;
             while (time < 1)
             {
-                trans.anchoredPosition = Vector3.Lerp(startingPoint, new Vector3(startingPoint.x, 20), time);
+                trans.anchoredPosition = Vector3.Lerp(startingPoint, new Vector3(startingPoint.x, 75), time);
                 time += Time.deltaTime;
                 yield return null;
             }
@@ -321,7 +320,7 @@ public class MainCanvas : MonoBehaviour
 
     public void UpdateCoinString(int coinAmount)
     {
-        coinText.text = "Coins: " + string.Format("{0:N0}", coinAmount);
+        coinText.text = string.Format("{0:N0}", coinAmount);
     }
 
 

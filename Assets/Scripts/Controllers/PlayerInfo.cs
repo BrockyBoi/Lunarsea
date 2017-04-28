@@ -120,8 +120,8 @@ public class PlayerInfo : MonoBehaviour
 
             if (CoinController.controller != null)
                 CoinController.controller.setCoinNum(data.coinCount);
-            if (UpgradeController.controller != null)
-                UpgradeController.controller.GiveUpgradeArray(playerUpgrades);
+			if (UpgradeController.controller != null)
+				UpgradeController.controller.GiveUpgradeArray (playerUpgrades);
             if (TempGoalController.controller != null)
             {
                 TempGoalController.controller.SetGoals(goals);

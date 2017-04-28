@@ -122,7 +122,7 @@ public class Boat : MonoBehaviour
                     horizontal = -Time.deltaTime;
 #endif
 
-        if (sailingIn)
+		if (sailingIn || finishedLevel)
         {
             horizontal = 0;
         }
@@ -399,6 +399,7 @@ public class Boat : MonoBehaviour
         if (GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Endless))
             return;
 
+		PlayerInfo.controller.Save ();
         extraSpeed = 7.5f;
         finishedLevel = true;
 
