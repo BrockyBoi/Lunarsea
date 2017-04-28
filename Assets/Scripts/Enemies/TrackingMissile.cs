@@ -77,7 +77,7 @@ public class TrackingMissile : Missile
     protected override void OnDisable()
     {
         StopAllCoroutines();
-		//MillileSpawner.controller.EnqueueDisabledTrackingMissile (gameObject);
+		MillileSpawner.controller.EnqueueTrackingMissile (gameObject);
     }
 
     IEnumerator selfDestruct()

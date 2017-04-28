@@ -19,7 +19,7 @@ public class Rock : MonoBehaviour
 
     void OnDisable()
     {
-		//MillileSpawner.controller.EnqueueRock (gameObject);
+		MillileSpawner.controller.EnqueueRock (gameObject);
         MillileSpawner.controller.GetOutofCurrentRockList(this);
     }
 

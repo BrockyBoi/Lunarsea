@@ -45,7 +45,10 @@ public class CoinController : MonoBehaviour
     }
 
     #region Coin Spawners
-
+	public void EnqueueCoin(GameObject coin)
+	{
+		disabledCoins.Enqueue (coin);
+	}
     void InitializeCoins()
     {
         Vector2 farAway = new Vector2(100, 100);
@@ -53,7 +56,6 @@ public class CoinController : MonoBehaviour
         {
             GameObject coin = Instantiate(coinPrefab, farAway, Quaternion.identity) as GameObject;
             coin.SetActive(false);
-            disabledCoins.Enqueue(coin);
             coin.transform.SetParent(coinsParent);
         }
     }

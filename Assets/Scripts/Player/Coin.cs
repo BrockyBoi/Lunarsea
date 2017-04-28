@@ -45,6 +45,7 @@ public class Coin : MonoBehaviour
     void OnDisable()
     {
         followPlayer = false;
+		CoinController.controller.EnqueueCoin (gameObject);
     }
     void Move(float speed)
     {

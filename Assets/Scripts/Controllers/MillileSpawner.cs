@@ -32,10 +32,10 @@ public class MillileSpawner : MonoBehaviour
 
     List<Rock> currentRocks = new List<Rock>();
 
-    List<GameObject> missileList = new List<GameObject>();
-    List<GameObject> torpedoList = new List<GameObject>();
-    List<GameObject> rockList = new List<GameObject>();
-    Queue<GameObject> disabledTrackingMissiles = new Queue<GameObject>();
+	Queue<GameObject> missileList = new Queue<GameObject>();
+	Queue<GameObject> torpedoList = new Queue<GameObject>();
+	Queue<GameObject> rockList = new Queue<GameObject>();
+    Queue<GameObject> trackingMissileList = new Queue<GameObject>();
 
     GameObject healthItem;
 
@@ -88,8 +88,8 @@ public class MillileSpawner : MonoBehaviour
     void StartGame()
     {
         if (GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Story))
-            //StartCoroutine("testWave");
-        StartCoroutine("Level" + GameModeController.controller.GetCurrentLevel().ToString());
+            StartCoroutine("testWave");
+        //StartCoroutine("Level" + GameModeController.controller.GetCurrentLevel().ToString());
         else {
             diff = 0;
             StartCoroutine(EndlessWave());
@@ -100,9 +100,10 @@ public class MillileSpawner : MonoBehaviour
 
     IEnumerator testWave()
     {
-        yield return new WaitForSecondsRealtime(10);
+        yield return new WaitForSecondsRealtime(2);
         StartCoroutine(SpawnPirateShip());
     }
+	#endregion
 
     #region Endless Mode
     IEnumerator EndlessWave()
@@ -288,7 +289,6 @@ public class MillileSpawner : MonoBehaviour
     #region Level 1
     IEnumerator Level1()
     {
-        //TrackingMissileVolley(5);
         SpawnRocks(3, new int[3] { 0, 0, 0 });
         yield return waitForRocks;
 
@@ -675,8 +675,6 @@ public class MillileSpawner : MonoBehaviour
     }
     #endregion
 
-    #endregion
-
     #region Coin Spawns
     void SpawnCoinBlock(int num = 3, int height = -1)
     {
@@ -729,6 +727,22 @@ public class MillileSpawner : MonoBehaviour
     #endregion
 
     #region Missiles
+
+	public void EnqueueMissile(GameObject missile)
+	{
+		missileList.Enqueue (missile);
+	}
+
+	public void EnqueueTorpedo(GameObject torpedo)
+	{
+		torpedoList.Enqueue (torpedo);
+	}
+
+	public void EnqueueTrackingMissile(GameObject tM)
+	{
+		trackingMissileList.Enqueue (tM);
+	}
+
     void InitializeMissiles()
     {
         Vector2 farAway = new Vector2(100, 100);
@@ -736,7 +750,6 @@ public class MillileSpawner : MonoBehaviour
         {
             GameObject missile = Instantiate(missilePrefab, farAway, Quaternion.identity) as GameObject;
             missile.SetActive(false);
-            missileList.Add(missile);
             missile.transform.SetParent(missilesParent);
         }
 
@@ -744,16 +757,14 @@ public class MillileSpawner : MonoBehaviour
         {
             GameObject torpedo = Instantiate(torpedoPrefab, farAway, Quaternion.identity) as GameObject;
             torpedo.SetActive(false);
-            torpedoList.Add(torpedo);
             torpedo.transform.SetParent(missilesParent);
         }
 
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 12; i++)
         {
             GameObject trackingMissile = Instantiate(trackingMissilePrefab, farAway, Quaternion.identity) as GameObject;
             trackingMissile.SetActive(false);
             trackingMissile.transform.SetParent(missilesParent);
-            disabledTrackingMissiles.Enqueue(trackingMissile);
         }
     }
 
@@ -797,10 +808,6 @@ public class MillileSpawner : MonoBehaviour
 
         for (int i = 0; i < numMissiles; i++)
         {
-            int j = 0;
-            while (missileList[j].activeInHierarchy)
-                j++;
-
             float tempY;
             float tempX;
 
@@ -868,7 +875,7 @@ public class MillileSpawner : MonoBehaviour
                 }
             }
 
-            GameObject missile = missileList[j].gameObject;
+			GameObject missile = missileList.Dequeue();
             missile.transform.position = new Vector3(tempX, tempY);
             missile.SetActive(true);
         }
@@ -914,10 +921,6 @@ public class MillileSpawner : MonoBehaviour
 
         for (int i = 0; i < num; i++)
         {
-            int j = 0;
-            while (torpedoList[j].activeInHierarchy)
-                j++;
-
             float tempY;
             float tempX;
 
@@ -984,7 +987,7 @@ public class MillileSpawner : MonoBehaviour
                 }
             }
 
-            GameObject missile = torpedoList[j].gameObject;
+			GameObject missile = torpedoList.Dequeue();
             missile.transform.position = new Vector3(tempX, tempY);
             missile.SetActive(true);
         }
@@ -1030,10 +1033,6 @@ public class MillileSpawner : MonoBehaviour
 
         for (int i = 0; i < num; i++)
         {
-            int j = 0;
-            while (torpedoList[j].activeInHierarchy)
-                j++;
-
             float tempY;
             float tempX;
 
@@ -1100,23 +1099,22 @@ public class MillileSpawner : MonoBehaviour
                 }
             }
 
-            GameObject missile = torpedoList[j].gameObject;
+			GameObject missile = torpedoList.Dequeue();
             missile.transform.position = new Vector3(tempX, tempY);
             missile.SetActive(true);
         }
     }
 
+	#endregion
+
     #region Tracking Missiles
-    public void EnqueueDisabledTrackingMissile(GameObject trackingMissile)
-    {
-        disabledTrackingMissiles.Enqueue(trackingMissile);
-    }
     void TrackingMissileVolley(int amount, int leftOrRight = 0)
     {
         StartCoroutine(SpawntrackingMissilePrefabs(amount, leftOrRight));
     }
     IEnumerator SpawntrackingMissilePrefabs(int missileCount, int leftOrRight = 0)
     {
+		Debug.Log ("Times spawn tracking missiles is called");
         Vector2 offScreen;
         if (leftOrRight == 0)
         {
@@ -1133,7 +1131,7 @@ public class MillileSpawner : MonoBehaviour
 
         for (int i = 0; i < missileCount; i++)
         {
-            GameObject trackMissile = disabledTrackingMissiles.Dequeue();
+			GameObject trackMissile = trackingMissileList.Dequeue();
             trackMissile.transform.position = offScreen;
             trackMissile.SetActive(true);
 
@@ -1142,16 +1140,16 @@ public class MillileSpawner : MonoBehaviour
     }
     #endregion
 
-    #endregion
-
     #region Rocks
-
+	public void EnqueueRock(GameObject rock)
+	{
+		rockList.Enqueue (rock);
+	}
     void InitializeRocks()
     {
         for (int i = 0; i < 12; i++)
         {
             GameObject rock = Instantiate(rockPrefab, new Vector2(100, 100), Quaternion.identity) as GameObject;
-            rockList.Add(rock);
             rock.SetActive(false);
             rock.transform.SetParent(rocksParent);
         }
@@ -1195,11 +1193,7 @@ public class MillileSpawner : MonoBehaviour
 
         for (int i = 0; i < amount; i++)
         {
-            int j = 0;
-            while (rockList[j].activeInHierarchy)
-                j++;
-
-            GameObject rock = rockList[j];
+			GameObject rock = rockList.Dequeue();
             rock.SetActive(true);
             if (states == null || states.Length > amount)
             {
@@ -1258,9 +1252,9 @@ public class MillileSpawner : MonoBehaviour
     {
         Instantiate(pirateShipPrefab, Camera.main.ViewportToWorldPoint(new Vector2(1.2f, .5f)), Quaternion.identity);
 
-        while (EnemyBoat.currentBoss.GetPhase() != 2 && EnemyBoat.currentBoss.CheckIfAlive())
+		while (EnemyBoat.currentBoss.CheckIfAlive() && EnemyBoat.currentBoss.GetPhase() != 2)
         {
-            while (EnemyBoat.currentBoss.GetPhase() == 0)
+            while (EnemyBoat.currentBoss.GetPhase() == 1)
             {
                 yield return new WaitForSecondsRealtime(3);
                 if (Random.Range(0, 10) > 3)
@@ -1274,14 +1268,14 @@ public class MillileSpawner : MonoBehaviour
                     yield return waitForRocks;
                 }
             }
-            while (EnemyBoat.currentBoss.GetPhase() == 1)
+            while (EnemyBoat.currentBoss.GetPhase() == 0)
             {
-                yield return new WaitForSecondsRealtime(4);
-                TrackingMissileVolley(5, -1);
+				TrackingMissileVolley(5, -1);
+                yield return new WaitForSecondsRealtime(10);
             }
             while (EnemyBoat.currentBoss.GetPhase() == 2)
             {
-                //do nothing?
+				yield return null;
             }
             yield return null;
         }
@@ -1311,4 +1305,6 @@ public class MillileSpawner : MonoBehaviour
         Coin.GiveSpeedMultiplier(mult);
         HealthPickup.GiveSpeedMultiplier(mult);
     }
+
+
 }

@@ -91,7 +91,10 @@ public class Missile : MonoBehaviour
     protected virtual void OnDisable()
     {
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-		//MillileSpawner.controller.EnqueueDisabledMissile (gameObject);
+		if (gameObject.layer == LayerMask.NameToLayer ("Default"))
+			MillileSpawner.controller.EnqueueMissile (gameObject);
+		else
+			MillileSpawner.controller.EnqueueTorpedo (gameObject);
     }
 
 
