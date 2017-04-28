@@ -43,6 +43,11 @@ public class TempGoalController : MonoBehaviour
             NewGoals();
     }
 
+	void OnDisable()
+	{
+		Boat.player.onBoatDeath -= PlayerDied;
+	}
+
     public TempGoal GetGoal(int spot)
     {
         return goals[spot];

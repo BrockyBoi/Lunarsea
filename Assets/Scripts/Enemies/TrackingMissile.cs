@@ -10,6 +10,7 @@ public class TrackingMissile : Missile
 
     protected override void Update()
     {}
+
     void Awake()
     {
         audio = gameObject.AddComponent<AudioSource>();
@@ -36,7 +37,6 @@ public class TrackingMissile : Missile
         //http://answers.unity3d.com/questions/654222/make-sprite-look-at-vector2-in-unity-2d-1.html
         float angle = Mathf.Atan2(dirVector.y, dirVector.x) * Mathf.Rad2Deg + 180;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        //transform.Rotate(angle, 0, 0);
         dirVector.Normalize();
         while (!dead)
         {
@@ -55,6 +55,16 @@ public class TrackingMissile : Missile
             yield return null;
         }
     }
+
+	protected override void OnCollisionEnter2D(Collision2D other)
+	{
+		base.OnCollisionEnter2D (other);
+
+		if (other.gameObject.tag == "Missile") {
+			other.gameObject.GetComponent<Missile> ().Explode ();
+			Explode ();
+		}
+	}
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -69,7 +79,7 @@ public class TrackingMissile : Missile
 		MillileSpawner.controller.EnqueueDisabledTrackingMissile (gameObject);
     }
 
-    protected override void Explode()
+	public override void Explode()
     {
         base.Explode();
         lineRend.enabled = false;

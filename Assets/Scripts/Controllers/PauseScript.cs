@@ -71,6 +71,8 @@ public class PauseScript : MonoBehaviour
 
     public void PressMainMenu()
     {
+		Time.timeScale = 1;
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
         SceneManager.LoadScene("Main Menu");
     }
 

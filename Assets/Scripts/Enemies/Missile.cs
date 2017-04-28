@@ -34,29 +34,31 @@ public class Missile : MonoBehaviour
 
     }
 
-    protected void OnCollisionEnter2D(Collision2D other)
+    protected virtual void OnCollisionEnter2D(Collision2D other)
     {
         if (dead)
             return;
 
-        switch (other.gameObject.tag)
-        {
-            case "Player":
-                HitPlayer(other.gameObject);
-                break;
-            case "Enemy Boat":
-                Explode();
-                other.gameObject.GetComponent<EnemyBoat>().TakeDamage();
-                other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 10, ForceMode2D.Impulse);
-                break;
-            case "Boss":
-                Explode();
-                other.gameObject.GetComponent<Boss>().TakeDamage();
-                break;
-            default:
-                Explode();
-                break;
-        }
+		switch (other.gameObject.tag) {
+		case "Player":
+			HitPlayer (other.gameObject);
+			break;
+		case "Enemy Boat":
+			Explode ();
+			other.gameObject.GetComponent<EnemyBoat> ().TakeDamage ();
+			other.gameObject.GetComponent<Rigidbody2D> ().AddForce (Vector2.left * 10, ForceMode2D.Impulse);
+			break;
+		case "Boss":
+			Explode ();
+			other.gameObject.GetComponent<Boss> ().TakeDamage ();
+			break;
+		case "Rock":
+			Explode ();
+			break;
+		default:
+                //Explode();
+			break;
+		}
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
         {
@@ -92,7 +94,7 @@ public class Missile : MonoBehaviour
     }
 
 
-    protected virtual void Explode()
+	public virtual void Explode()
     {
         if (dead)
             return;

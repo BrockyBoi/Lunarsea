@@ -139,7 +139,6 @@ public class MainCanvas : MonoBehaviour
     public void PressRetry()
     {
         AudioController.controller.ClickUI();
-        PlayerInfo.controller.Save();
         SceneManager.LoadScene("MainScene");
     }
 
@@ -148,6 +147,7 @@ public class MainCanvas : MonoBehaviour
         AudioController.controller.ClickUI();
         Time.timeScale = 1;
         Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		PlayerInfo.controller.Save ();
         SceneManager.LoadScene("Main Menu");
     }
 
