@@ -84,13 +84,14 @@ public class Missile : MonoBehaviour
     protected virtual void OnEnable()
     {
         Init();
+        GiveSpeedMultiplier(MillileSpawner.controller.GetSpeedMultiplier());
         GetComponent<SpriteRenderer>().enabled = true;
     }
 
     protected virtual void OnDisable()
     {
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-		MillileSpawner.controller.EnqueueDisabledMissile (gameObject);
+		//MillileSpawner.controller.EnqueueDisabledMissile (gameObject);
     }
 
 

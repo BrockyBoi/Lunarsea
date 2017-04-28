@@ -3,7 +3,7 @@
 public class Rock : MonoBehaviour
 {
     [SerializeField]
-    static float startingSpeed = 8;
+    static float startingSpeed = 7;
     static float speed;
 
     // Update is called once per frame
@@ -19,7 +19,7 @@ public class Rock : MonoBehaviour
 
     void OnDisable()
     {
-		MillileSpawner.controller.EnqueueRock (gameObject);
+		//MillileSpawner.controller.EnqueueRock (gameObject);
         MillileSpawner.controller.GetOutofCurrentRockList(this);
     }
 

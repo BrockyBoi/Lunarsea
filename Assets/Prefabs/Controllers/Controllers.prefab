@@ -31,6 +31,7 @@ GameObject:
   - component: {fileID: 114273022347892424}
   - component: {fileID: 114259653825167178}
   - component: {fileID: 114975598909132652}
+  - component: {fileID: 23259029613234044}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -196,6 +197,38 @@ Transform:
   m_Father: {fileID: 4446142644039040}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23259029613234044
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138018935000190}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: f352cf0e790234370b44239a3af97493, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!114 &114005152846667158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -275,11 +308,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterJointPrefab: {fileID: 1404304788250446, guid: 72a5aa6dcd5f24d6b9818967e9476604,
     type: 2}
-  numJoints: 100
+  numJoints: 200
   waterYPos: 0.675
   joints: []
   jointParent: {fileID: 4770566502202450}
   meshParent: {fileID: 4853424852197402}
+  waterMeshPrefab: {fileID: 1392590185368882, guid: cef250d98ac60412da8f41b730d6795b,
+    type: 2}
 --- !u!114 &114273022347892424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -384,14 +419,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMusic: {fileID: 8300000, guid: e6c7c1583047bbf46be313d79d8cb04f, type: 3}
-  waveBackground: {fileID: 8300000, guid: e7c873dfa5918417c994440a0a221f31, type: 3}
+  waveBackground: {fileID: 8300000, guid: 68fd0c8e6188425499e7c12a6b160180, type: 3}
+  waterRise: {fileID: 8300000, guid: 76d932292a0dd46a0bbd64bc03b30fe3, type: 3}
+  waterFall: {fileID: 8300000, guid: d68f6600a32311449bb1962e25ee3072, type: 3}
+  gargling: {fileID: 8300000, guid: d36d300c44d774c5daff65267a9ad061, type: 3}
+  coinPickUp1: {fileID: 8300000, guid: 7a2f833e71f07d44496e93dc7b35c925, type: 3}
+  coinPickUp2: {fileID: 8300000, guid: bc99c736c6049824db9e9ef25cf9a6a0, type: 3}
+  click: {fileID: 8300000, guid: 9414c26256b1794459b03dbd9aa575c8, type: 3}
+  coinPurchase: {fileID: 8300000, guid: 2a0040842ceffdb4bb14b33a1f0b1a57, type: 3}
+  woodSignDrop: {fileID: 8300000, guid: b7a709a79a4660441ad00d8e4fb1bf40, type: 3}
+  woodSignPullUp: {fileID: 8300000, guid: 07699e8f0db2e90469c86935b281ff88, type: 3}
   missileClips:
   - {fileID: 8300000, guid: 1e8a431eeecfa4eebaa0dc7d3847cc0d, type: 3}
   - {fileID: 8300000, guid: db0de12c4c6a849c395094e0e66a9ad4, type: 3}
   - {fileID: 8300000, guid: 145964f018b154d539a6d8795629ba39, type: 3}
-  waterRise: {fileID: 8300000, guid: 76d932292a0dd46a0bbd64bc03b30fe3, type: 3}
-  waterFall: {fileID: 8300000, guid: d68f6600a32311449bb1962e25ee3072, type: 3}
+  sonarPing: {fileID: 8300000, guid: 5b13dd03791dc81459452bcd6bba5b50, type: 3}
+  missileFire: {fileID: 8300000, guid: 4010591f72497cb428a584ce50cf83fb, type: 3}
+  cannonFire: {fileID: 8300000, guid: ff17803a637867a4da0b2ed35e407c38, type: 3}
+  homingMissile: {fileID: 8300000, guid: b4a71ff169f7ef04b9caddc020f5fabc, type: 3}
   boatDeath: {fileID: 8300000, guid: 214cc00e711c56f4cbf8721583aef370, type: 3}
   boatHitsRock: {fileID: 8300000, guid: 09382fe5f6803477fa54a8417e69104c, type: 3}
   repairBoat: {fileID: 8300000, guid: 2455ebf2fed9d46fca883e9455d35e61, type: 3}
-  gargling: {fileID: 8300000, guid: d36d300c44d774c5daff65267a9ad061, type: 3}
+  mastUnfurl: {fileID: 8300000, guid: 595004a66868b1245b68eac83b2f0957, type: 3}

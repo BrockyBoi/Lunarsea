@@ -129,7 +129,8 @@ public class BackgroundConroller : MonoBehaviour
         {
             if (layer[lay][front[lay]].transform.position.x <= -30.5)
             {
-                layer[lay][front[lay]].transform.position = new Vector3(43, 0, 0);
+                //layer[lay][front[lay]].transform.position = new Vector3(43, 0, 0);
+                layer[lay][front[lay]].transform.position = new Vector3(layer[lay][(front[lay] + 2) % 3].transform.position.x + layer[lay][(front[lay] + 2) % 3].GetComponent<Renderer>().bounds.size.x, 0, 0);
                 front[lay] = (front[lay] + 1) % 3;
             }
             return;
@@ -138,7 +139,8 @@ public class BackgroundConroller : MonoBehaviour
         {
             if (layer[lay][(front[lay] + 2) % 3].transform.position.x >= 43)
             {
-                layer[lay][(front[lay] + 2) % 3].transform.position = new Vector3(-30.5f, 0, 0);
+                //layer[lay][(front[lay] + 2) % 3].transform.position = new Vector3(-30.5f, 0, 0);
+                layer[lay][(front[lay] + 2) % 3].transform.position = new Vector3(layer[lay][front[lay]].transform.position.x - layer[lay][front[lay]].GetComponent<Renderer>().bounds.size.x, 0, 0);
                 front[lay] = (front[lay] + 2) % 3;
             }
         }

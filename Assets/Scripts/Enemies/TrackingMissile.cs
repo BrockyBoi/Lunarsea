@@ -52,6 +52,7 @@ public class TrackingMissile : Missile
                 }
                 else lineRend.enabled = false;
             }
+            selfDestruct();
             yield return null;
         }
     }
@@ -76,7 +77,13 @@ public class TrackingMissile : Missile
     protected override void OnDisable()
     {
         StopAllCoroutines();
-		MillileSpawner.controller.EnqueueDisabledTrackingMissile (gameObject);
+		//MillileSpawner.controller.EnqueueDisabledTrackingMissile (gameObject);
+    }
+
+    IEnumerator selfDestruct()
+    {
+        yield return new WaitForSecondsRealtime(3);
+        Explode();
     }
 
 	public override void Explode()

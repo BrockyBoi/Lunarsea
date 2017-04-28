@@ -10,12 +10,26 @@ public class MainCanvas : MonoBehaviour
     public static MainCanvas controller;
     public GameObject deathScreen;
     public GameObject upgradeScreen;
+    public GameObject levelScreen;
     public GameObject monetizationScreen;
+    public GameObject startScreen;
     public Text scoreText;
     public Text highScoreText;
     public Text coinText;
+    public Text levelTitle;
     public List<Image> healthImages;
     public List<Button> upgradeButtons;
+
+    public List<Image> UpgradeIcons;
+    int[] IconStatus = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
+    public List<Sprite> healthUpgradeIcons;
+    public List<Sprite> goalUpgradeIcons;
+    public List<Sprite> magnetUpgradeIcons;
+    public List<Sprite> cDropUpgradeIcons;
+    public List<Sprite> speedUpgradeIcons;
+    public List<Sprite> invulUpgradeIcons;
+    public List<Sprite> hDropUpgradeIcons;
+
 
     public Image blackScreen;
     float score = 0.0f;
@@ -63,6 +77,14 @@ public class MainCanvas : MonoBehaviour
         bossHealthSlider.SetActive(false);
         monetizationScreen.SetActive(false);
 
+        if (GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Story)){
+            levelTitle.text = string.Format("Level " + GameModeController.controller.GetCurrentLevel().ToString());
+        }
+        else
+        {
+            levelTitle.text = string.Format("Endless Mode");
+        }
+
         CheckToTurnOffScoreTexts();
     }
 
@@ -93,13 +115,15 @@ public class MainCanvas : MonoBehaviour
 		TempGoalController.controller.UpdateDistanceGoals();
 
 		if (!storyMode) {
-			scoreText.text = "Score: " + string.Format ("{0:0.0}", score) + " m";
+            //scoreText.text = "Score: " + string.Format ("{0:0.0}", score) + " m";
+            scoreText.text = string.Format("{0:0.0}", score) + " m";
 
 
-			if (score > highScore) {
+            if (score > highScore) {
 				highScore = score;
-				highScoreText.text = "High Score: " + string.Format ("{0:0.0}", highScore) + " m";
-			}
+                //highScoreText.text = "High Score: " + string.Format ("{0:0.0}", highScore) + " m";
+                highScoreText.text = "Best: " + string.Format("{0:0.0}", highScore) + " m";
+            }
 		}
 
     }
@@ -112,7 +136,7 @@ public class MainCanvas : MonoBehaviour
             scoreText.enabled = false;
             highScoreText.enabled = false;
 
-            coinText.GetComponent<RectTransform>().localPosition -= new Vector3(0, -169, 0);
+            //coinText.GetComponent<RectTransform>().localPosition -= new Vector3(0, -169, 0);
         }
         else
         {
@@ -157,13 +181,23 @@ public class MainCanvas : MonoBehaviour
         AudioController.controller.ClickUI();
         monetizationScreen.SetActive(true);
         upgradeScreen.SetActive(false);
+        levelScreen.SetActive(false);
     }
 
     public void PressBackMonetization()
     {
         AudioController.controller.ClickUI();
         monetizationScreen.SetActive(false);
+        startScreen.SetActive(false);
         upgradeScreen.SetActive(true);
+        levelScreen.SetActive(true);
+    }
+
+    public void PressStartScreen()
+    {
+        AudioController.controller.ClickUI();
+        upgradeScreen.SetActive(false);
+        startScreen.SetActive(true);
     }
 
     #endregion
@@ -171,6 +205,42 @@ public class MainCanvas : MonoBehaviour
     public void UpdateUpgradePrice(int button, int price)
     {
         upgradeButtons[button].GetComponentInChildren<UpgradePriceUI>().SetPrice(price);
+
+
+        //Updating Icon
+        switch (button){
+            case 0:
+                if (IconStatus[button] < healthUpgradeIcons.Count)
+                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+                break;
+            case 1:
+                if (IconStatus[button] < healthUpgradeIcons.Count)
+                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+                break;
+            case 2:
+                if (IconStatus[button] < healthUpgradeIcons.Count)
+                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+                break;
+            case 3:
+                if (IconStatus[button] < healthUpgradeIcons.Count)
+                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+                break;
+            case 4:
+                if (IconStatus[button] < healthUpgradeIcons.Count)
+                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+                break;
+            case 5:
+                if (IconStatus[button] < healthUpgradeIcons.Count)
+                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+                break;
+            case 6:
+                if (IconStatus[button] < healthUpgradeIcons.Count)
+                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+                break;
+            default:
+                break;
+        }
+        
     }
 
     public void HealthChange()
@@ -201,7 +271,7 @@ public class MainCanvas : MonoBehaviour
     public void SetHighScore(float f)
     {
         highScore = f;
-        highScoreText.text = "High Score: " + string.Format("{0:0.0}", highScore) + " m";
+        highScoreText.text = "Best: " + string.Format("{0:0.0}", highScore) + " m";
     }
     #endregion
 

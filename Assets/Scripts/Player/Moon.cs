@@ -42,8 +42,7 @@ public class Moon : MonoBehaviour
 
         if (!returning && pos.y <= Boat.player.transform.position.y)
         {
-            Boat.player.moonOut = false;
-            Destroy(gameObject);
+            moonDone();
         }
 
         float t = 0;

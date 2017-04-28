@@ -3,62 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WaterJoint : MonoBehaviour {
-	Mesh mesh;
-	List<Vector3> vertices;
-	List<Vector2> uv;
 	int[] triangles;
-	public WaterJoint prevJoint;
-    public WaterJoint nextJoint;
-    //Material waterMaterial;
-	[SerializeField]
-	GameObject waterMeshPrefab;
-	GameObject currentMesh;
+	public GameObject prevJoint;
+    public GameObject nextJoint;
 	[SerializeField]
 	GameObject waterSplashParticlePrefab;
 
-
-	void Awake () {
-		vertices = new List<Vector3> ();
-		uv = new List<Vector2> ();
-		uv.Add (new Vector2(0, 0));
-		uv.Add (new Vector2(0, 1));
-		uv.Add (new Vector2(1, 0));
-		uv.Add (new Vector2(1, 1));
-		triangles = new int[6] {0, 1, 3, 3, 2, 0};
-		//waterMaterial = Resources.Load ("WaterMaterial") as Material;
-		currentMesh = Instantiate (waterMeshPrefab,Vector3.zero,Quaternion.identity);
-		currentMesh.transform.SetParent(WaterJointGenerator.gen.meshParent);
-	}
-
-	void Start()
-	{
-
-	}
-
-	public void FixedUpdate() {
-		generateMesh();
-	}
-
-	public void generateMesh() {
-		if (prevJoint == null)
-			return;
-		vertices = new List<Vector3> ();
-
-		Vector3 bottom = Camera.main.ViewportToWorldPoint (new Vector3(0,0));
-
-		vertices.Add (transform.position);
-		vertices.Add (new Vector3(transform.position.x,bottom.y));
-		vertices.Add (prevJoint.transform.position);
-		vertices.Add (new Vector3(prevJoint.transform.position.x,bottom.y));
-		Destroy (mesh);
-		mesh = new Mesh ();
-		mesh.vertices = vertices.ToArray ();
-		mesh.uv = uv.ToArray ();
-		mesh.triangles = triangles;
-		Mesh oldMesh = currentMesh.GetComponent<MeshFilter> ().mesh;
-		currentMesh.GetComponent<MeshFilter> ().mesh = mesh;
-		Destroy(oldMesh);
-	}
+    
 
 	void OnCollisionEnter2D(Collision2D collision) {
 		GameObject part = Instantiate (waterSplashParticlePrefab, transform.position, Quaternion.Euler(new Vector3(-90,0,0))) as GameObject;
@@ -71,23 +22,28 @@ public class WaterJoint : MonoBehaviour {
 		
 	}
 
-    public double getJointX()
+    public float getJointX()
     {
         return gameObject.transform.position.x;
     }
-    public double getJointY()
+    public float getJointY()
     {
         return gameObject.transform.position.y;
     }
 
-    public WaterJoint getLeftJoint()
+    public Vector3 getJointPos()
+    {
+        return transform.position;
+    }
+
+    public GameObject getLeftJoint()
     {
         if (prevJoint != null)
             return prevJoint;
         else
             return null;
     }
-    public WaterJoint getRightJoint()
+    public GameObject getRightJoint()
     {
         if (nextJoint != null)
             return nextJoint;

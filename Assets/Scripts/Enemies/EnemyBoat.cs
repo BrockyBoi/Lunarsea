@@ -17,6 +17,7 @@ public class EnemyBoat : MonoBehaviour
 
     public float force;
     public float spawnRate;
+    float uprightConstant = 1.0f;
 
     int phase;
 
@@ -40,9 +41,21 @@ public class EnemyBoat : MonoBehaviour
         StartCoroutine(SailIn());
     }
 
-    void Update()
+    void FixedUpdate()
     {
         CheckBoundaries();
+
+        float endPoint = Camera.main.ViewportToWorldPoint(new Vector2(.9f, 0)).x;
+        if (Vector2.Distance(transform.position, new Vector2(endPoint, transform.position.y)) > .05f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector2(endPoint, transform.position.y), speed/2 * Time.deltaTime);
+        }
+        SelfRight();
+    }
+
+    void SelfRight()
+    {
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0)), Time.deltaTime * uprightConstant);
     }
 
     void CheckBoundaries()
@@ -67,7 +80,7 @@ public class EnemyBoat : MonoBehaviour
 
         while (Vector2.Distance(transform.position, new Vector2(endPoint, transform.position.y)) > .05f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector2(endPoint, transform.position.y), speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector2(endPoint, transform.position.y), speed/2 * Time.deltaTime);
             yield return null;
         }
 
@@ -99,11 +112,11 @@ public class EnemyBoat : MonoBehaviour
         }
 
         Vector2 dir = new Vector2(-.25f, Mathf.Sin(Random.Range(0.05f, 0.35f)));
-        proj.GetComponent<Rigidbody2D>().AddForce(dir.normalized * force);
+        proj.GetComponent<Rigidbody2D>().AddForce(dir.normalized * (force* Random.Range(1.0f, 1.5f)));
         proj.transform.position = new Vector3(proj.transform.position.x, proj.transform.position.y, 10);
 
         if (!dead)
-            Invoke("SpawnProjectiles", spawnRate);
+            Invoke("SpawnProjectiles", spawnRate * Random.Range(.5f,1.5f));
     }
 
     public int GetPhase()

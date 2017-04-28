@@ -12,11 +12,10 @@ public class Coin : MonoBehaviour
 
     void Start()
     {
-        speed = startingSpeed;
     }
     void Update()
     {
-        Move(speed);
+        Move(BackgroundConroller.controller.getSpeed(1) * 1.25f);
     }
 
     void OnTriggerEnter2D(Collider2D other)

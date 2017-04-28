@@ -5,6 +5,7 @@ using UnityEngine;
 public class Urdu : MonoBehaviour
 {
     public bool side;
+    public bool back;
 
     public static Urdu sideUrdu;
     public delegate void BoatDeath();
@@ -20,6 +21,10 @@ public class Urdu : MonoBehaviour
 
         if (side)
             transform.position = Camera.main.ViewportToWorldPoint(new Vector3(-.2f, .5f));
+        else if (back)
+        {
+            //nothin
+        }
         else transform.position = Camera.main.ViewportToWorldPoint(new Vector3(0, -.5f));
     }
     void OnTriggerEnter2D(Collider2D INFIDEL)

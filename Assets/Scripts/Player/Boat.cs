@@ -124,7 +124,7 @@ public class Boat : MonoBehaviour
 
 		if (sailingIn || finishedLevel)
         {
-            horizontal = 0;
+            horizontal = Time.deltaTime;
         }
 
 
@@ -171,7 +171,7 @@ public class Boat : MonoBehaviour
 
     void FixedUpdate()
     {
-       // SelfRight();
+       SelfRight();
     }
 
     void SelfRight()

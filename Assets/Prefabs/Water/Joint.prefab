@@ -40,11 +40,8 @@ GameObject:
   - component: {fileID: 231530706553544404}
   - component: {fileID: 58376189241607388}
   - component: {fileID: 231264336868524266}
-  - component: {fileID: 33796704552596750}
   - component: {fileID: 114538185427484966}
-  - component: {fileID: 23076952812425530}
   - component: {fileID: 253918674065192030}
-  - component: {fileID: 61527193649614194}
   - component: {fileID: 58503450904778810}
   m_Layer: 4
   m_Name: Joint
@@ -110,45 +107,6 @@ Transform:
   m_Father: {fileID: 4278439259222624}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23076952812425530
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1404304788250446}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: f352cf0e790234370b44239a3af97493, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &33796704552596750
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1404304788250446}
-  m_Mesh: {fileID: 0}
 --- !u!50 &50961852839674442
 Rigidbody2D:
   serializedVersion: 4
@@ -199,31 +157,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.5}
   serializedVersion: 2
   m_Radius: 1
---- !u!61 &61527193649614194
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1404304788250446}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 1
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.5}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!70 &70872684576378168
 CapsuleCollider2D:
   m_ObjectHideFlags: 1
@@ -252,8 +185,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prevJoint: {fileID: 0}
   nextJoint: {fileID: 0}
-  waterMeshPrefab: {fileID: 1392590185368882, guid: cef250d98ac60412da8f41b730d6795b,
-    type: 2}
   waterSplashParticlePrefab: {fileID: 1936478395593708, guid: f6caef27a8e4c4ad6931da6ee8102449,
     type: 2}
 --- !u!212 &212810738702157244

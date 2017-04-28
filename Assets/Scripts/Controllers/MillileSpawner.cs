@@ -32,21 +32,23 @@ public class MillileSpawner : MonoBehaviour
 
     List<Rock> currentRocks = new List<Rock>();
 
-    Queue<GameObject> disabledMissiles = new Queue<GameObject>();
-    Queue<GameObject> disabledTorpedos = new Queue<GameObject>();
-    Queue<GameObject> disabledRocks = new Queue<GameObject>();
+    List<GameObject> missileList = new List<GameObject>();
+    List<GameObject> torpedoList = new List<GameObject>();
+    List<GameObject> rockList = new List<GameObject>();
     Queue<GameObject> disabledTrackingMissiles = new Queue<GameObject>();
 
     GameObject healthItem;
 
+    bool bossBattle;
+    int diff;
+    int[] ran = new int[1] { -1 };
+
     public delegate void OnWavesCleared();
     public event OnWavesCleared onWavesCleared;
+    delegate void CoinSpawn();
+    CoinSpawn CoinSpawner;
 
     #endregion
-
-    void OnEnable()
-    {
-    }
 
     void Awake()
     {
@@ -86,248 +88,265 @@ public class MillileSpawner : MonoBehaviour
     void StartGame()
     {
         if (GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Story))
-            StartCoroutine("Level" + GameModeController.controller.GetCurrentLevel().ToString());
-        else
+            //StartCoroutine("testWave");
+        StartCoroutine("Level" + GameModeController.controller.GetCurrentLevel().ToString());
+        else {
+            diff = 0;
             StartCoroutine(EndlessWave());
-
+        }
         if (Boat.player.GetMaxHealth() > 1)
             Invoke("SpawnHealth", 45);
     }
 
-    #region Waves
-    IEnumerator Wave1()
+    IEnumerator testWave()
     {
-        MissileVolley();
-        yield return waitForMissiles;
-
-        SpawnRocks(4);
-        yield return waitForRocks;
-
-        MissileVolley();
-        yield return waitForMissiles;
-
-        TorpedoVolleyLow();
-        yield return waitForMissiles;
-
-        TorpedoVolleyHigh();
-        yield return waitForMissiles;
-
-        TrackingMissileVolley(4);
-        yield return waitForMissiles;
-
-        waveCounter++;
-        if (waveCounter < 5)
-        {
-            StartCoroutine(UpdateSpeedMultiplier(1.5f));
-            StartCoroutine(Wave2());
-        }
-        else
-        {
-            onWavesCleared();
-            StopAllCoroutines();
-        }
+        yield return new WaitForSecondsRealtime(10);
+        StartCoroutine(SpawnPirateShip());
     }
 
-    IEnumerator Wave2()
-    {
-        SpawnCoinBlock();
-        yield return waitForCoins;
-        SpawnCoinLine();
-        yield return waitForCoins;
-        yield return waitForCoins;
-        SpawnCoinZig();
-        yield return waitForCoins;
-
-        StartCoroutine(Wave1());
-    }
-
+    #region Endless Mode
     IEnumerator EndlessWave()
     {
-        // float timeSpeedUp = 0;
+        StopCoroutine(transition());
+        Debug.Log("diff: " + diff);
+        yield return waitForCoins;
 
-        // ObstacleSpawn1 += MissileVolley;
-        // ObstacleSpawn2 += TorpedoVolleyLow;
-        // CoinSpawner += SpawnCoinBlock;
-        // while (true)
-        // {
-        //     ObstacleSpawn1(5, null, null);
-        //     yield return new WaitForSeconds(3.5f - timeSpeedUp);
+        #region diff 1
+        if (diff <= 2)
+        {
+            SpawnRocks((int)Random.Range(1, 2), ran);
+            yield return waitForRocks;
+            MissileVolley((int)Random.Range(1, 3), ran);
+            yield return waitForMissiles;
 
-        //     ObstacleSpawn2(5,null,null);
-        //     yield return new WaitForSeconds(4 - timeSpeedUp);
+            float rand = Random.Range(0, 10);
+            //Coins
+            rand = Random.Range(0, 10);
+            if (rand >= 4)
+            {
+                SpawnCoinLine((int)Random.Range(3, 10), (int)Random.Range(-4, 4));
+                yield return waitForCoins;
+            }
+            else if (rand >= 1)
+            {
+                SpawnCoinZig((int)Random.Range(3, 12), (int)Random.Range(2, 8));
+                yield return waitForCoins;
+            }
+        }
+        #endregion
+        #region diff2
+        else if (diff <= 4){
+            float rand = Random.Range(0, 10);
 
-        //     CoinSpawner();
-        //     yield return new WaitForSeconds(4 + timeSpeedUp * 2);
+            if (rand >= 7)
+            {
+                SpawnRocks((int)Random.Range(1, 4), ran);
+                yield return waitForRocks;
+                MissileVolley((int)Random.Range(2, 6), ran);
+                yield return waitForMissiles;
+            }
+            else if (rand >= 4)
+            {
+                MissileVolley((int)Random.Range(2, 6), ran);
+                yield return waitForMissiles;
+                SpawnRocks((int)Random.Range(1, 4), ran);
+                yield return waitForRocks;
+            }
+            else
+            {
+                SpawnRocks((int)Random.Range(1, 4), ran);
+                yield return waitForRocks;
+                MissileVolley((int)Random.Range(2, 6), ran);
+                yield return waitForMissiles;
+                MissileVolley((int)Random.Range(2, 6), ran);
+                yield return waitForMissiles;
+            }
 
-        //     waveCounter++;
+            //Coins
+            rand = Random.Range(0, 10);
+            if (rand >= 4)
+            {
+                SpawnCoinLine((int)Random.Range(3, 10), (int)Random.Range(-4, 4));
+                yield return waitForCoins;
+            }
+            else if (rand >= 1)
+            {
+                SpawnCoinZig((int)Random.Range(3, 12), (int)Random.Range(2, 8));
+                yield return waitForCoins;
+            }
+            else
+            {
+                SpawnCoinBlock((int)Random.Range(3, 6), (int)Random.Range(-4, 4));
+            }
 
-        //     if (waveCounter == 2)
-        //     {
-        //         ObstacleSpawn1 += SpawnRocks(3,null,);
-        //     }
-        //     else if (waveCounter == 3)
-        //     {
-        //         CoinSpawner = SpawnBlockAndLine;
-        //     }
-        //     else if (waveCounter == 4)
-        //     {
-        //         ObstacleSpawn2 -= TorpedoVolleyLow;
-        //         ObstacleSpawn2 = TorpedoVolleyLow(3,null,null);
-        //     }
-        //     else if (waveCounter == 5)
-        //     {
-        //         ObstacleSpawn1 += TrackingMissileVolley;
-        //     }
-        //     else if (waveCounter == 8)
-        //     {
-        //         ObstacleSpawn2 += TrackingMissileVolley;
-        //     }
-        //     else if (waveCounter == 10)
-        //     {
-        //         CoinSpawner = SpawnAllCoins;
-        //     }
-        //     else if (waveCounter == 12)
-        //     {
-        //         ObstacleSpawn2 += SpawnRocks;
-        //     }
-        //     else if (waveCounter == 15)
-        //     {
-        //         ObstacleSpawn1 += TrackingMissileVolley;
-        //         ObstacleSpawn2 += TrackingMissileVolley;
-        //         CoinSpawner += TrackingMissileVolley;
-        //     }
+        }
+        #endregion
+        #region diff 3
+        else if (diff <= 15)
+        {
+            float rand = Random.Range(0, 10);
 
-        //     if (waveCounter < 20)
-        //         timeSpeedUp += .15f;
+            SpawnRocks((int)Random.Range(1, 4), ran);
+            yield return waitForRocks;
+            MissileVolley((int)Random.Range(2, 6), ran);
+            yield return waitForMissiles;
+            TorpedoVolleyHigh((int)Random.Range(1, 2), ran);
+            TorpedoVolleyLow((int)Random.Range(1, 2), ran);
+            yield return waitForMissiles;
 
-        //     UpdateSpeedMultiplier(1.75f);
-        //     yield return null;
-        // }
-        yield return null;
+            //Coins
+            rand = Random.Range(0, 10);
+            if (rand >= 4)
+            {
+                SpawnCoinLine((int)Random.Range(5, 12), (int)Random.Range(-4, 4));
+            }
+            else if (rand >= 1)
+            {
+                SpawnCoinZig((int)Random.Range(5, 14), (int)Random.Range(2, 8));
+            }
+            else
+            {
+                SpawnCoinBlock((int)Random.Range(3, 6), (int)Random.Range(-4, 4));
+            }
+            yield return waitForCoins;
+        }
+        else if (diff <= 30)
+        {
+            float rand = Random.Range(0, 10);
+
+            SpawnRocks((int)Random.Range(2, 4));
+            yield return waitForRocks;
+            MissileVolley((int)Random.Range(3, 6));
+            yield return waitForMissiles;
+            TorpedoVolleyHigh((int)Random.Range(2, 3));
+            TorpedoVolleyLow((int)Random.Range(1, 3));
+            yield return waitForMissiles;
+
+            //Coins
+            rand = Random.Range(0, 10);
+            if (rand >= 4)
+            {
+                SpawnCoinLine((int)Random.Range(6, 16), (int)Random.Range(-4, 4));
+            }
+            else if (rand >= 1)
+            {
+                SpawnCoinZig((int)Random.Range(6, 20), (int)Random.Range(2, 8));
+            }
+            else
+            {
+                SpawnCoinBlock((int)Random.Range(5, 10), (int)Random.Range(-4, 4));
+            }
+            yield return waitForCoins;
+
+        }
+        #endregion
+        #region diff 4
+        else if (diff <= 30)
+        {
+            float rand = Random.Range(0, 10);
+
+            SpawnRocks((int)Random.Range(3, 4),ran);
+            yield return waitForRocks;
+            MissileVolley((int)Random.Range(4, 6),ran);
+            yield return waitForMissiles;
+            TorpedoVolleyHigh((int)Random.Range(3, 4),ran);
+            TorpedoVolleyLow((int)Random.Range(2, 4),ran);
+            yield return waitForMissiles;
+
+            //Coins
+            rand = Random.Range(0, 10);
+            if (rand >= 4)
+            {
+                SpawnCoinLine((int)Random.Range(6, 13), (int)Random.Range(-4, 4));
+            }
+            else if (rand >= 1)
+            {
+                SpawnCoinZig((int)Random.Range(6, 15), (int)Random.Range(2, 8));
+            }
+            else
+            {
+                SpawnCoinBlock((int)Random.Range(4, 10), (int)Random.Range(-4, 4));
+            }
+            yield return waitForCoins;
+        }
+        #endregion
+
+        StartCoroutine(transition());
+    }
+
+    IEnumerator transition()
+    {
+        StopCoroutine(EndlessWave());
+        diff = diff + 1;
+        yield return new WaitForEndOfFrame();
+        StartCoroutine(EndlessWave());
     }
     #endregion
 
     #region Levels
+
+    #region Level 1
     IEnumerator Level1()
     {
-         SpawnRocks(3, new int[3] { 4, 0, 0 });
-         yield return waitForRocks;
-
-         MissileVolley(1, new int[1] { 2 });
-         yield return waitForMissiles;
-
-         SpawnRocks(2, new int[2] { 0, 0 });
-         yield return waitForRocks;
-
-         MissileVolley(2, new int[2] { 0, 1 }, new int[2] { 0, 1 });
-         yield return waitForMissiles;
-
-         SpawnRocks(1, new int[1] { 1 });
-         yield return waitForRocks;
-
-         MissileVolley(2, new int[2] { 1, 2 });
-         yield return waitForMissiles;
-
-         SpawnRocks(2, new int[2] { 1, 0 });
-         yield return waitForRocks;
-
-         SpawnRocks(2, new int[2] { 1, 1 });
-         yield return waitForRocks;
-
-         MissileVolley(3, new int[3] { 0, 1, 0 }, new int[3] { 0, 1, 2 });
-         yield return waitForMissiles;
-
-         SpawnRocks(4, new int[4] { 1, 1, 0, 0 });
-         yield return waitForRocks;
-
-         MissileVolley(3, new int[3] { 1, 2, 2 }, new int[3] { 0, 0, 1 });
-         yield return waitForMissiles;
-
-         //coins - block
-         SpawnCoinBlock();
-         yield return waitForCoins;
-
-         SpawnRocks(5, new int[5] { 1, 2, 0, 1, 2 });
-         yield return waitForRocks;
-
-         MissileVolley(6, new int[6] { 2, 3, 1, 3, 1, 3 }, new int[6] { 0, 1, 2, 3, 4, 5 });
-         yield return waitForMissiles;
-
-         yield return new WaitForSeconds(5);
-
-         BeatLevel(1);
-
-    }
-
-    IEnumerator Level2()
-    {
-        SpawnRocks(1, new int[1] { 1 });
+        //TrackingMissileVolley(5);
+        SpawnRocks(3, new int[3] { 0, 0, 0 });
         yield return waitForRocks;
 
         MissileVolley(1, new int[1] { 2 });
         yield return waitForMissiles;
 
-        SpawnRocks(2, new int[2] { 2, 1 });
+        SpawnRocks(2, new int[2] { 0, 0 });
         yield return waitForRocks;
 
-        MissileVolley(3, new int[3] { 1, 2, 3 }, new int[3] { 1, 0, 1 });
+        MissileVolley(2, new int[2] { 0, 1 }, new int[2] { 0, 1 });
         yield return waitForMissiles;
 
-        SpawnRocks(2, new int[2] { 2, 1 });
+        SpawnRocks(1, new int[1] { 1 });
         yield return waitForRocks;
 
-        MissileVolley(3, new int[3] { 1, 2, 3 });
+        MissileVolley(2, new int[2] { 1, 2 });
         yield return waitForMissiles;
 
-        SpawnRocks(3, new int[3] { 1, 2, 1 });
+        SpawnRocks(2, new int[2] { 1, 0 });
         yield return waitForRocks;
 
-        MissileVolley(4, new int[4] { 2, 4, 2, 4 }, new int[4] { 0, 1, 2, 3 });
+        SpawnRocks(2, new int[2] { 1, 1 });
+        yield return waitForRocks;
+
+        MissileVolley(3, new int[3] { 0, 1, 0 }, new int[3] { 0, 1, 2 });
         yield return waitForMissiles;
 
-        SpawnRocks(3, new int[3] { 1, 2, 0 });
+        SpawnRocks(4, new int[4] { 1, 1, 0, 0 });
         yield return waitForRocks;
 
-        //coins - line
-        SpawnCoinLine();
+        MissileVolley(3, new int[3] { 1, 2, 2 }, new int[3] { 0, 0, 1 });
+        yield return waitForMissiles;
+
+        //coins - block
+        SpawnCoinBlock();
         yield return waitForCoins;
 
-        MissileVolley(1, new int[1] { 3 });
-        yield return waitForMissiles;
-
-        SpawnRocks(2, new int[2] { 3, 3 });
+        SpawnRocks(5, new int[5] { 1, 2, 0, 1, 2 });
         yield return waitForRocks;
 
-        MissileVolley(5, new int[5] { 1, 2, 3, 4, 5 });
+        MissileVolley(6, new int[6] { 2, 3, 1, 3, 1, 3 }, new int[6] { 0, 1, 2, 3, 4, 5 });
         yield return waitForMissiles;
 
-        SpawnRocks(5, new int[5] { 1, 1, 3, 1, 1 });
-        yield return waitForRocks;
+        yield return new WaitForSecondsRealtime(5);
 
-        //coins - zigzag
-        SpawnCoinZig();
-        yield return waitForCoins;
-
-        SpawnRocks(4, new int[4] { 1, 1, 0, 2 });
-        yield return waitForRocks;
-
-        MissileVolley(2, new int[2] { 2, 3 });
-        yield return waitForMissiles;
-
-        MissileVolley(2, new int[2] { 2, 3 }, new int[2] { 0, 1 });
-        yield return waitForMissiles;
-
-        BeatLevel(2);
+        BeatLevel(1);
     }
+    #endregion
 
-    IEnumerator Level3()
+    #region Level 2
+    IEnumerator Level2()
     {
         //storm active
 
         MissileVolley(2, new int[2] { 2, 3 }, new int[2] { 0, 1 });
         yield return waitForMissiles;
 
-        MissileVolley(2, new int[2] { 2, 3 });
+        MissileVolley(2, new int[2] { 0, 1 });
         yield return waitForMissiles;
 
         SpawnRocks(4, new int[4] { 1, 1, 0, 2 });
@@ -380,9 +399,88 @@ public class MillileSpawner : MonoBehaviour
         SpawnRocks(1, new int[1] { 3 });
         yield return waitForRocks;
 
+        yield return new WaitForSecondsRealtime(5);
+
+        BeatLevel(2);
+    }
+    #endregion
+
+    #region Level 3
+    IEnumerator Level3()
+    {
+        SpawnRocks(1, new int[1] { 1 });
+        yield return waitForRocks;
+
+        MissileVolley(1, new int[1] { 2 });
+        yield return waitForMissiles;
+
+        SpawnRocks(2, new int[2] { 2, 1 });
+        yield return waitForRocks;
+
+        MissileVolley(3, new int[3] { 1, 2, 3 }, new int[3] { 1, 0, 1 });
+        yield return waitForMissiles;
+
+        SpawnRocks(2, new int[2] { 2, 1 });
+        yield return waitForRocks;
+
+        TrackingMissileVolley(1);
+        yield return waitForMissiles;
+
+        MissileVolley(3, new int[3] { 1, 2, 3 });
+        yield return waitForMissiles;
+
+        SpawnRocks(3, new int[3] { 1, 2, 1 });
+        yield return waitForRocks;
+
+        MissileVolley(4, new int[4] { 2, 4, 2, 4 }, new int[4] { 0, 1, 2, 3 });
+        yield return waitForMissiles;
+
+        SpawnRocks(3, new int[3] { 1, 2, 0 });
+        yield return waitForRocks;
+
+        //coins - line
+        SpawnCoinLine();
+        yield return waitForCoins;
+
+        MissileVolley(1, new int[1] { 3 });
+        yield return waitForMissiles;
+
+        TrackingMissileVolley(2);
+        yield return waitForMissiles;
+
+        SpawnRocks(2, new int[2] { 3, 3 });
+        yield return waitForRocks;
+
+        MissileVolley(5, new int[5] { 1, 2, 3, 4, 5 });
+        yield return waitForMissiles;
+
+        SpawnRocks(5, new int[5] { 1, 1, 3, 1, 1 });
+        yield return waitForRocks;
+
+        //coins - zigzag
+        SpawnCoinZig();
+        yield return waitForCoins;
+
+        TrackingMissileVolley(3);
+        yield return waitForMissiles;
+
+        SpawnRocks(4, new int[4] { 1, 1, 0, 2 });
+        yield return waitForRocks;
+
+
+        MissileVolley(2, new int[2] { 2, 3 });
+        yield return waitForMissiles;
+
+        MissileVolley(2, new int[2] { 2, 3 }, new int[2] { 0, 1 });
+        yield return waitForMissiles;
+
+        yield return new WaitForSecondsRealtime(5);
+
         BeatLevel(3);
     }
+    #endregion
 
+    #region Level 4
     IEnumerator Level4()
     {
         SpawnRocks(3, new int[3] { 1, 2, 2 });
@@ -454,9 +552,13 @@ public class MillileSpawner : MonoBehaviour
         MissileVolley(3, new int[3] { 1, 2, 3 }, new int[3] { 0, 1, 2 });
         yield return waitForMissiles;
 
+        yield return new WaitForSecondsRealtime(5);
+
         BeatLevel(4);
     }
+    #endregion
 
+    #region Level 5
     IEnumerator Level5()
     {
         MissileVolley(3, new int[3] { 1, 2, 2 }, new int[3] { 0, 1, 2 });
@@ -521,14 +623,17 @@ public class MillileSpawner : MonoBehaviour
         SpawnRocks(4, new int[4] { 1, 1, 2, 2 });
         yield return waitForRocks;
 
-        TorpedoVolleyHigh(4, new int[4] { 1, 2, 3, 4 });
+        TorpedoVolleyHigh(3, new int[3] { 1, 2, 3 });
         yield return waitForMissiles;
+
+        yield return new WaitForSecondsRealtime(5);
 
         StartCoroutine(SpawnPirateShip());
     }
     #endregion
+    #endregion
 
-
+    #region Level meta
     void BeatLevel(int levelBeat)
     {
         int coinReward;
@@ -570,20 +675,22 @@ public class MillileSpawner : MonoBehaviour
     }
     #endregion
 
+    #endregion
+
     #region Coin Spawns
-    void SpawnCoinBlock()
+    void SpawnCoinBlock(int num = 3, int height = -1)
     {
-        CoinController.controller.coinSpawnBlock(3 + coinDropRate, 3 + coinDropRate, -1, 20, .15f);
+        CoinController.controller.coinSpawnBlock(num + coinDropRate, num + coinDropRate, height, 20, .15f);
     }
 
-    void SpawnCoinLine()
+    void SpawnCoinLine(int num = 8, int height = -2)
     {
-        CoinController.controller.coinSpawnLine(8 + coinDropRate * 3, -2, 20, .1f);
+        CoinController.controller.coinSpawnLine(num + coinDropRate * 3, height, 20, .1f);
     }
 
-    void SpawnCoinZig()
+    void SpawnCoinZig(int num = 10, int height = 6)
     {
-        CoinController.controller.coinSpawnZig(10 + coinDropRate * 4, 6, -1.5f, 20, .05f);
+        CoinController.controller.coinSpawnZig(num + coinDropRate * 4, height, -1.5f, 20, .05f);
     }
 
     void SpawnBlockAndLine()
@@ -607,7 +714,6 @@ public class MillileSpawner : MonoBehaviour
         while (time < amount)
         {
             speedMultiplier += Time.deltaTime;
-            UpdateAllSpeedMults(speedMultiplier);
             MainCanvas.controller.speedMult += Time.deltaTime;
             BackgroundConroller.controller.UpdateSpeedMult(Time.deltaTime);
 
@@ -623,21 +729,6 @@ public class MillileSpawner : MonoBehaviour
     #endregion
 
     #region Missiles
-
-    public void EnqueueDisabledMissile(GameObject missile)
-    {
-        disabledMissiles.Enqueue(missile);
-    }
-
-	public void EnqueueDisabledTorpedo(GameObject torpedo)
-	{
-		disabledTorpedos.Enqueue (torpedo);
-	}
-
-	public void EnqueueDisabledTrackingMissile(GameObject trackingMissile)
-	{
-		disabledTrackingMissiles.Enqueue (trackingMissile);
-	}
     void InitializeMissiles()
     {
         Vector2 farAway = new Vector2(100, 100);
@@ -645,7 +736,7 @@ public class MillileSpawner : MonoBehaviour
         {
             GameObject missile = Instantiate(missilePrefab, farAway, Quaternion.identity) as GameObject;
             missile.SetActive(false);
-            disabledMissiles.Enqueue(missile);
+            missileList.Add(missile);
             missile.transform.SetParent(missilesParent);
         }
 
@@ -653,7 +744,7 @@ public class MillileSpawner : MonoBehaviour
         {
             GameObject torpedo = Instantiate(torpedoPrefab, farAway, Quaternion.identity) as GameObject;
             torpedo.SetActive(false);
-            disabledTorpedos.Enqueue(torpedo);
+            torpedoList.Add(torpedo);
             torpedo.transform.SetParent(missilesParent);
         }
 
@@ -689,8 +780,27 @@ public class MillileSpawner : MonoBehaviour
         float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .85f)).y;
         float offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
 
+        if(vStates == null)
+        {
+            //nothin
+        }
+        else if (vStates[0] == -1)
+        {
+            hStates = new int[numMissiles];
+            vStates = new int[numMissiles];
+            for (int i = 0; i < numMissiles; i++)
+            {
+                hStates[i] = (int)Random.Range(0, 6);
+                vStates[i] = (int)Random.Range(.5f, 6);
+            }
+        }
+
         for (int i = 0; i < numMissiles; i++)
         {
+            int j = 0;
+            while (missileList[j].activeInHierarchy)
+                j++;
+
             float tempY;
             float tempX;
 
@@ -700,6 +810,7 @@ public class MillileSpawner : MonoBehaviour
             }
             else
             {
+
                 switch (vStates[i])
                 {
                     case 0:
@@ -757,7 +868,7 @@ public class MillileSpawner : MonoBehaviour
                 }
             }
 
-            GameObject missile = disabledMissiles.Dequeue();
+            GameObject missile = missileList[j].gameObject;
             missile.transform.position = new Vector3(tempX, tempY);
             missile.SetActive(true);
         }
@@ -786,8 +897,27 @@ public class MillileSpawner : MonoBehaviour
         float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .85f)).y;
         float offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
 
+        if (vStates == null)
+        {
+            //nothin
+        }
+        else if (vStates[0] == -1)
+        {
+            hStates = new int[num];
+            vStates = new int[num];
+            for (int i = 0; i < num; i++)
+            {
+                hStates[i] = (int)Random.Range(0, 6);
+                vStates[i] = (int)Random.Range(0, 6);
+            }
+        }
+
         for (int i = 0; i < num; i++)
         {
+            int j = 0;
+            while (torpedoList[j].activeInHierarchy)
+                j++;
+
             float tempY;
             float tempX;
 
@@ -854,7 +984,7 @@ public class MillileSpawner : MonoBehaviour
                 }
             }
 
-            GameObject missile = disabledTorpedos.Dequeue();
+            GameObject missile = torpedoList[j].gameObject;
             missile.transform.position = new Vector3(tempX, tempY);
             missile.SetActive(true);
         }
@@ -883,8 +1013,27 @@ public class MillileSpawner : MonoBehaviour
         float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0, .4f)).y;
         float offScreenX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0)).x;
 
+        if (vStates == null)
+        {
+            //nothin
+        }
+        else if (vStates[0] == -1)
+        {
+            hStates = new int[num];
+            vStates = new int[num];
+            for (int i = 0; i < num; i++)
+            {
+                hStates[i] = (int)Random.Range(0, 6);
+                vStates[i] = (int)Random.Range(3, 6);
+            }
+        }
+
         for (int i = 0; i < num; i++)
         {
+            int j = 0;
+            while (torpedoList[j].activeInHierarchy)
+                j++;
+
             float tempY;
             float tempX;
 
@@ -951,20 +1100,36 @@ public class MillileSpawner : MonoBehaviour
                 }
             }
 
-            GameObject missile = disabledTorpedos.Dequeue();
+            GameObject missile = torpedoList[j].gameObject;
             missile.transform.position = new Vector3(tempX, tempY);
             missile.SetActive(true);
         }
     }
 
-    void TrackingMissileVolley(int amount)
+    #region Tracking Missiles
+    public void EnqueueDisabledTrackingMissile(GameObject trackingMissile)
     {
-        StartCoroutine(SpawntrackingMissilePrefabs(amount));
+        disabledTrackingMissiles.Enqueue(trackingMissile);
     }
-
-    IEnumerator SpawntrackingMissilePrefabs(int missileCount)
+    void TrackingMissileVolley(int amount, int leftOrRight = 0)
     {
-        Vector2 offScreen = Camera.main.ViewportToWorldPoint(new Vector2(Random.Range(0.0f, 1.0f), 1.2f));
+        StartCoroutine(SpawntrackingMissilePrefabs(amount, leftOrRight));
+    }
+    IEnumerator SpawntrackingMissilePrefabs(int missileCount, int leftOrRight = 0)
+    {
+        Vector2 offScreen;
+        if (leftOrRight == 0)
+        {
+            offScreen = Camera.main.ViewportToWorldPoint(new Vector2(Random.Range(0.0f, 1.0f), 1.2f));
+        }
+        else if( leftOrRight > 0 )
+        {
+            offScreen = Camera.main.ViewportToWorldPoint(new Vector2(Random.Range(0.7f, 1.4f), 1.2f));
+        }
+        else
+        {
+           offScreen = Camera.main.ViewportToWorldPoint(new Vector2(Random.Range(-0.4f, 0.3f), 1.2f));
+        }
 
         for (int i = 0; i < missileCount; i++)
         {
@@ -977,20 +1142,18 @@ public class MillileSpawner : MonoBehaviour
     }
     #endregion
 
+    #endregion
+
     #region Rocks
-	public void EnqueueRock(GameObject rock)
-	{
-		disabledRocks.Enqueue (rock);
-	}
 
     void InitializeRocks()
     {
         for (int i = 0; i < 12; i++)
         {
             GameObject rock = Instantiate(rockPrefab, new Vector2(100, 100), Quaternion.identity) as GameObject;
+            rockList.Add(rock);
             rock.SetActive(false);
             rock.transform.SetParent(rocksParent);
-            disabledRocks.Enqueue(rock);
         }
     }
 
@@ -1018,9 +1181,25 @@ public class MillileSpawner : MonoBehaviour
         float height2 = Camera.main.ViewportToWorldPoint(new Vector3(0, .15f)).y;
         float height3 = Camera.main.ViewportToWorldPoint(new Vector3(0, .20f)).y;
 
+        if (states == null)
+        {
+            //nothin
+        }
+        else if(states[0] == -1){
+            states = new int[amount];
+            for (int i = 0; i < amount; i++)
+            {
+                states[i] = (int)Random.Range(0, 4);
+            }
+        }
+
         for (int i = 0; i < amount; i++)
         {
-            GameObject rock = disabledRocks.Dequeue();
+            int j = 0;
+            while (rockList[j].activeInHierarchy)
+                j++;
+
+            GameObject rock = rockList[j];
             rock.SetActive(true);
             if (states == null || states.Length > amount)
             {
@@ -1083,20 +1262,33 @@ public class MillileSpawner : MonoBehaviour
         {
             while (EnemyBoat.currentBoss.GetPhase() == 0)
             {
-                yield return new WaitForSeconds(4);
-                SpawnRocks(5);
+                yield return new WaitForSecondsRealtime(3);
+                if (Random.Range(0, 10) > 3)
+                {
+                    SpawnRocks(3, new int[3] { 0, 0, 0 });
+                    yield return waitForRocks;
+                }
+                else
+                {
+                    SpawnRocks(1, new int[1] { 0});
+                    yield return waitForRocks;
+                }
             }
             while (EnemyBoat.currentBoss.GetPhase() == 1)
             {
-                yield return new WaitForSeconds(10);
-                TrackingMissileVolley(5);
+                yield return new WaitForSecondsRealtime(4);
+                TrackingMissileVolley(5, -1);
+            }
+            while (EnemyBoat.currentBoss.GetPhase() == 2)
+            {
+                //do nothing?
             }
             yield return null;
         }
 
         BeatLevel(5);
     }
-    #endregion
+    #endregion                                  ///STUFF TO DO HERE
 
     #region Upgrades
 
