@@ -197,6 +197,8 @@ public class BackgroundConroller : MonoBehaviour
                 speed[i] -= mult;
             }
         }
+
+		Coin.GiveSpeedMultiplier (speed [1]);
     }
 
     void BeginLevel()

@@ -706,6 +706,7 @@ public class MillileSpawner : MonoBehaviour
             speedMultiplier += Time.deltaTime;
             MainCanvas.controller.speedMult += Time.deltaTime;
             BackgroundConroller.controller.UpdateSpeedMult(Time.deltaTime);
+			UpdateAllSpeedMults (speedMultiplier);
 
             time += Time.deltaTime;
             yield return null;

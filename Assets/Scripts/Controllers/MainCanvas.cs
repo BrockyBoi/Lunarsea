@@ -86,6 +86,9 @@ public class MainCanvas : MonoBehaviour
         }
 
         CheckToTurnOffScoreTexts();
+
+		if (PlayerInfo.controller.ResetSaveFile || PlayerInfo.controller.DeleteFirst)
+			UpdateCoinString (0);
     }
 
     void OnDisable()

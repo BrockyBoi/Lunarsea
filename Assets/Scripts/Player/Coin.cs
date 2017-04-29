@@ -7,7 +7,7 @@ public class Coin : MonoBehaviour
     bool followPlayer;
 
     [SerializeField]
-    static float startingSpeed = 10;
+    static float startingSpeed = 4;
     static float speed;
 
     void Start()
@@ -15,7 +15,7 @@ public class Coin : MonoBehaviour
     }
     void Update()
     {
-        Move(BackgroundConroller.controller.getSpeed(1) * 1.25f);
+		Move(speed * 1.25f);
     }
 
     void OnTriggerEnter2D(Collider2D other)

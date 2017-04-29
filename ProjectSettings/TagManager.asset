@@ -16,6 +16,8 @@ TagManager:
   - Cloud Enemy
   - Coin
   - Magnet
+  - MoveButtonL
+  - MoveButtonR
   layers:
   - Default
   - TransparentFX

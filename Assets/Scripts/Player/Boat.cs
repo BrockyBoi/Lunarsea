@@ -94,6 +94,8 @@ public class Boat : MonoBehaviour
 
         moonItem = Instantiate(moonPrefab, transform.position, Quaternion.identity) as GameObject;
         moonItem.SetActive(false);
+
+		Input.multiTouchEnabled = true;
     }
 
     void OnDisable()
@@ -114,7 +116,6 @@ public class Boat : MonoBehaviour
     {
         if (dead || upgrading)
             return;
-        Debug.Log("Btn: " + btnMv);
 
         #if UNITY_STANDALONE || UNITY_WEBPLAYER
                 horizontal = Input.GetAxis("Horizontal");
@@ -148,12 +149,35 @@ public class Boat : MonoBehaviour
 
         if (tutorialMode && TutorialController.controller.CheckIfOnStage(TutorialController.TutorialStage.MOVEMENT) && horizontal != 0)
             TutorialController.controller.SetStage(TutorialController.TutorialStage.SPAWN_MOON);
-
+		#if UNITY_STANDALONE || UNITY_WEBPLAYER
         if (Input.GetMouseButtonDown(0) && !moonOut && !sailingIn)
         {
             if (CheckIfAllowed(TutorialController.TutorialStage.SPAWN_MOON))
-                CreateMoon();
+		CreateMoon(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
+		#elif UNITY_IOS || UNITY_ANDROID
+		RaycastHit hit;
+		if(Input.GetMouseButtonDown(0))
+			Debug.Log("Hit water: " + Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity,  LayerMask.GetMask("Water")));
+		int count = Input.touchCount;
+		if(count > 0)
+		{
+			for(int i = 0; i < count; i++)
+			{
+					Touch touch = Input.GetTouch(i);
+				if(touch.phase == TouchPhase.Began && !moonOut && !sailingIn)
+				{
+				     if(!Physics.Raycast(Camera.main.ScreenPointToRay(touch.position), Mathf.Infinity,  LayerMask.GetMask("Water")))
+					 {
+							if(CheckIfAllowed(TutorialController.TutorialStage.SPAWN_MOON))
+								CreateMoon(Camera.main.ScreenToWorldPoint(touch.position));
+					 }
+					}
+				}
+			}
+
+		#endif
+
 
         Movement(horizontal);
         CheckBoundaries();
@@ -212,12 +236,12 @@ public class Boat : MonoBehaviour
         transform.position = vec;
     }
 
-    void CreateMoon()
+	void CreateMoon(Vector3 pos)
     {
         moonOut = true;
         moonItem.transform.position = transform.position;
         moonItem.SetActive(true);
-        moonItem.GetComponent<Moon>().GiveVector(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+		moonItem.GetComponent<Moon>().GiveVector(pos);
         AudioController.controller.WaterRise();
 
         if (tutorialMode && TutorialController.controller.CheckIfOnStage(TutorialController.TutorialStage.SPAWN_MOON))

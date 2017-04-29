@@ -19,15 +19,34 @@ public class Moon : MonoBehaviour
 
     void Update()
     {
+		#if UNITY_STANDALONE || UNITY_WEBPLAYER
         if (!Boat.player.CheckIfAlive() || (Input.GetMouseButtonDown(0) && !returning))
         {
-            StopAllCoroutines();
-            returning = true;
-            StartCoroutine(MoveMoon(Boat.player.transform.position));
-            if (TutorialController.controller.CheckIfTutorialMode())
-                TutorialController.controller.SetStage(TutorialController.TutorialStage.DONE);
+			ReturnMoon();
         }
+		#elif UNITY_IOS || UNITY_ANDROID
+		if(!Boat.player.CheckIfAlive())
+			ReturnMoon();
+		
+		for(int i = 0; i < Input.touchCount; i++)
+		{
+			Touch touch = Input.GetTouch(i);
+			if(touch.phase == TouchPhase.Began && Camera.main.ScreenToWorldPoint(touch.position).y > Boat.player.transform.position.y)
+			{
+				ReturnMoon();
+			}
+		}
+		#endif
     }
+
+	void ReturnMoon()
+	{
+		StopAllCoroutines();
+		returning = true;
+		StartCoroutine(MoveMoon(Boat.player.transform.position));
+		if (TutorialController.controller.CheckIfTutorialMode())
+			TutorialController.controller.SetStage(TutorialController.TutorialStage.DONE);
+	}
 
     public void GiveVector(Vector3 pos)
     {
