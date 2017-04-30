@@ -278,6 +278,7 @@ public class MillileSpawner : MonoBehaviour
     IEnumerator transition()
     {
         StopCoroutine(EndlessWave());
+		UpdateSpeedMultiplier (1.5f);
         diff = diff + 1;
         yield return new WaitForEndOfFrame();
         StartCoroutine(EndlessWave());

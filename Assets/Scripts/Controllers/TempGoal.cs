@@ -166,7 +166,7 @@ public class TempGoal : System.Object
 
         string goal = "";
 
-        string reward = " for " + (Mathf.RoundToInt(rewardValue * TempGoalController.controller.GetScoreMultiplier())).ToString() + " coins.";
+		string reward = " for " + (Mathf.RoundToInt(rewardValue * TempGoalController.controller.GetAllMultipliers())).ToString() + " coins.";
         
          goal = targetGoal.ToString();
 

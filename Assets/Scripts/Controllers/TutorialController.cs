@@ -7,7 +7,7 @@ public class TutorialController : MonoBehaviour
     public static TutorialController controller;
 
     public enum TutorialStage { MOVEMENT, SPAWN_MOON, RETRACT_MOON, DONE }
-    int currentStage;
+	TutorialStage currentStage;
 
     public delegate void OnStartTutorial();
     public event OnStartTutorial onStartTutorial;
@@ -32,6 +32,11 @@ public class TutorialController : MonoBehaviour
         tutorialMode = PlayerInfo.controller.CheckIfFirstTime();
     }
 
+	void OnDisable()
+	{
+		Boat.player.onFinishedSailingIn -= SetUpTutorial;
+	}
+
     void SetUpTutorial()
     {
         if (!tutorialMode)
@@ -54,9 +59,7 @@ public class TutorialController : MonoBehaviour
 
     public bool CheckIfOnStage(TutorialStage t)
     {
-        if (currentStage == (int)t)
-            return true;
-        return false;
+		return currentStage == t;
     }
 
     public void SetStage(TutorialStage t)
@@ -70,7 +73,7 @@ public class TutorialController : MonoBehaviour
             return;
         }
 
-        currentStage = (int)t;
+        currentStage = t;
 
         if(t != TutorialStage.MOVEMENT)
             SpeechController.controller.NextPhrase();

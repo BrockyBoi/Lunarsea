@@ -60,6 +60,8 @@ public class MainCanvas : MonoBehaviour
     void Awake()
     {
         controller = this;
+		UpdateCoinString (0);
+		highScoreText.text = "Record: " + 0;
     }
 
     void Start()
@@ -86,9 +88,6 @@ public class MainCanvas : MonoBehaviour
         }
 
         CheckToTurnOffScoreTexts();
-
-		if (PlayerInfo.controller.ResetSaveFile || PlayerInfo.controller.DeleteFirst)
-			UpdateCoinString (0);
     }
 
     void OnDisable()
@@ -214,31 +213,31 @@ public class MainCanvas : MonoBehaviour
         switch (button){
             case 0:
                 if (IconStatus[button] < healthUpgradeIcons.Count)
-                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+				UpgradeIcons[button].overrideSprite = healthUpgradeIcons[Mathf.Min(++IconStatus[button], healthUpgradeIcons.Count - 1)];
                 break;
             case 1:
                 if (IconStatus[button] < healthUpgradeIcons.Count)
-                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+				UpgradeIcons[button].overrideSprite = healthUpgradeIcons[Mathf.Min(++IconStatus[button], healthUpgradeIcons.Count - 1)];
                 break;
             case 2:
                 if (IconStatus[button] < healthUpgradeIcons.Count)
-                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+				UpgradeIcons[button].overrideSprite = healthUpgradeIcons[Mathf.Min(++IconStatus[button], healthUpgradeIcons.Count - 1)];
                 break;
             case 3:
                 if (IconStatus[button] < healthUpgradeIcons.Count)
-                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+				UpgradeIcons[button].overrideSprite = healthUpgradeIcons[Mathf.Min(++IconStatus[button], healthUpgradeIcons.Count - 1)];
                 break;
             case 4:
                 if (IconStatus[button] < healthUpgradeIcons.Count)
-                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+				UpgradeIcons[button].overrideSprite = healthUpgradeIcons[Mathf.Min(++IconStatus[button], healthUpgradeIcons.Count - 1)];
                 break;
             case 5:
                 if (IconStatus[button] < healthUpgradeIcons.Count)
-                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+				UpgradeIcons[button].overrideSprite =healthUpgradeIcons[Mathf.Min(++IconStatus[button], healthUpgradeIcons.Count - 1)];
                 break;
             case 6:
                 if (IconStatus[button] < healthUpgradeIcons.Count)
-                    UpgradeIcons[button].overrideSprite = healthUpgradeIcons[++IconStatus[button]];
+				UpgradeIcons[button].overrideSprite = healthUpgradeIcons[Mathf.Min(++IconStatus[button], healthUpgradeIcons.Count - 1)];
                 break;
             default:
                 break;
@@ -393,6 +392,7 @@ public class MainCanvas : MonoBehaviour
 
     public void UpdateCoinString(int coinAmount)
     {
+		Debug.Log ("Update coin string");
         coinText.text = string.Format("{0:N0}", coinAmount);
     }
 

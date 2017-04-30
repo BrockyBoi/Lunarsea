@@ -17,6 +17,12 @@ public class TrackingMissile : Missile
         audio.clip = trackingSound;
         audio.volume = AudioController.controller.GetFXVolume();
     }
+
+	void VolumeChange()
+	{
+
+	}
+
     IEnumerator TakeShot()
     {
         Vector3 dirVector;

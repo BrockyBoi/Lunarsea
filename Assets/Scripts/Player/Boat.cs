@@ -3,472 +3,468 @@ using UnityEngine;
 
 public class Boat : MonoBehaviour
 {
-    #region variables
-    public static Boat player;
-    public float hSpeed = 5;
-    [SerializeField]
-    float uprightConstant = 1.0f;
-    bool aiming;
-    [SerializeField]
-    float missileForce = 750;
-    BoxCollider2D boxCollider;
-    CircleCollider2D[] circleColliders;
-    public bool moonOut = false;
+	#region variables
 
-    public GameObject moonPrefab;
+	public static Boat player;
+	public float hSpeed = 5;
+	[SerializeField]
+	float uprightConstant = 1.0f;
+	bool aiming;
+	[SerializeField]
+	float missileForce = 750;
+	BoxCollider2D boxCollider;
+	CircleCollider2D[] circleColliders;
+	public bool moonOut = false;
 
-    bool dead;
+	public GameObject moonPrefab;
 
-    int btnMv = 0;
-    bool grToggle = false;//true;
+	bool dead;
 
-    Rigidbody2D rb2d;
-    int health;
-    int maxHealth;
+	int btnMv = 0;
+	bool grToggle = false;
+	//true;
 
-    Animator anim;
+	Rigidbody2D rb2d;
+	int health;
+	int maxHealth;
 
-    List<Collider2D> colliders;
+	Animator anim;
 
-    bool tutorialMode;
-    bool finishedLevel;
+	List<Collider2D> colliders;
 
-    float nextDamageTime;
-    float invulTime = .3f;
+	bool tutorialMode;
+	bool finishedLevel;
 
-    float extraSpeed;
-    float horizontal;
+	float nextDamageTime;
+	float invulTime = .3f;
 
-    [SerializeField]
-    CircleCollider2D coinMagnet;
+	float extraSpeed;
+	float horizontal;
 
-    bool tookDamage;
+	[SerializeField]
+	CircleCollider2D coinMagnet;
 
-    bool sailingIn;
+	bool tookDamage;
 
-    bool upgrading = true;
+	bool sailingIn;
 
-    GameObject moonItem;
+	bool upgrading = true;
 
-    public delegate void OnFinishedSailingIn();
-    public event OnFinishedSailingIn onFinishedSailingIn;
+	GameObject moonItem;
 
-    public delegate void OnBoatDeath();
-    public event OnBoatDeath onBoatDeath;
-    #endregion
+	public delegate void OnFinishedSailingIn ();
 
-    void OnEnable()
-    {
-    }
+	public event OnFinishedSailingIn onFinishedSailingIn;
 
-    void Awake()
-    {
-        player = this;
-        dead = false;
-        rb2d = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+	public delegate void OnBoatDeath ();
 
-        colliders = new List<Collider2D>();
-        colliders.Add(GetComponent<BoxCollider2D>());
-        colliders.Add(GetComponent<PolygonCollider2D>());
-    }
+	public event OnBoatDeath onBoatDeath;
 
-    void Start()
-    {
-        MillileSpawner.controller.onWavesCleared += SailOffScreen;
+	#endregion
 
-        TutorialController.controller.onFinishTutorial += FinishTutorial;
+	void OnEnable ()
+	{
+	}
 
-        SinkKill.controller.BoatDied += Die;
-        Urdu.sideUrdu.BoatDied += Die;
+	void Awake ()
+	{
+		player = this;
+		dead = false;
+		rb2d = GetComponent<Rigidbody2D> ();
+		anim = GetComponent<Animator> ();
 
-        TutorialController.controller.onStartTutorial += StartTutoiral;
+		colliders = new List<Collider2D> ();
+		colliders.Add (GetComponent<BoxCollider2D> ());
+		colliders.Add (GetComponent<PolygonCollider2D> ());
+	}
 
-        UpgradeController.controller.notUpgrading += SailIn;
+	void Start ()
+	{
+		MillileSpawner.controller.onWavesCleared += SailOffScreen;
 
-        if (PlayerInfo.controller.ResetSaveFile || PlayerInfo.controller.CheckIfFirstTime())
-        {
-            maxHealth = health = 1;
-            MainCanvas.controller.HealthChange();
-        }
+		TutorialController.controller.onFinishTutorial += FinishTutorial;
 
-        moonItem = Instantiate(moonPrefab, transform.position, Quaternion.identity) as GameObject;
-        moonItem.SetActive(false);
+		SinkKill.controller.BoatDied += Die;
+		Urdu.sideUrdu.BoatDied += Die;
+
+		TutorialController.controller.onStartTutorial += StartTutoiral;
+
+		UpgradeController.controller.notUpgrading += SailIn;
+
+		if (PlayerInfo.controller.ResetSaveFile || PlayerInfo.controller.CheckIfFirstTime ()) {
+			maxHealth = health = 1;
+			MainCanvas.controller.HealthChange ();
+		}
+
+		moonItem = Instantiate (moonPrefab, transform.position, Quaternion.identity) as GameObject;
+		moonItem.SetActive (false);
 
 		Input.multiTouchEnabled = true;
-    }
+	}
 
-    void OnDisable()
-    {
-        MillileSpawner.controller.onWavesCleared -= SailOffScreen;
+	void OnDisable ()
+	{
+		MillileSpawner.controller.onWavesCleared -= SailOffScreen;
 
-        TutorialController.controller.onFinishTutorial -= FinishTutorial;
+		TutorialController.controller.onFinishTutorial -= FinishTutorial;
 
-        SinkKill.controller.BoatDied -= Die;
-        Urdu.sideUrdu.BoatDied -= Die;
+		SinkKill.controller.BoatDied -= Die;
+		Urdu.sideUrdu.BoatDied -= Die;
 
-        TutorialController.controller.onStartTutorial -= StartTutoiral;
+		TutorialController.controller.onStartTutorial -= StartTutoiral;
 
-        UpgradeController.controller.notUpgrading -= SailIn;
-    }
+		UpgradeController.controller.notUpgrading -= SailIn;
+	}
 
-    void Update()
-    {
-        if (dead || upgrading)
-            return;
+	void Update ()
+	{
+		if (dead || upgrading)
+			return;
 
-        #if UNITY_STANDALONE || UNITY_WEBPLAYER
-                horizontal = Input.GetAxis("Horizontal");
-
-#elif UNITY_IOS || UNITY_ANDROID
-        if (grToggle){
-                        float horizontal = Input.acceleration.x  * 3;
-                        if(horizontal > 1)
-                            horizontal = 1;
-                        if (horizontal < -1)
-                            horizontal = -1;
-                }
-                else{
-                        if( btnMv < 0 ){
-                            horizontal = -1;
-                        }
-                        else if( btnMv > 0 ){
-                            horizontal = 1;
-                        }
-                        else{
-                            horizontal = 0;
-                        }
-                }
-        #endif
-
-		if (sailingIn || finishedLevel)
-        {
-            horizontal = Time.deltaTime;
-        }
-
-
-        if (tutorialMode && TutorialController.controller.CheckIfOnStage(TutorialController.TutorialStage.MOVEMENT) && horizontal != 0)
-            TutorialController.controller.SetStage(TutorialController.TutorialStage.SPAWN_MOON);
 		#if UNITY_STANDALONE || UNITY_WEBPLAYER
-        if (Input.GetMouseButtonDown(0) && !moonOut && !sailingIn)
-        {
-            if (CheckIfAllowed(TutorialController.TutorialStage.SPAWN_MOON))
-		CreateMoon(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        }
+		horizontal = Input.GetAxis ("Horizontal");
+
 		#elif UNITY_IOS || UNITY_ANDROID
-		RaycastHit hit;
-		if(Input.GetMouseButtonDown(0))
-			Debug.Log("Hit water: " + Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity,  LayerMask.GetMask("Water")));
-		int count = Input.touchCount;
-		if(count > 0)
-		{
-			for(int i = 0; i < count; i++)
-			{
-					Touch touch = Input.GetTouch(i);
-				if(touch.phase == TouchPhase.Began && !moonOut && !sailingIn)
-				{
-				     if(!Physics.Raycast(Camera.main.ScreenPointToRay(touch.position), Mathf.Infinity,  LayerMask.GetMask("Water")))
-					 {
-							if(CheckIfAllowed(TutorialController.TutorialStage.SPAWN_MOON))
-								CreateMoon(Camera.main.ScreenToWorldPoint(touch.position));
-					 }
-					}
+		if (grToggle) {
+			float horizontal = Input.acceleration.x * 3;
+			if (horizontal > 1)
+				horizontal = 1;
+			if (horizontal < -1)
+				horizontal = -1;
+		} else {
+			if (btnMv < 0) {
+				horizontal = -1;
+			} else if (btnMv > 0) {
+				horizontal = 1;
+			} else {
+				horizontal = 0;
+			}
+		}
+		#endif
+
+		if (sailingIn || finishedLevel) {
+			horizontal = 0;
+		}
+
+
+		if (tutorialMode && TutorialController.controller.CheckIfOnStage (TutorialController.TutorialStage.MOVEMENT) && horizontal != 0)
+			TutorialController.controller.SetStage (TutorialController.TutorialStage.SPAWN_MOON);
+		
+		#if UNITY_STANDALONE || UNITY_WEBPLAYER
+		if (Input.GetMouseButtonDown (0) && !moonOut && !sailingIn && Camera.main.ScreenToWorldPoint (Input.mousePosition).y > -2.5f) {
+			if (CheckIfAllowed (TutorialController.TutorialStage.SPAWN_MOON))
+				CreateMoon (Camera.main.ScreenToWorldPoint (Input.mousePosition));
+		}
+		#elif UNITY_IOS || UNITY_ANDROID
+		if (Input.touchCount > 0) {
+			for (int i = 0; i < Input.touchCount; i++) {
+				Touch touch = Input.GetTouch (i);
+				if (touch.phase == TouchPhase.Began && !moonOut && !sailingIn && Camera.main.ScreenToWorldPoint (touch.position).y > -2.5) {
+					if (CheckIfAllowed (TutorialController.TutorialStage.SPAWN_MOON))
+						CreateMoon (Camera.main.ScreenToWorldPoint (touch.position));
+				
 				}
 			}
+		}
 
 		#endif
 
 
-        Movement(horizontal);
-        CheckBoundaries();
-    }
+		Movement (horizontal);
+		CheckBoundaries ();
+	}
 
-    #region Movement Checks
-    void CheckBoundaries()
-    {
-        //Vector3 screenCoor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
-        Vector3 leftSide = Camera.main.ViewportToWorldPoint(Vector2.zero);
-        Vector3 rightSide = Camera.main.ViewportToWorldPoint(Vector2.right);
-        float midPoint = Camera.main.ViewportToWorldPoint(new Vector2(.5f, .5f)).x;
+	#region Movement Checks
 
-        if (!finishedLevel && transform.position.x > rightSide.x - 1)
-        {
-            transform.position = new Vector3(rightSide.x - 1, transform.position.y);
-        }
-        if (!sailingIn && transform.position.x < leftSide.x + 1)
-        {
-            transform.position = new Vector3(leftSide.x + 1, transform.position.y);
-        }
+	void CheckBoundaries ()
+	{
+		//Vector3 screenCoor = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
+		Vector3 leftSide = Camera.main.ViewportToWorldPoint (Vector2.zero);
+		Vector3 rightSide = Camera.main.ViewportToWorldPoint (Vector2.right);
+		float midPoint = Camera.main.ViewportToWorldPoint (new Vector2 (.5f, .5f)).x;
 
-        if (finishedLevel && transform.position.x > rightSide.x - 1)
-        {
-            MainCanvas.controller.FinishLevel();
-        }
+		if (!finishedLevel && transform.position.x > rightSide.x - 1) {
+			transform.position = new Vector3 (rightSide.x - 1, transform.position.y);
+		}
+		if (!sailingIn && transform.position.x < leftSide.x + 1) {
+			transform.position = new Vector3 (leftSide.x + 1, transform.position.y);
+		}
 
-        if (extraSpeed > 0 && !finishedLevel && Mathf.Abs(transform.position.x - midPoint) <= .5f)
-        {
-            FinishedSailingIn();
-        }
-    }
+		if (finishedLevel && transform.position.x > rightSide.x - 1) {
+			MainCanvas.controller.FinishLevel ();
+		}
 
-    void FixedUpdate()
-    {
-       SelfRight();
-    }
+		if (extraSpeed > 0 && !finishedLevel && Mathf.Abs (transform.position.x - midPoint) <= .5f) {
+			FinishedSailingIn ();
+		}
+	}
 
-    void SelfRight()
-    {
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0)), Time.deltaTime * uprightConstant);
-    }
-    #endregion
+	void FixedUpdate ()
+	{
+		SelfRight ();
+	}
 
-    #region Input
-    void Movement(float h)
-    {
-        if ((h == 0 && extraSpeed == 0))
-            return;
+	void SelfRight ()
+	{
+		transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.Euler (new Vector3 (transform.eulerAngles.x, transform.eulerAngles.y, 0)), Time.deltaTime * uprightConstant);
+	}
 
-        float speed = ((hSpeed * h) + extraSpeed) * Time.deltaTime;
+	#endregion
 
-        Vector3 vec = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * speed, 10 * Time.deltaTime);
-        vec.z = -10;
+	#region Input
 
-        transform.position = vec;
-    }
+	void Movement (float h)
+	{
+		if ((h == 0 && extraSpeed == 0))
+			return;
 
-	void CreateMoon(Vector3 pos)
-    {
-        moonOut = true;
-        moonItem.transform.position = transform.position;
-        moonItem.SetActive(true);
-		moonItem.GetComponent<Moon>().GiveVector(pos);
-        AudioController.controller.WaterRise();
+		float speed = ((hSpeed * h) + extraSpeed) * Time.deltaTime;
 
-        if (tutorialMode && TutorialController.controller.CheckIfOnStage(TutorialController.TutorialStage.SPAWN_MOON))
-            TutorialController.controller.SetStage(TutorialController.TutorialStage.RETRACT_MOON);
-    }
+		Vector3 vec = Vector2.MoveTowards (transform.position, transform.position + Vector3.right * speed, 10 * Time.deltaTime);
+		vec.z = -10;
 
-    public void leftDown()
-    {
-        btnMv = -1;
-    }
-    public void leftUp()
-    {
-        btnMv = 0;
-    }
-    public void rightDown()
-    {
-        btnMv = 1;
-    }
-    public void rightUp()
-    {
-        btnMv = 0;
-    }
-    #endregion
+		transform.position = vec;
+	}
 
-    #region Collisions/Triggers
+	void CreateMoon (Vector3 pos)
+	{
+		moonOut = true;
+		moonItem.transform.position = transform.position;
+		moonItem.SetActive (true);
+		moonItem.GetComponent<Moon> ().GiveVector (pos);
+		AudioController.controller.WaterRise ();
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("PlatformProjectile"))
-        {
-            TakeDamage();
-            Destroy(other.gameObject);
-        }
-    }
+		if (tutorialMode && TutorialController.controller.CheckIfOnStage (TutorialController.TutorialStage.SPAWN_MOON))
+			TutorialController.controller.SetStage (TutorialController.TutorialStage.RETRACT_MOON);
+	}
 
-    void OnCollisionStay2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Enemy Boat"))
-        {
-            TakeDamage();
-        }
-    }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
-        {
-            //AudioController.controller.Gargle();
-        }
+	public void leftDown ()
+	{
+		btnMv = -1;
+	}
 
-        if (other.gameObject.CompareTag("Pillar"))
-        {
-            TakeDamage();
-            Destroy(other.transform.parent.gameObject);
-        }
-    }
+	public void leftUp ()
+	{
+		btnMv = 0;
+	}
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
-        {
-            AudioController.controller.StopGargling();
-        }
-    }
-    #endregion
+	public void rightDown ()
+	{
+		btnMv = 1;
+	}
 
-    #region Health Scripts
-    public void TakeMissileDamage()
-    {
-        if (Time.time < nextDamageTime)
-            return;
-        rb2d.AddForce(Vector2.left * missileForce);
-        TakeDamage();
-    }
+	public void rightUp ()
+	{
+		btnMv = 0;
+	}
 
-    public void TakeDamage()
-    {
-        if (Time.time < nextDamageTime)
-            return;
+	#endregion
 
-        tookDamage = true;
-        nextDamageTime = Time.time + invulTime;
-        health--;
-        MainCanvas.controller.HealthChange();
-        anim.SetTrigger("hit");
-        SetInvulAnimation();
-        if (health == 0)
-            Die();
-    }
+	#region Collisions/Triggers
 
-    void SetInvulAnimation()
-    {
-        anim.SetBool("invulnerable", true);
-        Invoke("DisableInvulAnimation", invulTime);
-    }
+	void OnCollisionEnter2D (Collision2D other)
+	{
+		if (other.gameObject.CompareTag ("PlatformProjectile")) {
+			TakeDamage ();
+			Destroy (other.gameObject);
+		}
+	}
 
-    void DisableInvulAnimation()
-    {
-        anim.SetBool("invulnerable", false);
-    }
+	void OnCollisionStay2D (Collision2D other)
+	{
+		if (other.gameObject.CompareTag ("Enemy Boat")) {
+			TakeDamage ();
+		}
+	}
 
-    public bool CheckIfTookDamage()
-    {
-        return tookDamage;
-    }
+	void OnTriggerEnter2D (Collider2D other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer ("Water")) {
+			//AudioController.controller.Gargle();
+		}
 
-    void UpdateColliders()
-    {
-        if (health < 1)
-        {
-            for (int i = 0; i < colliders.Count; i++)
-            {
-                colliders[i].enabled = false;
-            }
-        }
-    }
+		if (other.gameObject.CompareTag ("Pillar")) {
+			TakeDamage ();
+			Destroy (other.transform.parent.gameObject);
+		}
+	}
 
-    void Die()
-    {
-        health = 0;
-        dead = true;
-        UpdateColliders();
+	void OnTriggerExit2D (Collider2D other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer ("Water")) {
+			AudioController.controller.StopGargling ();
+		}
+	}
 
-		PlayerInfo.controller.Save ();
-        onBoatDeath();
-    }
+	#endregion
 
-    public void AddHealth()
-    {
-        health = Mathf.Min(health + 1, maxHealth);
-        MainCanvas.controller.HealthChange();
-        AudioController.controller.PlayRepairBoat();
-    }
+	#region Health Scripts
 
-    public void UpdateBoatSpeed(int value)
-    {
-        hSpeed = 5 + value * .75f;
-    }
+	public void TakeMissileDamage ()
+	{
+		if (Time.time < nextDamageTime)
+			return;
+		rb2d.AddForce (Vector2.left * missileForce);
+		TakeDamage ();
+	}
 
-    public int GetMaxHealth()
-    {
-        return maxHealth;
-    }
+	public void TakeDamage ()
+	{
+		if (Time.time < nextDamageTime)
+			return;
 
-    public void UpdateMaxHealth(int value)
-    {
-        maxHealth = value + 2;
-        health = maxHealth;
-        MainCanvas.controller.HealthChange();
-    }
+		tookDamage = true;
+		nextDamageTime = Time.time + invulTime;
+		health--;
+		MainCanvas.controller.HealthChange ();
+		anim.SetTrigger ("hit");
+		SetInvulAnimation ();
+		if (health == 0)
+			Die ();
+	}
 
-    public void UpdateMagnetSize(int value)
-    {
-        if (value == 0)
-            coinMagnet.enabled = false;
-        else coinMagnet.enabled = true;
-        coinMagnet.radius = 2 + .25f * value;
-    }
+	void SetInvulAnimation ()
+	{
+		anim.SetBool ("invulnerable", true);
+		Invoke ("DisableInvulAnimation", invulTime);
+	}
 
-    public void UpdateInvulTime(float time)
-    {
-        invulTime = .5f + time * .25f;
-    }
+	void DisableInvulAnimation ()
+	{
+		anim.SetBool ("invulnerable", false);
+	}
 
-    public int GetHealth()
-    {
-        return health;
-    }
-    #endregion
+	public bool CheckIfTookDamage ()
+	{
+		return tookDamage;
+	}
 
-    #region Tutorial Functions
+	void UpdateColliders ()
+	{
+		if (health < 1) {
+			for (int i = 0; i < colliders.Count; i++) {
+				colliders [i].enabled = false;
+			}
+		}
+	}
 
-    public bool CheckTutorialMode()
-    {
-        return tutorialMode;
-    }
-
-    void StartTutoiral()
-    {
-        tutorialMode = true;
-    }
-
-    void FinishTutorial()
-    {
-        tutorialMode = false;
-    }
-
-    public bool CheckIfAlive()
-    {
-        if (!dead)
-            return true;
-
-        return false;
-    }
-
-    bool CheckIfAllowed(TutorialController.TutorialStage t)
-    {
-        if ((tutorialMode && TutorialController.controller.CheckIfOnStage(t)) || !tutorialMode)
-            return true;
-
-        return false;
-    }
-    #endregion
-
-    #region Sailing
-    public void SailIn()
-    {
-        AudioController.controller.PlayFX(AudioController.controller.mastUnfurl);
-        extraSpeed = 7.5f;
-        sailingIn = true;
-        upgrading = false;
-    }
-    public void SailOffScreen()
-    {
-        if (GameModeController.controller.CheckCurrentMode(GameModeController.Mode.Endless))
-            return;
+	void Die ()
+	{
+		health = 0;
+		dead = true;
+		UpdateColliders ();
 
 		PlayerInfo.controller.Save ();
-        extraSpeed = 7.5f;
-        finishedLevel = true;
+		onBoatDeath ();
+	}
 
-    }
+	public void AddHealth ()
+	{
+		health = Mathf.Min (health + 1, maxHealth);
+		MainCanvas.controller.HealthChange ();
+		AudioController.controller.PlayRepairBoat ();
+	}
 
-    void FinishedSailingIn()
-    {
-        sailingIn = false;
-        extraSpeed = 0;
-        onFinishedSailingIn();
-    }
-    #endregion
+	public void UpdateBoatSpeed (int value)
+	{
+		hSpeed = 5 + value * .75f;
+	}
+
+	public int GetMaxHealth ()
+	{
+		return maxHealth;
+	}
+
+	public void UpdateMaxHealth (int value)
+	{
+		maxHealth = value + 2;
+		health = maxHealth;
+		MainCanvas.controller.HealthChange ();
+	}
+
+	public void UpdateMagnetSize (int value)
+	{
+		if (value == 0)
+			coinMagnet.enabled = false;
+		else
+			coinMagnet.enabled = true;
+		coinMagnet.radius = 2 + .25f * value;
+	}
+
+	public void UpdateInvulTime (float time)
+	{
+		invulTime = .5f + time * .25f;
+	}
+
+	public int GetHealth ()
+	{
+		return health;
+	}
+
+	#endregion
+
+	#region Tutorial Functions
+
+	public bool CheckTutorialMode ()
+	{
+		return tutorialMode;
+	}
+
+	void StartTutoiral ()
+	{
+		tutorialMode = true;
+	}
+
+	void FinishTutorial ()
+	{
+		tutorialMode = false;
+	}
+
+	public bool CheckIfAlive ()
+	{
+		if (!dead)
+			return true;
+
+		return false;
+	}
+
+	bool CheckIfAllowed (TutorialController.TutorialStage t)
+	{
+		if ((tutorialMode && TutorialController.controller.CheckIfOnStage (t)) || !tutorialMode)
+			return true;
+
+		return false;
+	}
+
+	#endregion
+
+	#region Sailing
+
+	public void SailIn ()
+	{
+		AudioController.controller.PlayFX (AudioController.controller.mastUnfurl);
+		extraSpeed = 7.5f;
+		sailingIn = true;
+		upgrading = false;
+	}
+
+	public void SailOffScreen ()
+	{
+		if (GameModeController.controller.CheckCurrentMode (GameModeController.Mode.Endless))
+			return;
+
+		PlayerInfo.controller.Save ();
+		extraSpeed = 7.5f;
+		finishedLevel = true;
+
+	}
+
+	void FinishedSailingIn ()
+	{
+		sailingIn = false;
+		extraSpeed = 0;
+		onFinishedSailingIn ();
+	}
+
+	#endregion
 }

@@ -10,8 +10,14 @@ public class Coin : MonoBehaviour
     static float startingSpeed = 4;
     static float speed;
 
+	AudioSource audio;
+	public AudioClip coinPickUp1;
+	public AudioClip coinPickUp2;
+
     void Start()
     {
+		audio = gameObject.AddComponent<AudioSource> ();
+		speed = startingSpeed;
     }
     void Update()
     {
@@ -38,8 +44,8 @@ public class Coin : MonoBehaviour
     {
         int randomNum = Random.Range(0, 2);
         if (randomNum == 0)
-            AudioController.controller.PlayFX(AudioController.controller.coinPickUp1);
-        else AudioController.controller.PlayFX(AudioController.controller.coinPickUp2);
+			audio.PlayOneShot(coinPickUp1);
+		else audio.PlayOneShot(coinPickUp2);
     }
 
     void OnDisable()

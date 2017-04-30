@@ -14,8 +14,8 @@ public class TempGoalController : MonoBehaviour
 
     int missileCount;
 
-    float totalScoreMultiplier = 1;
-    float tempScoreMultiplier = 0;
+	float totalScoreMultiplier;
+	float tempScoreMultiplier;
 
     [SerializeField]
     int maxGoals;
@@ -39,6 +39,8 @@ public class TempGoalController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+		totalScoreMultiplier = 1;
+		tempScoreMultiplier = 0;
         Boat.player.onBoatDeath += PlayerDied;
 		if (PlayerInfo.controller.ResetSaveFile || PlayerInfo.controller.DeleteFirst)
             NewGoals();
@@ -157,7 +159,7 @@ public class TempGoalController : MonoBehaviour
 
     public void FinishGoal(int spot, int rewardValue)
     {
-        CoinController.controller.ReceiveReward(rewardValue * Mathf.RoundToInt(GetAllMultipliers()));
+		CoinController.controller.ReceiveReward(Mathf.RoundToInt(rewardValue * GetAllMultipliers()));
 
         hasGoals[goals[spot].GetGoalType()] = false;
 

@@ -78,7 +78,9 @@ public class UpgradeController : MonoBehaviour
             default:
                 break;
         }
-        MainCanvas.controller.UpdateUpgradePrice(upgrade, coinAmounts[upgradeValues[upgrade]]);
+		if (upgradeValues[upgrade] < 5)
+			MainCanvas.controller.UpdateUpgradePrice(upgrade, coinAmounts[upgradeValues[upgrade]]);
+		else MainCanvas.controller.UpdateUpgradePrice(upgrade, 0);
         PlayerInfo.controller.Save();
     }
 

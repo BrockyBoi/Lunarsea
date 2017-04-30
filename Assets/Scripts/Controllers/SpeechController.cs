@@ -5,72 +5,77 @@ using UnityEngine.UI;
 
 public class SpeechController : MonoBehaviour
 {
-    public static SpeechController controller;
+	public static SpeechController controller;
 
-    int currentPhrase;
-    public List<string> phrases;
+	int currentPhrase;
+	public List<string> phrases;
 
-    public Text textField;
+	public Text textField;
 
-    bool textTime;
+	bool textTime;
 
-    void OnEnable()
-    {
-    }
+	public string introText;
+	public Text introTextField;
 
-    void Awake()
-    {
-        controller = this;
-    }
-    // Use this for initialization
-    void Start()
-    {
-        TutorialController.controller.onStartTutorial += FirstPhrase;
+	void OnEnable ()
+	{
+	}
 
-        TutorialController.controller.onFinishTutorial += CloseWindow;
-        textField.transform.parent.gameObject.SetActive(false);
-    }
+	void Awake ()
+	{
+		controller = this;
+	}
+	// Use this for initialization
+	void Start ()
+	{
+		TutorialController.controller.onStartTutorial += FirstPhrase;
 
-    void OnDisable()
-    {
-        TutorialController.controller.onStartTutorial -= FirstPhrase;
+		TutorialController.controller.onFinishTutorial += CloseWindow;
+		textField.transform.parent.gameObject.SetActive (false);
+	}
 
-        TutorialController.controller.onFinishTutorial -= CloseWindow;
-    }
+	void OnDisable ()
+	{
+		TutorialController.controller.onStartTutorial -= FirstPhrase;
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
+		TutorialController.controller.onFinishTutorial -= CloseWindow;
+	}
 
-    void FirstPhrase()
-    {
-        textField.transform.parent.gameObject.SetActive(true);
-        textField.text = phrases[0];
-        textTime = true;
-    }
+	public void DisplayStory ()
+	{
+		StartCoroutine (IntroText ());
+	}
 
-    public void NextPhrase()
-    {
-        if (currentPhrase < phrases.Count - 1)
-        {
-            currentPhrase++;
-            textField.text = phrases[currentPhrase];
-        }
-        else
-        {
-            CloseWindow();
-        }
-    }
+	IEnumerator IntroText ()
+	{
+		int count = 0;
+		while (count < introText.Length) {
+			introTextField.text += introText [count];
+			count++;
+			yield return new WaitForSeconds (.05f);
+		}
+	}
 
-    public void CloseWindow()
-    {
-        textTime = false;
-        textField.transform.parent.gameObject.SetActive(false);
-    }
+	void FirstPhrase ()
+	{
+		textField.transform.parent.gameObject.SetActive (true);
+		textField.text = phrases [0];
+		textTime = true;
+	}
 
-    public bool CheckTextTime()
-    {
-        return textTime;
-    }
+	public void NextPhrase ()
+	{
+		if (currentPhrase < phrases.Count - 1) {
+			currentPhrase++;
+			textField.text = phrases [currentPhrase];
+		} else {
+			CloseWindow ();
+		}
+	}
+
+	public void CloseWindow ()
+	{
+		textTime = false;
+		textField.transform.parent.gameObject.SetActive (false);
+	}
 }

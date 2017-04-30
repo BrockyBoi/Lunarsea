@@ -91,6 +91,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleEffect: {fileID: 1581654076647308, guid: 04d5ea6e7d407024291662ee4b1c6deb,
     type: 2}
+  coinPickUp1: {fileID: 8300000, guid: 7a2f833e71f07d44496e93dc7b35c925, type: 3}
+  coinPickUp2: {fileID: 8300000, guid: bc99c736c6049824db9e9ef25cf9a6a0, type: 3}
 --- !u!212 &212113661679441804
 SpriteRenderer:
   m_ObjectHideFlags: 1

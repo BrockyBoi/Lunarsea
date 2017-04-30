@@ -1964,6 +1964,10 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: -149
       objectReference: {fileID: 0}
+    - target: {fileID: 1213174134557014, guid: 71932c8ca788c03478997aa0ca4cca1b, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 71932c8ca788c03478997aa0ca4cca1b, type: 2}
   m_IsPrefabParent: 0
@@ -2297,6 +2301,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114103865105979950, guid: de2369657e465814c9223293c4094958,
+        type: 2}
+      propertyPath: introText.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4446142644039040, guid: de2369657e465814c9223293c4094958, type: 2}
       propertyPath: m_LocalPosition.x
       value: -2.2225103
@@ -2363,6 +2372,91 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114936077018901814, guid: de2369657e465814c9223293c4094958,
+        type: 2}
+      propertyPath: DeleteFirst
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114259653825167178, guid: de2369657e465814c9223293c4094958,
+        type: 2}
+      propertyPath: waterYPos
+      value: 0.675
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029000099909460, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029000099909460, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029000099909460, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072822926916154, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072822926916154, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072822926916154, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4853424852197402, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4853424852197402, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4853424852197402, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364529750343132, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364529750343132, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4364529750343132, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770566502202450, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770566502202450, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770566502202450, guid: de2369657e465814c9223293c4094958, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114103865105979950, guid: de2369657e465814c9223293c4094958,
+        type: 2}
+      propertyPath: phrases.Array.data[0]
+      value: Use left and right buttons to move the boat left and right
+      objectReference: {fileID: 0}
+    - target: {fileID: 114103865105979950, guid: de2369657e465814c9223293c4094958,
+        type: 2}
+      propertyPath: phrases.Array.data[1]
+      value: Tap above the water to summon the moon to create waves
+      objectReference: {fileID: 0}
+    - target: {fileID: 114103865105979950, guid: de2369657e465814c9223293c4094958,
+        type: 2}
+      propertyPath: phrases.Array.data[2]
+      value: Tap above the water again to retract the moon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de2369657e465814c9223293c4094958, type: 2}
