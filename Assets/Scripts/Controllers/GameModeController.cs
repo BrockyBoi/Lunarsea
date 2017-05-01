@@ -14,6 +14,7 @@ public class GameModeController : MonoBehaviour
     Mode currentMode;
 
     int chosenLevel = 1;
+    bool gyro = true;
     #endregion
     void Awake()
     {
@@ -75,5 +76,18 @@ public class GameModeController : MonoBehaviour
     public int GetCurrentLevel()
     {
         return chosenLevel;
+    }
+
+    public bool GetGyro()
+    {
+        return gyro;
+    }
+    public void SetGyro(bool b)
+    {
+        gyro = b;
+    }
+    public void ToggleGyro()
+    {
+        gyro = !gyro;
     }
 }

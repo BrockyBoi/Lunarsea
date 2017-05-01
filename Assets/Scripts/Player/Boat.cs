@@ -96,6 +96,8 @@ public class Boat : MonoBehaviour
 			MainCanvas.controller.HealthChange ();
 		}
 
+        grToggle = GameModeController.controller.GetGyro();
+
 		moonItem = Instantiate (moonPrefab, transform.position, Quaternion.identity) as GameObject;
 		moonItem.SetActive (false);
 
@@ -126,12 +128,14 @@ public class Boat : MonoBehaviour
 
 		#elif UNITY_IOS || UNITY_ANDROID
 		if (grToggle) {
+            Debug.Log("Gyro is on");
 			float horizontal = Input.acceleration.x * 3;
 			if (horizontal > 1)
 				horizontal = 1;
 			if (horizontal < -1)
 				horizontal = -1;
 		} else {
+            Debug.Log("Gyro is off");
 			if (btnMv < 0) {
 				horizontal = -1;
 			} else if (btnMv > 0) {

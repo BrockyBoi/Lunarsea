@@ -13,6 +13,7 @@ public class MainCanvas : MonoBehaviour
     public GameObject levelScreen;
     public GameObject monetizationScreen;
     public GameObject startScreen;
+    public GameObject mobileButtons;
     public Text scoreText;
     public Text highScoreText;
     public Text coinText;
@@ -85,6 +86,15 @@ public class MainCanvas : MonoBehaviour
         else
         {
             levelTitle.text = string.Format("Endless Mode");
+        }
+
+        if (GameModeController.controller.GetGyro())
+        {
+            mobileButtons.SetActive(false);
+        }
+        else
+        {
+            mobileButtons.SetActive(true);
         }
 
         CheckToTurnOffScoreTexts();

@@ -19,6 +19,8 @@ public class MainMenu : MonoBehaviour
 	public GameObject levelSelectParent;
 	public GameObject playSelectParent;
 	public GameObject optionsParent;
+    public GameObject toggleGyroButton;
+    public Text toggleGyroText;
 	public List<Button> levelButtons;
 
 	public Slider musicSlider;
@@ -31,15 +33,31 @@ public class MainMenu : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		//mainMenuParent.SetActive (true);
+		mainMenuParent.SetActive (true);
 		creditsParent.SetActive (false);
 		levelSelectParent.SetActive (false);
 		playSelectParent.SetActive (false);
 		loading.gameObject.SetActive (false);
-		SpeechController.controller.DisplayStory ();
-	}
+        optionsParent.gameObject.SetActive(false);
 
-	public void InitializeLevelButtons (int levelsBeaten)
+#if UNITY_STANDALONE || UNITY_WEBPLAYER
+        toggleGyroButton.SetActive(false);
+#elif UNITY_IOS || UNITY_ANDROID
+        toggleGyroButton.SetActive(true);
+#endif
+        if (GameModeController.controller.GetGyro())
+        {
+            toggleGyroText.text = "Gyro:\nOn";
+        }
+        else
+        {
+            toggleGyroText.text = "Gyro:\nOff";
+        }
+
+        //SpeechController.controller.DisplayStory ();
+    }
+
+    public void InitializeLevelButtons (int levelsBeaten)
 	{
 		for (int i = levelsBeaten + 1; i < levelButtons.Count; i++) {
 			levelButtons [i].GetComponent<Image> ().color = new Color (Color.gray.r, Color.gray.g, Color.gray.b, .5f);
@@ -128,6 +146,19 @@ public class MainMenu : MonoBehaviour
 	{
 		Application.Quit ();
 	}
+
+    public void PressToggleGyro()
+    {
+        GameModeController.controller.ToggleGyro();
+        if (GameModeController.controller.GetGyro())
+        {
+            toggleGyroText.text = "Gyro:\nOn";
+        }
+        else
+        {
+            toggleGyroText.text = "Gyro:\nOff";
+        }
+    }
 
 	#endregion
 
