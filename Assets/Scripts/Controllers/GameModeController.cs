@@ -6,88 +6,111 @@ using UnityEngine;
 public class GameModeController : MonoBehaviour
 {
 
-    #region Variables
-    public static GameModeController controller;
+	#region Variables
 
-    public enum Mode { Story, Endless }
-    [SerializeField]
-    Mode currentMode;
+	public static GameModeController controller;
 
-    int chosenLevel = 1;
-    bool gyro = true;
-    #endregion
-    void Awake()
-    {
-        if (controller == null)
-            controller = this;
-        else if (controller != this)
-            Destroy(gameObject);
+	public enum Mode
+	{
+		Story,
+		Endless
+	}
 
-        DontDestroyOnLoad(this);
-    }
+	[SerializeField]
+	Mode currentMode;
 
-    void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnLevelFinishedLoading;
-    }
+	int chosenLevel = 1;
+	bool gameStarted;
 
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
-        if (MainMenu.controller != null)
-            MainMenu.controller.PressedLevel -= ChooseLevel;
-    }
+	bool gyro = true;
 
-    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
-    {
-        if (MainMenu.controller != null)
-            MainMenu.controller.PressedLevel += ChooseLevel;
-    }
-    void Start()
-    {
-        if (MainMenu.controller != null)
-            MainMenu.controller.PressedLevel += ChooseLevel;
-    }
+	#endregion
 
-    void OnLevelChange()
-    {
+	void Awake ()
+	{
+		if (controller == null)
+			controller = this;
+		else if (controller != this)
+			Destroy (gameObject);
 
-    }
+		DontDestroyOnLoad (this);
+
+		gameStarted = true;
+	}
+
+	void OnEnable ()
+	{
+		SceneManager.sceneLoaded += OnLevelFinishedLoading;
+	}
+
+	void OnDisable ()
+	{
+		SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+		if (MainMenu.controller != null)
+			MainMenu.controller.PressedLevel -= ChooseLevel;
+	}
+
+	public bool CheckIfGameStarted ()
+	{
+		return gameStarted;
+	}
+
+	public void SetGameStarted (bool b)
+	{
+		gameStarted = b;
+	}
+
+	void OnLevelFinishedLoading (Scene scene, LoadSceneMode mode)
+	{
+		if (MainMenu.controller != null)
+			MainMenu.controller.PressedLevel += ChooseLevel;
+
+		Coin.ResetStaticVariables ();
+		WaterJoint.ResetStaticVariables ();
+	}
+
+	void Start ()
+	{
+		if (MainMenu.controller != null)
+			MainMenu.controller.PressedLevel += ChooseLevel;
+	}
 
 
-    public bool CheckCurrentMode(Mode m)
-    {
-        if (m == currentMode)
-            return true;
+	public bool CheckCurrentMode (Mode m)
+	{
+		if (m == currentMode)
+			return true;
 
-        return false;
-    }
+		return false;
+	}
 
-    public void SetGameMode(Mode m)
-    {
-        currentMode = m;
-    }
+	public void SetGameMode (Mode m)
+	{
+		currentMode = m;
+	}
 
-    public void ChooseLevel(int level)
-    {
-        chosenLevel = level;
-    }
+	public void ChooseLevel (int level)
+	{
+		chosenLevel = level;
+	}
 
-    public int GetCurrentLevel()
-    {
-        return chosenLevel;
-    }
+	public int GetCurrentLevel ()
+	{
+		return chosenLevel;
+	}
 
-    public bool GetGyro()
-    {
-        return gyro;
-    }
-    public void SetGyro(bool b)
-    {
-        gyro = b;
-    }
-    public void ToggleGyro()
-    {
-        gyro = !gyro;
-    }
+	public bool GetGyro ()
+	{
+		return gyro;
+	}
+
+	public void SetGyro (bool b)
+	{
+		gyro = b;
+	}
+
+	public void ToggleGyro ()
+	{
+		gyro = !gyro;
+	}
 }

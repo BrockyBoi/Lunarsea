@@ -6,88 +6,94 @@ using UnityEngine;
 
 public class PauseScript : MonoBehaviour
 {
-    public static PauseScript controller;
-    public GameObject pauseScreen;
-    public GameObject audioOptions;
-    public GameObject pauseOptions;
-    bool gameStarted;
+	public static PauseScript controller;
+	public GameObject pauseScreen;
+	public GameObject audioOptions;
+	public GameObject pauseOptions;
+	bool gameStarted;
 
-    public Slider musicSlider;
-    public Slider fxSlider;
+	public Slider musicSlider;
+	public Slider fxSlider;
 
-    void Awake()
-    {
-        controller = this;
-    }
+	void Awake ()
+	{
+		controller = this;
+	}
 
-    void Start()
-    {
-        UpgradeController.controller.notUpgrading += StartGame;
-    }
+	void Start ()
+	{
+		UpgradeController.controller.notUpgrading += StartGame;
+		AudioController.controller.MusicChange += MusicSliderUpdate;
+		AudioController.controller.FXChange += FXSliderUpdate;
 
-    void OnDisable()
-    {
-        UpgradeController.controller.notUpgrading -= StartGame;
-    }
-    public void PressPause()
-    {
-        if (!Boat.player.CheckIfAlive())
-            return;
+		MusicSliderUpdate (AudioController.controller.GetMusicVolume ());
+		FXSliderUpdate (AudioController.controller.GetFXVolume ());
+	}
 
-        if (gameStarted)
-        {
-            if (Time.timeScale == 1)
-            {
-                Time.timeScale = 0;
-                pauseScreen.SetActive(true);
-            }
-            else
-            {
-                Time.timeScale = 1;
-                pauseScreen.SetActive(false);
-            }
+	void OnDisable ()
+	{
+		UpgradeController.controller.notUpgrading -= StartGame;
+		AudioController.controller.MusicChange -= MusicSliderUpdate;
+		AudioController.controller.FXChange -= FXSliderUpdate;
+	}
 
-            Time.fixedDeltaTime = 0.02F * Time.timeScale;
-        }
-        else
-        {
-            pauseScreen.SetActive(!pauseScreen.activeInHierarchy);
-        }
-    }
+	public void PressPause ()
+	{
+		AudioController.controller.ClickUI ();
+		if (!Boat.player.CheckIfAlive ())
+			return;
 
-    public void PressOptions()
-    {
-        audioOptions.SetActive(true);
-        pauseOptions.SetActive(false);
-    }
+		if (gameStarted) {
+			if (Time.timeScale == 1) {
+				Time.timeScale = 0;
+				pauseScreen.SetActive (true);
+			} else {
+				Time.timeScale = 1;
+				pauseScreen.SetActive (false);
+			}
 
-    public void PressBackSound()
-    {
-        audioOptions.SetActive(false);
-        pauseOptions.SetActive(true);
+			Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		} else {
+			pauseScreen.SetActive (!pauseScreen.activeInHierarchy);
+		}
+	}
 
-        PlayerInfo.controller.Save();
-    }
+	public void PressOptions ()
+	{
+		AudioController.controller.ClickUI ();
+		audioOptions.SetActive (true);
+		pauseOptions.SetActive (false);
+	}
 
-    public void PressMainMenu()
-    {
+	public void PressBackSound ()
+	{
+		AudioController.controller.ClickUI ();
+		audioOptions.SetActive (false);
+		pauseOptions.SetActive (true);
+
+		PlayerInfo.controller.Save ();
+	}
+
+	public void PressMainMenu ()
+	{
+		AudioController.controller.ClickUI ();
 		Time.timeScale = 1;
 		Time.fixedDeltaTime = 0.02F * Time.timeScale;
-        SceneManager.LoadScene("Main Menu");
-    }
+		SceneManager.LoadScene ("Main Menu");
+	}
 
-    void StartGame()
-    {
-        gameStarted = true;
-    }
+	void StartGame ()
+	{
+		gameStarted = true;
+	}
 
-    public void MusicSliderUpdate(float f)
-    {
-        musicSlider.value = f;
-    }
+	public void MusicSliderUpdate (float f)
+	{
+		musicSlider.value = f;
+	}
 
-    public void FXSliderUpdate(float f)
-    {
-        fxSlider.value = f;
-    }
+	public void FXSliderUpdate (float f)
+	{
+		fxSlider.value = f;
+	}
 }

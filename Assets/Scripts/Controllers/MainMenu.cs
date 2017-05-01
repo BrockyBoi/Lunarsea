@@ -19,8 +19,10 @@ public class MainMenu : MonoBehaviour
 	public GameObject levelSelectParent;
 	public GameObject playSelectParent;
 	public GameObject optionsParent;
-    public GameObject toggleGyroButton;
-    public Text toggleGyroText;
+	public GameObject introParent;
+
+	public GameObject toggleGyroButton;
+	public Text toggleGyroText;
 	public List<Button> levelButtons;
 
 	public Slider musicSlider;
@@ -29,35 +31,45 @@ public class MainMenu : MonoBehaviour
 	void Awake ()
 	{
 		controller = this;
+		InitializeLevelButtons (0);
 	}
 	// Use this for initialization
 	void Start ()
 	{
-		mainMenuParent.SetActive (true);
+		if (GameModeController.controller.CheckIfGameStarted ()) {
+			introParent.SetActive (true);
+			mainMenuParent.SetActive (false);
+			SpeechController.controller.DisplayStory ();
+		} else {
+			introParent.SetActive (false);
+			mainMenuParent.SetActive (true);
+		}
+
 		creditsParent.SetActive (false);
 		levelSelectParent.SetActive (false);
 		playSelectParent.SetActive (false);
 		loading.gameObject.SetActive (false);
-        optionsParent.gameObject.SetActive(false);
+		optionsParent.gameObject.SetActive (false);
+
+		AudioController.controller.MusicChange += MusicSliderUpdate;
+		AudioController.controller.FXChange += FXSliderUpdate;
+
+		MusicSliderUpdate (AudioController.controller.GetMusicVolume ());
+		FXSliderUpdate (AudioController.controller.GetFXVolume ());
 
 #if UNITY_STANDALONE || UNITY_WEBPLAYER
-        toggleGyroButton.SetActive(false);
+		toggleGyroButton.SetActive (false);
 #elif UNITY_IOS || UNITY_ANDROID
-        toggleGyroButton.SetActive(true);
+		toggleGyroButton.SetActive (true);
 #endif
-        if (GameModeController.controller.GetGyro())
-        {
-            toggleGyroText.text = "Gyro:\nOn";
-        }
-        else
-        {
-            toggleGyroText.text = "Gyro:\nOff";
-        }
+		if (GameModeController.controller.GetGyro ()) {
+			toggleGyroText.text = "Gyro:\nOn";
+		} else {
+			toggleGyroText.text = "Gyro:\nOff";
+		}
+	}
 
-        //SpeechController.controller.DisplayStory ();
-    }
-
-    public void InitializeLevelButtons (int levelsBeaten)
+	public void InitializeLevelButtons (int levelsBeaten)
 	{
 		for (int i = levelsBeaten + 1; i < levelButtons.Count; i++) {
 			levelButtons [i].GetComponent<Image> ().color = new Color (Color.gray.r, Color.gray.g, Color.gray.b, .5f);
@@ -65,6 +77,15 @@ public class MainMenu : MonoBehaviour
 	}
 
 	#region Pressed Button Functions
+
+	public void PressContinue ()
+	{
+		AudioController.controller.ClickUI ();
+		introParent.SetActive (false);
+		mainMenuParent.SetActive (true);
+		GameModeController.controller.SetGameStarted (false);
+		SpeechController.controller.StopAllCoroutines ();
+	}
 
 	public void PressLevel (int level)
 	{
@@ -147,20 +168,19 @@ public class MainMenu : MonoBehaviour
 		Application.Quit ();
 	}
 
-    public void PressToggleGyro()
-    {
-        GameModeController.controller.ToggleGyro();
-        if (GameModeController.controller.GetGyro())
-        {
-            toggleGyroText.text = "Gyro:\nOn";
-        }
-        else
-        {
-            toggleGyroText.text = "Gyro:\nOff";
-        }
-    }
+	public void PressToggleGyro ()
+	{
+		GameModeController.controller.ToggleGyro ();
+		if (GameModeController.controller.GetGyro ()) {
+			toggleGyroText.text = "Gyro:\nOn";
+		} else {
+			toggleGyroText.text = "Gyro:\nOff";
+		}
+	}
 
 	#endregion
+
+	#region Sliders
 
 	public void MusicSliderUpdate (float f)
 	{
@@ -171,5 +191,7 @@ public class MainMenu : MonoBehaviour
 	{
 		fxSlider.value = f;
 	}
+
+	#endregion
 }
 

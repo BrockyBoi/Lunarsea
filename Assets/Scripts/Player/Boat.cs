@@ -96,7 +96,7 @@ public class Boat : MonoBehaviour
 			MainCanvas.controller.HealthChange ();
 		}
 
-        grToggle = GameModeController.controller.GetGyro();
+		grToggle = GameModeController.controller.GetGyro ();
 
 		moonItem = Instantiate (moonPrefab, transform.position, Quaternion.identity) as GameObject;
 		moonItem.SetActive (false);
@@ -128,14 +128,9 @@ public class Boat : MonoBehaviour
 
 		#elif UNITY_IOS || UNITY_ANDROID
 		if (grToggle) {
-            Debug.Log("Gyro is on");
 			float horizontal = Input.acceleration.x * 3;
-			if (horizontal > 1)
-				horizontal = 1;
-			if (horizontal < -1)
-				horizontal = -1;
+			horizontal = Mathf.Clamp (horizontal (-1, 1));
 		} else {
-            Debug.Log("Gyro is off");
 			if (btnMv < 0) {
 				horizontal = -1;
 			} else if (btnMv > 0) {
@@ -189,16 +184,9 @@ public class Boat : MonoBehaviour
 
 		if (!finishedLevel && transform.position.x > rightSide.x - 1) {
 			transform.position = new Vector3 (rightSide.x - 1, transform.position.y);
-		}
-		if (!sailingIn && transform.position.x < leftSide.x + 1) {
+		} else if (!sailingIn && transform.position.x < leftSide.x + 1) {
 			transform.position = new Vector3 (leftSide.x + 1, transform.position.y);
-		}
-
-		if (finishedLevel && transform.position.x > rightSide.x - 1) {
-			MainCanvas.controller.FinishLevel ();
-		}
-
-		if (extraSpeed > 0 && !finishedLevel && Mathf.Abs (transform.position.x - midPoint) <= .5f) {
+		} else if (extraSpeed > 0 && !finishedLevel && Mathf.Abs (transform.position.x - midPoint) <= .5f) {
 			FinishedSailingIn ();
 		}
 	}

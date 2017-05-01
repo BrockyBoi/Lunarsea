@@ -28,17 +28,23 @@ public class SpeechController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		TutorialController.controller.onStartTutorial += FirstPhrase;
+		if (TutorialController.controller != null) {
+			TutorialController.controller.onStartTutorial += FirstPhrase;
 
-		TutorialController.controller.onFinishTutorial += CloseWindow;
-		textField.transform.parent.gameObject.SetActive (false);
+			TutorialController.controller.onFinishTutorial += CloseWindow;
+		}
+
+		if (textField != null)
+			textField.transform.parent.gameObject.SetActive (false);
 	}
 
 	void OnDisable ()
 	{
-		TutorialController.controller.onStartTutorial -= FirstPhrase;
+		if (TutorialController.controller != null) {
+			TutorialController.controller.onStartTutorial -= FirstPhrase;
 
-		TutorialController.controller.onFinishTutorial -= CloseWindow;
+			TutorialController.controller.onFinishTutorial -= CloseWindow;
+		}
 	}
 
 	public void DisplayStory ()

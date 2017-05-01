@@ -48,7 +48,6 @@ public class WaterJointGenerator : MonoBehaviour
 	void Start ()
 	{
 		Vector3 bottomLeft = Camera.main.ViewportToWorldPoint (new Vector3 (0, waterYPos));
-		Debug.Log (GetWaterHeight ());
 		initialYPos = bottomLeft.y;
 		joints = new List<GameObject> ();
 		float jointDistance = (Screen.width + (Screen.width / 4)) / (numJoints - 1);
