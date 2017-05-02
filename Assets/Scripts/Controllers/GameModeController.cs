@@ -24,6 +24,8 @@ public class GameModeController : MonoBehaviour
 
 	bool gyro = true;
 
+	float fxLevel, musicLevel;
+
 	#endregion
 
 	void Awake ()
@@ -38,6 +40,17 @@ public class GameModeController : MonoBehaviour
 		gameStarted = true;
 	}
 
+	void Start ()
+	{
+		if (MainMenu.controller != null)
+			MainMenu.controller.PressedLevel += ChooseLevel;
+		
+		AudioController.controller.FXChange += SetFXLevel;
+		AudioController.controller.MusicChange += SetMusicLevel;
+		fxLevel = .5f;
+		musicLevel = .5f;
+	}
+
 	void OnEnable ()
 	{
 		SceneManager.sceneLoaded += OnLevelFinishedLoading;
@@ -45,6 +58,9 @@ public class GameModeController : MonoBehaviour
 
 	void OnDisable ()
 	{
+		AudioController.controller.FXChange -= SetFXLevel;
+		AudioController.controller.MusicChange -= SetMusicLevel;
+
 		SceneManager.sceneLoaded -= OnLevelFinishedLoading;
 		if (MainMenu.controller != null)
 			MainMenu.controller.PressedLevel -= ChooseLevel;
@@ -69,10 +85,25 @@ public class GameModeController : MonoBehaviour
 		WaterJoint.ResetStaticVariables ();
 	}
 
-	void Start ()
+
+	void SetFXLevel (float fx)
 	{
-		if (MainMenu.controller != null)
-			MainMenu.controller.PressedLevel += ChooseLevel;
+		fxLevel = fx;
+	}
+
+	void SetMusicLevel (float music)
+	{
+		musicLevel = music;
+	}
+
+	public float GetFXLevel ()
+	{
+		return fxLevel;
+	}
+
+	public float GetMusicLevel ()
+	{
+		return musicLevel;
 	}
 
 

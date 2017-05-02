@@ -31,7 +31,9 @@ public class MainMenu : MonoBehaviour
 	void Awake ()
 	{
 		controller = this;
-		InitializeLevelButtons (0);
+		if (PlayerInfo.controller.CheckIfFirstTime () || PlayerInfo.controller.DeleteFirst || PlayerInfo.controller.ResetSaveFile)
+			InitializeLevelButtons (0);
+
 	}
 	// Use this for initialization
 	void Start ()
@@ -72,6 +74,7 @@ public class MainMenu : MonoBehaviour
 	public void InitializeLevelButtons (int levelsBeaten)
 	{
 		for (int i = levelsBeaten + 1; i < levelButtons.Count; i++) {
+			Debug.Log (i);
 			levelButtons [i].GetComponent<Image> ().color = new Color (Color.gray.r, Color.gray.g, Color.gray.b, .5f);
 		}
 	}
@@ -132,7 +135,6 @@ public class MainMenu : MonoBehaviour
 		AudioController.controller.ClickUI ();
 		optionsParent.SetActive (false);
 		mainMenuParent.SetActive (true);
-		PlayerInfo.controller.Save ();
 	}
 
 	public void PressCredits ()

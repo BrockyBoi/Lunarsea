@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioController : MonoBehaviour
 {
@@ -66,10 +67,6 @@ public class AudioController : MonoBehaviour
 	public event AudioChange FXChange;
 	public event AudioChange MusicChange;
 
-	void OnEnable ()
-	{
-	}
-
 	void Awake ()
 	{
 		//DontDestroyOnLoad (this);
@@ -111,6 +108,24 @@ public class AudioController : MonoBehaviour
 		music.loop = true;
 		background.loop = true;
 
+	}
+
+	void OnEnable ()
+	{
+		SceneManager.sceneLoaded += OnLevelFinishedLoading;
+	}
+
+	void OnDisable ()
+	{
+		SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+	}
+
+	void OnLevelFinishedLoading (Scene scene, LoadSceneMode mode)
+	{
+		if (scene == SceneManager.GetSceneByName ("MainScene") && PlayerInfo.controller.CheckIfFirstTime ()) {
+			ChangeFXVolume (GameModeController.controller.GetFXLevel (), true);
+			ChangeMusicVolume (GameModeController.controller.GetMusicLevel (), true);
+		}
 	}
 
 	public void ClickUI ()

@@ -129,7 +129,7 @@ public class Boat : MonoBehaviour
 		#elif UNITY_IOS || UNITY_ANDROID
 		if (grToggle) {
 			float horizontal = Input.acceleration.x * 3;
-			horizontal = Mathf.Clamp (horizontal (-1, 1));
+			horizontal = Mathf.Clamp (horizontal, -1, 1);
 		} else {
 			if (btnMv < 0) {
 				horizontal = -1;

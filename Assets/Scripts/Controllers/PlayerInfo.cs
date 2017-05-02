@@ -8,16 +8,18 @@ public class PlayerInfo : MonoBehaviour
 {
 	public static PlayerInfo controller;
 	public bool ResetSaveFile;
-	int levelsBeaten;
-	int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
-
-	bool firstTimeEver;
-
-	List<TempGoal> goals = new List<TempGoal> ();
-
-	bool adsTurnedOff;
 
 	public bool DeleteFirst;
+
+	float musicVolume, fxVolume;
+	float highScore, scoreMultiplier;
+	int coinCount, levelsBeaten;
+	int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
+	List<TempGoal> goals = new List<TempGoal> ();
+
+	bool firstTimeEver, adsTurnedOff, gyroToggle;
+
+	public DateTime oldDate;
 
 	void OnEnable ()
 	{
@@ -64,9 +66,10 @@ public class PlayerInfo : MonoBehaviour
 		PlayerData data = new PlayerData ();
 		data.firstTimeEver = firstTimeEver;
 		data.levelsBeaten = levelsBeaten;
+
 		if (MainCanvas.controller != null) {
 			data.highScore = MainCanvas.controller.GetHighScore ();
-		}
+		} 
 
 		if (CoinController.controller != null)
 			data.coinCount = CoinController.controller.getCoinNum ();
@@ -100,6 +103,8 @@ public class PlayerInfo : MonoBehaviour
 			FileStream file = File.Open (Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
 			PlayerData data = (PlayerData)bf.Deserialize (file);
 			file.Close ();
+
+			Debug.Log ("Load");
 
 			data.playerUpgrades.CopyTo (playerUpgrades, 0);
 			goals = new List<TempGoal> (data.goals);
