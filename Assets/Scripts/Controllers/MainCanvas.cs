@@ -153,6 +153,7 @@ public class MainCanvas : MonoBehaviour
 		}
 	}
 
+
 	void StartLevel ()
 	{
 		StartCoroutine (ShowGoalsAtStart ());
@@ -169,6 +170,7 @@ public class MainCanvas : MonoBehaviour
 	{
 		deathScreen.SetActive (true);
 	}
+
 
 	#region Press Button
 

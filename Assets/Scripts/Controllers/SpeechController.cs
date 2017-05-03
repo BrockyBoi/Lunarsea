@@ -8,7 +8,7 @@ public class SpeechController : MonoBehaviour
 	public static SpeechController controller;
 
 	int currentPhrase;
-	public List<string> phrases;
+	string[] phrases = new string[3];
 
 	public Text textField;
 
@@ -28,6 +28,18 @@ public class SpeechController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_STANDALONE_OSX
+		phrases [0] = "Use A and D to move the boat left and right";
+		phrases [1] = "Left click above the water to summon the moon to create waves";
+		phrases [2] = "Left click above the water again to retract the moon";
+		#elif UNITY_ANDROID || UNITY_IOS
+		phrases[0] = "Use left and right buttons to move the boat left and right";
+		phrases[1] = "Tap above the water to summon the moon to create waves";
+		phrases[2] = "Tap above the water again to retract the moon";
+		#endif
+		
+
+
 		if (TutorialController.controller != null) {
 			TutorialController.controller.onStartTutorial += FirstPhrase;
 
@@ -71,7 +83,7 @@ public class SpeechController : MonoBehaviour
 
 	public void NextPhrase ()
 	{
-		if (currentPhrase < phrases.Count - 1) {
+		if (currentPhrase < phrases.Length - 1) {
 			currentPhrase++;
 			textField.text = phrases [currentPhrase];
 		} else {

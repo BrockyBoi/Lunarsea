@@ -95,6 +95,7 @@ public class UpgradeController : MonoBehaviour
 		default:
 			break;
 		}
+		AudioController.controller.PlayFX (AudioController.controller.upgradePurchase);
 		if (upgradeValues [upgrade] < 5)
 			MainCanvas.controller.UpdateUpgradePrice (upgrade, coinAmounts [upgradeValues [upgrade]]);
 		else

@@ -37,6 +37,7 @@ public class AudioController : MonoBehaviour
 	#region UI Clips
 
 	public AudioClip click;
+	public AudioClip upgradePurchase;
 	public AudioClip coinPurchase;
 	public AudioClip woodSignDrop;
 	public AudioClip woodSignPullUp;
@@ -61,6 +62,8 @@ public class AudioController : MonoBehaviour
 	public AudioClip mastUnfurl;
 
 	#endregion
+
+	float musicVol, fxVol;
 
 	public delegate void AudioChange (float f);
 
@@ -128,14 +131,25 @@ public class AudioController : MonoBehaviour
 		}
 	}
 
-	public void ClickUI ()
-	{
-		PlayFX (click);
-	}
+	#region Misc
 
 	public void PlayFX (AudioClip clip)
 	{
 		fx.PlayOneShot (clip);
+	}
+
+	void RandomPitch ()
+	{
+		fx.pitch = (float)Random.Range (.7f, 2);
+	}
+
+	#endregion
+
+	#region Play Specific Clips
+
+	public void ClickUI ()
+	{
+		PlayFX (click);
 	}
 
 	public void PlayRepairBoat ()
@@ -162,10 +176,7 @@ public class AudioController : MonoBehaviour
 		fx.PlayOneShot (missileClips [num]);
 	}
 
-	public AudioClip GetMissileSound ()
-	{
-		return missileClips [Random.Range (0, missileClips.Count)];
-	}
+
 
 	public void WaterRise ()
 	{
@@ -183,10 +194,6 @@ public class AudioController : MonoBehaviour
 		fallFx.Play ();
 	}
 
-	void RandomPitch ()
-	{
-		fx.pitch = (float)Random.Range (.7f, 2);
-	}
 
 	public void BoatDeath ()
 	{
@@ -200,23 +207,13 @@ public class AudioController : MonoBehaviour
 		PlayFX (boatHitsRock);
 	}
 
+	#endregion
+
+	#region Sliders
+
 	public void SliderSetMusicVolume (float f)
 	{
 		ChangeMusicVolume (f);
-	}
-
-	public void ChangeMusicVolume (float f, bool initialize = false)
-	{
-		music.volume = f;
-		background.volume = f;
-
-		if (!initialize)
-			MusicChange (f);
-	}
-
-	public float GetMusicVolume ()
-	{
-		return music.volume;
 	}
 
 	public void SliderSetFXVolume (float f)
@@ -224,18 +221,69 @@ public class AudioController : MonoBehaviour
 		ChangeFXVolume (f);
 	}
 
+	#endregion
+
+	#region Change Volumes
+
+	public void ChangeMusicVolume (float f, bool initialize = false)
+	{
+		musicVol = f;
+		music.volume = f;
+		background.volume = f;
+
+
+		if (!initialize)
+			MusicChange (f);
+	}
+
 	public void ChangeFXVolume (float f, bool initialize = false)
 	{
+		fxVol = f;
 		fx.volume = f;
 		fallFx.volume = f;
+
 		if (!initialize)
 			FXChange (f);
 	}
 
+	public void MuteAll ()
+	{
+		fx.volume = 0;
+		fallFx.volume = 0;
+		FXChange (0);
+		music.volume = 0;
+		background.volume = 0;
+		MusicChange (0);
+	}
+
+	public void RestoreSound ()
+	{
+		ChangeFXVolume (fxVol);
+		ChangeMusicVolume (musicVol);
+	}
+
+	#endregion
+
+	#region Getters
+
+	public AudioClip GetMissileSound ()
+	{
+		return missileClips [Random.Range (0, missileClips.Count)];
+	}
+
+	public float GetMusicVolume ()
+	{
+		return musicVol;
+	}
+
 	public float GetFXVolume ()
 	{
-		return fx.volume;
+		return fxVol;
 	}
+
+	#endregion
+
+	#region Fade
 
 	public static IEnumerator FadeOut (AudioSource audioSource, float FadeTime)
 	{
@@ -263,4 +311,6 @@ public class AudioController : MonoBehaviour
 		}
 		audioSource.volume = startVolume;
 	}
+
+	#endregion
 }

@@ -1,13 +1,12 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Purchasing;
-
-#if UNITY_ADS
-using UnityEngine.Advertisements;
-#endif
+using GoogleMobileAds;
+using GoogleMobileAds.Api;
 
 public class MonetizationController : MonoBehaviour, IStoreListener
 {
+	#region IAP
 
 	public static MonetizationController controller;
 	private static IStoreController m_StoreController;
@@ -25,10 +24,6 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 	public static string PRODUCT_100000_COINS = "coins100000";
 	public static string PRODUCT_1000000_COINS = "coins1000000";
 	public static string PRODUCT_NO_ADS = "noads";
-
-	bool adsTurnedOff;
-
-	int rewardedAdsWatchedToday;
 
 	void Start ()
 	{
@@ -107,9 +102,6 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 	}
 
 
-
-
-
 	void BuyProductID (string productId)
 	{
 		// If Purchasing has been initialized ...
@@ -153,7 +145,7 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 
 		// If we are running on an Apple device ... 
 		if (Application.platform == RuntimePlatform.IPhonePlayer ||
-		          Application.platform == RuntimePlatform.OSXPlayer) {
+		    Application.platform == RuntimePlatform.OSXPlayer) {
 			// ... begin restoring purchases
 			Debug.Log ("RestorePurchases started ...");
 
@@ -250,23 +242,22 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 		Debug.Log (string.Format ("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
 	}
 
+	#endregion
 
-
-
-
-	// UNITY ADS
-
-
+	#region Ads
 
 	[SerializeField]
-	private string
-		androidGameId = "1356853",
-		iosGameId = "1356852";
-
+	string videoID;
 	[SerializeField]
-	private bool testMode;
+	string rewardVideoID;
 
-	string stringDate;
+	bool adsTurnedOff;
+
+	int rewardedAdsWatchedToday;
+
+
+	RewardBasedVideoAd rewardAd;
+	InterstitialAd interstitialAd;
 
 	void Awake ()
 	{
@@ -274,89 +265,162 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 
 		string gameId = null;
 
-// #if UNITY_ANDROID
-//         gameId = androidGameId;
-// #elif UNITY_IOS
-//         gameId = iosGameId;
-// #endif
+		rewardAd = RewardBasedVideoAd.Instance;
 
-//         testMode = true;
-// #if UNITY_ADS
-//         if (Advertisement.isSupported && !Advertisement.isInitialized) {
-//            Advertisement.Initialize(gameId, testMode);
+		rewardAd.OnAdClosed += HandleOnAdClosed;
+		rewardAd.OnAdFailedToLoad += HandleOnAdFailedToLoad;
+		rewardAd.OnAdLeavingApplication += HandleOnLeavingApplication;
+		rewardAd.OnAdLoaded += HandleOnAdLoaded;
+		rewardAd.OnAdOpening += HandleOnAdOpening;
+		rewardAd.OnAdRewarded += HandleOnAdRewarded;
+		rewardAd.OnAdStarted += HandleOnAdStarted;
+
+
 	}
-	//#endif
-	// }
 
-	//     public void UpdateAdsTurnedOff(bool b)
-	//     {
-	//         adsTurnedOff = b;
-	//     }
+	void CreateNewInterstitialAd (string ID)
+	{
+		interstitialAd = new InterstitialAd (ID);
 
-	//     public bool CheckIfAdsTurnedOff()
-	//     {
-	//         return adsTurnedOff;
-	//     }
-	// #if UNITY_ADS
-	//     public void ShowNormalAd()
-	//     {
-	//         if (Advertisement.IsReady())
-	//             Advertisement.Show();
-	//     }
+		interstitialAd.OnAdClosed += HandleOnAdClosed;
+		interstitialAd.OnAdFailedToLoad += HandleOnAdFailedToLoad;
+		interstitialAd.OnAdLeavingApplication += HandleOnLeavingApplication;
+		interstitialAd.OnAdLoaded += HandleOnAdLoaded;
+		interstitialAd.OnAdOpening += HandleOnAdOpening;
+	}
 
-	//     public void ShowAd(string zone = "")
-	//     {
-	//         StartCoroutine(WaitForAd());
+	public void GenerateNormalAd ()
+	{
+		string adID = "";
+		#if UNITY_EDITOR
+		
+		#elif UNITY_ANDROID
+		
+		#elif UNITY_IOS
+		
+		#else
+		
+		#endif
 
-	//         if (string.Equals(zone, ""))
-	//             zone = null;
+		CreateNewInterstitialAd (adID);
+		interstitialAd.LoadAd (new AdRequest.Builder ().Build ());
+	}
 
-	//         ShowOptions options = new ShowOptions();
-	//         options.resultCallback = AdCallbackhandler;
+	void ShowNormalAd ()
+	{
+		if (interstitialAd.IsLoaded ())
+			interstitialAd.Show ();
+	}
 
-	//         if (Advertisement.IsReady(zone))
-	//             Advertisement.Show(zone, options);
-	//     }
+	public void GenerateRewardAd ()
+	{
+		string adID = "";
+		#if UNITY_EDITOR
 
-	//     void AdCallbackhandler(ShowResult result)
-	//     {
-	//          switch (result)
-	//          {
-	//              case ShowResult.Finished:
-	//                  Debug.Log("Ad Finished. Rewarding player...");
-	//                  CoinController.controller.BuyCoins(200);
-	//                  rewardedAdsWatchedToday++;
+		#elif UNITY_ANDROID
 
-	//                  if(rewardedAdsWatchedToday == 3)
-	//                  {
-	//                     TempGoalController.controller.AddTempScoreMultiplier(.5f);
-	//                  }
-	//                  break;
-	//              case ShowResult.Skipped:
-	//                  Debug.Log("Ad skipped. Son, I am dissapointed in you");
-	//                  break;
-	//              case ShowResult.Failed:
-	//                  Debug.Log("I swear this has never happened to me before");
-	//                  break;
-	//          }
-	//      }
+		#elif UNITY_IOS
 
-	// IEnumerator WaitForAd()
-	// {
-	//     float currentTimeScale = Time.timeScale;
-	//     Time.timeScale = 0f;
-	//     yield return null;
+		#else
 
-	//     while (Advertisement.isShowing)
-	//         yield return null;
+		#endif
+		rewardAd.LoadAd (new AdRequest.Builder ().Build (), adID);
+	}
 
-	//     Time.timeScale = currentTimeScale;
-	// }
-	// #endif
 
+	void ShowRewardAd ()
+	{
+		if (rewardAd.IsLoaded ()) {
+			rewardAd.Show ();
+		} else {
+			Debug.Log ("No reward ad ready");
+		}
+	}
+
+	public bool CheckIfAdsTurnedOff ()
+	{
+		return adsTurnedOff;
+	}
+
+	public void SetAdsTurnedOff (bool b)
+	{
+		adsTurnedOff = b;
+	}
+
+	#region Handlers
+
+	public void HandleOnAdLoaded (object sender, EventArgs args)
+	{
+
+	}
+
+
+
+	public void HandleOnAdFailedToLoad (object sender, AdFailedToLoadEventArgs args)
+	{
+		//Reload
+	}
+
+
+
+	public void HandleOnAdOpening (object sender, EventArgs args)
+	{
+		//Pause game
+		Time.timeScale = 0;
+		Time.fixedDeltaTime = 0;
+	}
+
+
+
+	public void HandleOnAdStarted (object sender, EventArgs args)
+	{
+		//Mute audio
+		AudioController.controller.MuteAll ();
+	}
+
+
+
+	public void HandleOnAdClosed (object sender, EventArgs args)
+	{
+		Time.timeScale = 1;
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		//Restore audio
+		AudioController.controller.RestoreSound ();
+
+		if (interstitialAd != null) {
+			interstitialAd.OnAdClosed -= HandleOnAdClosed;
+			interstitialAd.OnAdFailedToLoad -= HandleOnAdFailedToLoad;
+			interstitialAd.OnAdLeavingApplication -= HandleOnLeavingApplication;
+			interstitialAd.OnAdLoaded -= HandleOnAdLoaded;
+			interstitialAd.OnAdOpening -= HandleOnAdOpening;
+			interstitialAd.Destroy ();
+		}
+
+	}
+
+
+
+	public void HandleOnAdRewarded (object sender, Reward args)
+	{
+		//Reward with 100 coins
+		Debug.Log ("You just got " + args.Amount.ToString () + " " + args.Type.ToString () + "!");
+		AudioController.controller.PlayFX (AudioController.controller.coinPurchase);
+		CoinController.controller.ReceiveReward (150);
+	}
+
+
+	public void HandleOnLeavingApplication (object sender, EventArgs args)
+	{
+
+	}
+
+	#endregion
+
+	#endregion
 
 	#region DailyRewards
 
+	string stringDate;
 	//http://answers.unity3d.com/questions/776823/daily-bonus.html
 	DateTime oldDate;
 

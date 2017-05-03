@@ -83,7 +83,7 @@ public class PlayerInfo : MonoBehaviour
 		}
 
 		if (MonetizationController.controller != null) {
-			//data.adsTurnedOff = MonetizationController.controller.CheckIfAdsTurnedOff();
+			data.adsTurnedOff = MonetizationController.controller.CheckIfAdsTurnedOff ();
 			data.oldDate = MonetizationController.controller.GetOldDate ();
 		}
 
@@ -103,8 +103,6 @@ public class PlayerInfo : MonoBehaviour
 			FileStream file = File.Open (Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
 			PlayerData data = (PlayerData)bf.Deserialize (file);
 			file.Close ();
-
-			Debug.Log ("Load");
 
 			data.playerUpgrades.CopyTo (playerUpgrades, 0);
 			goals = new List<TempGoal> (data.goals);
@@ -128,7 +126,7 @@ public class PlayerInfo : MonoBehaviour
 
 			if (MonetizationController.controller != null) {
 				MonetizationController.controller.SetOldDate (data.oldDate);
-				//MonetizationController.controller.UpdateAdsTurnedOff(data.adsTurnedOff);
+				MonetizationController.controller.SetAdsTurnedOff (data.adsTurnedOff);
 			}
 
 			if (AudioController.controller != null) {
