@@ -22,7 +22,7 @@ public class GameModeController : MonoBehaviour
 	int chosenLevel = 1;
 	bool gameStarted;
 
-	bool gyro = true;
+	bool gyro = false;
 
 	float fxLevel, musicLevel;
 

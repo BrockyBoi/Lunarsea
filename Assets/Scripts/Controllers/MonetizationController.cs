@@ -31,6 +31,19 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 		if (m_StoreController == null) {
 			InitializePurchasing ();
 		}
+
+		rewardAd = RewardBasedVideoAd.Instance;
+
+		rewardAd.OnAdClosed += HandleOnAdClosed;
+		rewardAd.OnAdFailedToLoad += HandleOnAdFailedToLoad;
+		rewardAd.OnAdLeavingApplication += HandleOnLeavingApplication;
+		rewardAd.OnAdLoaded += HandleOnAdLoaded;
+		rewardAd.OnAdOpening += HandleOnAdOpening;
+		rewardAd.OnAdRewarded += HandleOnAdRewarded;
+		rewardAd.OnAdStarted += HandleOnAdStarted;
+
+		GenerateNormalAd ();
+		GenerateRewardAd ();
 	}
 
 	public void InitializePurchasing ()
@@ -56,6 +69,26 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 		// Kick off the remainder of the set-up with an asynchrounous call, passing the configuration 
 		// and this class' instance. Expect a response either in OnInitialized or OnInitializeFailed.
 		UnityPurchasing.Initialize (this, builder);
+	}
+
+	void OnDisable ()
+	{
+		rewardAd.OnAdClosed -= HandleOnAdClosed;
+		rewardAd.OnAdFailedToLoad -= HandleOnAdFailedToLoad;
+		rewardAd.OnAdLeavingApplication -= HandleOnLeavingApplication;
+		rewardAd.OnAdLoaded -= HandleOnAdLoaded;
+		rewardAd.OnAdOpening -= HandleOnAdOpening;
+		rewardAd.OnAdRewarded -= HandleOnAdRewarded;
+		rewardAd.OnAdStarted -= HandleOnAdStarted;
+
+		if (interstitialAd != null) {
+			interstitialAd.OnAdClosed -= HandleOnAdClosed;
+			interstitialAd.OnAdFailedToLoad -= HandleOnAdFailedToLoad;
+			interstitialAd.OnAdLeavingApplication -= HandleOnLeavingApplication;
+			interstitialAd.OnAdLoaded -= HandleOnAdLoaded;
+			interstitialAd.OnAdOpening -= HandleOnAdOpening;
+			interstitialAd.Destroy ();
+		}
 	}
 
 
@@ -247,9 +280,14 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 	#region Ads
 
 	[SerializeField]
-	string videoID;
+	string androidVideoID;
 	[SerializeField]
-	string rewardVideoID;
+	string androidRewardVideoID;
+
+	[SerializeField]
+	string iosVideoID;
+	[SerializeField]
+	string iosRewardVideoID;
 
 	bool adsTurnedOff;
 
@@ -262,20 +300,7 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 	void Awake ()
 	{
 		controller = this;
-
-		string gameId = null;
-
-		rewardAd = RewardBasedVideoAd.Instance;
-
-		rewardAd.OnAdClosed += HandleOnAdClosed;
-		rewardAd.OnAdFailedToLoad += HandleOnAdFailedToLoad;
-		rewardAd.OnAdLeavingApplication += HandleOnLeavingApplication;
-		rewardAd.OnAdLoaded += HandleOnAdLoaded;
-		rewardAd.OnAdOpening += HandleOnAdOpening;
-		rewardAd.OnAdRewarded += HandleOnAdRewarded;
-		rewardAd.OnAdStarted += HandleOnAdStarted;
-
-
+		//Reward ads initialized in Start fucntion at top of script
 	}
 
 	void CreateNewInterstitialAd (string ID)
@@ -289,46 +314,45 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 		interstitialAd.OnAdOpening += HandleOnAdOpening;
 	}
 
-	public void GenerateNormalAd ()
+	void GenerateNormalAd ()
 	{
-		string adID = "";
+		
 		#if UNITY_EDITOR
-		
+		string adID = "unused";	
 		#elif UNITY_ANDROID
-		
+		string adID = androidVideoID;
 		#elif UNITY_IOS
-		
-		#else
-		
+		string adID = iosVideoID;
 		#endif
 
 		CreateNewInterstitialAd (adID);
 		interstitialAd.LoadAd (new AdRequest.Builder ().Build ());
+
+		//ShowNormalAd ();
 	}
 
-	void ShowNormalAd ()
+	public void ShowNormalAd ()
 	{
 		if (interstitialAd.IsLoaded ())
 			interstitialAd.Show ();
 	}
 
-	public void GenerateRewardAd ()
+	void GenerateRewardAd ()
 	{
-		string adID = "";
 		#if UNITY_EDITOR
-
+		string adID = "unused";
 		#elif UNITY_ANDROID
-
+		string adID = androidRewardVideoID;
 		#elif UNITY_IOS
-
-		#else
-
+		string adID = iosRewardVideoID;
 		#endif
 		rewardAd.LoadAd (new AdRequest.Builder ().Build (), adID);
+
+		//ShowRewardAd ();
 	}
 
 
-	void ShowRewardAd ()
+	public void ShowRewardAd ()
 	{
 		if (rewardAd.IsLoaded ()) {
 			rewardAd.Show ();
@@ -366,8 +390,6 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 	public void HandleOnAdOpening (object sender, EventArgs args)
 	{
 		//Pause game
-		Time.timeScale = 0;
-		Time.fixedDeltaTime = 0;
 	}
 
 
@@ -382,8 +404,6 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 
 	public void HandleOnAdClosed (object sender, EventArgs args)
 	{
-		Time.timeScale = 1;
-		Time.fixedDeltaTime = 0.02F * Time.timeScale;
 		//Restore audio
 		AudioController.controller.RestoreSound ();
 
@@ -394,6 +414,8 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 			interstitialAd.OnAdLoaded -= HandleOnAdLoaded;
 			interstitialAd.OnAdOpening -= HandleOnAdOpening;
 			interstitialAd.Destroy ();
+
+			GenerateNormalAd ();
 		}
 
 	}

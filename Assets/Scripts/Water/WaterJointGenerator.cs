@@ -41,8 +41,6 @@ public class WaterJointGenerator : MonoBehaviour
 			Destroy (this);
 
 		controller = this;
-		Vector3 leftSide = Camera.main.ViewportToWorldPoint (Vector2.zero);
-		Vector3 rightSide = Camera.main.ViewportToWorldPoint (Vector2.right);
 	}
 	// Use this for initialization
 	void Start ()

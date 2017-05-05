@@ -12,8 +12,6 @@ public class SpeechController : MonoBehaviour
 
 	public Text textField;
 
-	bool textTime;
-
 	public string introText;
 	public Text introTextField;
 
@@ -28,14 +26,14 @@ public class SpeechController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_STANDALONE_OSX
+		#if UNITY_STANDALONE
 		phrases [0] = "Use A and D to move the boat left and right";
 		phrases [1] = "Left click above the water to summon the moon to create waves";
 		phrases [2] = "Left click above the water again to retract the moon";
 		#elif UNITY_ANDROID || UNITY_IOS
-		phrases[0] = "Use left and right buttons to move the boat left and right";
-		phrases[1] = "Tap above the water to summon the moon to create waves";
-		phrases[2] = "Tap above the water again to retract the moon";
+		phrases [0] = "Use left and right buttons to move the boat left and right";
+		phrases [1] = "Tap above the water to summon the moon to create waves";
+		phrases [2] = "Tap above the water again to retract the moon";
 		#endif
 		
 
@@ -78,7 +76,6 @@ public class SpeechController : MonoBehaviour
 	{
 		textField.transform.parent.gameObject.SetActive (true);
 		textField.text = phrases [0];
-		textTime = true;
 	}
 
 	public void NextPhrase ()
@@ -93,7 +90,6 @@ public class SpeechController : MonoBehaviour
 
 	public void CloseWindow ()
 	{
-		textTime = false;
 		textField.transform.parent.gameObject.SetActive (false);
 	}
 }

@@ -11,13 +11,11 @@ public class PlayerInfo : MonoBehaviour
 
 	public bool DeleteFirst;
 
-	float musicVolume, fxVolume;
-	float highScore, scoreMultiplier;
-	int coinCount, levelsBeaten;
+	int levelsBeaten;
 	int[] playerUpgrades = new int[(int)UpgradeController.Upgrade.UPGRADE_COUNT];
 	List<TempGoal> goals = new List<TempGoal> ();
 
-	bool firstTimeEver, adsTurnedOff, gyroToggle;
+	bool firstTimeEver;
 
 	public DateTime oldDate;
 

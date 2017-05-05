@@ -30,6 +30,15 @@ public class PauseScript : MonoBehaviour
 		FXSliderUpdate (AudioController.controller.GetFXVolume ());
 	}
 
+	void Update ()
+	{
+		#if UNITY_STANDALONE
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			PressPause ();
+		}
+		#endif
+	}
+
 	void OnDisable ()
 	{
 		UpgradeController.controller.notUpgrading -= StartGame;

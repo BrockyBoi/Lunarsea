@@ -56,6 +56,8 @@ public class MainCanvas : MonoBehaviour
 
 	bool storyMode;
 
+	public GameObject[] mobileUI;
+
 	void OnEnable ()
 	{
 
@@ -98,6 +100,12 @@ public class MainCanvas : MonoBehaviour
 		}
 
 		CheckToTurnOffScoreTexts ();
+
+		#if UNITY_STANDALONE
+		foreach (GameObject ui in mobileUI) {
+			ui.SetActive (false);
+		}
+		#endif
 	}
 
 	void OnDisable ()

@@ -121,7 +121,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1716649032808588}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8741274, y: 0.23916191, z: -2.7578125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4446142644039040}
@@ -134,7 +134,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1941360343904712}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8741274, y: 0.23916191, z: -2.7578125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4446142644039040}
@@ -147,7 +147,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1597277946855642}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8741274, y: 0.23916191, z: -2.7578125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4446142644039040}
@@ -160,7 +160,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1138018935000190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.2225103, y: -0.09431261, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4072822926916154}
@@ -178,7 +178,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1687486437772696}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8741275, y: 0.23916215, z: -2.7578125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4446142644039040}
@@ -191,7 +191,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1908313383471276}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.8741275, y: 0.23916215, z: -2.7578125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4446142644039040}
@@ -252,9 +252,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7322dcea57e3d3249bb30ca5945dca81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  androidGameId: 1356853
-  iosGameId: 1356852
-  testMode: 1
+  androidVideoID: ca-app-pub-7007966003924908/1100509675
+  androidRewardVideoID: ca-app-pub-7007966003924908/2577242872
+  iosVideoID: 
+  iosRewardVideoID: 
 --- !u!114 &114103865105979950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -266,11 +267,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b057cd19cc20b9546a74ff988b528805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phrases:
-  - 'Use A and D to move the boat left and right. '
-  - Left click to summon the moon to create waves
-  - 'Left click again to retract moon '
   textField: {fileID: 0}
+  introText: 
+  introTextField: {fileID: 0}
 --- !u!114 &114229173661616442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -426,6 +425,7 @@ MonoBehaviour:
   coinPickUp1: {fileID: 8300000, guid: 7a2f833e71f07d44496e93dc7b35c925, type: 3}
   coinPickUp2: {fileID: 8300000, guid: bc99c736c6049824db9e9ef25cf9a6a0, type: 3}
   click: {fileID: 8300000, guid: 9414c26256b1794459b03dbd9aa575c8, type: 3}
+  upgradePurchase: {fileID: 8300000, guid: 437b3bf6d370f104fa4576537ad75027, type: 3}
   coinPurchase: {fileID: 8300000, guid: 2a0040842ceffdb4bb14b33a1f0b1a57, type: 3}
   woodSignDrop: {fileID: 8300000, guid: b7a709a79a4660441ad00d8e4fb1bf40, type: 3}
   woodSignPullUp: {fileID: 8300000, guid: 07699e8f0db2e90469c86935b281ff88, type: 3}

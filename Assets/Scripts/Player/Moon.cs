@@ -24,15 +24,13 @@ public class Moon : MonoBehaviour
 			ReturnMoon ();
 		}
 		#elif UNITY_IOS || UNITY_ANDROID
-		if(!Boat.player.CheckIfAlive())
-			ReturnMoon();
+		if (!Boat.player.CheckIfAlive ())
+			ReturnMoon ();
 		
-		for(int i = 0; i < Input.touchCount; i++)
-		{
-			Touch touch = Input.GetTouch(i);
-			if(touch.phase == TouchPhase.Began && Camera.main.ScreenToWorldPoint(touch.position).y > Boat.player.transform.position.y)
-			{
-				ReturnMoon();
+		for (int i = 0; i < Input.touchCount; i++) {
+			Touch touch = Input.GetTouch (i);
+			if (touch.phase == TouchPhase.Began && Camera.main.ScreenToWorldPoint (touch.position).y > Boat.player.transform.position.y) {
+				ReturnMoon ();
 			}
 		}
 		#endif
@@ -54,15 +52,15 @@ public class Moon : MonoBehaviour
 
 	IEnumerator MoveMoon (Vector3 pos)
 	{
-		bool boat = false;
-		if (pos == Boat.player.transform.position)
-			boat = true;
+		if (pos == Boat.player.transform.position) {
+			returning = true;
+		}
 
 		float t = 0;
 		pos.z = 0;
 
 		while (t < 1) {
-			if (!boat) {
+			if (!returning) {
 				transform.localScale = Vector3.Lerp (transform.localScale, size, t);
 				transform.position = Vector3.Lerp (transform.position, pos, t);
 			} else {
@@ -76,7 +74,7 @@ public class Moon : MonoBehaviour
 			yield return null;
 		}
 
-		if (boat) {
+		if (returning) {
 			moonDone ();
 		}
 

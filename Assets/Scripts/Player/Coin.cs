@@ -11,14 +11,14 @@ public class Coin : MonoBehaviour
 	static float startingSpeed = 4;
 	static float speed;
 
-	AudioSource audio;
+	new 	AudioSource audio;
 	public AudioClip coinPickUp1;
 	public AudioClip coinPickUp2;
 
 	static Queue<GameObject> particleQueue = new Queue<GameObject> ();
 
 	SpriteRenderer spriteRend;
-	CircleCollider2D collider;
+	new 	CircleCollider2D collider;
 
 	int coinNum;
 	static int globalCoinNum;

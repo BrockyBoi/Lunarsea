@@ -998,7 +998,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1929664587573388
 GameObject:
   m_ObjectHideFlags: 1
@@ -1432,6 +1432,7 @@ MonoBehaviour:
   - {fileID: 114248257323424522}
   musicSlider: {fileID: 114752375492726064}
   fxSlider: {fileID: 114560066245653742}
+  quitButton: {fileID: 1774715900613994}
 --- !u!114 &114141654197641700
 MonoBehaviour:
   m_ObjectHideFlags: 1

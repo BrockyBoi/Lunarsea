@@ -26,7 +26,7 @@ public class EnemyBoat : MonoBehaviour
 	bool sailingIn;
 
 	public AudioClip cannonFire;
-	AudioSource audio;
+	new 	AudioSource audio;
 
 	#endregion
 

@@ -22,7 +22,6 @@ public class TrackingMissile : Missile
 		} else {
 			dirVector = new Vector3 (Random.Range (-5, 5), -10, 10) - transform.position;
 		}
-		float slope = (endSpot.y - transform.position.y) / (endSpot.x - transform.position.x);
 		endSpot += new Vector3 (endSpot.x - transform.position.x, endSpot.y - transform.position.y) * 10;
 
 		lineRend.SetPosition (0, new Vector3 (transform.position.x, transform.position.y, 60));

@@ -41,7 +41,7 @@ public class DeathCounter : MonoBehaviour
 		deathCount++;
 
 		if (!MonetizationController.controller.CheckIfAdsTurnedOff () && deathCount % timesBeforeAd == 0) {
-			MonetizationController.controller.GenerateNormalAd ();
+			MonetizationController.controller.ShowNormalAd ();
 		}
 		#endif
 	}

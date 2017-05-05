@@ -190,6 +190,7 @@ MonoBehaviour:
   coinPickUp1: {fileID: 0}
   coinPickUp2: {fileID: 0}
   click: {fileID: 8300000, guid: 9414c26256b1794459b03dbd9aa575c8, type: 3}
+  upgradePurchase: {fileID: 0}
   coinPurchase: {fileID: 0}
   woodSignDrop: {fileID: 0}
   woodSignPullUp: {fileID: 0}
@@ -213,13 +214,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b057cd19cc20b9546a74ff988b528805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phrases: []
   textField: {fileID: 0}
   introText: The mythical God Cthulu has stolen the Earth's moon! Now he is trying
     to make his escape. The Earth and Space Defense Association (ESDA) is hot on his
     trail, trying to restore the moon to its rightful place. Guide Cthulu on his journey
     forward riding in the only transportation he could find, an old sail boat. Hope
-    this rickety ship will survive the ride.
+    this rickety ship will survive the ride...
   introTextField: {fileID: 1897262715}
 --- !u!1 &56209005
 GameObject:
@@ -407,7 +407,7 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114560066245653742, guid: 4430d2835ee99164cb2e4b72c30dd647,
+    - target: {fileID: 114752375492726064, guid: 4430d2835ee99164cb2e4b72c30dd647,
         type: 2}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -417,7 +417,7 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 56209009}
-    - target: {fileID: 114752375492726064, guid: 4430d2835ee99164cb2e4b72c30dd647,
+    - target: {fileID: 114560066245653742, guid: 4430d2835ee99164cb2e4b72c30dd647,
         type: 2}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

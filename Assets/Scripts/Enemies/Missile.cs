@@ -15,7 +15,7 @@ public class Missile : MonoBehaviour
 
 	protected bool dead;
 
-	protected AudioSource audio;
+	new 	protected AudioSource audio;
 
 	protected void Awake ()
 	{

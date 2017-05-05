@@ -24,31 +24,31 @@ public class AdMobDependencies : AssetPostprocessor
     static AdMobDependencies() { SetupDeps(); }
 
     static void SetupDeps() {
-#if UNITY_STANDALONE
-//        // Setup the resolver using reflection as the module may not be
-//        // available at compile time.
-//        Type playServicesSupport = Google.VersionHandler.FindClass(
-//            "Google.JarResolver", "Google.JarResolver.PlayServicesSupport");
-//        if (playServicesSupport == null) {
-//            return;
-//        }
-//        object svcSupport = Google.VersionHandler.InvokeStaticMethod(
-//            playServicesSupport, "CreateInstance",
-//            new object[] {
-//                "AdMobUnity",
-//                EditorPrefs.GetString("AndroidSdkRoot"),
-//                "ProjectSettings"
-//            });
-//
-//        Google.VersionHandler.InvokeInstanceMethod(
-//            svcSupport, "DependOn",
-//            new object[] { "com.google.android.gms", "play-services-ads",
-//                           "LATEST" },
-//            namedArgs: new Dictionary<string, object>() {
-//                {"packageIds", new string[] {
-//                        "extra-google-m2repository",
-//                        "extra-android-m2repository"} }
-//            });
+#if UNITY_ANDROID
+        // Setup the resolver using reflection as the module may not be
+        // available at compile time.
+        Type playServicesSupport = Google.VersionHandler.FindClass(
+            "Google.JarResolver", "Google.JarResolver.PlayServicesSupport");
+        if (playServicesSupport == null) {
+            return;
+        }
+        object svcSupport = Google.VersionHandler.InvokeStaticMethod(
+            playServicesSupport, "CreateInstance",
+            new object[] {
+                "AdMobUnity",
+                EditorPrefs.GetString("AndroidSdkRoot"),
+                "ProjectSettings"
+            });
+
+        Google.VersionHandler.InvokeInstanceMethod(
+            svcSupport, "DependOn",
+            new object[] { "com.google.android.gms", "play-services-ads",
+                           "LATEST" },
+            namedArgs: new Dictionary<string, object>() {
+                {"packageIds", new string[] {
+                        "extra-google-m2repository",
+                        "extra-android-m2repository"} }
+            });
 #elif UNITY_IOS
         Type iosResolver = Google.VersionHandler.FindClass(
             "Google.IOSResolver", "Google.IOSResolver");

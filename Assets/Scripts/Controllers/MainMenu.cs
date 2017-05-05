@@ -28,6 +28,8 @@ public class MainMenu : MonoBehaviour
 	public Slider musicSlider;
 	public Slider fxSlider;
 
+	public GameObject quitButton;
+
 	void Awake ()
 	{
 		controller = this;
@@ -61,8 +63,10 @@ public class MainMenu : MonoBehaviour
 
 #if UNITY_STANDALONE || UNITY_WEBPLAYER
 		toggleGyroButton.SetActive (false);
+		quitButton.SetActive (true);
 #elif UNITY_IOS || UNITY_ANDROID
 		toggleGyroButton.SetActive (true);
+		quitButton.SetActive(false);
 #endif
 		if (GameModeController.controller.GetGyro ()) {
 			toggleGyroText.text = "Gyro:\nOn";
