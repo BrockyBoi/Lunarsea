@@ -32,6 +32,7 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 			InitializePurchasing ();
 		}
 
+		#if UNITY_IOS || UNITY_ANDROID
 		rewardAd = RewardBasedVideoAd.Instance;
 
 		rewardAd.OnAdClosed += HandleOnAdClosed;
@@ -44,6 +45,7 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 
 		GenerateNormalAd ();
 		GenerateRewardAd ();
+		#endif
 	}
 
 	public void InitializePurchasing ()
@@ -73,6 +75,7 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 
 	void OnDisable ()
 	{
+		#if UNITY_ANDROID || UNITY_IOS
 		rewardAd.OnAdClosed -= HandleOnAdClosed;
 		rewardAd.OnAdFailedToLoad -= HandleOnAdFailedToLoad;
 		rewardAd.OnAdLeavingApplication -= HandleOnLeavingApplication;
@@ -89,6 +92,7 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 			interstitialAd.OnAdOpening -= HandleOnAdOpening;
 			interstitialAd.Destroy ();
 		}
+		#endif
 	}
 
 
@@ -317,7 +321,7 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 	void GenerateNormalAd ()
 	{
 		
-		#if UNITY_EDITOR
+		#if UNITY_EDITOR || UNITY_STANDALONE
 		string adID = "unused";	
 		#elif UNITY_ANDROID
 		string adID = androidVideoID;
@@ -339,7 +343,7 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 
 	void GenerateRewardAd ()
 	{
-		#if UNITY_EDITOR
+		#if UNITY_EDITOR || UNITY_STANDALONE
 		string adID = "unused";
 		#elif UNITY_ANDROID
 		string adID = androidRewardVideoID;
