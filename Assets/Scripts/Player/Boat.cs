@@ -346,8 +346,8 @@ public class Boat : MonoBehaviour
 		dead = true;
 		UpdateColliders ();
 
-		PlayerInfo.controller.Save ();
 		onBoatDeath ();
+		PlayerInfo.controller.Save ();
 	}
 
 	public void AddHealth ()
