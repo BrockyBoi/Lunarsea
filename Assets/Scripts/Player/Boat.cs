@@ -149,7 +149,7 @@ public class Boat : MonoBehaviour
 		if (tutorialMode && TutorialController.controller.CheckIfOnStage (TutorialController.TutorialStage.MOVEMENT) && horizontal != 0)
 			TutorialController.controller.SetStage (TutorialController.TutorialStage.SPAWN_MOON);
 		
-		#if UNITY_STANDALONE || UNITY_WEBPLAYER
+		#if UNITY_STANDALONE || UNITY_WEBGL
 		if (Input.GetMouseButtonDown (0) && !moonOut && !sailingIn && Camera.main.ScreenToWorldPoint (Input.mousePosition).y > -2.5f) {
 			if (CheckIfAllowed (TutorialController.TutorialStage.SPAWN_MOON))
 				CreateMoon (Camera.main.ScreenToWorldPoint (Input.mousePosition));

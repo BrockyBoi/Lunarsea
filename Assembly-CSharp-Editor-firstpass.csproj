@@ -47,6 +47,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Plugins\UnityPurchasing\Editor\IAPButtonEditor.cs" />
+     <None Include="Assets\PlayServicesResolver\proguard-messaging-workaround.txt" />
+     <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver.txt" />
+     <None Include="Assets\Plugins\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
+     <None Include="Assets\PlayServicesResolver\proguard-unity.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
@@ -118,6 +122,15 @@
  </Reference>
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="Google.IOSResolver">
+ <HintPath>C:/Users/Brock/Desktop/Lunarsea 4-21-17/Lunarsea/Assets/PlayServicesResolver/Editor/Google.IOSResolver.dll</HintPath>
+ </Reference>
+ <Reference Include="Google.JarResolver">
+ <HintPath>C:/Users/Brock/Desktop/Lunarsea 4-21-17/Lunarsea/Assets/PlayServicesResolver/Editor/Google.JarResolver.dll</HintPath>
+ </Reference>
+ <Reference Include="Google.VersionHandler">
+ <HintPath>C:/Users/Brock/Desktop/Lunarsea 4-21-17/Lunarsea/Assets/PlayServicesResolver/Editor/Google.VersionHandler.dll</HintPath>
  </Reference>
  <Reference Include="Editor">
  <HintPath>C:/Users/Brock/Desktop/Lunarsea 4-21-17/Lunarsea/Assets/Plugins/UnityPurchasing/Bin/Editor.dll</HintPath>

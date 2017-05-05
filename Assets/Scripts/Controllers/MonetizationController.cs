@@ -321,7 +321,7 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 	void GenerateNormalAd ()
 	{
 		
-		#if UNITY_EDITOR || UNITY_STANDALONE
+		#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBGL
 		string adID = "unused";	
 		#elif UNITY_ANDROID
 		string adID = androidVideoID;
@@ -343,7 +343,7 @@ public class MonetizationController : MonoBehaviour, IStoreListener
 
 	void GenerateRewardAd ()
 	{
-		#if UNITY_EDITOR || UNITY_STANDALONE
+		#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBGL
 		string adID = "unused";
 		#elif UNITY_ANDROID
 		string adID = androidRewardVideoID;

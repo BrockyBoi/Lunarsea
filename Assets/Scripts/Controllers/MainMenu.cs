@@ -61,12 +61,12 @@ public class MainMenu : MonoBehaviour
 		MusicSliderUpdate (AudioController.controller.GetMusicVolume ());
 		FXSliderUpdate (AudioController.controller.GetFXVolume ());
 
-#if UNITY_STANDALONE || UNITY_WEBPLAYER
+#if UNITY_STANDALONE || UNITY_WEBGL
 		toggleGyroButton.SetActive (false);
 		quitButton.SetActive (true);
 #elif UNITY_IOS || UNITY_ANDROID
 		toggleGyroButton.SetActive (true);
-		quitButton.SetActive(false);
+		quitButton.SetActive (false);
 #endif
 		if (GameModeController.controller.GetGyro ()) {
 			toggleGyroText.text = "Gyro:\nOn";

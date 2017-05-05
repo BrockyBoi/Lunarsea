@@ -51,6 +51,10 @@
      <Compile Include="Assets\Plugins\UnityPurchasing\script\IAPButton.cs" />
      <Compile Include="Assets\Plugins\UnityPurchasing\script\IAPDemo.cs" />
      <Compile Include="Assets\Plugins\UnityPurchasing\script\PurchasingCheck.cs" />
+     <None Include="Assets\PlayServicesResolver\proguard-messaging-workaround.txt" />
+     <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver.txt" />
+     <None Include="Assets\Plugins\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
+     <None Include="Assets\PlayServicesResolver\proguard-unity.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -101,7 +101,7 @@ public class MainCanvas : MonoBehaviour
 
 		CheckToTurnOffScoreTexts ();
 
-		#if UNITY_STANDALONE
+		#if UNITY_STANDALONE || UNITY_WEBGL
 		foreach (GameObject ui in mobileUI) {
 			ui.SetActive (false);
 		}
