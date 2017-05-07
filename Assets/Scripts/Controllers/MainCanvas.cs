@@ -75,6 +75,7 @@ public class MainCanvas : MonoBehaviour
 		Boat.player.onBoatDeath += HealthChange;
 		Boat.player.onBoatDeath += DeathScreen;
 		Boat.player.onBoatDeath += EndLevel;
+		Boat.player.onBoatDeath += CheckLeaderboard;
 
 		MillileSpawner.controller.onWavesCleared += EndLevel;
 
@@ -113,6 +114,7 @@ public class MainCanvas : MonoBehaviour
 		Boat.player.onBoatDeath -= HealthChange;
 		Boat.player.onBoatDeath -= DeathScreen;
 		Boat.player.onBoatDeath -= EndLevel;
+		Boat.player.onBoatDeath -= CheckLeaderboard;
 
 		MillileSpawner.controller.onWavesCleared -= EndLevel;
 
@@ -130,9 +132,11 @@ public class MainCanvas : MonoBehaviour
 		if (levelEnded || bossBattle)
 			return;
 
-
-		score += Time.fixedDeltaTime + (Time.deltaTime * speedMult);
+		float dist = Time.fixedDeltaTime + (Time.deltaTime * speedMult);
+		score += dist;
 		TempGoalController.controller.UpdateDistanceGoals ();
+		AchievementController.controller.AddToAchievementProgress (dist, AchievementController.AchievementType.Distance);
+		AchievementController.controller.AddToAchievementProgress (dist / 3600, AchievementController.AchievementType.TimePlayed);
 
 		if (!storyMode) {
 			//scoreText.text = "Score: " + string.Format ("{0:0.0}", score) + " m";
@@ -161,6 +165,14 @@ public class MainCanvas : MonoBehaviour
 		}
 	}
 
+	void CheckLeaderboard ()
+	{
+		if (GameModeController.controller.CheckCurrentMode (GameModeController.Mode.Story))
+			return;
+		
+		if (highScore == score)
+			AchievementController.controller.UpdateLeaderboard ((long)highScore);
+	}
 
 	void StartLevel ()
 	{

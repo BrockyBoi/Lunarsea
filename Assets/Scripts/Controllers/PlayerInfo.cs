@@ -161,6 +161,7 @@ public class PlayerInfo : MonoBehaviour
 	{
 		if (level > levelsBeaten) {
 			levelsBeaten++;
+			AchievementController.controller.BeatLevel (level);
 			Save ();
 		}
 	}

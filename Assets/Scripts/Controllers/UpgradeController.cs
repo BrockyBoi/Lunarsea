@@ -100,6 +100,7 @@ public class UpgradeController : MonoBehaviour
 			MainCanvas.controller.UpdateUpgradePrice (upgrade, coinAmounts [upgradeValues [upgrade]]);
 		else
 			MainCanvas.controller.UpdateUpgradePrice (upgrade, 0);
+		AchievementController.controller.AddToAchievementProgress (1, AchievementController.AchievementType.UpgradesBought);
 		PlayerInfo.controller.Save ();
 	}
 

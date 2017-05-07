@@ -139,6 +139,7 @@ public class CoinController : MonoBehaviour
 		numCoins++;
 		MainCanvas.controller.UpdateCoinString (tempCoins);
 		TempGoalController.controller.UpdateCoinGoals ();
+		AchievementController.controller.AddToAchievementProgress (1, AchievementController.AchievementType.Coins);
 	}
 
 	public void BuyCoins (int amount)
